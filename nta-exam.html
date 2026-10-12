@@ -1,0 +1,6465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BAJEE JRF AI — NTA Exam Mode</title>
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+<style>
+
+body{
+    background:#f5f7fb;
+    color:#172033;
+}
+
+.bg-navy{
+    background:#071a3d;
+}
+
+.text-gold{
+    color:#d4af37!important;
+}
+
+.hero{
+    background:linear-gradient(
+        135deg,
+        #071a3d,
+        #102d61
+    );
+    color:#fff;
+    border-radius:18px;
+    padding:38px;
+}
+
+.eyebrow{
+    letter-spacing:2px;
+    font-size:12px;
+    font-weight:700;
+    color:#d4af37;
+}
+
+.section-card{
+    background:#fff;
+    border-radius:16px;
+    padding:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.paper-card{
+    border:2px solid #e1e5eb;
+    border-radius:14px;
+    padding:20px;
+    height:100%;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.paper-card:hover{
+    border-color:#d4af37;
+    transform:translateY(-2px);
+}
+
+.paper-card.selected{
+    border-color:#071a3d;
+    background:#f0f4fb;
+    box-shadow:0 4px 14px rgba(7,26,61,.12);
+}
+
+.paper-radio{
+    display:none;
+}
+
+.info-box{
+    background:#f8f9fa;
+    border-left:4px solid #d4af37;
+    border-radius:10px;
+    padding:16px;
+}
+
+.instruction-list li{
+    margin-bottom:10px;
+}
+
+.btn-gold{
+    background:#d4af37;
+    color:#071a3d;
+    border:1px solid #d4af37;
+    font-weight:700;
+}
+
+.btn-gold:hover{
+    background:#c29f2f;
+    color:#071a3d;
+}
+
+.session-card{
+    border:2px solid #198754;
+    background:#f1faf5;
+}
+
+.status-pill{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:20px;
+    background:#e9ecef;
+    font-size:13px;
+    font-weight:700;
+}
+
+
+/* =========================================================
+   EXAM WORKSPACE
+========================================================= */
+
+#examWorkspace{
+    display:none;
+}
+
+.exam-topbar{
+    background:#071a3d;
+    color:#fff;
+    border-radius:16px;
+    padding:18px 22px;
+}
+
+.exam-meta{
+    font-size:13px;
+    color:#d9e2f2;
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+.exam-timer{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 14px;
+    border-radius:10px;
+    background:#fff;
+    color:#071a3d;
+    font-weight:800;
+    font-size:18px;
+    min-width:135px;
+    justify-content:center;
+}
+
+.exam-timer.warning{
+    background:#fff3cd;
+    color:#856404;
+}
+
+.exam-timer.critical{
+    background:#f8d7da;
+    color:#842029;
+    animation:timerPulse 1s infinite;
+}
+
+.exam-timer.expired{
+    background:#842029;
+    color:#fff;
+}
+
+@keyframes timerPulse{
+
+    0%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:.65;
+    }
+
+    100%{
+        opacity:1;
+    }
+
+}
+
+.timer-label{
+    font-size:11px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    opacity:.75;
+}
+
+.timer-status{
+    font-size:12px;
+    margin-top:5px;
+}
+
+.timer-status.warning{
+    color:#ffc107;
+}
+
+.timer-status.critical{
+    color:#ff8080;
+}
+
+.timer-status.expired{
+    color:#ffb3b3;
+}
+
+
+/* =========================================================
+   QUESTION
+========================================================= */
+
+.question-card{
+    background:#fff;
+    border-radius:16px;
+    padding:28px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.question-number{
+    color:#071a3d;
+    font-weight:800;
+}
+
+.question-text{
+    font-size:20px;
+    line-height:1.6;
+    font-weight:600;
+}
+
+.option-item{
+    border:1px solid #dfe4ea;
+    border-radius:12px;
+    padding:14px 16px;
+    margin-bottom:12px;
+    cursor:pointer;
+    transition:.15s;
+    background:#fff;
+}
+
+.option-item:hover{
+    border-color:#d4af37;
+    background:#fffdf5;
+}
+
+.option-item.selected{
+    border-color:#071a3d;
+    background:#eef3fb;
+}
+
+.option-letter{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:#eef1f5;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    margin-right:10px;
+}
+
+.option-item.selected .option-letter{
+    background:#071a3d;
+    color:#fff;
+}
+
+
+/* =========================================================
+   PALETTE
+========================================================= */
+
+.palette-card{
+    background:#fff;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.palette{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fill,minmax(42px,1fr));
+    gap:8px;
+}
+
+.palette-btn{
+    height:42px;
+    border:1px solid #ced4da;
+    border-radius:8px;
+    background:#fff;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.palette-btn:hover{
+    border-color:#071a3d;
+}
+
+.palette-btn.current{
+    border:3px solid #071a3d;
+}
+
+.palette-btn.answered{
+    background:#198754;
+    border-color:#198754;
+    color:#fff;
+}
+
+.palette-btn.review{
+    background:#ffc107;
+    border-color:#ffc107;
+    color:#071a3d;
+}
+
+.palette-btn.answered.review{
+    background:#6f42c1;
+    border-color:#6f42c1;
+    color:#fff;
+}
+
+.palette-legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:18px;
+    font-size:12px;
+}
+
+.legend-item{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.legend-box{
+    width:16px;
+    height:16px;
+    border-radius:4px;
+    border:1px solid #ced4da;
+}
+
+.legend-current{
+    border:3px solid #071a3d;
+}
+
+.legend-answered{
+    background:#198754;
+    border-color:#198754;
+}
+
+.legend-review{
+    background:#ffc107;
+    border-color:#ffc107;
+}
+
+.legend-both{
+    background:#6f42c1;
+    border-color:#6f42c1;
+}
+
+
+/* =========================================================
+   FULL MOCK PAPER SWITCHER
+========================================================= */
+
+.full-mock-switcher{
+    background:#fff;
+    border-radius:16px;
+    padding:14px;
+    margin-bottom:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+    border:1px solid #e9ecef;
+}
+
+.full-mock-switcher-title{
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#6c757d;
+    margin-bottom:10px;
+}
+
+.full-mock-switcher-buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.full-mock-switch-btn{
+    flex:1 1 220px;
+    border:1px solid #ced4da;
+    background:#fff;
+    color:#071a3d;
+    border-radius:10px;
+    padding:11px 15px;
+    font-weight:800;
+    text-align:left;
+    transition:.15s ease;
+}
+
+.full-mock-switch-btn:hover{
+    border-color:#d4af37;
+}
+
+.full-mock-switch-btn.active{
+    background:#071a3d;
+    color:#fff;
+    border-color:#071a3d;
+}
+
+.full-mock-switch-btn:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
+.full-mock-switch-meta{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    opacity:.75;
+    margin-top:3px;
+}
+
+/* =========================================================
+   NTA-STYLE SHARED PASSAGE / DATA BLOCK
+========================================================= */
+
+.question-stimulus{
+    background:#fff;
+    border:1px solid #b9b9b9;
+    border-radius:0;
+    padding:18px 20px;
+    margin:0 0 18px 0;
+    box-shadow:none;
+}
+
+.question-stimulus-title{
+    font-size:15px;
+    font-weight:800;
+    color:#222;
+    margin:0 0 10px 0;
+}
+
+.question-stimulus-instruction{
+    font-size:14px;
+    font-weight:700;
+    color:#222;
+    margin:0 0 12px 0;
+}
+
+.question-stimulus-text{
+    white-space:pre-wrap;
+    line-height:1.55;
+    font-size:14px;
+    color:#222;
+    margin:0;
+}
+
+.question-stimulus-table-wrap{
+    overflow-x:auto;
+    margin-top:12px;
+}
+
+.question-stimulus-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13px;
+    color:#222;
+}
+
+.question-stimulus-table th,
+.question-stimulus-table td{
+    border:1px solid #777;
+    padding:7px 9px;
+    text-align:center;
+    vertical-align:middle;
+}
+
+.question-stimulus-table th{
+    background:#f2f2f2;
+    font-weight:800;
+}
+
+.nta-question-label{
+    font-size:15px;
+    font-weight:800;
+    color:#222;
+    margin-bottom:9px;
+}
+
+.question-card{
+    border:1px solid #b9b9b9 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    background:#fff;
+}
+
+.question-text{
+    font-size:16px !important;
+    line-height:1.55 !important;
+    color:#222 !important;
+    font-weight:600;
+}
+
+.question-structured{
+    color:#222;
+}
+
+.question-structured .question-stem{
+    margin-bottom:14px;
+}
+
+.question-structured .question-instruction{
+    margin-top:16px;
+    font-weight:700;
+}
+
+.question-structured .structured-heading{
+    font-weight:800;
+    margin:14px 0 7px;
+}
+
+.question-structured .structured-list{
+    margin:0 0 12px;
+    padding-left:0;
+    list-style:none;
+}
+
+.question-structured .structured-list li{
+    margin:7px 0;
+    padding-left:4px;
+    font-weight:500;
+}
+
+.question-structured .structured-list li strong{
+    display:inline-block;
+    min-width:24px;
+}
+
+.question-structured .structured-statement{
+    margin:8px 0;
+    padding:7px 4px;
+    line-height:1.55;
+    font-weight:500;
+}
+
+.question-structured .structured-statement strong{
+    display:inline-block;
+    min-width:24px;
+    font-weight:800;
+}
+
+
+.question-structured .nta-match-table{
+    width:100%;
+    border:1px solid #b9b9b9;
+    margin:12px 0 16px;
+    background:#fff;
+}
+
+.question-structured .nta-match-header,
+.question-structured .nta-match-row{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+}
+
+.question-structured .nta-match-header{
+    font-weight:800;
+    background:#f3f3f3;
+    border-bottom:1px solid #b9b9b9;
+}
+
+.question-structured .nta-match-header > div,
+.question-structured .nta-match-cell{
+    min-width:0;
+    padding:9px 12px;
+}
+
+.question-structured .nta-match-header > div:first-child,
+.question-structured .nta-match-cell:first-child{
+    border-right:1px solid #b9b9b9;
+}
+
+.question-structured .nta-match-row{
+    border-bottom:1px solid #d7d7d7;
+}
+
+.question-structured .nta-match-row:last-child{
+    border-bottom:none;
+}
+
+.question-structured .nta-match-cell{
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    line-height:1.5;
+}
+
+.question-structured .nta-match-label{
+    flex:0 0 28px;
+    font-weight:800;
+}
+
+.question-structured .nta-match-text{
+    flex:1 1 auto;
+}
+
+.question-structured .structured-option{
+    margin:5px 0;
+    font-weight:500;
+}
+
+@media (max-width:700px){
+    .question-structured .nta-match-header,
+    .question-structured .nta-match-row{
+        grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    }
+
+    .question-structured .nta-match-header > div,
+    .question-structured .nta-match-cell{
+        padding:8px;
+    }
+}
+
+.option-item{
+    border:1px solid #c9c9c9 !important;
+    border-radius:0 !important;
+    background:#fff !important;
+    color:#222 !important;
+    box-shadow:none !important;
+}
+
+.option-item:hover{
+    background:#f7f7f7 !important;
+}
+
+.option-item.selected{
+    background:#fff8dc !important;
+    border-color:#d4af37 !important;
+}
+
+.full-mock-switcher{
+    border-radius:0;
+    border:1px solid #b9b9b9;
+    box-shadow:none;
+}
+
+.full-mock-switcher-title{
+    color:#222;
+}
+
+.full-mock-switch-btn{
+    border-radius:0;
+    border:1px solid #aaa;
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.navigation-bar{
+    background:#fff;
+    border-radius:16px;
+    padding:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.exam-note{
+    background:#f8f9fa;
+    border-left:4px solid #d4af37;
+    border-radius:8px;
+    padding:12px 15px;
+    font-size:13px;
+}
+
+.btn-review{
+    border-color:#ffc107;
+    color:#856404;
+    background:#fff9e6;
+}
+
+.btn-review:hover{
+    background:#ffc107;
+    color:#071a3d;
+}
+
+.answer-status{
+    font-size:13px;
+    font-weight:700;
+}
+
+
+/* =========================================================
+   TIME EXPIRED
+========================================================= */
+
+.exam-locked-overlay{
+    display:none;
+    background:#fff3cd;
+    border:2px solid #ffc107;
+    color:#664d03;
+    border-radius:14px;
+    padding:18px;
+    margin-bottom:20px;
+}
+
+.exam-locked-overlay.show{
+    display:block;
+}
+
+
+/* =========================================================
+   PHASE 8.7 RESULTS
+========================================================= */
+
+#resultSection{
+    display:none;
+}
+
+.result-summary-card{
+    background:#fff;
+    border-radius:16px;
+    padding:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.result-score{
+    font-size:42px;
+    font-weight:900;
+    color:#071a3d;
+}
+
+.result-question-card{
+    background:#fff;
+    border-radius:16px;
+    padding:25px;
+    margin-bottom:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+    border-left:5px solid #ced4da;
+}
+
+.result-question-card.correct{
+    border-left-color:#198754;
+}
+
+.result-question-card.wrong{
+    border-left-color:#dc3545;
+}
+
+.result-question-card.unanswered{
+    border-left-color:#6c757d;
+}
+
+.result-option{
+    border:1px solid #dee2e6;
+    border-radius:10px;
+    padding:12px 14px;
+    margin-bottom:9px;
+    background:#fff;
+}
+
+.result-option.correct{
+    border-color:#198754;
+    background:#f1faf5;
+}
+
+.result-option.selected-wrong{
+    border-color:#dc3545;
+    background:#fff5f5;
+}
+
+.result-option-label{
+    font-weight:800;
+    margin-right:8px;
+}
+
+.option-analysis{
+    font-size:14px;
+    line-height:1.55;
+    margin-top:6px;
+    padding-left:28px;
+}
+
+.ai-review-box{
+    background:#f8f9fa;
+    border-left:4px solid #6f42c1;
+    border-radius:10px;
+    padding:15px;
+    margin-top:15px;
+}
+
+.result-badge{
+    font-weight:800;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:767px){
+
+    .question-text{
+        font-size:17px;
+    }
+
+    .palette{
+        grid-template-columns:
+            repeat(auto-fill,minmax(38px,1fr));
+    }
+
+    .exam-timer{
+        margin-top:10px;
+    }
+
+}
+
+footer{
+    color:#6c757d;
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar navbar-dark bg-navy">
+
+    <div class="container">
+
+        <a
+            class="navbar-brand fw-bold"
+            href="index.html"
+        >
+            🎓 BAJEE JRF AI
+        </a>
+
+        <span class="navbar-text text-gold">
+            Phase 8 • NTA Exam Mode
+        </span>
+
+    </div>
+
+</nav>
+
+
+<main class="container py-5">
+
+
+<!-- =========================================================
+     CONFIGURATION SCREEN
+========================================================= -->
+
+<section id="configurationScreen">
+
+    <section class="hero mb-4">
+
+        <p class="eyebrow mb-2">
+            PHASE 8.5
+        </p>
+
+        <h1 class="display-6 fw-bold">
+            📝 NTA Exam Mode
+        </h1>
+
+        <p class="mb-0">
+            Configure a BAJEE JRF AI examination session using
+            the Paper I / Paper II structure, including the complete 150-question Full JRF Mock.
+        </p>
+
+    </section>
+
+
+    <!-- PAPER SELECTION -->
+
+    <section class="section-card mb-4">
+
+        <div class="d-flex
+                    justify-content-between
+                    align-items-center
+                    flex-wrap
+                    gap-2 mb-3">
+
+            <div>
+
+                <h2 class="h4 mb-1">
+                    1. Select Examination Paper
+                </h2>
+
+                <p class="text-secondary mb-0">
+                    Choose the examination structure you want to enter.
+                </p>
+
+            </div>
+
+            <span
+                id="configurationStatus"
+                class="status-pill"
+            >
+                Configuration required
+            </span>
+
+        </div>
+
+
+        <div class="row g-3 mt-1">
+
+
+            <div class="col-md-4">
+
+                <label
+                    class="paper-card d-block"
+                    id="paper1Card"
+                >
+
+                    <input
+                        class="paper-radio"
+                        type="radio"
+                        name="paper"
+                        value="paper1"
+                    >
+
+                    <div class="fs-2 mb-2">
+                        📘
+                    </div>
+
+                    <h3 class="h5">
+                        Paper I
+                    </h3>
+
+                    <p class="text-secondary mb-2">
+                        General Paper with Units 1–10.
+                    </p>
+
+                    <strong>
+                        Paper I • 10 Units
+                    </strong>
+
+                </label>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <label
+                    class="paper-card d-block"
+                    id="paper2Card"
+                >
+
+                    <input
+                        class="paper-radio"
+                        type="radio"
+                        name="paper"
+                        value="paper2"
+                    >
+
+                    <div class="fs-2 mb-2">
+                        📚
+                    </div>
+
+                    <h3 class="h5">
+                        Paper II — English
+                    </h3>
+
+                    <p class="text-secondary mb-2">
+                        English subject paper with Units 1–10.
+                    </p>
+
+                    <strong>
+                        English • 10 Units
+                    </strong>
+
+                </label>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <label
+                    class="paper-card d-block"
+                    id="fullMockCard"
+                >
+
+                    <input
+                        class="paper-radio"
+                        type="radio"
+                        name="paper"
+                        value="full"
+                    >
+
+                    <div class="fs-2 mb-2">
+                        🎯
+                    </div>
+
+                    <h3 class="h5">
+                        Full Mock
+                    </h3>
+
+                    <p class="text-secondary mb-2">
+                        Paper I + Paper II combined examination.
+                    </p>
+
+                    <strong>
+                        Full JRF Mock
+                    </strong>
+
+                </label>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- EXAM CONFIGURATION -->
+
+    <section class="section-card mb-4">
+
+        <h2 class="h4 mb-3">
+            2. Examination Configuration
+        </h2>
+
+        <div class="row g-4">
+
+
+            <div class="col-md-4">
+
+                <label
+                    for="questionCount"
+                    class="form-label fw-bold"
+                >
+                    Questions
+                </label>
+
+                <select
+                    id="questionCount"
+                    class="form-select"
+                >
+
+                    <option value="2">
+                        2 — Vertical Slice
+                    </option>
+
+                    <option value="5">
+                        5 Questions
+                    </option>
+
+                    <option value="10">
+                        10 Questions
+                    </option>
+
+                    <option value="20">
+                        20 Questions
+                    </option>
+
+                    <option value="50">
+                        50 Questions
+                    </option>
+
+                    <option value="100">
+                        100 Questions
+                    </option>
+
+                    <option value="150">
+                        150 Questions — Full JRF Mock
+                    </option>
+
+                </select>
+
+                <div class="form-text">
+                    Small sizes are for development testing.
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <label
+                    for="duration"
+                    class="form-label fw-bold"
+                >
+                    Examination Duration
+                </label>
+
+                <select
+                    id="duration"
+                    class="form-select"
+                >
+
+                    <option value="5">
+                        5 minutes — Development Test
+                    </option>
+
+                    <option value="30">
+                        30 minutes
+                    </option>
+
+                    <option value="60">
+                        60 minutes
+                    </option>
+
+                    <option value="120">
+                        120 minutes
+                    </option>
+
+                    <option value="180">
+                        180 minutes
+                    </option>
+
+                </select>
+
+                <div class="form-text">
+                    Phase 8.5 keeps the Phase 8.3 countdown and adds submission/result review.
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <label
+                    for="mode"
+                    class="form-label fw-bold"
+                >
+                    Examination Mode
+                </label>
+
+                <select
+                    id="mode"
+                    class="form-select"
+                >
+
+                    <option
+                        value="nta"
+                        selected
+                    >
+                        NTA Exam Mode
+                    </option>
+
+                </select>
+
+                <div class="form-text">
+                    NTA Exam Mode is the default.
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- INSTRUCTIONS -->
+
+    <section class="section-card mb-4">
+
+        <h2 class="h4 mb-3">
+            3. Examination Instructions
+        </h2>
+
+        <div class="info-box mb-3">
+
+            <strong>Phase 8.5:</strong>
+
+            The examination timer starts when you enter the
+            examination. The timer continues correctly after
+            a page refresh because the examination end time is
+            stored in the active browser session.
+
+        </div>
+
+
+        <ol class="instruction-list">
+
+            <li>
+                Select the examination paper.
+            </li>
+
+            <li>
+                Select the number of questions.
+            </li>
+
+            <li>
+                Select the examination duration.
+            </li>
+
+            <li>
+                Confirm <strong>NTA Exam Mode</strong>.
+            </li>
+
+            <li>
+                Start the examination.
+            </li>
+
+            <li>
+                Enter the examination.
+            </li>
+
+            <li>
+                The countdown begins when the examination workspace opens.
+            </li>
+
+            <li>
+                The timer remains active during navigation.
+            </li>
+
+            <li>
+                Refreshing the page does not reset the timer.
+            </li>
+
+            <li>
+                When the timer reaches zero, the examination workspace
+                is locked. Final submission is available in this phase.
+            </li>
+
+        </ol>
+
+    </section>
+
+
+    <!-- SUMMARY -->
+
+    <section class="section-card mb-4">
+
+        <h2 class="h4 mb-3">
+            4. Configuration Summary
+        </h2>
+
+        <div class="row g-3">
+
+
+            <div class="col-md-3">
+
+                <div class="info-box h-100">
+
+                    <div class="small text-secondary">
+                        Paper
+                    </div>
+
+                    <div
+                        id="summaryPaper"
+                        class="fw-bold mt-1"
+                    >
+                        Not selected
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="info-box h-100">
+
+                    <div class="small text-secondary">
+                        Questions
+                    </div>
+
+                    <div
+                        id="summaryQuestions"
+                        class="fw-bold mt-1"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="info-box h-100">
+
+                    <div class="small text-secondary">
+                        Duration
+                    </div>
+
+                    <div
+                        id="summaryDuration"
+                        class="fw-bold mt-1"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="info-box h-100">
+
+                    <div class="small text-secondary">
+                        Mode
+                    </div>
+
+                    <div
+                        id="summaryMode"
+                        class="fw-bold mt-1"
+                    >
+                        NTA Exam Mode
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SESSION -->
+
+    <section
+        id="sessionSection"
+        class="section-card session-card mb-4 d-none"
+    >
+
+        <p class="eyebrow mb-2">
+            EXAMINATION SESSION CREATED
+        </p>
+
+        <h2 class="h4">
+            Ready to enter the examination
+        </h2>
+
+        <p
+            id="sessionMessage"
+            class="mb-3"
+        ></p>
+
+        <div class="row g-3">
+
+
+            <div class="col-md-4">
+
+                <div class="small text-secondary">
+                    Session ID
+                </div>
+
+                <div
+                    id="sessionId"
+                    class="fw-bold"
+                ></div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="small text-secondary">
+                    Paper
+                </div>
+
+                <div
+                    id="sessionPaper"
+                    class="fw-bold"
+                ></div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="small text-secondary">
+                    Status
+                </div>
+
+                <div
+                    id="sessionStatus"
+                    class="fw-bold text-success"
+                >
+                    READY
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="mt-4">
+
+            <button
+                id="enterExamBtn"
+                type="button"
+                class="btn btn-gold"
+            >
+                ▶ Enter Examination
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- START -->
+
+    <section class="text-center mb-4">
+
+        <button
+            id="startExamBtn"
+            type="button"
+            class="btn btn-gold btn-lg px-5"
+        >
+            📝 Start Examination
+        </button>
+
+        <div
+            id="statusMessage"
+            class="small text-secondary mt-3"
+        >
+            Select a paper to continue.
+        </div>
+
+    </section>
+
+</section>
+
+
+<!-- =========================================================
+     EXAM WORKSPACE
+========================================================= -->
+
+<section id="examWorkspace">
+
+
+    <!-- TOP BAR -->
+
+    <div class="exam-topbar mb-4">
+
+        <div class="row align-items-center g-3">
+
+
+            <div class="col-lg-4">
+
+                <div class="eyebrow">
+                    NTA EXAM MODE
+                </div>
+
+                <h2
+                    id="examPaperTitle"
+                    class="h4 mb-1 text-white"
+                >
+                    Examination
+                </h2>
+
+                <div
+                    id="examSessionMeta"
+                    class="exam-meta"
+                ></div>
+
+            </div>
+
+
+            <div class="col-lg-3">
+
+                <div class="small text-light">
+                    Question
+                </div>
+
+                <div
+                    id="examQuestionCounter"
+                    class="fw-bold"
+                >
+                    1 / 1
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-5 text-lg-end">
+
+                <span class="badge bg-light text-dark">
+                    NTA Exam Mode
+                </span>
+
+                <div class="mt-2">
+
+                    <span class="timer-label">
+                        Time Remaining
+                    </span>
+
+                    <div
+                        id="examTimer"
+                        class="exam-timer"
+                    >
+                        00:00:00
+                    </div>
+
+                    <div
+                        id="timerStatus"
+                        class="timer-status"
+                    >
+                        Timer active
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TIME EXPIRED NOTICE -->
+
+    <div
+        id="examLockedNotice"
+        class="exam-locked-overlay"
+    >
+
+        <strong>
+            ⏰ Examination Time Expired
+        </strong>
+
+        <div class="mt-1">
+            The examination workspace is now locked because
+            the configured examination duration has elapsed.
+            Final submission is now available. The examination can be
+            submitted and the result review will open below.
+        </div>
+
+    </div>
+
+
+    <!-- FULL MOCK PAPER SWITCHER -->
+
+    <div
+        id="fullMockSwitcher"
+        class="full-mock-switcher"
+        style="display:none;"
+    >
+
+        <div class="full-mock-switcher-title">
+            Full Mock Paper Navigation
+        </div>
+
+        <div class="full-mock-switcher-buttons">
+
+            <button
+                id="fullMockPaper1Btn"
+                type="button"
+                class="full-mock-switch-btn"
+            >
+                📘 Paper I
+                <span class="full-mock-switch-meta">Questions 1–50</span>
+            </button>
+
+            <button
+                id="fullMockPaper2Btn"
+                type="button"
+                class="full-mock-switch-btn"
+            >
+                📚 Paper II — English
+                <span class="full-mock-switch-meta">Questions 51–150</span>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN -->
+
+    <div class="row g-4">
+
+
+        <!-- QUESTION -->
+
+        <div class="col-lg-8">
+
+            <div class="question-card mb-4">
+
+                <div class="d-flex
+                            justify-content-between
+                            align-items-center
+                            flex-wrap
+                            gap-2
+                            mb-3">
+
+                    <div>
+
+                        <div class="nta-question-label">Question <span id="currentQuestionNumber">1</span></div>
+
+                    </div>
+
+
+                    <div
+                        id="currentAnswerStatus"
+                        class="answer-status text-secondary"
+                    >
+                        Not Answered
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="questionStimulus"
+                    class="question-stimulus"
+                    style="display:none;"
+                >
+                    <div
+                        id="questionStimulusTitle"
+                        class="question-stimulus-title"
+                    ></div>
+                    <div
+                        id="questionStimulusText"
+                        class="question-stimulus-text"
+                    ></div>
+                </div>
+
+
+                <div
+                    id="questionText"
+                    class="question-text mb-4"
+                >
+                    Loading question...
+                </div>
+
+
+                <div id="optionsContainer">
+                </div>
+
+
+                <div class="exam-note mt-4">
+
+                    <strong>Navigation:</strong>
+
+                    Selecting an option records your response.
+                    You can change your answer before final submission.
+
+                </div>
+
+            </div>
+
+
+            <!-- NAVIGATION -->
+
+            <div class="navigation-bar">
+
+                <div class="row g-2">
+
+
+                    <div class="col-6 col-md-3">
+
+                        <button
+                            id="previousBtn"
+                            type="button"
+                            class="btn btn-outline-secondary w-100"
+                        >
+                            ← Previous
+                        </button>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <button
+                            id="markReviewBtn"
+                            type="button"
+                            class="btn btn-review w-100"
+                        >
+                            ⚑ Mark for Review
+                        </button>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <button
+                            id="clearResponseBtn"
+                            type="button"
+                            class="btn btn-outline-danger w-100"
+                        >
+                            Clear Response
+                        </button>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <button
+                            id="nextBtn"
+                            type="button"
+                            class="btn btn-gold w-100"
+                        >
+                            Next →
+                        </button>
+
+                    </div>
+
+
+                    <div class="col-12 col-md-3">
+
+                        <button
+                            id="submitExamBtn"
+                            type="button"
+                            class="btn btn-success w-100"
+                        >
+                            ✓ Submit Examination
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="navigationStatus"
+                class="small text-secondary mt-3 text-center"
+            ></div>
+
+        </div>
+
+
+        <!-- PALETTE -->
+
+        <div class="col-lg-4">
+
+            <div
+                class="palette-card sticky-lg-top"
+                style="top:20px;"
+            >
+
+                <h3 class="h5 mb-1">
+                    Question Palette
+                </h3>
+
+                <p class="small text-secondary mb-3">
+                    Click any question number to navigate.
+                </p>
+
+
+                <div
+                    id="questionPalette"
+                    class="palette"
+                >
+                </div>
+
+
+                <div class="palette-legend">
+
+
+                    <div class="legend-item">
+
+                        <span class="legend-box"></span>
+
+                        <span>
+                            Unanswered
+                        </span>
+
+                    </div>
+
+
+                    <div class="legend-item">
+
+                        <span class="legend-box legend-current"></span>
+
+                        <span>
+                            Current
+                        </span>
+
+                    </div>
+
+
+                    <div class="legend-item">
+
+                        <span class="legend-box legend-answered"></span>
+
+                        <span>
+                            Answered
+                        </span>
+
+                    </div>
+
+
+                    <div class="legend-item">
+
+                        <span class="legend-box legend-review"></span>
+
+                        <span>
+                            Review
+                        </span>
+
+                    </div>
+
+
+                    <div class="legend-item">
+
+                        <span class="legend-box legend-both"></span>
+
+                        <span>
+                            Answered + Review
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <hr>
+
+
+                <div class="small">
+
+
+                    <div class="d-flex
+                                justify-content-between
+                                mb-2">
+
+                        <span>
+                            Answered
+                        </span>
+
+                        <strong id="answeredCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="d-flex
+                                justify-content-between
+                                mb-2">
+
+                        <span>
+                            Unanswered
+                        </span>
+
+                        <strong id="unansweredCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="d-flex
+                                justify-content-between">
+
+                        <span>
+                            Marked for Review
+                        </span>
+
+                        <strong id="reviewCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- STATUS -->
+
+    <div class="section-card mt-4">
+
+        <div class="d-flex
+                    justify-content-between
+                    align-items-center
+                    flex-wrap
+                    gap-2">
+
+            <div>
+
+                <h3 class="h5 mb-1">
+                    Phase 8.5 Examination Status
+                </h3>
+
+                <p
+                    id="phase83Status"
+                    class="text-secondary mb-0"
+                >
+                    Timer is ready.
+                </p>
+
+            </div>
+
+
+            <span
+                id="timerReadyBadge"
+                class="badge bg-success"
+            >
+                TIMER READY
+            </span>
+
+        </div>
+
+
+
+    <!-- =========================================================
+         PHASE 8.5 RESULT REVIEW
+    ========================================================= -->
+
+    <section id="resultSection" class="mt-5">
+
+        <div class="result-summary-card mb-4">
+
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+                <div>
+                    <p class="eyebrow mb-2">PHASE 8.5 • RESULT</p>
+                    <h2 class="h3 mb-2">Examination Result & Answer Review</h2>
+                    <p id="resultMeta" class="text-secondary mb-0"></p>
+                </div>
+
+                <div class="text-lg-end">
+                    <div id="resultScore" class="result-score">0%</div>
+                    <div id="resultMarks" class="fw-bold"></div>
+                </div>
+
+            </div>
+
+            <div class="row g-3 mt-3">
+                <div class="col-6 col-md-3">
+                    <div class="info-box h-100"><div class="small text-secondary">Correct</div><strong id="resultCorrect">0</strong></div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="info-box h-100"><div class="small text-secondary">Wrong</div><strong id="resultWrong">0</strong></div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="info-box h-100"><div class="small text-secondary">Unanswered</div><strong id="resultUnanswered">0</strong></div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="info-box h-100"><div class="small text-secondary">Marked for Review</div><strong id="resultReview">0</strong></div>
+                </div>
+            </div>
+
+            <div class="info-box mt-4">
+                <strong>Answer review:</strong> Every question below shows the complete A–D option text and the
+                available source explanation. The examination result is kept separate from the study review.
+            </div>
+
+            <!-- =====================================================
+                 PHASE 8.6 • PERFORMANCE SIGNALS
+            ====================================================== -->
+            <section id="performanceSignalsSection" class="mt-4">
+                <div class="section-card">
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+                        <div>
+                            <p class="eyebrow mb-2">PHASE 8.6 • PERFORMANCE SIGNALS</p>
+                            <h3 class="h5 mb-1">Performance Signals</h3>
+                            <p class="text-secondary mb-0">Objective signals from this examination for later revision and JRF intelligence.</p>
+                        </div>
+                        <span class="badge bg-primary">RECORDED</span>
+                    </div>
+
+                    <div id="performanceSignalCards" class="row g-3 mt-2"></div>
+
+                    <div class="mt-4">
+                        <h4 class="h6">Paper / Unit breakdown</h4>
+                        <div id="performanceBreakdown" class="table-responsive"></div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="d-flex gap-2 flex-wrap mt-4">
+                <button id="newExamBtn" type="button" class="btn btn-gold">↻ Start New Examination</button>
+            </div>
+
+        </div>
+
+        <div id="resultQuestions"></div>
+
+    </section>
+
+</section>
+
+
+</main>
+
+
+<footer class="py-4 text-center">
+
+    <small>
+        BAJEE JRF AI • Phase 8.7 • Full NTA Mock Test
+    </small>
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   BAJEE JRF AI
+   PHASE 8.3
+   NTA EXAMINATION TIMER
+
+   Preserves:
+   - Phase 8.1 examination shell
+   - Phase 8.2 question navigation
+   - Existing PYQ database
+   - NTA Exam Mode default
+
+   Adds:
+   - Countdown timer
+   - Persistent end time
+   - Refresh-safe timer
+   - Warning state
+   - Expiry lock
+========================================================= */
+
+
+/* =========================================================
+   PAPER LABELS
+========================================================= */
+
+const paperLabels = {
+
+    paper1:
+        "Paper I",
+
+    paper2:
+        "Paper II — English",
+
+    full:
+        "Full Mock — Paper I + Paper II"
+
+};
+
+
+/* =========================================================
+   PAPER CARDS
+========================================================= */
+
+const paperCards = {
+
+    paper1:
+        document.getElementById(
+            "paper1Card"
+        ),
+
+    paper2:
+        document.getElementById(
+            "paper2Card"
+        ),
+
+    full:
+        document.getElementById(
+            "fullMockCard"
+        )
+
+};
+
+
+/* =========================================================
+   CONFIGURATION
+========================================================= */
+
+const paperInputs =
+    document.querySelectorAll(
+        'input[name="paper"]'
+    );
+
+const questionCount =
+    document.getElementById(
+        "questionCount"
+    );
+
+const duration =
+    document.getElementById(
+        "duration"
+    );
+
+const mode =
+    document.getElementById(
+        "mode"
+    );
+
+
+const fullMockSwitcher =
+    document.getElementById(
+        "fullMockSwitcher"
+    );
+
+const fullMockPaper1Btn =
+    document.getElementById(
+        "fullMockPaper1Btn"
+    );
+
+const fullMockPaper2Btn =
+    document.getElementById(
+        "fullMockPaper2Btn"
+    );
+
+const questionStimulus =
+    document.getElementById(
+        "questionStimulus"
+    );
+
+const questionStimulusTitle =
+    document.getElementById(
+        "questionStimulusTitle"
+    );
+
+const questionStimulusText =
+    document.getElementById(
+        "questionStimulusText"
+    );
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+const summaryPaper =
+    document.getElementById(
+        "summaryPaper"
+    );
+
+const summaryQuestions =
+    document.getElementById(
+        "summaryQuestions"
+    );
+
+const summaryDuration =
+    document.getElementById(
+        "summaryDuration"
+    );
+
+const summaryMode =
+    document.getElementById(
+        "summaryMode"
+    );
+
+const configurationStatus =
+    document.getElementById(
+        "configurationStatus"
+    );
+
+
+/* =========================================================
+   SESSION
+========================================================= */
+
+const statusMessage =
+    document.getElementById(
+        "statusMessage"
+    );
+
+const sessionSection =
+    document.getElementById(
+        "sessionSection"
+    );
+
+const sessionMessage =
+    document.getElementById(
+        "sessionMessage"
+    );
+
+const sessionId =
+    document.getElementById(
+        "sessionId"
+    );
+
+const sessionPaper =
+    document.getElementById(
+        "sessionPaper"
+    );
+
+const sessionStatus =
+    document.getElementById(
+        "sessionStatus"
+    );
+
+const startExamBtn =
+    document.getElementById(
+        "startExamBtn"
+    );
+
+const enterExamBtn =
+    document.getElementById(
+        "enterExamBtn"
+    );
+
+const configurationScreen =
+    document.getElementById(
+        "configurationScreen"
+    );
+
+
+/* =========================================================
+   EXAM WORKSPACE
+========================================================= */
+
+const examWorkspace =
+    document.getElementById(
+        "examWorkspace"
+    );
+
+const examPaperTitle =
+    document.getElementById(
+        "examPaperTitle"
+    );
+
+const examSessionMeta =
+    document.getElementById(
+        "examSessionMeta"
+    );
+
+const examQuestionCounter =
+    document.getElementById(
+        "examQuestionCounter"
+    );
+
+const currentQuestionNumber =
+    document.getElementById(
+        "currentQuestionNumber"
+    );
+
+const questionText =
+    document.getElementById(
+        "questionText"
+    );
+
+const optionsContainer =
+    document.getElementById(
+        "optionsContainer"
+    );
+
+const questionPalette =
+    document.getElementById(
+        "questionPalette"
+    );
+
+const previousBtn =
+    document.getElementById(
+        "previousBtn"
+    );
+
+const nextBtn =
+    document.getElementById(
+        "nextBtn"
+    );
+
+const markReviewBtn =
+    document.getElementById(
+        "markReviewBtn"
+    );
+
+const clearResponseBtn =
+    document.getElementById(
+        "clearResponseBtn"
+    );
+
+const submitExamBtn =
+    document.getElementById(
+        "submitExamBtn"
+    );
+
+const resultSection =
+    document.getElementById(
+        "resultSection"
+    );
+
+const resultMeta =
+    document.getElementById(
+        "resultMeta"
+    );
+
+const resultScore =
+    document.getElementById(
+        "resultScore"
+    );
+
+const resultMarks =
+    document.getElementById(
+        "resultMarks"
+    );
+
+const resultCorrect =
+    document.getElementById(
+        "resultCorrect"
+    );
+
+const resultWrong =
+    document.getElementById(
+        "resultWrong"
+    );
+
+const resultUnanswered =
+    document.getElementById(
+        "resultUnanswered"
+    );
+
+const resultReview =
+    document.getElementById(
+        "resultReview"
+    );
+
+const resultQuestions =
+    document.getElementById(
+        "resultQuestions"
+    );
+
+const performanceSignalCards =
+    document.getElementById(
+        "performanceSignalCards"
+    );
+
+const performanceBreakdown =
+    document.getElementById(
+        "performanceBreakdown"
+    );
+
+const newExamBtn =
+    document.getElementById(
+        "newExamBtn"
+    );
+
+const currentAnswerStatus =
+    document.getElementById(
+        "currentAnswerStatus"
+    );
+
+const navigationStatus =
+    document.getElementById(
+        "navigationStatus"
+    );
+
+const answeredCount =
+    document.getElementById(
+        "answeredCount"
+    );
+
+const unansweredCount =
+    document.getElementById(
+        "unansweredCount"
+    );
+
+const reviewCount =
+    document.getElementById(
+        "reviewCount"
+    );
+
+
+/* =========================================================
+   TIMER ELEMENTS
+========================================================= */
+
+const examTimer =
+    document.getElementById(
+        "examTimer"
+    );
+
+const timerStatus =
+    document.getElementById(
+        "timerStatus"
+    );
+
+const examLockedNotice =
+    document.getElementById(
+        "examLockedNotice"
+    );
+
+const phase83Status =
+    document.getElementById(
+        "phase83Status"
+    );
+
+const timerReadyBadge =
+    document.getElementById(
+        "timerReadyBadge"
+    );
+
+
+/* =========================================================
+   DATABASE
+========================================================= */
+
+let pyqDatabase = [];
+
+
+/* =========================================================
+   EXAM STATE
+========================================================= */
+
+let activeSession = null;
+
+let examQuestions = [];
+
+let currentQuestionIndex = 0;
+
+let answers = {};
+
+let reviewFlags = {};
+
+let examStarted = false;
+
+
+/* =========================================================
+   TIMER STATE
+========================================================= */
+
+let timerInterval = null;
+
+let examEndTime = null;
+
+let timerExpired = false;
+
+let examSubmitted = false;
+
+let resultData = null;
+
+
+/* =========================================================
+   GET SELECTED PAPER
+========================================================= */
+
+function getSelectedPaper(){
+
+    const selected =
+        document.querySelector(
+            'input[name="paper"]:checked'
+        );
+
+    return selected
+        ? selected.value
+        : "";
+
+}
+
+
+/* =========================================================
+   UPDATE PAPER CARDS
+========================================================= */
+
+function updatePaperCards(){
+
+    const selected =
+        getSelectedPaper();
+
+
+    Object.keys(
+        paperCards
+    ).forEach(
+        function(key){
+
+            paperCards[key].classList.toggle(
+                "selected",
+                key === selected
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE SUMMARY
+========================================================= */
+
+function updateSummary(){
+
+    const selected =
+        getSelectedPaper();
+
+
+    if(!selected){
+
+        summaryPaper.textContent =
+            "Not selected";
+
+        configurationStatus.textContent =
+            "Configuration required";
+
+        configurationStatus.className =
+            "status-pill";
+
+        statusMessage.textContent =
+            "Select Paper I, Paper II — English, or Full Mock.";
+
+    }
+
+    else{
+
+        summaryPaper.textContent =
+            paperLabels[selected];
+
+        configurationStatus.textContent =
+            "Configuration ready";
+
+        configurationStatus.className =
+            "status-pill bg-success text-white";
+
+        statusMessage.textContent =
+            "Configuration is ready. Check the summary and start the examination.";
+
+    }
+
+
+    summaryQuestions.textContent =
+        questionCount.value +
+        " questions";
+
+
+    summaryDuration.textContent =
+        duration.value +
+        " minutes";
+
+
+    summaryMode.textContent =
+        mode.options[
+            mode.selectedIndex
+        ].textContent;
+
+
+    updatePaperCards();
+
+}
+
+
+/* =========================================================
+   CREATE SESSION ID
+========================================================= */
+
+function createSessionId(){
+
+    return (
+
+        "NTA-" +
+
+        Date.now()
+            .toString(36) +
+
+        "-" +
+
+        Math.random()
+            .toString(36)
+            .slice(2,8)
+
+    ).toUpperCase();
+
+}
+
+
+/* =========================================================
+   SAVE SESSION
+========================================================= */
+
+function saveSession(){
+
+    if(!activeSession){
+
+        return;
+
+    }
+
+
+    sessionStorage.setItem(
+        "bajee_nta_exam_session_v1",
+        JSON.stringify(
+            activeSession
+        )
+    );
+
+}
+
+
+/* =========================================================
+   SAVE EXAM RESPONSES
+========================================================= */
+
+function saveExamState(){
+
+    if(!activeSession){
+        return;
+    }
+
+    sessionStorage.setItem(
+        "bajee_nta_exam_answers_v1",
+        JSON.stringify({
+            sessionId: activeSession.sessionId,
+            answers: answers,
+            reviewFlags: reviewFlags,
+            currentQuestionIndex: currentQuestionIndex
+        })
+    );
+
+}
+
+
+function loadExamState(){
+
+    if(!activeSession){
+        return false;
+    }
+
+    const raw =
+        sessionStorage.getItem(
+            "bajee_nta_exam_answers_v1"
+        );
+
+    if(!raw){
+        return false;
+    }
+
+    try{
+
+        const stored = JSON.parse(raw);
+
+        if(stored.sessionId !== activeSession.sessionId){
+            return false;
+        }
+
+        if(stored.answers && typeof stored.answers === "object"){
+            answers = stored.answers;
+        }
+
+        if(stored.reviewFlags && typeof stored.reviewFlags === "object"){
+            reviewFlags = stored.reviewFlags;
+        }
+
+        if(Number.isInteger(stored.currentQuestionIndex) && stored.currentQuestionIndex >= 0){
+            currentQuestionIndex = Math.min(
+                stored.currentQuestionIndex,
+                Math.max(0, examQuestions.length - 1)
+            );
+        }
+
+        if(activeSession.paper === "full"){
+            fullMockView =
+                currentQuestionIndex >= FULL_MOCK_PAPER1_COUNT
+                    ? "paper2"
+                    : "paper1";
+        }
+
+        return true;
+
+    }
+    catch(error){
+        console.warn("Could not restore saved exam responses.", error);
+        return false;
+    }
+
+}
+
+
+function clearExamState(){
+
+    sessionStorage.removeItem(
+        "bajee_nta_exam_answers_v1"
+    );
+
+}
+
+
+/* =========================================================
+   LOAD SESSION
+========================================================= */
+
+function loadSavedSession(){
+
+    const stored =
+        sessionStorage.getItem(
+            "bajee_nta_exam_session_v1"
+        );
+
+
+    if(!stored){
+
+        return null;
+
+    }
+
+
+    try{
+
+        return JSON.parse(
+            stored
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Invalid saved NTA session:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
+/* =========================================================
+   START EXAMINATION SESSION
+========================================================= */
+
+function startExamination(){
+
+    const selected =
+        getSelectedPaper();
+
+
+    if(!selected){
+
+        statusMessage.textContent =
+            "Please select an examination paper first.";
+
+        configurationStatus.textContent =
+            "Paper required";
+
+        configurationStatus.className =
+            "status-pill bg-danger text-white";
+
+        return;
+
+    }
+
+
+    if(selected === "full"){
+
+        if(Number(questionCount.value) !== 150){
+
+            statusMessage.textContent =
+                "Full Mock requires all 150 questions: Paper I (50) + Paper II (100).";
+
+            configurationStatus.textContent =
+                "150 questions required";
+
+            configurationStatus.className =
+                "status-pill bg-danger text-white";
+
+            questionCount.value = "150";
+            duration.value = "180";
+            updateSummary();
+            return;
+
+        }
+
+    }
+
+
+    activeSession = {
+
+        sessionId:
+            createSessionId(),
+
+        paper:
+            selected,
+
+        paperLabel:
+            paperLabels[selected],
+
+        questionCount:
+            Number(
+                questionCount.value
+            ),
+
+        durationMinutes:
+            Number(
+                duration.value
+            ),
+
+        mode:
+            "nta",
+
+        createdAt:
+            new Date().toISOString(),
+
+        startedAt:
+            null,
+
+        endTime:
+            null,
+
+        phase:
+            "8.5",
+
+        status:
+            "ready"
+
+    };
+
+
+    saveSession();
+
+
+    sessionId.textContent =
+        activeSession.sessionId;
+
+
+    sessionPaper.textContent =
+        activeSession.paperLabel;
+
+
+    sessionStatus.textContent =
+        "READY";
+
+
+    sessionStatus.className =
+        "fw-bold text-success";
+
+
+    sessionMessage.textContent =
+
+        activeSession.questionCount +
+
+        " questions • " +
+
+        activeSession.durationMinutes +
+
+        " minutes • NTA Exam Mode";
+
+
+    sessionSection.classList.remove(
+        "d-none"
+    );
+
+
+    statusMessage.textContent =
+        "Examination session created successfully. Click Enter Examination to begin the countdown timer.";
+
+
+    startExamBtn.disabled =
+        true;
+
+
+    window.scrollTo({
+
+        top:
+            document.body.scrollHeight,
+
+        behavior:
+            "smooth"
+
+    });
+
+}
+
+
+/* =========================================================
+   NORMALIZE DATABASE
+========================================================= */
+
+function normalizeDatabase(data){
+
+    if(
+        Array.isArray(data)
+    ){
+
+        return data;
+
+    }
+
+
+    if(
+        data &&
+        Array.isArray(
+            data.questions
+        )
+    ){
+
+        return data.questions;
+
+    }
+
+
+    if(
+        data &&
+        Array.isArray(
+            data.pyqs
+        )
+    ){
+
+        return data.pyqs;
+
+    }
+
+
+    if(
+        data &&
+        Array.isArray(
+            data.items
+        )
+    ){
+
+        return data.items;
+
+    }
+
+
+    return [];
+
+}
+
+
+/* =========================================================
+   LOAD PYQ DATABASE
+========================================================= */
+
+async function loadPYQDatabase(){
+
+    const response =
+        await fetch(
+            "data/pyqs/pyq-database.json",
+            {
+                cache:
+                    "no-store"
+            }
+        );
+
+
+    if(!response.ok){
+
+        throw new Error(
+            "PYQ database could not be loaded. HTTP " +
+            response.status
+        );
+
+    }
+
+
+    const data =
+        await response.json();
+
+
+    pyqDatabase =
+        normalizeDatabase(
+            data
+        );
+
+
+    if(
+        !pyqDatabase.length
+    ){
+
+        throw new Error(
+            "PYQ database loaded, but it contains no questions."
+        );
+
+    }
+
+
+    console.log(
+        "NTA Exam PYQ database loaded:",
+        pyqDatabase.length
+    );
+
+}
+
+
+/* =========================================================
+   NORMALIZE TEXT
+========================================================= */
+
+function normalizeText(value){
+
+    return String(
+        value || ""
+    )
+    .trim()
+    .toLowerCase();
+
+}
+
+
+/* =========================================================
+   PAPER DETECTION
+========================================================= */
+
+function getQuestionPaperValue(
+    question
+){
+
+    return normalizeText(
+
+        question.paper ||
+
+        question.paper_type ||
+
+        question.paperType ||
+
+        question.paper_name ||
+
+        question.paperName ||
+
+        question.subject_paper ||
+
+        question.subjectPaper ||
+
+        ""
+
+    );
+
+}
+
+
+function getQuestionSubjectValue(
+    question
+){
+
+    return normalizeText(
+
+        question.subject ||
+
+        question.subject_name ||
+
+        question.subjectName ||
+
+        question.category ||
+
+        ""
+
+    );
+
+}
+
+
+function isPaper1Question(
+    question
+){
+
+    const paper =
+        getQuestionPaperValue(
+            question
+        );
+
+    const subject =
+        getQuestionSubjectValue(
+            question
+        );
+
+
+    const combined =
+        paper +
+        " " +
+        subject;
+
+
+    return (
+
+        combined.includes(
+            "paper i"
+        ) ||
+
+        combined.includes(
+            "paper 1"
+        ) ||
+
+        combined.includes(
+            "paper-1"
+        ) ||
+
+        combined.includes(
+            "paper_1"
+        ) ||
+
+        combined.includes(
+            "general paper"
+        )
+
+    );
+
+}
+
+
+function isPaper2Question(
+    question
+){
+
+    const paper =
+        getQuestionPaperValue(
+            question
+        );
+
+    const subject =
+        getQuestionSubjectValue(
+            question
+        );
+
+
+    const combined =
+        paper +
+        " " +
+        subject;
+
+
+    return (
+
+        combined.includes(
+            "paper ii"
+        ) ||
+
+        combined.includes(
+            "paper 2"
+        ) ||
+
+        combined.includes(
+            "paper-2"
+        ) ||
+
+        combined.includes(
+            "paper_2"
+        ) ||
+
+        combined.includes(
+            "english"
+        )
+
+    );
+
+}
+
+
+/* =========================================================
+   QUESTION VALIDATION
+========================================================= */
+
+function isUsableQuestion(
+    question
+){
+
+    if(
+        !question ||
+        typeof question !== "object"
+    ){
+
+        return false;
+
+    }
+
+
+    const text =
+
+        question.question ||
+
+        question.question_text ||
+
+        question.questionText ||
+
+        question.text ||
+
+        "";
+
+
+    return Boolean(
+        String(text).trim()
+    );
+
+}
+
+
+/* =========================================================
+   FILTER QUESTIONS
+========================================================= */
+
+function getQuestionsForPaper(
+    paper
+){
+
+    const usable =
+        pyqDatabase.filter(
+            isUsableQuestion
+        );
+
+
+    if(
+        paper === "paper1"
+    ){
+
+        return usable.filter(
+            isPaper1Question
+        );
+
+    }
+
+
+    if(
+        paper === "paper2"
+    ){
+
+        return usable.filter(
+            isPaper2Question
+        );
+
+    }
+
+
+    if(
+        paper === "full"
+    ){
+
+        const paper1 =
+            usable.filter(
+                isPaper1Question
+            );
+
+        const paper2 =
+            usable.filter(
+                isPaper2Question
+            );
+
+        /*
+         * Full JRF Mock is deliberately assembled as:
+         * Paper I  = 50 questions
+         * Paper II = 100 questions
+         * Total    = 150 questions
+         *
+         * Keep the two papers separate here so the Full Mock
+         * cannot accidentally depend on JSON record ordering.
+         */
+        return paper1.concat(
+            paper2
+        );
+
+    }
+
+
+    return [];
+
+}
+
+
+/* =========================================================
+   FULL MOCK PAPER SWITCHING
+========================================================= */
+
+const FULL_MOCK_PAPER1_COUNT = 50;
+const FULL_MOCK_TOTAL_COUNT = 150;
+
+let fullMockView = "paper1";
+
+function getFullMockViewRange(){
+
+    if(!activeSession || activeSession.paper !== "full"){
+        return { start: 0, end: Math.max(0, examQuestions.length - 1) };
+    }
+
+    if(fullMockView === "paper2"){
+        return {
+            start: FULL_MOCK_PAPER1_COUNT,
+            end: Math.min(FULL_MOCK_TOTAL_COUNT - 1, examQuestions.length - 1)
+        };
+    }
+
+    return {
+        start: 0,
+        end: Math.min(FULL_MOCK_PAPER1_COUNT - 1, examQuestions.length - 1)
+    };
+}
+
+function updateFullMockSwitcher(){
+
+    if(!fullMockSwitcher){
+        return;
+    }
+
+    const isFullMock =
+        activeSession &&
+        activeSession.paper === "full";
+
+    fullMockSwitcher.style.display =
+        isFullMock ? "block" : "none";
+
+    if(!isFullMock){
+        return;
+    }
+
+    const inPaper1 =
+        currentQuestionIndex < FULL_MOCK_PAPER1_COUNT;
+
+    fullMockPaper1Btn.classList.toggle(
+        "active",
+        inPaper1
+    );
+
+    fullMockPaper2Btn.classList.toggle(
+        "active",
+        !inPaper1
+    );
+
+    const disabled = Boolean(timerExpired);
+
+    fullMockPaper1Btn.disabled = disabled;
+    fullMockPaper2Btn.disabled = disabled;
+}
+
+function switchFullMockPaper(paper){
+
+    if(
+        timerExpired ||
+        !activeSession ||
+        activeSession.paper !== "full"
+    ){
+        return;
+    }
+
+    fullMockView =
+        paper === "paper2"
+            ? "paper2"
+            : "paper1";
+
+    const targetIndex =
+        fullMockView === "paper2"
+            ? FULL_MOCK_PAPER1_COUNT
+            : 0;
+
+    goToQuestion(targetIndex);
+}
+
+
+/* =========================================================
+   SHARED STIMULUS HELPERS
+========================================================= */
+
+function getQuestionStimulus(question){
+
+    const value =
+        question &&
+        (question.passage || question.stimulus || question.comprehension || "");
+
+    return String(value || "").trim();
+}
+
+function getStimulusRange(index){
+
+    if(!examQuestions[index]){
+        return null;
+    }
+
+    const currentQuestion = examQuestions[index];
+    const current = getQuestionStimulus(currentQuestion);
+
+    if(!current){
+        return null;
+    }
+
+    const currentGroup = String(
+        currentQuestion.passage_group_id ||
+        currentQuestion.stimulus_group_id ||
+        currentQuestion.comprehension_group_id ||
+        ""
+    ).trim();
+
+    function sameStimulus(question){
+        if(!question){
+            return false;
+        }
+
+        const group = String(
+            question.passage_group_id ||
+            question.stimulus_group_id ||
+            question.comprehension_group_id ||
+            ""
+        ).trim();
+
+        if(currentGroup && group){
+            return currentGroup === group;
+        }
+
+        return getQuestionStimulus(question) === current;
+    }
+
+    let start = index;
+    let end = index;
+
+    while(start > 0 && sameStimulus(examQuestions[start - 1])){
+        start--;
+    }
+
+    while(end < examQuestions.length - 1 && sameStimulus(examQuestions[end + 1])){
+        end++;
+    }
+
+    return {
+        text: current,
+        start: start,
+        end: end,
+        group: currentGroup
+    };
+}
+
+function getStimulusPresentation(question){
+
+    const topic = String(question && question.topic || "").toLowerCase();
+
+    if(topic.includes("data interpretation")){
+        return {
+            title: "Data Interpretation:",
+            instruction: "Study the following data carefully and answer the questions:"
+        };
+    }
+
+    return {
+        title: "Comprehension:",
+        instruction: "Read the following passage and answer the questions:"
+    };
+}
+
+function renderStimulusContent(text){
+
+    const lines = String(text || "").split(/\r?\n/);
+    const pipeLines = lines.filter(function(line){
+        return line.includes("|") && line.split("|").length >= 2;
+    });
+
+    if(pipeLines.length >= 2){
+        const tableRows = pipeLines.map(function(line){
+            return line.split("|").map(function(cell){
+                return String(cell).trim();
+            });
+        });
+
+        const header = tableRows[0];
+        const body = tableRows.slice(1);
+
+        return (
+            '<div class="question-stimulus-text">' +
+            escapeHTML(lines.slice(0, lines.indexOf(pipeLines[0])).join("\n")).trim() +
+            '</div>' +
+            '<div class="question-stimulus-table-wrap">' +
+            '<table class="question-stimulus-table"><thead><tr>' +
+            header.map(function(cell){ return '<th>' + escapeHTML(cell) + '</th>'; }).join("") +
+            '</tr></thead><tbody>' +
+            body.map(function(row){
+                return '<tr>' + row.map(function(cell){ return '<td>' + escapeHTML(cell) + '</td>'; }).join("") + '</tr>';
+            }).join("") +
+            '</tbody></table></div>'
+        );
+    }
+
+    return '<div class="question-stimulus-text">' + escapeHTML(text) + '</div>';
+}
+
+function renderQuestionStimulus(){
+
+    if(!questionStimulus){
+        return;
+    }
+
+    const range = getStimulusRange(currentQuestionIndex);
+
+    if(!range){
+        questionStimulus.style.display = "none";
+        questionStimulusText.innerHTML = "";
+        questionStimulusTitle.textContent = "";
+        return;
+    }
+
+    const presentation = getStimulusPresentation(examQuestions[currentQuestionIndex]);
+    const startNumber = range.start + 1;
+    const endNumber = range.end + 1;
+
+    questionStimulusTitle.textContent = presentation.title;
+    questionStimulusText.innerHTML =
+        '<div class="question-stimulus-instruction">' +
+        escapeHTML(presentation.instruction) +
+        (startNumber !== endNumber
+            ? ' <span style="font-weight:500;color:#666;">(Questions ' + startNumber + '–' + endNumber + ')</span>'
+            : '') +
+        '</div>' +
+        renderStimulusContent(range.text);
+
+    questionStimulus.style.display = "block";
+}
+
+
+/* =========================================================
+   QUESTION TEXT
+========================================================= */
+
+function getQuestionText(
+    question
+){
+
+    return (
+
+        question.question ||
+
+        question.question_text ||
+
+        question.questionText ||
+
+        question.text ||
+
+        "Question text unavailable."
+
+    );
+
+}
+
+
+/* =========================================================
+   NTA QUESTION-TYPE FORMATTER
+   Keeps the source wording but presents match / statement /
+   sequence questions in the structured style seen in NTA papers.
+========================================================= */
+
+function normalizeQuestionLines(text){
+    return String(text || "")
+        .replace(/\r/g, "")
+        .split("\n")
+        .map(function(line){ return line.trim(); })
+        .filter(function(line){ return line.length > 0; });
+}
+
+function splitStructuredParts(text){
+    const lines = normalizeQuestionLines(text);
+    const instructionIndex = lines.findIndex(function(line){
+        return /^(choose the|select the|identify the|which of the following)/i.test(line) &&
+               (/answer|correct|statements?|sequence|order/i.test(line));
+    });
+
+    const beforeInstruction = instructionIndex >= 0 ? lines.slice(0, instructionIndex) : lines;
+    const instruction = instructionIndex >= 0 ? lines[instructionIndex] : "";
+    const afterInstruction = instructionIndex >= 0 ? lines.slice(instructionIndex + 1) : [];
+
+    return { lines: beforeInstruction, instruction, afterInstruction };
+}
+
+function renderLetteredStatements(lines){
+    const result = [];
+    lines.forEach(function(line){
+        const match = line.match(/^([A-E])\.\s*(.+)$/);
+        if(match){
+            result.push(
+                '<li><strong>' + escapeHTML(match[1]) + '.</strong> ' +
+                escapeHTML(match[2]) + '</li>'
+            );
+        }
+    });
+    return result.join("");
+}
+
+function renderRomanOrList(lines){
+    const result = [];
+    lines.forEach(function(line){
+        const match = line.match(/^((?:I|II|III|IV|V))\.\s*(.+)$/);
+        if(match){
+            result.push(
+                '<li><strong>' + escapeHTML(match[1]) + '.</strong> ' +
+                escapeHTML(match[2]) + '</li>'
+            );
+        }
+    });
+    return result.join("");
+}
+
+function extractLabelledItems(text, type){
+    const source = String(text || '').replace(/\r/g, ' ').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+    const labelPattern = type === 'roman'
+        ? '(I|II|III|IV|V)'
+        : '([A-E])';
+
+    const re = new RegExp(
+        '(?:^|[;|]|\\s)'+labelPattern+'\\.\\s*(.+?)(?=\\s+[A-E]\\.\\s+|\\s+(?:I|II|III|IV|V)\\.\\s+|\\s*;\\s*(?:[A-E]|(?:I|II|III|IV|V))\\.\\s+|$)',
+        'g'
+    );
+
+    const items = [];
+    let m;
+    while((m = re.exec(source)) !== null){
+        const label = m[1];
+        const textValue = String(m[2] || '').replace(/[;|]+\s*$/, '').trim();
+        if(textValue){
+            items.push({label, text:textValue});
+        }
+    }
+    return items;
+}
+
+function getFirstLabelPosition(text){
+    const match = String(text || '').match(/(?:^|[;|\s])([A-E])\.\s+/);
+    return match ? match.index + (match[0].length - match[0].trimStart().length) : -1;
+}
+
+function formatQuestionText(question){
+
+    const raw = String(getQuestionText(question) || '').trim();
+    if(!raw){
+        return '<div class="question-structured"><div class="question-stem">Question text unavailable.</div></div>';
+    }
+
+    const normalized = raw.replace(/\r/g, ' ').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+    const lower = normalized.toLowerCase();
+
+    /* ---------------------------------------------------------
+       NTA MATCH-THE-LIST
+       Keep LIST-I and LIST-II directly opposite each other.
+    --------------------------------------------------------- */
+    const isMatch = /match (?:the )?(?:list|lists)|list[- ]?i\b.*list[- ]?ii\b|list[- ]?ii\b.*list[- ]?i\b/i.test(normalized);
+
+    if(isMatch){
+        /*
+           NTA/PYQ source text is not always stored in visual PDF order.
+           Some records read:
+             ... LIST-I ... LIST-II: A. ... B. ...; I. ... II. ...
+           while others put LIST-I / LIST-II headings on separate lines.
+           Extract the actual A-E and I-V groups from the complete question
+           text, then place them side-by-side for both live exam and review.
+        */
+        const instructionMatch = normalized.match(/choose the correct answer.*$/i);
+        const contentOnly = instructionMatch
+            ? normalized.slice(0, instructionMatch.index).trim()
+            : normalized;
+
+        const listIParts = extractLabelledItems(contentOnly, 'letter');
+        const listIIParts = extractLabelledItems(contentOnly, 'roman');
+
+        const firstLabelMatch = contentOnly.match(/(?:^|\s)([A-E])\.\s+/);
+        let stem = firstLabelMatch
+            ? contentOnly.slice(0, firstLabelMatch.index + firstLabelMatch[0].length - firstLabelMatch[0].trimStart().length).trim()
+            : contentOnly;
+
+        stem = stem.replace(/[:;\-]+$/, '').trim();
+
+        if(listIParts.length && listIIParts.length){
+            const maxRows = Math.max(listIParts.length, listIIParts.length);
+            const rows = [];
+
+            for(let i = 0; i < maxRows; i++){
+                const left = listIParts[i] || {label:'', text:''};
+                const right = listIIParts[i] || {label:'', text:''};
+                rows.push(
+                    '<div class="nta-match-row">' +
+                        '<div class="nta-match-cell">' +
+                            '<span class="nta-match-label">' + escapeHTML(left.label ? left.label + '.' : '') + '</span>' +
+                            '<span class="nta-match-text">' + escapeHTML(left.text) + '</span>' +
+                        '</div>' +
+                        '<div class="nta-match-cell">' +
+                            '<span class="nta-match-label">' + escapeHTML(right.label ? right.label + '.' : '') + '</span>' +
+                            '<span class="nta-match-text">' + escapeHTML(right.text) + '</span>' +
+                        '</div>' +
+                    '</div>'
+                );
+            }
+
+            const instructionMatch = normalized.match(/choose the correct answer.*$/i);
+            const instruction = instructionMatch ? instructionMatch[0] : '';
+
+            return '<div class="question-structured">' +
+                (stem ? '<div class="question-stem">' + escapeHTML(stem) + '</div>' : '') +
+                '<div class="nta-match-table">' +
+                    '<div class="nta-match-header"><div>LIST-I</div><div>LIST-II</div></div>' +
+                    rows.join('') +
+                '</div>' +
+                (instruction ? '<div class="question-instruction">' + escapeHTML(instruction) + '</div>' : '') +
+            '</div>';
+        }
+    }
+
+    /* ---------------------------------------------------------
+       STATEMENT / SEQUENCE / ORDER QUESTIONS
+       Split inline A., B., C., D., E. statements exactly like
+       the NTA paper instead of leaving them as one paragraph.
+    --------------------------------------------------------- */
+    const letterMatches = normalized.match(/(?:^|[;|\s])([A-E])\.\s+/g) || [];
+    const isSequence = /chronological|sequence|arrange|correct order|order of|publication/i.test(normalized);
+    const isStatement = /statements?|characterize|following is true|following is not true|which of the following/i.test(normalized);
+
+    if(letterMatches.length >= 2 && (isSequence || isStatement)){
+        const first = normalized.search(/[A-E]\.\s+/);
+        const stem = first > 0 ? normalized.slice(0, first).trim().replace(/[:;\-]+$/, '').trim() : '';
+
+        const statementSource = first >= 0 ? normalized.slice(first) : normalized;
+        const statementLines = extractLabelledItems(statementSource, 'letter');
+
+        const instructionMatch = normalized.match(/choose the correct answer.*$/i);
+        const instruction = instructionMatch ? instructionMatch[0] : '';
+
+        if(statementLines.length >= 2){
+            return '<div class="question-structured">' +
+                (stem ? '<div class="question-stem">' + escapeHTML(stem) + '</div>' : '') +
+                '<div class="structured-list">' +
+                    statementLines.map(function(item){
+                        return '<div class="structured-statement"><strong>' + escapeHTML(item.label) + '.</strong> ' + escapeHTML(item.text) + '</div>';
+                    }).join('') +
+                '</div>' +
+                (instruction ? '<div class="question-instruction">' + escapeHTML(instruction) + '</div>' : '') +
+            '</div>';
+        }
+    }
+
+    return '<div class="question-structured"><div class="question-stem">' + escapeHTML(raw).replace(/\n/g, '<br>') + '</div></div>';
+}
+
+/* =========================================================
+   OPTIONS
+========================================================= */
+
+function getOptions(
+    question
+){
+
+    const raw =
+
+        question.options ||
+
+        question.choices ||
+
+        question.answers ||
+
+        {};
+
+
+    if(
+        Array.isArray(raw)
+    ){
+
+        const result = {};
+
+
+        raw.forEach(
+            function(value,index){
+
+                const letter =
+                    String.fromCharCode(
+                        65 + index
+                    );
+
+                result[letter] =
+                    value;
+
+            }
+        );
+
+
+        return result;
+
+    }
+
+
+    return {
+
+        A:
+            raw.A ??
+            raw.a ??
+            "",
+
+        B:
+            raw.B ??
+            raw.b ??
+            "",
+
+        C:
+            raw.C ??
+            raw.c ??
+            "",
+
+        D:
+            raw.D ??
+            raw.d ??
+            ""
+
+    };
+
+}
+
+
+/* =========================================================
+   PREPARE QUESTIONS
+========================================================= */
+
+function prepareExamQuestions(){
+
+    if(!activeSession){
+
+        throw new Error(
+            "No active examination session found."
+        );
+
+    }
+
+
+    const available =
+        getQuestionsForPaper(
+            activeSession.paper
+        );
+
+
+    if(
+        available.length <
+        activeSession.questionCount
+    ){
+
+        throw new Error(
+
+            "Not enough questions are available for " +
+
+            activeSession.paperLabel +
+
+            ". Requested: " +
+
+            activeSession.questionCount +
+
+            ". Available: " +
+
+            available.length +
+
+            "."
+
+        );
+
+    }
+
+
+    examQuestions =
+        available.slice(
+            0,
+            activeSession.questionCount
+        );
+
+
+    answers = {};
+
+    reviewFlags = {};
+
+    if(activeSession.paper === "full"){
+        fullMockView = "paper1";
+    }
+
+    currentQuestionIndex =
+        0;
+
+
+    examQuestions.forEach(
+        function(question,index){
+
+            answers[index] =
+                null;
+
+            reviewFlags[index] =
+                false;
+
+        }
+    );
+
+
+    loadExamState();
+
+
+    console.log(
+        "NTA Exam questions prepared:",
+        examQuestions
+    );
+
+}
+
+
+/* =========================================================
+   INITIALIZE TIMER
+========================================================= */
+
+function initializeTimer(){
+
+    if(!activeSession){
+
+        throw new Error(
+            "Cannot initialize timer without an active session."
+        );
+
+    }
+
+
+    const now =
+        Date.now();
+
+
+    /*
+     * If the session has already started and has
+     * an end time, preserve it.
+     *
+     * This is what makes refresh safe.
+     */
+
+    if(
+        activeSession.startedAt &&
+        activeSession.endTime
+    ){
+
+        examEndTime =
+            Number(
+                activeSession.endTime
+            );
+
+    }
+
+    else{
+
+        const durationMs =
+
+            Number(
+                activeSession.durationMinutes
+            ) *
+
+            60 *
+
+            1000;
+
+
+        activeSession.startedAt =
+            new Date(
+                now
+            ).toISOString();
+
+
+        activeSession.endTime =
+            now +
+            durationMs;
+
+
+        activeSession.status =
+            "in_progress";
+
+
+        activeSession.phase =
+            "8.5";
+
+
+        saveSession();
+
+
+        examEndTime =
+            activeSession.endTime;
+
+    }
+
+
+    timerExpired =
+        false;
+
+
+    if(timerInterval){
+
+        clearInterval(
+            timerInterval
+        );
+
+    }
+
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(
+            updateTimer,
+            1000
+        );
+
+
+    console.log(
+        "NTA timer initialized:",
+        new Date(
+            examEndTime
+        ).toISOString()
+    );
+
+}
+
+
+/* =========================================================
+   FORMAT TIME
+========================================================= */
+
+function formatTime(
+    milliseconds
+){
+
+    const totalSeconds =
+        Math.max(
+            0,
+            Math.floor(
+                milliseconds / 1000
+            )
+        );
+
+
+    const hours =
+        Math.floor(
+            totalSeconds / 3600
+        );
+
+
+    const minutes =
+        Math.floor(
+            (
+                totalSeconds % 3600
+            ) / 60
+        );
+
+
+    const seconds =
+        totalSeconds % 60;
+
+
+    return (
+
+        String(hours)
+            .padStart(
+                2,
+                "0"
+            ) +
+
+        ":" +
+
+        String(minutes)
+            .padStart(
+                2,
+                "0"
+            ) +
+
+        ":" +
+
+        String(seconds)
+            .padStart(
+                2,
+                "0"
+            )
+
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE TIMER
+========================================================= */
+
+function updateTimer(){
+
+    if(!examEndTime){
+
+        return;
+
+    }
+
+
+    const remaining =
+        examEndTime -
+        Date.now();
+
+
+    if(
+        remaining <= 0
+    ){
+
+        handleTimerExpired();
+
+        return;
+
+    }
+
+
+    const totalSeconds =
+        Math.floor(
+            remaining / 1000
+        );
+
+
+    examTimer.textContent =
+        formatTime(
+            remaining
+        );
+
+
+    /*
+     * Remove previous timer states.
+     */
+
+    examTimer.classList.remove(
+        "warning",
+        "critical",
+        "expired"
+    );
+
+
+    timerStatus.classList.remove(
+        "warning",
+        "critical",
+        "expired"
+    );
+
+
+    /*
+     * Less than 5 minutes.
+     */
+
+    if(
+        totalSeconds <= 300
+    ){
+
+        examTimer.classList.add(
+            "warning"
+        );
+
+        timerStatus.classList.add(
+            "warning"
+        );
+
+        timerStatus.textContent =
+            "⚠ Less than 5 minutes remaining";
+
+    }
+
+    else{
+
+        timerStatus.textContent =
+            "Timer active";
+
+    }
+
+
+    /*
+     * Less than 1 minute.
+     */
+
+    if(
+        totalSeconds <= 60
+    ){
+
+        examTimer.classList.remove(
+            "warning"
+        );
+
+        examTimer.classList.add(
+            "critical"
+        );
+
+        timerStatus.classList.remove(
+            "warning"
+        );
+
+        timerStatus.classList.add(
+            "critical"
+        );
+
+        timerStatus.textContent =
+            "⚠ Less than 1 minute remaining";
+
+    }
+
+
+    phase83Status.textContent =
+
+        "Countdown active • " +
+
+        formatTime(
+            remaining
+        ) +
+
+        " remaining.";
+
+
+    timerReadyBadge.textContent =
+        "TIMER ACTIVE";
+
+    timerReadyBadge.className =
+        "badge bg-primary";
+
+}
+
+
+/* =========================================================
+   TIMER EXPIRY
+========================================================= */
+
+function handleTimerExpired(){
+
+    if(
+        timerExpired
+    ){
+
+        return;
+
+    }
+
+
+    timerExpired =
+        true;
+
+
+    if(timerInterval){
+
+        clearInterval(
+            timerInterval
+        );
+
+        timerInterval =
+            null;
+
+    }
+
+
+    examTimer.textContent =
+        "00:00:00";
+
+
+    examTimer.classList.remove(
+        "warning",
+        "critical"
+    );
+
+
+    examTimer.classList.add(
+        "expired"
+    );
+
+
+    timerStatus.className =
+        "timer-status expired";
+
+
+    timerStatus.textContent =
+        "⏰ Examination time has expired";
+
+
+    phase83Status.textContent =
+        "Timer expired. The examination workspace is locked. Submit now to open the result review.";
+
+
+    timerReadyBadge.textContent =
+        "TIME EXPIRED";
+
+    timerReadyBadge.className =
+        "badge bg-danger";
+
+
+    examLockedNotice.classList.add(
+        "show"
+    );
+
+
+    if(activeSession){
+
+        activeSession.status =
+            "time_expired";
+
+        activeSession.phase =
+            "8.3";
+
+        activeSession.expiredAt =
+            new Date().toISOString();
+
+        saveSession();
+
+    }
+
+
+    lockExamControls();
+
+}
+
+
+/* =========================================================
+   LOCK EXAM CONTROLS
+========================================================= */
+
+function lockExamControls(){
+
+    const buttons = [
+
+        previousBtn,
+
+        nextBtn,
+
+        markReviewBtn,
+
+        clearResponseBtn
+
+    ];
+
+
+    buttons.forEach(
+        function(button){
+
+            button.disabled =
+                true;
+
+        }
+    );
+
+
+    const optionElements =
+        document.querySelectorAll(
+            ".option-item"
+        );
+
+
+    optionElements.forEach(
+        function(option){
+
+            option.style.pointerEvents =
+                "none";
+
+            option.style.opacity =
+                "0.65";
+
+        }
+    );
+
+
+    const paletteButtons =
+        document.querySelectorAll(
+            ".palette-btn"
+        );
+
+
+    paletteButtons.forEach(
+        function(button){
+
+            button.disabled =
+                true;
+
+            button.style.cursor =
+                "not-allowed";
+
+        }
+    );
+
+
+    updateFullMockSwitcher();
+
+
+    submitExamBtn.disabled =
+        false;
+
+    submitExamBtn.textContent =
+        "✓ Submit & View Result";
+
+}
+
+
+/* =========================================================
+   ENTER EXAMINATION
+========================================================= */
+
+async function enterExamination(){
+
+    const stored =
+        loadSavedSession();
+
+
+    if(!stored){
+
+        statusMessage.textContent =
+            "No active examination session was found.";
+
+        return;
+
+    }
+
+
+    activeSession =
+        stored;
+
+
+    enterExamBtn.disabled =
+        true;
+
+
+    enterExamBtn.textContent =
+        "⏳ Loading Examination...";
+
+
+    statusMessage.textContent =
+        "Loading questions and initializing the examination timer...";
+
+
+    try{
+
+        await loadPYQDatabase();
+
+
+        prepareExamQuestions();
+
+
+        renderExamWorkspace();
+
+
+        configurationScreen.style.display =
+            "none";
+
+
+        examWorkspace.style.display =
+            "block";
+
+
+        window.scrollTo({
+
+            top:
+                0,
+
+            behavior:
+                "smooth"
+
+        });
+
+
+        /*
+         * Timer is initialized AFTER
+         * the examination workspace opens.
+         */
+
+        initializeTimer();
+
+
+        renderCurrentQuestion();
+
+
+        updatePalette();
+
+
+        updateCounts();
+
+        submitExamBtn.disabled = false;
+        submitExamBtn.textContent = "✓ Submit Examination";
+
+        if(activeSession.status === "submitted"){
+            examSubmitted = true;
+            submitExamBtn.disabled = true;
+            submitExamBtn.textContent = "✓ Submitted";
+            buildResult();
+            resultSection.style.display = "block";
+        }
+
+
+        enterExamBtn.textContent =
+            "✓ Examination Active";
+
+
+        phase83Status.textContent =
+            "Examination timer started successfully.";
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "NTA 8.3 examination error:",
+            error
+        );
+
+
+        enterExamBtn.disabled =
+            false;
+
+
+        enterExamBtn.textContent =
+            "▶ Enter Examination";
+
+
+        statusMessage.innerHTML =
+
+            '<span class="text-danger fw-bold">' +
+
+            escapeHTML(
+                error.message
+            ) +
+
+            '</span>';
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER WORKSPACE HEADER
+========================================================= */
+
+function renderExamWorkspace(){
+
+    examPaperTitle.textContent =
+        activeSession.paperLabel;
+
+
+    examSessionMeta.textContent =
+
+        "Session " +
+
+        activeSession.sessionId +
+
+        " • " +
+
+        activeSession.questionCount +
+
+        " questions • " +
+
+        activeSession.durationMinutes +
+
+        " minutes";
+
+}
+
+
+/* =========================================================
+   RESULT HELPERS
+========================================================= */
+
+function getCorrectAnswer(question){
+
+    return String(
+        question.correct_answer ??
+        question.correctAnswer ??
+        question.answer ??
+        question.correct ??
+        ""
+    ).trim().toUpperCase();
+
+}
+
+
+function getAnswerText(question, letter){
+
+    const options = getOptions(question);
+
+    return String(options[letter] || "").trim();
+
+}
+
+
+function getMainExplanation(question){
+
+    /*
+       IMPORTANT RESULT-REVIEW RULE:
+       A source/answer-key citation is NOT an explanation.
+       For example:
+       "Official NTA final answer key ... lists option 4"
+       must remain only in the Source field and must not appear
+       inside the Explanation box.
+
+       We therefore accept an explanation only when the text contains
+       actual explanatory content. If the stored text is merely an
+       answer-key/source reference, return an empty string.
+    */
+
+    function clean(value){
+        return String(value || "").trim();
+    }
+
+    function isAnswerKeyOnly(text){
+        const value = clean(text);
+        if(!value) return true;
+
+        const lower = value.toLowerCase();
+
+        const answerKeySignals = [
+            "official nta final answer key",
+            "nta final answer key",
+            "official nta answer key",
+            "nta answer key",
+            "final answer key",
+            "answer key",
+            "lists option",
+            "listed option",
+            "marks option",
+            "marked option",
+            "correct option is",
+            "correct answer is",
+            "corresponding to paper i question",
+            "corresponding to question"
+        ];
+
+        const hasAnswerKeySignal = answerKeySignals.some(function(signal){
+            return lower.includes(signal);
+        });
+
+        if(!hasAnswerKeySignal){
+            return false;
+        }
+
+        /* A real explanation can mention an answer key while also
+           explaining the subject matter. Keep it only when there is
+           clear explanatory language beyond the key citation. */
+        const explanationSignals = [
+            "because",
+            "this means",
+            "this refers to",
+            "this is because",
+            "therefore",
+            "hence",
+            "the reason",
+            "refers to",
+            "is defined as",
+            "is associated with",
+            "is characterized by",
+            "describes",
+            "indicates",
+            "shows that",
+            "means that"
+        ];
+
+        return !explanationSignals.some(function(signal){
+            return lower.includes(signal);
+        });
+    }
+
+    const candidates = [
+        question.explanation,
+        question.solution && typeof question.solution === "object"
+            ? question.solution.explanation
+            : ""
+    ];
+
+    for(const candidate of candidates){
+        const text = clean(candidate);
+        if(text && !isAnswerKeyOnly(text)){
+            return text;
+        }
+    }
+
+    return "";
+
+}
+
+
+function getSourceLabel(question){
+
+    if(question.source && typeof question.source === "object"){
+        return String(
+            question.source.title ||
+            question.source.type ||
+            "PYQ source"
+        );
+    }
+
+    return String(
+        question.source_type ||
+        question.sourceType ||
+        "PYQ"
+    );
+
+}
+
+
+function escapeText(value){
+    return escapeHTML(value);
+}
+
+
+/* =========================================================
+   SUBMIT EXAMINATION
+========================================================= */
+
+function submitExamination(force = false){
+
+    if(examSubmitted){
+        return;
+    }
+
+    if(!examQuestions.length){
+        return;
+    }
+
+    if(!force && !timerExpired){
+
+        const unanswered = examQuestions.length - Object.values(answers).filter(Boolean).length;
+
+        const confirmed = window.confirm(
+            unanswered > 0
+                ? "You still have " + unanswered + " unanswered question(s). Submit the examination now?"
+                : "Submit the examination now and open the result review?"
+        );
+
+        if(!confirmed){
+            return;
+        }
+
+    }
+
+    if(timerInterval){
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+
+    examSubmitted = true;
+
+    activeSession.status = "submitted";
+    activeSession.phase = "8.5";
+    activeSession.submittedAt = new Date().toISOString();
+    activeSession.timerExpired = Boolean(timerExpired);
+
+    saveExamState();
+    saveSession();
+
+    buildResult();
+
+    submitExamBtn.disabled = true;
+    submitExamBtn.textContent = "✓ Submitted";
+
+    previousBtn.disabled = true;
+    nextBtn.disabled = true;
+    markReviewBtn.disabled = true;
+    clearResponseBtn.disabled = true;
+
+    document.querySelectorAll(".option-item").forEach(function(option){
+        option.style.pointerEvents = "none";
+        option.style.opacity = "0.7";
+    });
+
+    resultSection.style.display = "block";
+    resultSection.scrollIntoView({behavior:"smooth", block:"start"});
+
+}
+
+
+/* =========================================================
+   BUILD RESULT
+========================================================= */
+
+const JRF_INTELLIGENCE_HISTORY_KEY =
+    "bajee_jrf_intelligence_history_v1";
+
+
+function saveJrfUnifiedPerformanceRecord(result){
+
+    if(!activeSession || !result){
+        return;
+    }
+
+    const LEGACY_HISTORY_KEY =
+        "bajee_jrf_ai_test_history_v1";
+
+    try{
+
+        let history = [];
+        const raw = localStorage.getItem(LEGACY_HISTORY_KEY);
+
+        if(raw){
+            const parsed = JSON.parse(raw);
+            if(Array.isArray(parsed)){
+                history = parsed;
+            }
+        }
+
+        const questionResults = result.rows.map(function(row){
+
+            const question = row.question || {};
+
+            return {
+                question_id:
+                    String(
+                        question.id ||
+                        question.pyq_id ||
+                        question.question_id ||
+                        question.questionId ||
+                        ""
+                    ),
+
+                is_correct:
+                    row.status === "correct",
+
+                answered:
+                    Boolean(row.selected),
+
+                selected_answer:
+                    row.selected || "",
+
+                correct_answer:
+                    row.correctAnswer || "",
+
+                paper:
+                    String(
+                        question.paper ||
+                        question.paper_type ||
+                        question.paperType ||
+                        activeSession.paper ||
+                        ""
+                    ),
+
+                unit:
+                    String(
+                        question.unit ||
+                        question.unit_id ||
+                        question.unit_name ||
+                        ""
+                    ),
+
+                unit_name:
+                    String(
+                        question.unit_name ||
+                        question.unitName ||
+                        ""
+                    ),
+
+                knowledge_entity_ids:
+                    Array.isArray(question.knowledge_entity_ids)
+                        ? question.knowledge_entity_ids
+                        : Array.isArray(question.entity_ids)
+                            ? question.entity_ids
+                            : [],
+
+                concept_ids:
+                    Array.isArray(question.concept_ids)
+                        ? question.concept_ids
+                        : [],
+
+                source:
+                    String(question.source || ""),
+
+                status:
+                    row.status || ""
+            };
+
+        });
+
+        const record = {
+            date:
+                activeSession.submittedAt ||
+                new Date().toISOString(),
+
+            session_id:
+                activeSession.sessionId || "",
+
+            source:
+                "NTA Model Examination",
+
+            paper:
+                activeSession.paper || "",
+
+            paper_label:
+                activeSession.paperLabel || "",
+
+            total:
+                Number(result.total || 0),
+
+            correct:
+                Number(result.correct || 0),
+
+            wrong:
+                Number(result.wrong || 0),
+
+            unanswered:
+                Number(result.unanswered || 0),
+
+            score:
+                Number(result.percentage || 0),
+
+            question_ids:
+                questionResults.map(function(item){
+                    return item.question_id;
+                }),
+
+            question_results:
+                questionResults
+        };
+
+        const existingIndex = history.findIndex(function(item){
+            return item &&
+                String(item.session_id || "") ===
+                String(record.session_id || "") &&
+                String(item.source || "") ===
+                String(record.source || "");
+        });
+
+        if(existingIndex >= 0){
+            history[existingIndex] = record;
+        }else{
+            history.push(record);
+        }
+
+        if(history.length > 100){
+            history = history.slice(-100);
+        }
+
+        localStorage.setItem(
+            LEGACY_HISTORY_KEY,
+            JSON.stringify(history)
+        );
+
+        console.log(
+            "BAJEE JRF AI: NTA result bridged to unified performance history.",
+            {
+                key: LEGACY_HISTORY_KEY,
+                sessionId: record.session_id,
+                questions: questionResults.length
+            }
+        );
+
+    }catch(error){
+
+        console.warn(
+            "BAJEE JRF AI: Unified performance bridge could not save.",
+            error
+        );
+
+    }
+
+}
+
+
+function saveJrfIntelligenceRecord(result){
+
+    if(!activeSession || !result){
+        return;
+    }
+
+    try{
+
+        let history = [];
+        const raw = localStorage.getItem(JRF_INTELLIGENCE_HISTORY_KEY);
+
+        if(raw){
+            const parsed = JSON.parse(raw);
+            if(Array.isArray(parsed)){
+                history = parsed;
+            }
+        }
+
+        const record = {
+            recordId:
+                "JRF-" + Date.now().toString(36).toUpperCase(),
+
+            schemaVersion:
+                "9.1",
+
+            createdAt:
+                new Date().toISOString(),
+
+            sessionId:
+                activeSession.sessionId || "",
+
+            paper:
+                activeSession.paper || "",
+
+            paperLabel:
+                activeSession.paperLabel || "",
+
+            mode:
+                activeSession.mode || "nta",
+
+            status:
+                activeSession.status || "submitted",
+
+            timerExpired:
+                Boolean(activeSession.timerExpired),
+
+            createdSessionAt:
+                activeSession.createdAt || null,
+
+            startedAt:
+                activeSession.startedAt || null,
+
+            submittedAt:
+                activeSession.submittedAt || null,
+
+            questionCount:
+                Number(activeSession.questionCount || result.total || 0),
+
+            durationMinutes:
+                Number(activeSession.durationMinutes || 0),
+
+            total:
+                Number(result.total || 0),
+
+            correct:
+                Number(result.correct || 0),
+
+            wrong:
+                Number(result.wrong || 0),
+
+            unanswered:
+                Number(result.unanswered || 0),
+
+            review:
+                Number(result.review || 0),
+
+            percentage:
+                Number(result.percentage || 0),
+
+            marks:
+                Number(result.marks || 0),
+
+            maxMarks:
+                Number(result.maxMarks || 0),
+
+            rows:
+                result.rows.map(function(row){
+
+                    const question = row.question || {};
+
+                    return {
+                        index:
+                            Number(row.index || 0),
+
+                        questionId:
+                            String(
+                                question.id ||
+                                question.pyq_id ||
+                                question.question_id ||
+                                question.questionId ||
+                                ""
+                            ),
+
+                        paper:
+                            String(
+                                question.paper ||
+                                question.paper_type ||
+                                question.paperType ||
+                                activeSession.paper ||
+                                ""
+                            ),
+
+                        unit:
+                            String(
+                                question.unit ||
+                                question.unit_id ||
+                                question.unit_name ||
+                                ""
+                            ),
+
+                        unitName:
+                            String(
+                                question.unit_name ||
+                                question.unitName ||
+                                ""
+                            ),
+
+                        knowledgeEntityIds:
+                            Array.isArray(question.knowledge_entity_ids)
+                                ? question.knowledge_entity_ids
+                                : Array.isArray(question.entity_ids)
+                                    ? question.entity_ids
+                                    : [],
+
+                        conceptIds:
+                            Array.isArray(question.concept_ids)
+                                ? question.concept_ids
+                                : [],
+
+                        source:
+                            String(question.source || ""),
+
+                        selected:
+                            row.selected || "",
+
+                        correctAnswer:
+                            row.correctAnswer || "",
+
+                        status:
+                            row.status || "",
+
+                        review:
+                            Boolean(reviewFlags[row.index]),
+
+                        questionText:
+                            String(question.question || "")
+                    };
+
+                })
+        };
+
+        const existingIndex = history.findIndex(function(item){
+            return item &&
+                String(item.sessionId || "") ===
+                String(record.sessionId || "");
+        });
+
+        if(existingIndex >= 0){
+            history[existingIndex] = record;
+        }else{
+            history.push(record);
+        }
+
+        if(history.length > 100){
+            history = history.slice(-100);
+        }
+
+        localStorage.setItem(
+            JRF_INTELLIGENCE_HISTORY_KEY,
+            JSON.stringify(history)
+        );
+
+        console.log(
+            "BAJEE JRF AI: JRF Intelligence record saved.",
+            {
+                key: JRF_INTELLIGENCE_HISTORY_KEY,
+                sessionId: record.sessionId,
+                total: record.total,
+                correct: record.correct,
+                wrong: record.wrong,
+                unanswered: record.unanswered
+            }
+        );
+
+    }catch(error){
+
+        console.warn(
+            "BAJEE JRF AI: Could not save JRF Intelligence record.",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   BUILD RESULT
+========================================================= */
+
+function buildResult(){
+
+    let correct = 0;
+    let wrong = 0;
+    let unanswered = 0;
+    let review = 0;
+
+    const rows = [];
+
+    examQuestions.forEach(function(question,index){
+
+        const selected = String(answers[index] || "").toUpperCase();
+        const correctAnswer = getCorrectAnswer(question);
+        const status = !selected
+            ? "unanswered"
+            : selected === correctAnswer
+                ? "correct"
+                : "wrong";
+
+        if(status === "correct") correct++;
+        else if(status === "wrong") wrong++;
+        else unanswered++;
+
+        if(reviewFlags[index]) review++;
+
+        rows.push({
+            question,
+            index,
+            selected,
+            correctAnswer,
+            status
+        });
+
+    });
+
+    const total = examQuestions.length;
+    const percentage = total ? (correct / total) * 100 : 0;
+    const marks = correct * 2;
+    const maxMarks = total * 2;
+
+    resultData = {correct, wrong, unanswered, review, total, percentage, marks, maxMarks, rows};
+
+    saveJrfIntelligenceRecord(resultData);
+
+    saveJrfUnifiedPerformanceRecord(resultData);
+
+    renderPerformanceSignals(resultData);
+
+    resultMeta.textContent =
+        activeSession.paperLabel +
+        " • Session " +
+        activeSession.sessionId +
+        " • " + total +
+        " questions";
+
+    resultScore.textContent = percentage.toFixed(1) + "%";
+    resultMarks.textContent = marks + " / " + maxMarks + " marks";
+    resultCorrect.textContent = correct;
+    resultWrong.textContent = wrong;
+    resultUnanswered.textContent = unanswered;
+    resultReview.textContent = review;
+
+    resultQuestions.innerHTML = rows.map(renderResultQuestion).join("");
+
+}
+
+
+function renderPerformanceSignals(result){
+
+    if(!performanceSignalCards || !performanceBreakdown){
+        return;
+    }
+
+    const answered = result.correct + result.wrong;
+    const completion = result.total
+        ? (answered / result.total) * 100
+        : 0;
+    const unansweredRate = result.total
+        ? (result.unanswered / result.total) * 100
+        : 0;
+
+    let elapsedMinutes = null;
+
+    if(activeSession && activeSession.startedAt){
+        const endReference = activeSession.submittedAt
+            ? new Date(activeSession.submittedAt).getTime()
+            : Date.now();
+        const startReference = new Date(activeSession.startedAt).getTime();
+
+        if(Number.isFinite(startReference) && Number.isFinite(endReference)){
+            elapsedMinutes = Math.max(
+                0,
+                (endReference - startReference) / 60000
+            );
+        }
+    }
+
+    const cards = [
+        {
+            label: "Accuracy",
+            value: result.total ? result.percentage.toFixed(1) + "%" : "0%",
+            detail: result.correct + " correct out of " + result.total
+        },
+        {
+            label: "Completion",
+            value: completion.toFixed(1) + "%",
+            detail: answered + " of " + result.total + " answered"
+        },
+        {
+            label: "Unanswered rate",
+            value: unansweredRate.toFixed(1) + "%",
+            detail: result.unanswered + " unanswered"
+        },
+        {
+            label: "Marked for review",
+            value: String(result.review),
+            detail: "questions flagged during the examination"
+        }
+    ];
+
+    if(elapsedMinutes !== null){
+        cards.push({
+            label: "Time used",
+            value: elapsedMinutes < 1
+                ? Math.round(elapsedMinutes * 60) + " sec"
+                : elapsedMinutes.toFixed(1) + " min",
+            detail: "from start to submission"
+        });
+    }
+
+    performanceSignalCards.innerHTML = cards.map(function(card){
+        return `
+            <div class="col-6 col-lg-4 col-xl">\n                <div class="info-box h-100">\n                    <div class="small text-secondary">${escapeText(card.label)}</div>\n                    <div class="h5 mb-1 mt-1">${escapeText(card.value)}</div>\n                    <div class="small text-secondary">${escapeText(card.detail)}</div>\n                </div>\n            </div>
+        `;
+    }).join("");
+
+    const groups = {};
+
+    result.rows.forEach(function(row){
+        const question = row.question || {};
+        const paper = getQuestionPaperValue(question) || "Unclassified paper";
+        const unit = String(
+            question.unit ||
+            question.unit_name ||
+            question.unitName ||
+            "Unclassified unit"
+        ).trim() || "Unclassified unit";
+        const key = paper + "||" + unit;
+
+        if(!groups[key]){
+            groups[key] = {
+                paper,
+                unit,
+                total: 0,
+                correct: 0,
+                wrong: 0,
+                unanswered: 0
+            };
+        }
+
+        groups[key].total++;
+
+        if(row.status === "correct") groups[key].correct++;
+        else if(row.status === "wrong") groups[key].wrong++;
+        else groups[key].unanswered++;
+    });
+
+    const groupRows = Object.values(groups).sort(function(a,b){
+        return a.paper.localeCompare(b.paper) || a.unit.localeCompare(b.unit);
+    });
+
+    if(!groupRows.length){
+        performanceBreakdown.innerHTML = '<div class="text-secondary small">No breakdown data available.</div>';
+        return;
+    }
+
+    performanceBreakdown.innerHTML = `
+        <table class="table table-sm align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Paper</th>
+                    <th>Unit</th>
+                    <th>Questions</th>
+                    <th>Correct</th>
+                    <th>Wrong</th>
+                    <th>Unanswered</th>
+                    <th>Accuracy</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${groupRows.map(function(group){
+                    const accuracy = group.total
+                        ? (group.correct / group.total) * 100
+                        : 0;
+                    return `
+                        <tr>
+                            <td>${escapeText(group.paper)}</td>
+                            <td>${escapeText(group.unit)}</td>
+                            <td>${group.total}</td>
+                            <td>${group.correct}</td>
+                            <td>${group.wrong}</td>
+                            <td>${group.unanswered}</td>
+                            <td>${accuracy.toFixed(1)}%</td>
+                        </tr>
+                    `;
+                }).join("")}
+            </tbody>
+        </table>
+    `;
+
+}
+
+
+function renderResultQuestion(row){
+
+    const question = row.question;
+    const options = getOptions(question);
+    const explanation = getMainExplanation(question);
+    const selectedText = row.selected ? getAnswerText(question,row.selected) : "Not answered";
+    const correctText = row.correctAnswer ? getAnswerText(question,row.correctAnswer) : "Correct answer not available in this record";
+    const sourceLabel = getSourceLabel(question);
+
+    const statusLabel = row.status === "correct"
+        ? "Correct"
+        : row.status === "wrong"
+            ? "Wrong"
+            : "Unanswered";
+
+    const optionHTML = ["A","B","C","D"].map(function(letter){
+
+        const text = String(options[letter] || "").trim();
+        if(!text) return "";
+
+        const isCorrect = letter === row.correctAnswer;
+        const isSelectedWrong = letter === row.selected && row.status === "wrong";
+        return `
+            <div class="result-option ${isCorrect ? "correct" : ""} ${isSelectedWrong ? "selected-wrong" : ""}">
+                <div>
+                    <span class="result-option-label">${letter}.</span>
+                    <span>${escapeText(text)}</span>
+                    ${isCorrect ? '<span class="badge bg-success ms-2">Correct Answer</span>' : ''}
+                    ${letter === row.selected ? '<span class="badge bg-primary ms-2">Your Answer</span>' : ''}
+                </div>
+            </div>
+        `;
+
+    }).join("");
+
+    return `
+        <article class="result-question-card ${row.status}" id="result-question-${row.index}">
+            <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap mb-3">
+                <div class="result-question-heading flex-grow-1">
+                    <div class="small text-secondary fw-bold">QUESTION ${row.index + 1}</div>
+                    <div class="mt-2">${formatQuestionText(question)}</div>
+                </div>
+                <span class="badge ${row.status === "correct" ? "bg-success" : row.status === "wrong" ? "bg-danger" : "bg-secondary"} result-badge">${statusLabel}</span>
+            </div>
+
+            <div class="info-box mb-3">
+                <div><strong>Your answer:</strong> ${escapeText(row.selected ? row.selected + ". " + selectedText : "Not answered")}</div>
+                <div class="mt-1"><strong>Correct answer:</strong> ${escapeText(row.correctAnswer ? row.correctAnswer + ". " + correctText : "Not available")}</div>
+                <div class="mt-1 small text-secondary"><strong>Source:</strong> ${escapeText(sourceLabel)}</div>
+            </div>
+
+            <h4 class="h6 mb-2">All four options</h4>
+            ${optionHTML}
+
+            ${explanation ? `
+                <div class="ai-review-box">
+                    <strong>Explanation:</strong> ${escapeText(explanation)}
+                </div>
+            ` : ''}
+
+        </article>
+    `;
+}
+
+
+/* =========================================================
+   RENDER CURRENT QUESTION
+========================================================= */
+
+function renderCurrentQuestion(){
+
+    if(
+        !examQuestions.length
+    ){
+
+        questionText.textContent =
+            "No questions are available.";
+
+        optionsContainer.innerHTML =
+            "";
+
+        return;
+
+    }
+
+
+    const question =
+        examQuestions[
+            currentQuestionIndex
+        ];
+
+
+    renderQuestionStimulus();
+    updateFullMockSwitcher();
+
+
+    const questionNumber =
+        currentQuestionIndex + 1;
+
+
+    currentQuestionNumber.textContent =
+        questionNumber;
+
+
+    if(
+        activeSession &&
+        activeSession.paper === "full"
+    ){
+
+        const range = getFullMockViewRange();
+        const localNumber = currentQuestionIndex - range.start + 1;
+        const localTotal = range.end - range.start + 1;
+        const paperName =
+            fullMockView === "paper2"
+                ? "Paper II — English"
+                : "Paper I";
+
+        examQuestionCounter.textContent =
+            paperName + " • Question " + localNumber + " / " + localTotal +
+            "  (Full Mock " + questionNumber + " / " + examQuestions.length + ")";
+
+    }
+
+    else{
+
+        examQuestionCounter.textContent =
+            questionNumber +
+            " / " +
+            examQuestions.length;
+
+    }
+
+
+    questionText.innerHTML =
+        formatQuestionText(
+            question
+        );
+
+
+    renderOptions(
+        question
+    );
+
+
+    updateNavigationButtons();
+
+    updateCurrentStatus();
+
+    updatePalette();
+
+
+    if(
+        timerExpired
+    ){
+
+        lockExamControls();
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER OPTIONS
+========================================================= */
+
+function renderOptions(
+    question
+){
+
+    const options =
+        getOptions(
+            question
+        );
+
+
+    optionsContainer.innerHTML =
+        "";
+
+
+    ["A","B","C","D"].forEach(
+        function(letter){
+
+            if(
+                !String(
+                    options[letter] || ""
+                ).trim()
+            ){
+
+                return;
+
+            }
+
+
+            const selected =
+                answers[
+                    currentQuestionIndex
+                ] === letter;
+
+
+            const option =
+                document.createElement(
+                    "div"
+                );
+
+
+            option.className =
+                "option-item" +
+                (
+                    selected
+                        ? " selected"
+                        : ""
+                );
+
+
+            option.setAttribute(
+                "role",
+                "button"
+            );
+
+
+            option.tabIndex =
+                0;
+
+
+            option.innerHTML =
+
+                '<span class="option-letter">' +
+
+                letter +
+
+                '</span>' +
+
+                '<span>' +
+
+                escapeHTML(
+                    String(
+                        options[letter]
+                    )
+                ) +
+
+                '</span>';
+
+
+            option.addEventListener(
+                "click",
+                function(){
+
+                    if(
+                        timerExpired
+                    ){
+
+                        return;
+
+                    }
+
+
+                    selectAnswer(
+                        letter
+                    );
+
+                }
+            );
+
+
+            option.addEventListener(
+                "keydown",
+                function(event){
+
+                    if(
+                        event.key === "Enter" ||
+                        event.key === " "
+                    ){
+
+                        event.preventDefault();
+
+
+                        if(
+                            timerExpired
+                        ){
+
+                            return;
+
+                        }
+
+
+                        selectAnswer(
+                            letter
+                        );
+
+                    }
+
+                }
+            );
+
+
+            optionsContainer.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SELECT ANSWER
+========================================================= */
+
+function selectAnswer(
+    letter
+){
+
+    if(
+        timerExpired
+    ){
+
+        return;
+
+    }
+
+
+    answers[
+        currentQuestionIndex
+    ] =
+        letter;
+
+    saveExamState();
+
+
+    navigationStatus.textContent =
+
+        "Question " +
+
+        (
+            currentQuestionIndex + 1
+        ) +
+
+        " answered with option " +
+
+        letter +
+
+        ".";
+
+
+    renderCurrentQuestion();
+
+    updateCounts();
+
+}
+
+
+/* =========================================================
+   CLEAR RESPONSE
+========================================================= */
+
+function clearResponse(){
+
+    if(
+        timerExpired
+    ){
+
+        return;
+
+    }
+
+
+    answers[
+        currentQuestionIndex
+    ] =
+        null;
+
+    saveExamState();
+
+
+    navigationStatus.textContent =
+
+        "Response cleared for question " +
+
+        (
+            currentQuestionIndex + 1
+        ) +
+
+        ".";
+
+
+    renderCurrentQuestion();
+
+    updateCounts();
+
+}
+
+
+/* =========================================================
+   REVIEW
+========================================================= */
+
+function toggleReview(){
+
+    if(
+        timerExpired
+    ){
+
+        return;
+
+    }
+
+
+    reviewFlags[
+        currentQuestionIndex
+    ] =
+
+        !reviewFlags[
+            currentQuestionIndex
+        ];
+
+    saveExamState();
+
+
+    const state =
+        reviewFlags[
+            currentQuestionIndex
+        ]
+
+            ? "marked for review"
+
+            : "removed from review";
+
+
+    navigationStatus.textContent =
+
+        "Question " +
+
+        (
+            currentQuestionIndex + 1
+        ) +
+
+        " " +
+
+        state +
+
+        ".";
+
+
+    renderCurrentQuestion();
+
+    updateCounts();
+
+}
+
+
+/* =========================================================
+   GO TO QUESTION
+========================================================= */
+
+function goToQuestion(
+    index
+){
+
+    if(
+        timerExpired
+    ){
+
+        return;
+
+    }
+
+
+    if(
+        index < 0 ||
+        index >= examQuestions.length
+    ){
+
+        return;
+
+    }
+
+
+    currentQuestionIndex =
+        index;
+
+    saveExamState();
+
+
+    renderCurrentQuestion();
+
+    updateCounts();
+
+
+    window.scrollTo({
+
+        top:
+            0,
+
+        behavior:
+            "smooth"
+
+    });
+
+}
+
+
+/* =========================================================
+   PREVIOUS
+========================================================= */
+
+function goPrevious(){
+
+    if(
+        timerExpired
+    ){
+
+        return;
+
+    }
+
+
+    if(
+        currentQuestionIndex > 0
+    ){
+
+        goToQuestion(
+            currentQuestionIndex - 1
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   NEXT
+========================================================= */
+
+function goNext(){
+
+    if(
+        timerExpired
+    ){
+
+        return;
+
+    }
+
+
+    if(
+        currentQuestionIndex <
+        examQuestions.length - 1
+    ){
+
+        goToQuestion(
+            currentQuestionIndex + 1
+        );
+
+    }
+
+    else{
+
+        navigationStatus.textContent =
+            "You are on the last question. Final submission is available below. Review your answers before submitting.";
+
+    }
+
+}
+
+
+/* =========================================================
+   NAVIGATION BUTTONS
+========================================================= */
+
+function updateNavigationButtons(){
+
+    previousBtn.disabled =
+
+        timerExpired ||
+
+        currentQuestionIndex === 0;
+
+
+    nextBtn.disabled =
+
+        timerExpired ||
+
+        currentQuestionIndex ===
+        examQuestions.length - 1;
+
+
+    clearResponseBtn.disabled =
+
+        timerExpired ||
+
+        !answers[
+            currentQuestionIndex
+        ];
+
+
+    markReviewBtn.disabled =
+        timerExpired;
+
+
+    markReviewBtn.textContent =
+
+        reviewFlags[
+            currentQuestionIndex
+        ]
+
+            ? "⚑ Remove Review"
+
+            : "⚑ Mark for Review";
+
+
+    markReviewBtn.classList.toggle(
+        "btn-review",
+        !reviewFlags[
+            currentQuestionIndex
+        ]
+    );
+
+
+    markReviewBtn.classList.toggle(
+        "btn-warning",
+        reviewFlags[
+            currentQuestionIndex
+        ]
+    );
+
+}
+
+
+/* =========================================================
+   CURRENT STATUS
+========================================================= */
+
+function updateCurrentStatus(){
+
+    const answered =
+        Boolean(
+            answers[
+                currentQuestionIndex
+            ]
+        );
+
+
+    const review =
+        Boolean(
+            reviewFlags[
+                currentQuestionIndex
+            ]
+        );
+
+
+    if(
+        answered &&
+        review
+    ){
+
+        currentAnswerStatus.textContent =
+            "Answered • Marked for Review";
+
+        currentAnswerStatus.className =
+            "answer-status text-primary";
+
+    }
+
+    else if(
+        answered
+    ){
+
+        currentAnswerStatus.textContent =
+            "Answered";
+
+        currentAnswerStatus.className =
+            "answer-status text-success";
+
+    }
+
+    else if(
+        review
+    ){
+
+        currentAnswerStatus.textContent =
+            "Not Answered • Marked for Review";
+
+        currentAnswerStatus.className =
+            "answer-status text-warning";
+
+    }
+
+    else{
+
+        currentAnswerStatus.textContent =
+            "Not Answered";
+
+        currentAnswerStatus.className =
+            "answer-status text-secondary";
+
+    }
+
+}
+
+
+/* =========================================================
+   QUESTION PALETTE
+========================================================= */
+
+function updatePalette(){
+
+    questionPalette.innerHTML =
+        "";
+
+    const range = getFullMockViewRange();
+
+    for(
+        let index = range.start;
+        index <= range.end;
+        index++
+    ){
+
+        const question = examQuestions[index];
+
+        if(!question){
+            continue;
+        }
+
+        const button =
+            document.createElement("button");
+
+        button.type = "button";
+        button.className = "palette-btn";
+
+        const localNumber =
+            activeSession && activeSession.paper === "full"
+                ? index - range.start + 1
+                : index + 1;
+
+        button.textContent = localNumber;
+
+        const answered = Boolean(answers[index]);
+        const review = Boolean(reviewFlags[index]);
+
+        if(index === currentQuestionIndex){
+            button.classList.add("current");
+        }
+
+        if(answered){
+            button.classList.add("answered");
+        }
+
+        if(review){
+            button.classList.add("review");
+        }
+
+        const globalNumber = index + 1;
+
+        button.title =
+            "Question " + globalNumber +
+            (answered ? " • Answered" : " • Unanswered") +
+            (review ? " • Marked for Review" : "");
+
+        button.addEventListener(
+            "click",
+            function(){
+                goToQuestion(index);
+            }
+        );
+
+        button.disabled = timerExpired;
+
+        questionPalette.appendChild(button);
+    }
+
+}
+
+
+/* =========================================================
+   COUNTS
+========================================================= */
+
+function updateCounts(){
+
+    let answered =
+        0;
+
+    let review =
+        0;
+
+
+    examQuestions.forEach(
+        function(question,index){
+
+            if(
+                answers[index]
+            ){
+
+                answered++;
+
+            }
+
+
+            if(
+                reviewFlags[index]
+            ){
+
+                review++;
+
+            }
+
+        }
+    );
+
+
+    const total =
+        examQuestions.length;
+
+
+    answeredCount.textContent =
+        answered;
+
+
+    unansweredCount.textContent =
+        total - answered;
+
+
+    reviewCount.textContent =
+        review;
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   EVENT LISTENERS
+========================================================= */
+
+paperInputs.forEach(
+    function(input){
+
+        input.addEventListener(
+            "change",
+            function(){
+
+                if(input.value === "full" && input.checked){
+
+                    questionCount.value = "150";
+                    duration.value = "180";
+
+                }
+
+                updateSummary();
+
+            }
+        );
+
+    }
+);
+
+
+questionCount.addEventListener(
+    "change",
+    updateSummary
+);
+
+
+duration.addEventListener(
+    "change",
+    updateSummary
+);
+
+
+mode.addEventListener(
+    "change",
+    updateSummary
+);
+
+
+fullMockPaper1Btn.addEventListener(
+    "click",
+    function(){
+        switchFullMockPaper("paper1");
+    }
+);
+
+
+fullMockPaper2Btn.addEventListener(
+    "click",
+    function(){
+        switchFullMockPaper("paper2");
+    }
+);
+
+
+startExamBtn.addEventListener(
+    "click",
+    startExamination
+);
+
+
+enterExamBtn.addEventListener(
+    "click",
+    enterExamination
+);
+
+
+previousBtn.addEventListener(
+    "click",
+    goPrevious
+);
+
+
+nextBtn.addEventListener(
+    "click",
+    goNext
+);
+
+
+markReviewBtn.addEventListener(
+    "click",
+    toggleReview
+);
+
+
+clearResponseBtn.addEventListener(
+    "click",
+    clearResponse
+);
+
+
+submitExamBtn.addEventListener(
+    "click",
+    function(){
+        submitExamination(false);
+    }
+);
+
+
+newExamBtn.addEventListener(
+    "click",
+    function(){
+        sessionStorage.removeItem("bajee_nta_exam_session_v1");
+        clearExamState();
+        window.location.reload();
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+mode.value =
+    "nta";
+
+
+updateSummary();
+
+
+/* =========================================================
+   SESSION RECOVERY
+========================================================= */
+
+const existingSession =
+    loadSavedSession();
+
+
+if(existingSession){
+
+    activeSession =
+        existingSession;
+
+
+    sessionId.textContent =
+        existingSession.sessionId;
+
+
+    sessionPaper.textContent =
+        existingSession.paperLabel;
+
+
+    sessionMessage.textContent =
+
+        existingSession.questionCount +
+
+        " questions • " +
+
+        existingSession.durationMinutes +
+
+        " minutes • NTA Exam Mode";
+
+
+    sessionSection.classList.remove(
+        "d-none"
+    );
+
+
+    startExamBtn.disabled =
+        true;
+
+
+    if(
+        existingSession.status ===
+        "in_progress"
+    ){
+
+        statusMessage.textContent =
+            "An active NTA examination session is available. Click Enter Examination to resume it.";
+
+        sessionStatus.textContent =
+            "IN PROGRESS";
+
+        sessionStatus.className =
+            "fw-bold text-primary";
+
+    }
+
+    else if(
+        existingSession.status ===
+        "submitted"
+    ){
+
+        statusMessage.textContent =
+            "This examination has already been submitted. Click Enter Examination to reopen the answer review.";
+
+        sessionStatus.textContent =
+            "SUBMITTED";
+
+        sessionStatus.className =
+            "fw-bold text-success";
+
+    }
+
+    else if(
+        existingSession.status ===
+        "time_expired"
+    ){
+
+        statusMessage.textContent =
+            "This examination session has already expired. Start a new examination to continue.";
+
+        enterExamBtn.disabled =
+            true;
+
+        enterExamBtn.textContent =
+            "⏰ Session Expired";
+
+        sessionStatus.textContent =
+            "TIME EXPIRED";
+
+        sessionStatus.className =
+            "fw-bold text-danger";
+
+    }
+
+}
+
+
+/* =========================================================
+   PAGE EXIT SAFETY
+========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    function(){
+
+        /*
+         * The timer is NOT reset here.
+         * The endTime remains in sessionStorage.
+         */
+
+        if(
+            activeSession &&
+            examEndTime
+        ){
+
+            activeSession.endTime =
+                examEndTime;
+
+            saveSession();
+            saveExamState();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

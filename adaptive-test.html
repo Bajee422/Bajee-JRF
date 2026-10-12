@@ -1,0 +1,2714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BAJEE JRF AI - Adaptive Test</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+        :root {
+            --navy: #071a3d;
+            --navy-2: #102e63;
+            --gold: #d4af37;
+            --gold-light: #f4df8a;
+            --text: #172033;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(
+                135deg,
+                var(--navy),
+                var(--navy-2)
+            );
+        }
+
+        .navbar-brand {
+            color: var(--gold-light) !important;
+            font-weight: 700;
+            letter-spacing: .5px;
+        }
+
+        .hero {
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(212,175,55,.18),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    var(--navy),
+                    var(--navy-2)
+                );
+
+            color: white;
+            padding: 40px 0;
+        }
+
+        .hero h1 {
+            font-weight: 800;
+        }
+
+        .gold {
+            color: var(--gold-light);
+        }
+
+        .card {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 5px 18px rgba(0,0,0,.05);
+        }
+
+        .progress {
+            height: 10px;
+            border-radius: 10px;
+        }
+
+        .progress-bar {
+            background: var(--gold);
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 25px;
+        }
+
+        .question-number {
+            color: var(--gold);
+            font-weight: 800;
+        }
+
+        .question-text {
+            font-size: 20px;
+            line-height: 1.5;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .option {
+            display: block;
+            padding: 15px 18px;
+            margin-bottom: 12px;
+            border: 1px solid #dfe3ea;
+            border-radius: 12px;
+            cursor: pointer;
+            background: white;
+            transition: .15s ease;
+        }
+
+        .option:hover {
+            border-color: var(--gold);
+            background: #fffdf5;
+        }
+
+        .option.selected {
+            border: 2px solid var(--gold);
+            background: #fff8d9;
+        }
+
+        .option input {
+            margin-right: 10px;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            border: none;
+            color: #111827;
+            font-weight: 700;
+        }
+
+        .btn-gold:hover {
+            background: #c49f2f;
+            color: #111827;
+        }
+
+        .btn-navy {
+            background: var(--navy);
+            border: none;
+            color: white;
+            font-weight: 700;
+        }
+
+        .btn-navy:hover {
+            background: var(--navy-2);
+            color: white;
+        }
+
+        .result-score {
+            font-size: 58px;
+            font-weight: 900;
+            color: var(--navy);
+        }
+
+        .result-card {
+            text-align: center;
+            padding: 35px;
+        }
+
+        .explanation {
+            background: #f8f9fa;
+            border-left: 4px solid var(--gold);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+        .review-card {
+            border-radius: 14px;
+            padding: 18px;
+            background: white;
+            border: 1px solid var(--border);
+            margin-bottom: 15px;
+        }
+
+        .status-box {
+            border-radius: 12px;
+            padding: 14px 16px;
+            background: #eef4ff;
+            border: 1px solid #cddcff;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--navy);
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .footer {
+            background: var(--navy);
+            color: #dbe4f5;
+            padding: 25px 0;
+            margin-top: 50px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .timer {
+            font-weight: 800;
+            color: var(--navy);
+        }
+
+        .timer.warning {
+            color: #dc3545;
+        }
+
+        .review-correct {
+            border-left: 5px solid #198754;
+        }
+
+        .review-wrong {
+            border-left: 5px solid #dc3545;
+        }
+
+        .review-skipped {
+            border-left: 5px solid #6c757d;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="container">
+
+        <div class="
+            d-flex
+            justify-content-between
+            align-items-center
+            w-100
+        ">
+
+            <a
+                class="navbar-brand"
+                href="index.html"
+            >
+                🎓 BAJEE JRF AI
+            </a>
+
+            <span class="text-light small">
+                Step 8.2 • Adaptive Test Builder
+            </span>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<section class="hero">
+
+    <div class="container">
+
+        <p class="text-uppercase small fw-bold gold mb-2">
+            JRF Adaptive Learning Engine
+        </p>
+
+        <h1>
+            Adaptive Test Builder
+        </h1>
+
+        <p class="lead mb-0">
+            Take a test generated from your adaptive question queue.
+        </p>
+
+    </div>
+
+</section>
+
+
+<main class="container py-4">
+
+
+    <!-- STATUS -->
+
+    <div
+        id="statusBox"
+        class="status-box mb-4"
+    >
+        Loading your adaptive question queue...
+    </div>
+
+
+    <!-- TEST HEADER -->
+
+    <div
+        id="testHeader"
+        class="card p-4 mb-4 hidden"
+    >
+
+        <div class="row g-3 align-items-center">
+
+            <div class="col-md-4">
+
+                <div
+                    id="totalCount"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Adaptive Questions
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div
+                    id="answeredCount"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Answered
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4 text-md-end">
+
+                <div class="timer">
+                    ⏱ <span id="timer">30:00</span>
+                </div>
+
+                <div class="small text-muted">
+                    Practice timer
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="progress mt-4">
+
+            <div
+                id="progressBar"
+                class="progress-bar"
+                role="progressbar"
+                style="width: 0%"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- START SCREEN -->
+
+    <div
+        id="startScreen"
+        class="card p-5 text-center hidden"
+    >
+
+        <h2 class="mb-3">
+            Adaptive Test Ready
+        </h2>
+
+        <p class="text-muted">
+            The test below has been generated from your
+            Step 8.1 adaptive question queue.
+        </p>
+
+        <div
+            id="startSummary"
+            class="alert alert-light border my-4"
+        ></div>
+
+        <button
+            id="startBtn"
+            class="btn btn-gold px-5 py-3"
+        >
+            ▶ Start Adaptive Test
+        </button>
+
+    </div>
+
+
+    <!-- QUESTION AREA -->
+
+    <div
+        id="questionArea"
+        class="hidden"
+    >
+
+        <div
+            id="questionCard"
+            class="question-card mb-4"
+        ></div>
+
+
+        <div class="
+            d-flex
+            justify-content-between
+            gap-2
+            flex-wrap
+        ">
+
+            <button
+                id="previousBtn"
+                class="btn btn-outline-secondary"
+            >
+                ← Previous
+            </button>
+
+
+            <button
+                id="nextBtn"
+                class="btn btn-navy"
+            >
+                Next →
+            </button>
+
+
+            <button
+                id="submitBtn"
+                class="btn btn-gold hidden"
+            >
+                ✓ Submit Test
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESULT AREA -->
+
+    <div
+        id="resultArea"
+        class="hidden"
+    >
+
+        <div class="card result-card mb-4">
+
+            <div class="small text-uppercase text-muted fw-bold">
+                Adaptive Test Result
+            </div>
+
+            <div
+                id="resultScore"
+                class="result-score"
+            >
+                0%
+            </div>
+
+            <h4 id="resultMessage">
+                Test completed
+            </h4>
+
+            <p
+                id="resultSummary"
+                class="text-muted"
+            ></p>
+
+
+            <div class="row g-3 mt-3">
+
+                <div class="col-md-4">
+
+                    <div class="card p-3">
+
+                        <div
+                            id="resultCorrect"
+                            class="stat-number"
+                        >
+                            0
+                        </div>
+
+                        <div class="stat-label">
+                            Correct
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="card p-3">
+
+                        <div
+                            id="resultWrong"
+                            class="stat-number"
+                        >
+                            0
+                        </div>
+
+                        <div class="stat-label">
+                            Wrong
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="card p-3">
+
+                        <div class="card p-3">
+
+                            <div
+                                id="resultSkipped"
+                                class="stat-number"
+                            >
+                                0
+                            </div>
+
+                            <div class="stat-label">
+                                Skipped
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card p-4">
+
+            <h3 class="mb-4">
+                Question Review
+            </h3>
+
+            <div id="reviewContainer"></div>
+
+        </div>
+
+
+        <div class="card p-4 mt-4">
+
+            <h3 class="mb-3">
+                Adaptive Test Saved
+            </h3>
+
+            <p class="text-muted">
+                This result is stored separately from the existing
+                Test Engine while Step 8.2 is being validated.
+            </p>
+
+            <div
+                id="saveStatus"
+                class="alert alert-success mb-0"
+            >
+                Result saved successfully.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- EMPTY QUEUE -->
+
+    <div
+        id="emptyScreen"
+        class="card p-5 text-center hidden"
+    >
+
+        <h3>
+            No Adaptive Queue Found
+        </h3>
+
+        <p class="text-muted">
+            Step 8.1 has not generated an adaptive queue yet.
+        </p>
+
+        <a
+            href="adaptive-selection.html"
+            class="btn btn-gold"
+        >
+            Go to Step 8.1
+        </a>
+
+    </div>
+
+
+    <!-- TECHNICAL STATUS -->
+
+    <div class="card p-4 mt-4">
+
+        <h4 class="mb-3">
+            Step 8.2 Technical Status
+        </h4>
+
+        <div class="table-responsive">
+
+            <table class="table table-sm">
+
+                <tbody>
+
+                    <tr>
+                        <td>
+                            <strong>Adaptive Queue</strong>
+                        </td>
+
+                        <td id="queueStatus">
+                            Checking...
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <strong>Question Builder</strong>
+                        </td>
+
+                        <td id="builderStatus">
+                            Checking...
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <strong>Answer Tracking</strong>
+                        </td>
+
+                        <td id="answerStatus">
+                            Checking...
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <strong>Scoring</strong>
+                        </td>
+
+                        <td id="scoreStatus">
+                            Checking...
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <strong>AI API</strong>
+                        </td>
+
+                        <td>
+                            <span class="badge bg-secondary">
+                                Not used in Step 8.2
+                            </span>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container text-center">
+
+        <strong>
+            BAJEE JRF AI
+        </strong>
+
+        <div class="small mt-1">
+            Step 8.2 — Adaptive Test Builder
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+/*
+=================================================================
+BAJEE JRF AI
+STEP 8.2 — ADAPTIVE TEST BUILDER
+=================================================================
+
+ACTUAL PYQ DATABASE STRUCTURE:
+
+{
+    "id": "...",
+    "question": "...",
+
+    "options": {
+        "A": "...",
+        "B": "...",
+        "C": "...",
+        "D": "..."
+    },
+
+    "correct_answer": "A",
+    "answer_text": "...",
+    "explanation": "..."
+}
+
+INPUT:
+    bajee_jrf_ai_adaptive_queue_v1
+
+PYQ:
+    data/pyqs/pyq-database.json
+
+OUTPUT:
+    bajee_jrf_ai_adaptive_test_history_v1
+
+IMPORTANT:
+    This remains isolated from the existing Test Engine.
+=================================================================
+*/
+
+
+const ADAPTIVE_QUEUE_KEY =
+    "bajee_jrf_ai_adaptive_queue_v1";
+
+
+const ADAPTIVE_TEST_HISTORY_KEY =
+    "bajee_jrf_ai_adaptive_test_history_v1";
+
+
+let adaptiveQueue = [];
+
+let questions = [];
+
+let currentQuestion = 0;
+
+let answers = {};
+
+let testStarted = false;
+
+let testFinished = false;
+
+let timerSeconds = 30 * 60;
+
+let timerInterval = null;
+
+let testStartTime = null;
+
+let testEndTime = null;
+
+
+/*
+===============================================================
+DOM
+===============================================================
+*/
+
+const statusBox =
+    document.getElementById("statusBox");
+
+const testHeader =
+    document.getElementById("testHeader");
+
+const startScreen =
+    document.getElementById("startScreen");
+
+const questionArea =
+    document.getElementById("questionArea");
+
+const questionCard =
+    document.getElementById("questionCard");
+
+const resultArea =
+    document.getElementById("resultArea");
+
+const emptyScreen =
+    document.getElementById("emptyScreen");
+
+const totalCount =
+    document.getElementById("totalCount");
+
+const answeredCount =
+    document.getElementById("answeredCount");
+
+const timer =
+    document.getElementById("timer");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const previousBtn =
+    document.getElementById("previousBtn");
+
+const nextBtn =
+    document.getElementById("nextBtn");
+
+const submitBtn =
+    document.getElementById("submitBtn");
+
+
+/*
+===============================================================
+LOAD ADAPTIVE QUEUE
+===============================================================
+*/
+
+function loadAdaptiveQueue() {
+
+    try {
+
+        const raw =
+            localStorage.getItem(
+                ADAPTIVE_QUEUE_KEY
+            );
+
+
+        if (!raw) {
+
+            showEmptyQueue();
+
+            return;
+
+        }
+
+
+        const parsed =
+            JSON.parse(raw);
+
+
+        if (
+            !parsed ||
+            !Array.isArray(parsed.questions) ||
+            !parsed.questions.length
+        ) {
+
+            showEmptyQueue();
+
+            return;
+
+        }
+
+
+        adaptiveQueue =
+            parsed.questions;
+
+
+        loadQuestions();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showError(
+            "Queue error: " +
+            error.message
+        );
+
+    }
+
+}
+
+
+/*
+===============================================================
+LOAD PYQ DATABASE
+===============================================================
+*/
+
+async function loadQuestions() {
+
+    try {
+
+        const response =
+            await fetch(
+                "data/pyqs/pyq-database.json"
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "PYQ database could not be loaded."
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const database =
+            Array.isArray(data)
+                ? data
+                : Array.isArray(data.questions)
+                    ? data.questions
+                    : [];
+
+
+        /*
+        Match Step 8.1 question IDs with
+        actual PYQ records.
+        */
+
+        questions =
+            adaptiveQueue
+                .map(item => {
+
+                    const found =
+                        database.find(
+                            question =>
+                                String(
+                                    question.id
+                                ) === String(
+                                    item.question_id
+                                )
+                        );
+
+
+                    if (!found) {
+
+                        return null;
+
+                    }
+
+
+                    return {
+
+                        ...found,
+
+                        adaptiveScore:
+                            item.score ?? 0,
+
+                        adaptiveReasons:
+                            Array.isArray(
+                                item.reasons
+                            )
+                                ? item.reasons
+                                : [],
+
+                        adaptiveEntities:
+                            Array.isArray(
+                                item.entities
+                            )
+                                ? item.entities
+                                : []
+
+                    };
+
+                })
+                .filter(Boolean);
+
+
+        if (!questions.length) {
+
+            throw new Error(
+                "The adaptive queue exists, but no matching PYQ records were found."
+            );
+
+        }
+
+
+        totalCount.textContent =
+            questions.length;
+
+
+        document.getElementById(
+            "queueStatus"
+        ).innerHTML =
+            '<span class="badge bg-success">' +
+            questions.length +
+            " questions loaded</span>";
+
+
+        document.getElementById(
+            "builderStatus"
+        ).innerHTML =
+            '<span class="badge bg-success">Ready</span>';
+
+
+        document.getElementById(
+            "answerStatus"
+        ).innerHTML =
+            '<span class="badge bg-secondary">Waiting</span>';
+
+
+        document.getElementById(
+            "scoreStatus"
+        ).innerHTML =
+            '<span class="badge bg-secondary">Waiting</span>';
+
+
+        statusBox.className =
+            "status-box mb-4";
+
+
+        statusBox.innerHTML =
+            "<strong>Adaptive test ready.</strong> " +
+            questions.length +
+            " question(s) were imported from Step 8.1.";
+
+
+        showStartScreen();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showError(
+            "Question loading error: " +
+            error.message
+        );
+
+
+        document.getElementById(
+            "queueStatus"
+        ).innerHTML =
+            '<span class="badge bg-danger">Failed</span>';
+
+
+        document.getElementById(
+            "builderStatus"
+        ).innerHTML =
+            '<span class="badge bg-danger">Not ready</span>';
+
+    }
+
+}
+
+
+/*
+===============================================================
+START SCREEN
+===============================================================
+*/
+
+function showStartScreen() {
+
+    startScreen.classList.remove(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "startSummary"
+    ).innerHTML = `
+
+        <strong>
+            ${questions.length}
+            adaptive question(s)
+        </strong>
+
+        <br>
+
+        Questions were selected by the
+        Step 8.1 adaptive engine using your
+        existing performance data.
+
+    `;
+
+}
+
+
+/*
+===============================================================
+START TEST
+===============================================================
+*/
+
+function startTest() {
+
+    testStarted = true;
+
+    testStartTime =
+        new Date().toISOString();
+
+
+    startScreen.classList.add(
+        "hidden"
+    );
+
+
+    testHeader.classList.remove(
+        "hidden"
+    );
+
+
+    questionArea.classList.remove(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "answerStatus"
+    ).innerHTML =
+        '<span class="badge bg-success">Active</span>';
+
+
+    renderQuestion();
+
+    startTimer();
+
+}
+
+
+/*
+===============================================================
+RENDER QUESTION
+===============================================================
+*/
+
+function renderQuestion() {
+
+    const question =
+        questions[currentQuestion];
+
+
+    if (!question) {
+
+        return;
+
+    }
+
+
+    const questionId =
+        String(question.id);
+
+
+    const selected =
+        answers[questionId];
+
+
+    const options =
+        getOptions(question);
+
+
+    const unit =
+        getUnit(question);
+
+
+    questionCard.innerHTML = `
+
+        <div class="
+            d-flex
+            justify-content-between
+            align-items-start
+            mb-3
+        ">
+
+            <div>
+
+                <span class="question-number">
+                    Question
+                    ${currentQuestion + 1}
+                    of
+                    ${questions.length}
+                </span>
+
+            </div>
+
+            <div>
+
+                <span class="badge bg-dark">
+                    Adaptive Score:
+                    ${question.adaptiveScore}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="small text-muted mb-3">
+
+            ${escapeHtml(unit || "Paper II")}
+
+            ${
+                question.year
+                    ? `
+                        •
+                        ${escapeHtml(
+                            question.year
+                        )}
+                      `
+                    : ""
+            }
+
+            ${
+                question.session
+                    ? `
+                        •
+                        ${escapeHtml(
+                            question.session
+                        )}
+                      `
+                    : ""
+            }
+
+        </div>
+
+
+        <div class="question-text mb-4">
+
+            ${escapeHtml(
+                question.question ||
+                question.text ||
+                "Question text unavailable"
+            )}
+
+        </div>
+
+
+        <div>
+
+            ${
+                options.length
+                    ? options
+                        .map(
+                            option => {
+
+                                const value =
+                                    option.key;
+
+
+                                const checked =
+                                    selected !== undefined &&
+                                    String(
+                                        selected
+                                    ) === String(
+                                        value
+                                    );
+
+
+                                return `
+
+                                    <label class="
+                                        option
+                                        ${
+                                            checked
+                                                ? "selected"
+                                                : ""
+                                        }
+                                    ">
+
+                                        <input
+                                            type="radio"
+                                            name="answer"
+                                            value="${escapeHtml(
+                                                value
+                                            )}"
+                                            ${
+                                                checked
+                                                    ? "checked"
+                                                    : ""
+                                            }
+                                        >
+
+                                        <strong>
+                                            ${escapeHtml(
+                                                value
+                                            )}.
+                                        </strong>
+
+                                        ${escapeHtml(
+                                            option.text
+                                        )}
+
+                                    </label>
+
+                                `;
+
+                            }
+                        )
+                        .join("")
+                    : `
+                        <div class="alert alert-warning">
+                            No options were found for this question.
+                        </div>
+                      `
+            }
+
+        </div>
+
+
+        <div class="mt-4">
+
+            <div class="small text-muted">
+
+                <strong>
+                    Adaptive reason:
+                </strong>
+
+                ${escapeHtml(
+                    question.adaptiveReasons.join(
+                        " • "
+                    ) ||
+                    "Selected for adaptive coverage."
+                )}
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    /*
+    ------------------------------------------------------------
+    ANSWER LISTENERS
+    ------------------------------------------------------------
+    */
+
+    questionCard
+        .querySelectorAll(
+            'input[name="answer"]'
+        )
+        .forEach(input => {
+
+            input.addEventListener(
+                "change",
+                function() {
+
+                    answers[
+                        questionId
+                    ] =
+                        this.value;
+
+
+                    questionCard
+                        .querySelectorAll(
+                            ".option"
+                        )
+                        .forEach(
+                            option =>
+                                option.classList.remove(
+                                    "selected"
+                                )
+                        );
+
+
+                    this.closest(
+                        ".option"
+                    )
+                    ?.classList.add(
+                        "selected"
+                    );
+
+
+                    updateAnswerState();
+
+                    updateNavigation();
+
+                }
+            );
+
+        });
+
+
+    updateNavigation();
+
+    updateProgress();
+
+}
+
+
+/*
+===============================================================
+IMPORTANT: OPTIONS PARSER
+===============================================================
+
+YOUR ACTUAL DATABASE:
+
+"options": {
+    "A": "John Dryden",
+    "B": "Samuel Johnson",
+    "C": "Alexander Pope",
+    "D": "William Wordsworth"
+}
+
+Therefore Object.entries() is required.
+===============================================================
+*/
+
+function getOptions(question) {
+
+    if (
+        question &&
+        question.options &&
+        typeof question.options === "object" &&
+        !Array.isArray(question.options)
+    ) {
+
+        return Object.entries(
+            question.options
+        ).map(
+            ([key, text]) => ({
+
+                key: key,
+
+                text: text
+
+            })
+        );
+
+    }
+
+
+    /*
+    Backup support for array-based
+    future PYQ records.
+    */
+
+    if (
+        Array.isArray(
+            question.options
+        )
+    ) {
+
+        return question.options.map(
+            (option, index) => ({
+
+                key:
+                    String.fromCharCode(
+                        65 + index
+                    ),
+
+                text:
+                    typeof option === "string"
+                        ? option
+                        : (
+                            option?.text ??
+                            option?.label ??
+                            option?.value ??
+                            ""
+                        )
+
+            })
+        );
+
+    }
+
+
+    /*
+    Backup support for choices.
+    */
+
+    if (
+        Array.isArray(
+            question.choices
+        )
+    ) {
+
+        return question.choices.map(
+            (option, index) => ({
+
+                key:
+                    String.fromCharCode(
+                        65 + index
+                    ),
+
+                text:
+                    typeof option === "string"
+                        ? option
+                        : (
+                            option?.text ??
+                            option?.label ??
+                            option?.value ??
+                            ""
+                        )
+
+            })
+        );
+
+    }
+
+
+    return [];
+
+}
+
+
+/*
+===============================================================
+UNIT
+===============================================================
+*/
+
+function getUnit(question) {
+
+    if (
+        question &&
+        question.unit
+    ) {
+
+        if (
+            Array.isArray(
+                question.unit
+            )
+        ) {
+
+            return question.unit.join(
+                ", "
+            );
+
+        }
+
+        return String(
+            question.unit
+        );
+
+    }
+
+
+    return "";
+
+}
+
+
+/*
+===============================================================
+ANSWER STATE
+===============================================================
+*/
+
+function updateAnswerState() {
+
+    const count =
+        Object.keys(
+            answers
+        ).length;
+
+
+    answeredCount.textContent =
+        count;
+
+
+    document.getElementById(
+        "answerStatus"
+    ).innerHTML =
+        '<span class="badge bg-success">' +
+        count +
+        " answered</span>";
+
+}
+
+
+/*
+===============================================================
+PROGRESS
+===============================================================
+*/
+
+function updateProgress() {
+
+    const percent =
+        questions.length
+            ? (
+                (
+                    currentQuestion + 1
+                ) /
+                questions.length
+            ) * 100
+            : 0;
+
+
+    progressBar.style.width =
+        percent + "%";
+
+}
+
+
+/*
+===============================================================
+NAVIGATION
+===============================================================
+*/
+
+function updateNavigation() {
+
+    previousBtn.disabled =
+        currentQuestion === 0;
+
+
+    const isLast =
+        currentQuestion ===
+        questions.length - 1;
+
+
+    nextBtn.classList.toggle(
+        "hidden",
+        isLast
+    );
+
+
+    submitBtn.classList.toggle(
+        "hidden",
+        !isLast
+    );
+
+}
+
+
+/*
+===============================================================
+NEXT
+===============================================================
+*/
+
+function nextQuestion() {
+
+    if (
+        currentQuestion <
+        questions.length - 1
+    ) {
+
+        currentQuestion++;
+
+        renderQuestion();
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+}
+
+
+/*
+===============================================================
+PREVIOUS
+===============================================================
+*/
+
+function previousQuestion() {
+
+    if (
+        currentQuestion > 0
+    ) {
+
+        currentQuestion--;
+
+        renderQuestion();
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+}
+
+
+/*
+===============================================================
+GET CORRECT ANSWER
+===============================================================
+*/
+
+function getCorrectAnswer(question) {
+
+    return (
+        question.correct_answer ??
+        question.correctAnswer ??
+        question.answer ??
+        question.correct ??
+        null
+    );
+
+}
+
+
+/*
+===============================================================
+CHECK ANSWER
+
+The database uses:
+
+correct_answer: "A"
+
+User selection also stores:
+
+"A"
+
+Therefore this comparison is direct.
+===============================================================
+*/
+
+function isCorrectAnswer(
+    question,
+    selected
+) {
+
+    if (
+        selected === undefined ||
+        selected === null
+    ) {
+
+        return false;
+
+    }
+
+
+    const correct =
+        getCorrectAnswer(
+            question
+        );
+
+
+    if (
+        correct === null ||
+        correct === undefined
+    ) {
+
+        return false;
+
+    }
+
+
+    return (
+        normalize(
+            selected
+        ) ===
+        normalize(
+            correct
+        )
+    );
+
+}
+
+
+/*
+===============================================================
+SUBMIT
+===============================================================
+*/
+
+function submitTest() {
+
+    if (
+        testFinished
+    ) {
+
+        return;
+
+    }
+
+
+    const unanswered =
+        questions.filter(
+            question =>
+                answers[
+                    String(question.id)
+                ] === undefined
+        );
+
+
+    if (
+        unanswered.length > 0
+    ) {
+
+        const confirmSubmit =
+            confirm(
+                unanswered.length +
+                " question(s) are unanswered.\n\n" +
+                "Do you want to submit anyway?"
+            );
+
+
+        if (!confirmSubmit) {
+
+            return;
+
+        }
+
+    }
+
+
+    testFinished = true;
+
+    testEndTime =
+        new Date().toISOString();
+
+
+    stopTimer();
+
+
+    const result =
+        calculateResult();
+
+
+    saveResult(
+        result
+    );
+
+
+    showResult(
+        result
+    );
+
+}
+
+
+/*
+===============================================================
+CALCULATE RESULT
+===============================================================
+*/
+
+function calculateResult() {
+
+    let correct = 0;
+
+    let wrong = 0;
+
+    let skipped = 0;
+
+
+    const questionResults =
+        questions.map(
+            question => {
+
+                const id =
+                    String(
+                        question.id
+                    );
+
+
+                const selected =
+                    answers[id];
+
+
+                const correctAnswer =
+                    getCorrectAnswer(
+                        question
+                    );
+
+
+                if (
+                    selected === undefined
+                ) {
+
+                    skipped++;
+
+
+                    return {
+
+                        question_id:
+                            question.id,
+
+                        selected_answer:
+                            null,
+
+                        correct_answer:
+                            correctAnswer,
+
+                        is_correct:
+                            false,
+
+                        status:
+                            "skipped"
+
+                    };
+
+                }
+
+
+                const correctResult =
+                    isCorrectAnswer(
+                        question,
+                        selected
+                    );
+
+
+                if (
+                    correctResult
+                ) {
+
+                    correct++;
+
+                } else {
+
+                    wrong++;
+
+                }
+
+
+                return {
+
+                    question_id:
+                        question.id,
+
+                    selected_answer:
+                        selected,
+
+                    correct_answer:
+                        correctAnswer,
+
+                    is_correct:
+                        correctResult,
+
+                    status:
+                        correctResult
+                            ? "correct"
+                            : "wrong"
+
+                };
+
+            }
+        );
+
+
+    const total =
+        questions.length;
+
+
+    const percentage =
+        total
+            ? Math.round(
+                (
+                    correct /
+                    total
+                ) * 100
+            )
+            : 0;
+
+
+    return {
+
+        test_id:
+            "ADAPTIVE-" +
+            Date.now(),
+
+        type:
+            "adaptive",
+
+        version:
+            1,
+
+        started_at:
+            testStartTime,
+
+        completed_at:
+            testEndTime,
+
+        total_questions:
+            total,
+
+        correct,
+
+        wrong,
+
+        skipped,
+
+        percentage,
+
+        question_results:
+            questionResults
+
+    };
+
+}
+
+
+/*
+===============================================================
+SAVE RESULT
+===============================================================
+*/
+
+function saveResult(result) {
+
+    try {
+
+        const existingRaw =
+            localStorage.getItem(
+                ADAPTIVE_TEST_HISTORY_KEY
+            );
+
+
+        let history = [];
+
+
+        if (existingRaw) {
+
+            const parsed =
+                JSON.parse(
+                    existingRaw
+                );
+
+
+            if (
+                Array.isArray(
+                    parsed
+                )
+            ) {
+
+                history =
+                    parsed;
+
+            }
+
+        }
+
+
+        history.push(
+            result
+        );
+
+
+        localStorage.setItem(
+            ADAPTIVE_TEST_HISTORY_KEY,
+            JSON.stringify(
+                history
+            )
+        );
+
+
+        document.getElementById(
+            "scoreStatus"
+        ).innerHTML =
+            '<span class="badge bg-success">Saved</span>';
+
+
+        document.getElementById(
+            "saveStatus"
+        ).textContent =
+            "Adaptive test result saved successfully.";
+
+    } catch (error) {
+
+        console.error(
+            "Save error:",
+            error
+        );
+
+
+        document.getElementById(
+            "scoreStatus"
+        ).innerHTML =
+            '<span class="badge bg-danger">Save failed</span>';
+
+
+        document.getElementById(
+            "saveStatus"
+        ).className =
+            "alert alert-danger mb-0";
+
+
+        document.getElementById(
+            "saveStatus"
+        ).textContent =
+            "The test was completed, but the result could not be saved.";
+
+    }
+
+}
+
+
+/*
+===============================================================
+SHOW RESULT
+===============================================================
+*/
+
+function showResult(result) {
+
+    questionArea.classList.add(
+        "hidden"
+    );
+
+
+    testHeader.classList.add(
+        "hidden"
+    );
+
+
+    resultArea.classList.remove(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "resultScore"
+    ).textContent =
+        result.percentage +
+        "%";
+
+
+    document.getElementById(
+        "resultCorrect"
+    ).textContent =
+        result.correct;
+
+
+    document.getElementById(
+        "resultWrong"
+    ).textContent =
+        result.wrong;
+
+
+    document.getElementById(
+        "resultSkipped"
+    ).textContent =
+        result.skipped;
+
+
+    document.getElementById(
+        "resultSummary"
+    ).textContent =
+        result.correct +
+        " correct • " +
+        result.wrong +
+        " wrong • " +
+        result.skipped +
+        " skipped out of " +
+        result.total_questions +
+        " questions.";
+
+
+    let message =
+        "Test completed.";
+
+
+    if (
+        result.percentage >= 85
+    ) {
+
+        message =
+            "Strong performance.";
+
+    } else if (
+        result.percentage >= 70
+    ) {
+
+        message =
+            "Good performance. Continue strengthening weak areas.";
+
+    } else if (
+        result.percentage >= 50
+    ) {
+
+        message =
+            "Developing performance. Revision is recommended.";
+
+    } else {
+
+        message =
+            "This test has identified areas that need focused revision.";
+
+    }
+
+
+    document.getElementById(
+        "resultMessage"
+    ).textContent =
+        message;
+
+
+    renderReview(
+        result
+    );
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/*
+===============================================================
+REVIEW
+===============================================================
+*/
+
+function renderReview(result) {
+
+    const container =
+        document.getElementById(
+            "reviewContainer"
+        );
+
+
+    container.innerHTML =
+        questions.map(
+            (question, index) => {
+
+                const resultItem =
+                    result.question_results.find(
+                        item =>
+                            String(
+                                item.question_id
+                            ) ===
+                            String(
+                                question.id
+                            )
+                    );
+
+
+                const selected =
+                    resultItem
+                        ?.selected_answer;
+
+
+                const correct =
+                    resultItem
+                        ?.correct_answer;
+
+
+                const status =
+                    resultItem
+                        ?.status ||
+                    "skipped";
+
+
+                let reviewClass =
+                    "review-skipped";
+
+
+                let badge =
+                    '<span class="badge bg-secondary">Skipped</span>';
+
+
+                if (
+                    status === "correct"
+                ) {
+
+                    reviewClass =
+                        "review-correct";
+
+
+                    badge =
+                        '<span class="badge bg-success">Correct</span>';
+
+                } else if (
+                    status === "wrong"
+                ) {
+
+                    reviewClass =
+                        "review-wrong";
+
+
+                    badge =
+                        '<span class="badge bg-danger">Wrong</span>';
+
+                }
+
+
+                return `
+
+                    <div class="
+                        review-card
+                        ${reviewClass}
+                    ">
+
+                        <div class="mb-2">
+
+                            <strong>
+                                Question ${index + 1}
+                            </strong>
+
+                            <span class="ms-2">
+                                ${badge}
+                            </span>
+
+                        </div>
+
+
+                        <div class="fw-bold mb-3">
+
+                            ${escapeHtml(
+                                question.question ||
+                                question.text ||
+                                ""
+                            )}
+
+                        </div>
+
+
+                        <div class="small mb-2">
+
+                            <strong>
+                                Your answer:
+                            </strong>
+
+                            ${
+                                selected !== undefined &&
+                                selected !== null
+                                    ? escapeHtml(
+                                        getAnswerDisplay(
+                                            question,
+                                            selected
+                                        )
+                                    )
+                                    : "Not answered"
+                            }
+
+                        </div>
+
+
+                        <div class="small">
+
+                            <strong>
+                                Correct answer:
+                            </strong>
+
+                            ${
+                                correct !== null &&
+                                correct !== undefined
+                                    ? escapeHtml(
+                                        getAnswerDisplay(
+                                            question,
+                                            correct
+                                        )
+                                    )
+                                    : "Not available"
+                            }
+
+                        </div>
+
+
+                        ${
+                            question.answer_text
+                                ? `
+                                    <div class="small mt-2">
+
+                                        <strong>
+                                            Answer:
+                                        </strong>
+
+                                        ${escapeHtml(
+                                            question.answer_text
+                                        )}
+
+                                    </div>
+                                  `
+                                : ""
+                        }
+
+
+                        ${
+                            question.explanation
+                                ? `
+                                    <div class="explanation">
+
+                                        <strong>
+                                            Explanation:
+                                        </strong>
+
+                                        ${escapeHtml(
+                                            question.explanation
+                                        )}
+
+                                    </div>
+                                  `
+                                : ""
+                        }
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/*
+===============================================================
+ANSWER DISPLAY
+===============================================================
+*/
+
+function getAnswerDisplay(
+    question,
+    answer
+) {
+
+    const options =
+        getOptions(
+            question
+        );
+
+
+    const option =
+        options.find(
+            item =>
+                normalize(
+                    item.key
+                ) ===
+                normalize(
+                    answer
+                )
+        );
+
+
+    if (
+        option
+    ) {
+
+        return (
+            option.key +
+            ". " +
+            option.text
+        );
+
+    }
+
+
+    /*
+    If answer is already the text,
+    return it safely.
+    */
+
+    return String(
+        answer
+    );
+
+}
+
+
+/*
+===============================================================
+TIMER
+===============================================================
+*/
+
+function startTimer() {
+
+    updateTimerDisplay();
+
+
+    timerInterval =
+        setInterval(
+            () => {
+
+                timerSeconds--;
+
+
+                updateTimerDisplay();
+
+
+                if (
+                    timerSeconds <= 0
+                ) {
+
+                    clearInterval(
+                        timerInterval
+                    );
+
+
+                    alert(
+                        "Time is up. Your adaptive test will now be submitted."
+                    );
+
+
+                    submitTest();
+
+                }
+
+            },
+            1000
+        );
+
+}
+
+
+/*
+===============================================================
+STOP TIMER
+===============================================================
+*/
+
+function stopTimer() {
+
+    if (
+        timerInterval
+    ) {
+
+        clearInterval(
+            timerInterval
+        );
+
+        timerInterval =
+            null;
+
+    }
+
+}
+
+
+/*
+===============================================================
+TIMER DISPLAY
+===============================================================
+*/
+
+function updateTimerDisplay() {
+
+    const minutes =
+        Math.floor(
+            timerSeconds / 60
+        );
+
+
+    const seconds =
+        timerSeconds % 60;
+
+
+    timer.textContent =
+        String(
+            minutes
+        ).padStart(
+            2,
+            "0"
+        ) +
+        ":" +
+        String(
+            seconds
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    timer.classList.toggle(
+        "warning",
+        timerSeconds <= 300
+    );
+
+}
+
+
+/*
+===============================================================
+EMPTY QUEUE
+===============================================================
+*/
+
+function showEmptyQueue() {
+
+    startScreen.classList.add(
+        "hidden"
+    );
+
+
+    emptyScreen.classList.remove(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "queueStatus"
+    ).innerHTML =
+        '<span class="badge bg-warning text-dark">' +
+        "No queue" +
+        "</span>";
+
+
+    statusBox.innerHTML =
+        "<strong>No adaptive queue found.</strong> " +
+        "Generate a queue in Step 8.1 first.";
+
+}
+
+
+/*
+===============================================================
+ERROR
+===============================================================
+*/
+
+function showError(message) {
+
+    statusBox.className =
+        "status-box mb-4 bg-danger-subtle border-danger";
+
+
+    statusBox.innerHTML =
+        "<strong>Error:</strong> " +
+        escapeHtml(
+            message
+        );
+
+}
+
+
+/*
+===============================================================
+NORMALIZE
+===============================================================
+*/
+
+function normalize(value) {
+
+    return String(
+        value ?? ""
+    )
+        .trim()
+        .toLowerCase()
+        .replace(
+            /\s+/g,
+            " "
+        );
+
+}
+
+
+/*
+===============================================================
+ESCAPE HTML
+===============================================================
+*/
+
+function escapeHtml(value) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/*
+===============================================================
+EVENTS
+===============================================================
+*/
+
+document
+    .getElementById("startBtn")
+    .addEventListener(
+        "click",
+        startTest
+    );
+
+
+previousBtn
+    .addEventListener(
+        "click",
+        previousQuestion
+    );
+
+
+nextBtn
+    .addEventListener(
+        "click",
+        nextQuestion
+    );
+
+
+submitBtn
+    .addEventListener(
+        "click",
+        submitTest
+    );
+
+
+/*
+===============================================================
+INITIALIZE
+===============================================================
+*/
+
+loadAdaptiveQueue();
+
+</script>
+
+</body>
+</html>

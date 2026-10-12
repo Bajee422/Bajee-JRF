@@ -1,0 +1,56 @@
+{
+  "paper": "Paper II",
+  "subject": "English",
+  "units": [
+    {
+      "unit": 1,
+      "title": "Drama",
+      "topics": []
+    },
+    {
+      "unit": 2,
+      "title": "Poetry",
+      "topics": []
+    },
+    {
+      "unit": 3,
+      "title": "Fiction, Short Story",
+      "topics": []
+    },
+    {
+      "unit": 4,
+      "title": "Non-Fictional Prose",
+      "topics": []
+    },
+    {
+      "unit": 5,
+      "title": "Language: Basic Concepts, Theories, and Pedagogy. English in Use.",
+      "topics": []
+    },
+    {
+      "unit": 6,
+      "title": "English in India: History, Evolution, and Futures",
+      "topics": []
+    },
+    {
+      "unit": 7,
+      "title": "Cultural Studies",
+      "topics": []
+    },
+    {
+      "unit": 8,
+      "title": "Literary Criticism",
+      "topics": []
+    },
+    {
+      "unit": 9,
+      "title": "Literary Theory Post World War II",
+      "topics": []
+    },
+    {
+      "unit": 10,
+      "title": "Research Methods and Materials in English",
+      "topics": []
+    }
+  ]
+}

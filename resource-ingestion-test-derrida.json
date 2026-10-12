@@ -1,0 +1,68 @@
+{
+  "id": "resource-derrida-001",
+  "title": "Jacques Derrida — Knowledge Resource",
+  "type": "Notes",
+  "version": "1.0",
+  "academic": {
+    "paper": "paper2",
+    "paperName": "Paper II — English",
+    "subject": "English Literature",
+    "unit": "Unit IX",
+    "topic": "Jacques Derrida",
+    "subtopic": "",
+    "entity_ids": [
+      "derrida"
+    ],
+    "concept_ids": [
+      "deconstruction",
+      "differance",
+      "logocentrism"
+    ]
+  },
+  "description": "Study resource connected to Jacques Derrida and the related Unit IX knowledge graph concepts.",
+  "file": {
+    "name": "",
+    "extension": "",
+    "mime_type": "",
+    "size_bytes": 0,
+    "path": "",
+    "storage_provider": ""
+  },
+  "source": {
+    "type": "BAJEE JRF AI",
+    "name": "BAJEE JRF AI",
+    "url": "",
+    "original_name": "",
+    "original_url": ""
+  },
+  "availability": {
+    "available": true,
+    "access_mode": "local",
+    "status": "ready"
+  },
+  "processing": {
+    "text_extracted": false,
+    "transcript_available": false,
+    "notes_generated": true,
+    "concepts_mapped": true,
+    "pyqs_mapped": false
+  },
+  "relationships": {
+    "entity_ids": [
+      "derrida"
+    ],
+    "concept_ids": [
+      "deconstruction",
+      "differance",
+      "logocentrism"
+    ],
+    "pyq_ids": [],
+    "related_resource_ids": []
+  },
+  "audit": {
+    "created_at": "",
+    "updated_at": "",
+    "created_by": "user",
+    "metadata_source": "manual"
+  }
+}

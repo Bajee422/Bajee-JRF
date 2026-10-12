@@ -1,0 +1,884 @@
+{
+  "project": "BAJEE JRF AI",
+  "step": "7.8",
+  "title": "Literary Criticism Knowledge Expansion",
+  "zero_cost": true,
+  "description": "JRF-oriented knowledge entities for UGC NET English Paper II Unit VIII - Literary Criticism.",
+  "unit": "Unit VIII",
+  "entities": [
+    {
+      "id": "plato",
+      "name": "Plato",
+      "type": "Philosopher and Literary Thinker",
+      "period": "Classical Greece",
+      "works": [
+        "The Republic",
+        "Ion"
+      ],
+      "years": [
+        "The Republic: c. 380 BCE",
+        "Ion: c. 4th century BCE"
+      ],
+      "concepts": [
+        "mimesis",
+        "imitation",
+        "poetry",
+        "inspiration",
+        "poet",
+        "ideal state"
+      ],
+      "units": [
+        "Unit VIII"
+      ],
+      "relatedEntities": [
+        "Aristotle",
+        "Horace",
+        "Longinus"
+      ],
+      "description": "Plato discusses poetry primarily through imitation and its relationship to truth, knowledge, morality, education, and the ideal state."
+    },
+    {
+      "id": "aristotle",
+      "name": "Aristotle",
+      "type": "Philosopher and Literary Critic",
+      "period": "Classical Greece",
+      "works": [
+        "Poetics"
+      ],
+      "years": [
+        "Poetics: c. 335 BCE"
+      ],
+      "concepts": [
+        "mimesis",
+        "tragedy",
+        "plot",
+        "character",
+        "thought",
+        "diction",
+        "melody",
+        "spectacle",
+        "catharsis",
+        "hamartia",
+        "peripeteia",
+        "anagnorisis",
+        "unity of action"
+      ],
+      "units": [
+        "Unit VIII",
+        "Unit I"
+      ],
+      "relatedEntities": [
+        "Plato",
+        "Horace",
+        "Longinus"
+      ],
+      "description": "Aristotle's Poetics provides a systematic account of tragedy, emphasizing plot, imitation, catharsis, character, recognition, reversal, and unity of action."
+    },
+    {
+      "id": "horace",
+      "name": "Horace",
+      "type": "Roman Poet and Critic",
+      "period": "Augustan Rome",
+      "works": [
+        "Ars Poetica"
+      ],
+      "years": [
+        "Ars Poetica: c. 19 BCE"
+      ],
+      "concepts": [
+        "decorum",
+        "dulce et utile",
+        "unity",
+        "craft",
+        "propriety",
+        "poetic rules"
+      ],
+      "units": [
+        "Unit VIII"
+      ],
+      "relatedEntities": [
+        "Aristotle",
+        "Longinus",
+        "John Dryden"
+      ],
+      "description": "Horace's Ars Poetica discusses poetic craft, decorum, propriety, artistic discipline, and the principle that poetry should both delight and instruct."
+    },
+    {
+      "id": "longinus",
+      "name": "Longinus",
+      "type": "Classical Literary Critic",
+      "period": "Ancient Greece or Rome",
+      "works": [
+        "On the Sublime"
+      ],
+      "years": [
+        "On the Sublime: date uncertain, traditionally associated with antiquity"
+      ],
+      "concepts": [
+        "sublime",
+        "grandeur",
+        "transport",
+        "elevated thought",
+        "passionate language",
+        "rhetoric"
+      ],
+      "units": [
+        "Unit VIII"
+      ],
+      "relatedEntities": [
+        "Plato",
+        "Aristotle",
+        "Edmund Burke"
+      ],
+      "description": "On the Sublime explores the qualities of elevated discourse and language that produce transport, intensity, and powerful emotional effect."
+    },
+    {
+      "id": "dante",
+      "name": "Dante Alighieri",
+      "type": "Poet and Literary Thinker",
+      "period": "Medieval",
+      "works": [
+        "De vulgari eloquentia",
+        "Letter to Can Grande"
+      ],
+      "years": [
+        "De vulgari eloquentia: c. 1303-1305",
+        "Letter to Can Grande: date disputed"
+      ],
+      "concepts": [
+        "vernacular",
+        "allegory",
+        "poetic language",
+        "literary interpretation",
+        "four levels of meaning"
+      ],
+      "units": [
+        "Unit VIII"
+      ],
+      "relatedEntities": [
+        "Aristotle",
+        "Geoffrey Chaucer",
+        "Sir Philip Sidney"
+      ],
+      "description": "Dante contributed to literary theory through his defence of vernacular language, discussion of poetic style, and ideas about multiple levels of interpretation."
+    },
+    {
+      "id": "sir-philip-sidney",
+      "name": "Sir Philip Sidney",
+      "type": "Renaissance Literary Critic",
+      "period": "Elizabethan",
+      "works": [
+        "An Apology for Poetry",
+        "The Defence of Poesy"
+      ],
+      "years": [
+        "An Apology for Poetry: 1595"
+      ],
+      "concepts": [
+        "defence of poetry",
+        "poetry as imitation",
+        "poet as maker",
+        "moral instruction",
+        "delight",
+        "poetic imagination"
+      ],
+      "units": [
+        "Unit VIII",
+        "Unit II"
+      ],
+      "relatedEntities": [
+        "Plato",
+        "Aristotle",
+        "Stephen Gosson"
+      ],
+      "description": "Sidney defends poetry against attacks on its moral and social value, presenting poetry as an imaginative form capable of teaching and delighting."
+    },
+    {
+      "id": "ben-jonson",
+      "name": "Ben Jonson",
+      "type": "Renaissance Playwright and Literary Thinker",
+      "period": "Elizabethan / Jacobean",
+      "works": [
+        "Timber, or Discoveries",
+        "Prefatory writings"
+      ],
+      "years": [
+        "Timber, or Discoveries: published 1640"
+      ],
+      "concepts": [
+        "classical rules",
+        "dramatic art",
+        "learning",
+        "imitation",
+        "craft",
+        "judgement"
+      ],
+      "units": [
+        "Unit VIII",
+        "Unit I"
+      ],
+      "relatedEntities": [
+        "William Shakespeare",
+        "John Dryden",
+        "Aristotle"
+      ],
+      "description": "Jonson's critical writings reflect classical learning, dramatic discipline, imitation, artistic craft, and attention to judgement."
+    },
+    {
+      "id": "john-dryden",
+      "name": "John Dryden",
+      "type": "Restoration Literary Critic",
+      "period": "Restoration",
+      "works": [
+        "An Essay of Dramatic Poesy"
+      ],
+      "years": [
+        "An Essay of Dramatic Poesy: 1668"
+      ],
+      "concepts": [
+        "dramatic criticism",
+        "ancients and moderns",
+        "French drama",
+        "English drama",
+        "three unities",
+        "nature",
+        "dramatic rules"
+      ],
+      "units": [
+        "Unit VIII",
+        "Unit I"
+      ],
+      "relatedEntities": [
+        "Ben Jonson",
+        "William Shakespeare",
+        "Aristotle"
+      ],
+      "description": "Dryden's An Essay of Dramatic Poesy presents a dialogue on drama and compares ancient, French, and English dramatic traditions."
+    },
+    {
+      "id": "samuel-johnson",
+      "name": "Samuel Johnson",
+      "type": "Eighteenth-Century Literary Critic",
+      "period": "Eighteenth Century",
+      "works": [
+        "Preface to Shakespeare",
+        "Lives of the Poets"
+      ],
+      "years": [
+        "Preface to Shakespeare: 1765",
+        "Lives of the Poets: 1779-1781"
+      ],
+      "concepts": [
+        "Shakespearean criticism",
+        "nature",
+        "universality",
+        "judgement",
+        "neoclassicism",
+        "metaphysical poetry"
+      ],
+      "units": [
+        "Unit VIII",
+        "Unit II"
+      ],
+      "relatedEntities": [
+        "John Dryden",
+        "William Shakespeare",
+        "T. S. Eliot"
+      ],
+      "description": "Johnson's criticism combines neoclassical judgement with an emphasis on nature, universality, moral insight, and the practical effects of literature."
+    },
+    {
+      "id": "william-wordsworth",
+      "name": "William Wordsworth",
+      "type": "Romantic Poet and Critic",
+      "period": "Romantic",
+      "works": [
+        "Preface to Lyrical Ballads"
+      ],
+      "years": [
+        "Preface to Lyrical Ballads: 1800",
+        "Expanded Preface: 1802"
+      ],
+      "concepts": [
+        "common language",
+        "common life",
+        "emotion",
+        "recollection",
+        "poetic diction",
+        "emotion recollected in tranquillity",
+        "spontaneous overflow"
+      ],
+      "units": [
+        "Unit VIII",
+        "Unit II"
+      ],
+      "relatedEntities": [
+        "S. T. Coleridge",
+        "Samuel Taylor Coleridge",
+        "Matthew Arnold"
+      ],
+      "description": "Wordsworth's Preface presents a Romantic theory of poetry centred on ordinary life, emotional experience, imagination, and accessible poetic language."
+    },
+    {
+      "id": "samuel-taylor-coleridge",
+      "name": "S. T. Coleridge",
+      "type": "Romantic Poet and Critic",
+      "period": "Romantic",
+      "works": [
+        "Biographia Literaria"
+      ],
+      "years": [
+        "Biographia Literaria: 1817"
+      ],
+      "concepts": [
+        "primary imagination",
+        "secondary imagination",
+        "fancy",
+        "organic form",
+        "willing suspension of disbelief",
+        "poetic faith"
+      ],
+      "units": [
+        "Unit VIII",
+        "Unit II"
+      ],
+      "relatedEntities": [
+        "William Wordsworth",
+        "Immanuel Kant",
+        "Samuel Johnson"
+      ],
+      "description": "Coleridge distinguishes imagination from fancy and develops a philosophical account of creativity, organic form, and poetic belief."
+    },
+    {
+      "id": "percy-bysshe-shelley",
+      "name": "Percy Bysshe Shelley",
+      "type": "Romantic Poet and Critic",
+      "period": "Romantic",
+      "works": [
+        "A Defence of Poetry"
+      ],
+      "years": [
+        "A Defence of Poetry: written 1821, published 1840"
+      ],
+      "concepts": [
+        "poetry",
+        "imagination",
+        "poets as legislators",
+        "moral imagination",
+        "aesthetic experience"
+      ],
+      "units": [
+        "Unit VIII",
+        "Unit II"
+      ],
+      "relatedEntities": [
+        "William Wordsworth",
+        "S. T. Coleridge",
+        "Plato"
+      ],
+      "description": "Shelley's A Defence of Poetry presents poetry as a powerful imaginative and cultural force connected with human perception, morality, and social life."
+    },
+    {
+      "id": "matthew-arnold",
+      "name": "Matthew Arnold",
+      "type": "Victorian Literary Critic",
+      "period": "Victorian",
+      "works": [
+        "The Study of Poetry",
+        "The Function of Criticism at the Present Time",
+        "Culture and Anarchy"
+      ],
+      "years": [
+        "The Function of Criticism at the Present Time: 1864",
+        "Culture and Anarchy: 1869",
+        "The Study of Poetry: 1880"
+      ],
+      "concepts": [
+        "touchstone method",
+        "high seriousness",
+        "criticism of life",
+        "disinterestedness",
+        "best that has been thought and said",
+        "culture"
+      ],
+      "units": [
+        "Unit VIII",
+        "Unit VII"
+      ],
+      "relatedEntities": [
+        "William Wordsworth",
+        "T. S. Eliot",
+        "John Dryden"
+      ],
+      "description": "Arnold defines poetry as a criticism of life under the conditions of poetic truth and seriousness and advocates disciplined, disinterested criticism."
+    },
+    {
+      "id": "walter-pater",
+      "name": "Walter Pater",
+      "type": "Aesthetic Critic",
+      "period": "Victorian",
+      "works": [
+        "The Renaissance",
+        "Appreciations"
+      ],
+      "years": [
+        "The Renaissance: 1873",
+        "Appreciations: 1889"
+      ],
+      "concepts": [
+        "aestheticism",
+        "art for art's sake",
+        "beauty",
+        "intensity",
+        "aesthetic experience",
+        "impressionism"
+      ],
+      "units": [
+        "Unit VIII"
+      ],
+      "relatedEntities": [
+        "Oscar Wilde",
+        "Matthew Arnold",
+        "John Ruskin"
+      ],
+      "description": "Pater's criticism emphasizes aesthetic experience, intensity, beauty, and the individual response to art."
+    },
+    {
+      "id": "t-s-eliot",
+      "name": "T. S. Eliot",
+      "type": "Modernist Poet and Critic",
+      "period": "Modernism",
+      "works": [
+        "Tradition and the Individual Talent",
+        "The Metaphysical Poets",
+        "Hamlet and His Problems",
+        "The Function of Criticism"
+      ],
+      "years": [
+        "Tradition and the Individual Talent: 1919",
+        "Hamlet and His Problems: 1919",
+        "The Metaphysical Poets: 1921"
+      ],
+      "concepts": [
+        "tradition",
+        "historical sense",
+        "impersonality",
+        "objective correlative",
+        "dissociation of sensibility",
+        "metaphysical poetry"
+      ],
+      "units": [
+        "Unit VIII",
+        "Unit II"
+      ],
+      "relatedEntities": [
+        "Matthew Arnold",
+        "I. A. Richards",
+        "John Dryden"
+      ],
+      "description": "Eliot's criticism emphasizes tradition, historical consciousness, impersonality, the objective correlative, and the relation between individual works and literary tradition."
+    },
+    {
+      "id": "i-a-richards",
+      "name": "I. A. Richards",
+      "type": "Modern Literary Critic",
+      "period": "Twentieth Century",
+      "works": [
+        "Principles of Literary Criticism",
+        "Practical Criticism"
+      ],
+      "years": [
+        "Principles of Literary Criticism: 1924",
+        "Practical Criticism: 1929"
+      ],
+      "concepts": [
+        "practical criticism",
+        "close reading",
+        "reader response",
+        "meaning",
+        "ambiguity",
+        "stock responses"
+      ],
+      "units": [
+        "Unit VIII"
+      ],
+      "relatedEntities": [
+        "T. S. Eliot",
+        "William Empson",
+        "F. R. Leavis"
+      ],
+      "description": "Richards developed practical criticism through detailed analysis of readers' responses to texts and investigated how meaning and interpretation operate in literary experience."
+    },
+    {
+      "id": "f-r-leavis",
+      "name": "F. R. Leavis",
+      "type": "Modern Literary Critic",
+      "period": "Twentieth Century",
+      "works": [
+        "The Great Tradition",
+        "Revaluation",
+        "New Bearings in English Poetry"
+      ],
+      "years": [
+        "New Bearings in English Poetry: 1932",
+        "Revaluation: 1936",
+        "The Great Tradition: 1948"
+      ],
+      "concepts": [
+        "moral seriousness",
+        "close reading",
+        "great tradition",
+        "literary values",
+        "critical judgement",
+        "English novel"
+      ],
+      "units": [
+        "Unit VIII"
+      ],
+      "relatedEntities": [
+        "I. A. Richards",
+        "T. S. Eliot",
+        "Matthew Arnold"
+      ],
+      "description": "Leavis emphasized close textual attention, moral seriousness, critical discrimination, and the development of a significant English literary tradition."
+    },
+    {
+      "id": "william-empson",
+      "name": "William Empson",
+      "type": "Modern Literary Critic",
+      "period": "Twentieth Century",
+      "works": [
+        "Seven Types of Ambiguity"
+      ],
+      "years": [
+        "Seven Types of Ambiguity: 1930"
+      ],
+      "concepts": [
+        "ambiguity",
+        "multiple meanings",
+        "close reading",
+        "verbal analysis",
+        "literary language"
+      ],
+      "units": [
+        "Unit VIII"
+      ],
+      "relatedEntities": [
+        "I. A. Richards",
+        "T. S. Eliot",
+        "Cleanth Brooks"
+      ],
+      "description": "Empson's Seven Types of Ambiguity investigates how literary language generates multiple meanings and demonstrates detailed verbal analysis."
+    },
+    {
+      "id": "t-s-eliot-objective-correlative",
+      "name": "Objective Correlative",
+      "type": "Critical Concept",
+      "period": "Modernism",
+      "works": [
+        "Hamlet and His Problems"
+      ],
+      "years": [
+        "Hamlet and His Problems: 1919"
+      ],
+      "concepts": [
+        "emotion",
+        "artistic expression",
+        "objective correlative",
+        "dramatic form",
+        "emotional equivalence"
+      ],
+      "units": [
+        "Unit VIII",
+        "Unit I"
+      ],
+      "relatedEntities": [
+        "T. S. Eliot",
+        "William Shakespeare",
+        "Hamlet"
+      ],
+      "description": "Eliot's objective correlative refers to a set of objects, situations, or events that can serve as the formula for expressing a particular emotion in art."
+    },
+    {
+      "id": "new-criticism",
+      "name": "New Criticism",
+      "type": "Critical Movement",
+      "period": "Twentieth Century",
+      "works": [
+        "The Well Wrought Urn",
+        "Understanding Poetry"
+      ],
+      "years": [
+        "Understanding Poetry: 1938",
+        "The Well Wrought Urn: 1947"
+      ],
+      "concepts": [
+        "close reading",
+        "textual autonomy",
+        "intentional fallacy",
+        "affective fallacy",
+        "paradox",
+        "irony",
+        "tension",
+        "organic unity"
+      ],
+      "units": [
+        "Unit VIII"
+      ],
+      "relatedEntities": [
+        "John Crowe Ransom",
+        "Cleanth Brooks",
+        "W. K. Wimsatt",
+        "Monroe Beardsley"
+      ],
+      "description": "New Criticism emphasizes detailed textual analysis and treats the literary work as an autonomous verbal structure rather than relying primarily on authorial intention or historical biography."
+    },
+    {
+      "id": "john-crowe-ransom",
+      "name": "John Crowe Ransom",
+      "type": "New Critic",
+      "period": "Twentieth Century",
+      "works": [
+        "The New Criticism"
+      ],
+      "years": [
+        "The New Criticism: 1941"
+      ],
+      "concepts": [
+        "New Criticism",
+        "textual analysis",
+        "texture",
+        "structure",
+        "ontology of the poem"
+      ],
+      "units": [
+        "Unit VIII"
+      ],
+      "relatedEntities": [
+        "Cleanth Brooks",
+        "Allen Tate",
+        "Robert Penn Warren"
+      ],
+      "description": "Ransom's The New Criticism helped establish the terminology and intellectual identity of the New Critical movement."
+    },
+    {
+      "id": "cleanth-brooks",
+      "name": "Cleanth Brooks",
+      "type": "New Critic",
+      "period": "Twentieth Century",
+      "works": [
+        "The Well Wrought Urn",
+        "Understanding Poetry"
+      ],
+      "years": [
+        "Understanding Poetry: 1938",
+        "The Well Wrought Urn: 1947"
+      ],
+      "concepts": [
+        "paradox",
+        "irony",
+        "organic unity",
+        "close reading",
+        "heresy of paraphrase",
+        "tension"
+      ],
+      "units": [
+        "Unit VIII"
+      ],
+      "relatedEntities": [
+        "John Crowe Ransom",
+        "Robert Penn Warren",
+        "William Empson"
+      ],
+      "description": "Brooks emphasizes paradox, irony, tension, and organic unity and argues that literary meaning cannot be adequately reduced to simple paraphrase."
+    },
+    {
+      "id": "w-k-wimsatt",
+      "name": "W. K. Wimsatt",
+      "type": "New Critic",
+      "period": "Twentieth Century",
+      "works": [
+        "The Intentional Fallacy",
+        "The Affective Fallacy"
+      ],
+      "years": [
+        "The Intentional Fallacy: 1946",
+        "The Affective Fallacy: 1949"
+      ],
+      "concepts": [
+        "intentional fallacy",
+        "affective fallacy",
+        "authorial intention",
+        "reader response",
+        "textual evidence"
+      ],
+      "units": [
+        "Unit VIII"
+      ],
+      "relatedEntities": [
+        "Monroe Beardsley",
+        "Cleanth Brooks",
+        "New Criticism"
+      ],
+      "description": "Wimsatt and Beardsley distinguish the meaning of a literary work from the author's private intention and from purely emotional effects on readers."
+    },
+    {
+      "id": "northrop-frye",
+      "name": "Northrop Frye",
+      "type": "Literary Critic",
+      "period": "Twentieth Century",
+      "works": [
+        "Anatomy of Criticism"
+      ],
+      "years": [
+        "Anatomy of Criticism: 1957"
+      ],
+      "concepts": [
+        "archetype",
+        "myth",
+        "literary modes",
+        "myth criticism",
+        "literary genres",
+        "archetypal criticism"
+      ],
+      "units": [
+        "Unit VIII"
+      ],
+      "relatedEntities": [
+        "Carl Jung",
+        "Aristotle",
+        "T. S. Eliot"
+      ],
+      "description": "Frye develops a systematic theory of literature based on recurring myths, archetypes, genres, modes, and structural patterns."
+    },
+    {
+      "id": "feminist-literary-criticism",
+      "name": "Feminist Literary Criticism",
+      "type": "Critical Movement",
+      "period": "Twentieth Century",
+      "works": [
+        "A Literature of Their Own",
+        "The Madwoman in the Attic"
+      ],
+      "years": [
+        "A Literature of Their Own: 1977",
+        "The Madwoman in the Attic: 1979"
+      ],
+      "concepts": [
+        "gender",
+        "patriarchy",
+        "women's writing",
+        "gynocriticism",
+        "representation",
+        "female authorship"
+      ],
+      "units": [
+        "Unit VIII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Elaine Showalter",
+        "Sandra Gilbert",
+        "Susan Gubar"
+      ],
+      "description": "Feminist literary criticism examines gender, patriarchy, representation, authorship, women's literary traditions, and the cultural construction of gender."
+    },
+    {
+      "id": "structuralist-criticism",
+      "name": "Structuralist Literary Criticism",
+      "type": "Critical Movement",
+      "period": "Twentieth Century",
+      "works": [
+        "Course in General Linguistics",
+        "S/Z"
+      ],
+      "years": [
+        "Course in General Linguistics: 1916",
+        "S/Z: 1970"
+      ],
+      "concepts": [
+        "structure",
+        "signifier",
+        "signified",
+        "binary opposition",
+        "langue",
+        "parole",
+        "narrative structure"
+      ],
+      "units": [
+        "Unit VIII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Ferdinand de Saussure",
+        "Roland Barthes",
+        "Claude Lévi-Strauss"
+      ],
+      "description": "Structuralist criticism studies literature through underlying systems, relations, signs, codes, oppositions, and structures that organize meaning."
+    },
+    {
+      "id": "deconstruction",
+      "name": "Deconstruction",
+      "type": "Critical Movement",
+      "period": "Late Twentieth Century",
+      "works": [
+        "Of Grammatology",
+        "Structure, Sign, and Play"
+      ],
+      "years": [
+        "Of Grammatology: 1967",
+        "Structure, Sign, and Play: 1966"
+      ],
+      "concepts": [
+        "deconstruction",
+        "différance",
+        "binary opposition",
+        "logocentrism",
+        "trace",
+        "undecidability"
+      ],
+      "units": [
+        "Unit VIII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Jacques Derrida",
+        "Ferdinand de Saussure",
+        "Roland Barthes"
+      ],
+      "description": "Deconstruction examines tensions, assumptions, exclusions, and unstable oppositions within texts rather than treating meaning as completely fixed."
+    },
+    {
+      "id": "reader-response-criticism",
+      "name": "Reader-Response Criticism",
+      "type": "Critical Movement",
+      "period": "Twentieth Century",
+      "works": [
+        "Literature as Exploration",
+        "The Implied Reader"
+      ],
+      "years": [
+        "Literature as Exploration: 1938",
+        "The Implied Reader: 1974"
+      ],
+      "concepts": [
+        "reader",
+        "interpretation",
+        "response",
+        "implied reader",
+        "reading process",
+        "interpretive community"
+      ],
+      "units": [
+        "Unit VIII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Louise Rosenblatt",
+        "Wolfgang Iser",
+        "Stanley Fish"
+      ],
+      "description": "Reader-response criticism gives significant attention to the reader's role and to the process through which literary meaning is produced during reading."
+    }
+  ]
+}

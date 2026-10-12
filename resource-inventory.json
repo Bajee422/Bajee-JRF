@@ -1,0 +1,293 @@
+{
+  "version": "10.6.3",
+  "name": "BAJEE JRF AI Study Resource Inventory",
+  "description": "Structured study-resource inventory for the BAJEE JRF AI Knowledge Graph.",
+  "storage_mode": "local",
+  "cost": "zero",
+  "resources": [
+    {
+      "id": "resource-derrida-001",
+      "title": "Jacques Derrida — Knowledge Resource",
+      "type": "Notes",
+      "author": "BAJEE JRF AI",
+      "subject": "English Literature",
+      "unit": "Unit IX",
+      "topic": "Jacques Derrida",
+      "entity_ids": [
+        "derrida"
+      ],
+      "concept_ids": [
+        "deconstruction",
+        "differance",
+        "logocentrism"
+      ],
+      "description": "Study resource connected to Jacques Derrida and the related Unit IX knowledge graph concepts.",
+      "source": "BAJEE JRF AI",
+      "url": "",
+      "available": true,
+      "paper": "paper2",
+      "paperName": "Paper II — English"
+    },
+    {
+      "id": "resource-deconstruction-001",
+      "title": "Deconstruction — Study Notes",
+      "type": "Notes",
+      "author": "BAJEE JRF AI",
+      "subject": "Literary Theory",
+      "unit": "Unit IX",
+      "topic": "Deconstruction",
+      "entity_ids": [
+        "derrida",
+        "deconstruction"
+      ],
+      "concept_ids": [
+        "deconstruction",
+        "differance",
+        "binary-opposition",
+        "logocentrism"
+      ],
+      "description": "Study resource connected to the concept of deconstruction and its knowledge-graph relationships.",
+      "source": "BAJEE JRF AI",
+      "url": "",
+      "available": true,
+      "paper": "paper2",
+      "paperName": "Paper II — English"
+    },
+    {
+      "id": "resource-differance-001",
+      "title": "Différance — Concept Revision",
+      "type": "Notes",
+      "author": "BAJEE JRF AI",
+      "subject": "Literary Theory",
+      "unit": "Unit IX",
+      "topic": "Différance",
+      "entity_ids": [
+        "derrida",
+        "differance"
+      ],
+      "concept_ids": [
+        "differance",
+        "deconstruction"
+      ],
+      "description": "Revision resource connected to the Différance concept in the knowledge graph.",
+      "source": "BAJEE JRF AI",
+      "url": "",
+      "available": true,
+      "paper": "paper2",
+      "paperName": "Paper II — English"
+    },
+    {
+      "id": "resource-logocentrism-001",
+      "title": "Logocentrism — Revision Notes",
+      "type": "Notes",
+      "author": "BAJEE JRF AI",
+      "subject": "Literary Theory",
+      "unit": "Unit IX",
+      "topic": "Logocentrism",
+      "entity_ids": [
+        "derrida",
+        "logocentrism"
+      ],
+      "concept_ids": [
+        "logocentrism",
+        "deconstruction"
+      ],
+      "description": "Revision resource connected to Logocentrism and Jacques Derrida.",
+      "source": "BAJEE JRF AI",
+      "url": "",
+      "available": true,
+      "paper": "paper2",
+      "paperName": "Paper II — English"
+    },
+    {
+      "id": "resource-poststructuralism-001",
+      "title": "Post-Structuralism — Study Resource",
+      "type": "Notes",
+      "author": "BAJEE JRF AI",
+      "subject": "Literary Theory",
+      "unit": "Unit IX",
+      "topic": "Post-Structuralism",
+      "entity_ids": [
+        "derrida"
+      ],
+      "concept_ids": [
+        "deconstruction",
+        "differance",
+        "binary-opposition",
+        "logocentrism"
+      ],
+      "description": "Study resource connected to the Post-Structuralism area of the knowledge graph.",
+      "source": "BAJEE JRF AI",
+      "url": "",
+      "available": true,
+      "paper": "paper2",
+      "paperName": "Paper II — English"
+    },
+    {
+      "id": "resource-derrida-video-001",
+      "title": "Jacques Derrida — Video Study Resource",
+      "type": "Video",
+      "author": "",
+      "subject": "English Literature",
+      "unit": "Unit IX",
+      "topic": "Jacques Derrida",
+      "entity_ids": [
+        "derrida"
+      ],
+      "concept_ids": [
+        "deconstruction",
+        "differance"
+      ],
+      "description": "Video resource slot reserved for a Derrida study video.",
+      "source": "User Resource",
+      "url": "",
+      "available": false,
+      "paper": "paper2",
+      "paperName": "Paper II — English"
+    },
+    {
+      "id": "resource-derrida-youtube-001",
+      "title": "Jacques Derrida — YouTube Study Resource",
+      "type": "YouTube",
+      "author": "",
+      "subject": "English Literature",
+      "unit": "Unit IX",
+      "topic": "Jacques Derrida",
+      "entity_ids": [
+        "derrida"
+      ],
+      "concept_ids": [
+        "deconstruction",
+        "differance"
+      ],
+      "description": "YouTube resource slot for a user-supplied study video.",
+      "source": "User Resource",
+      "url": "",
+      "available": false,
+      "paper": "paper2",
+      "paperName": "Paper II — English"
+    },
+    {
+      "id": "resource-derrida-pdf-001",
+      "title": "Jacques Derrida — PDF Study Resource",
+      "type": "PDF",
+      "author": "",
+      "subject": "English Literature",
+      "unit": "Unit IX",
+      "topic": "Jacques Derrida",
+      "entity_ids": [
+        "derrida"
+      ],
+      "concept_ids": [
+        "deconstruction",
+        "differance",
+        "logocentrism"
+      ],
+      "description": "PDF resource slot for a user-supplied Derrida study material.",
+      "source": "User Resource",
+      "url": "",
+      "available": false,
+      "paper": "paper2",
+      "paperName": "Paper II — English"
+    },
+    {
+      "id": "resource-chaucer-jrf-style-001",
+      "title": "Corrected Exact JRF Style Booklet",
+      "type": "DOCX",
+      "author": "",
+      "subject": "English Literature",
+      "unit": "Module 01 · British Literature",
+      "topic": "Geoffrey Chaucer",
+      "entity_ids": [
+        "geoffrey-chaucer"
+      ],
+      "concept_ids": [
+        "pilgrimage frame",
+        "characterisation",
+        "realism",
+        "humour",
+        "frame narrative",
+        "pilgrims",
+        "tale-character matching"
+      ],
+      "description": "Direct Master Storage source record connected to Geoffrey Chaucer; contains a dedicated Chaucer entry and NET-oriented material.",
+      "source": "Master Storage",
+      "url": "",
+      "available": true,
+      "paper": "paper2",
+      "paperName": "Paper II — English",
+      "evidenceState": "Direct Source"
+    },
+    {
+      "id": "resource-chaucer-final-clean-001",
+      "title": "Final Clean JRF Booklet",
+      "type": "DOCX",
+      "author": "",
+      "subject": "English Literature",
+      "unit": "Module 01 · British Literature",
+      "topic": "Geoffrey Chaucer",
+      "entity_ids": [
+        "geoffrey-chaucer"
+      ],
+      "concept_ids": [
+        "pilgrimage frame",
+        "characterisation",
+        "realism",
+        "humour",
+        "frame narrative",
+        "pilgrims",
+        "tale-character matching"
+      ],
+      "description": "Direct Master Storage source record connected to Geoffrey Chaucer; covers period, works, pilgrimage frame, characters, realism, humour, characterisation and NET angle.",
+      "source": "Master Storage",
+      "url": "",
+      "available": true,
+      "paper": "paper2",
+      "paperName": "Paper II — English",
+      "evidenceState": "Direct Source"
+    },
+    {
+      "id": "resource-chaucer-premium-001",
+      "title": "UGC NET / JRF Premium Aspirant Revision Booklet",
+      "type": "PDF",
+      "author": "",
+      "subject": "English Literature",
+      "unit": "Module 01 · British Literature",
+      "topic": "Geoffrey Chaucer",
+      "entity_ids": [
+        "geoffrey-chaucer"
+      ],
+      "concept_ids": [
+        "pilgrimage frame",
+        "characterisation",
+        "realism",
+        "humour",
+        "frame narrative",
+        "pilgrims",
+        "tale-character matching"
+      ],
+      "description": "Direct Master Storage source record connected to Geoffrey Chaucer; contains a dedicated Chaucer revision entry and NET angle.",
+      "source": "Master Storage",
+      "url": "",
+      "available": true,
+      "paper": "paper2",
+      "paperName": "Paper II — English",
+      "evidenceState": "Direct Source"
+    }
+  ],
+  "paper_model": {
+    "enabled": true,
+    "papers": [
+      {
+        "id": "paper1",
+        "name": "Paper I — General",
+        "unit_count": 10
+      },
+      {
+        "id": "paper2",
+        "name": "Paper II — English",
+        "unit_count": 10
+      }
+    ]
+  }
+}

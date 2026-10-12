@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAJEE JRF AI — Master Storage</title>
+<style>
+:root{--navy:#0d2b52;--blue:#1769aa;--gold:#d9b34c;--green:#18794e;--bg:#f4f6fa;--card:#fff;--text:#172033;--muted:#667085;--border:#dfe4ec;--red:#b42318}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+nav{background:var(--navy);color:#fff;padding:14px 20px}.nav{max-width:1180px;margin:auto;font-weight:800}
+main{max-width:1180px;margin:auto;padding:22px 16px 50px}.hero{background:linear-gradient(135deg,var(--navy),#173e70);color:#fff;border-radius:16px;padding:25px;margin-bottom:16px}
+.eyebrow{color:#f4d778;font-size:.76rem;font-weight:800;letter-spacing:.08em}.hero h1{margin:7px 0;font-size:2rem}.hero p{margin:0;color:#e8eef7;line-height:1.5}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:14px}
+.actions{display:flex;flex-wrap:wrap;gap:9px}button{border:0;border-radius:9px;padding:11px 14px;font-weight:800;cursor:pointer}button.primary{background:var(--navy);color:#fff}button.secondary{background:#edf2f7;color:var(--navy)}button:disabled{opacity:.55;cursor:not-allowed}
+.status{margin-top:10px;color:var(--muted);font-size:.88rem;line-height:1.5}.status.ok{color:var(--green)}.status.err{color:var(--red)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.metric{border:1px solid var(--border);border-radius:11px;padding:13px}.metric b{display:block;font-size:1.45rem;color:var(--navy)}.metric span{font-size:.76rem;color:var(--muted)}
+.search{display:grid;grid-template-columns:1fr 170px;gap:10px}.search input,.search select{width:100%;padding:11px;border:1px solid #cbd3df;border-radius:9px;font:inherit}
+table{width:100%;border-collapse:collapse;margin-top:12px}th,td{text-align:left;border-bottom:1px solid var(--border);padding:10px 7px;font-size:.84rem;vertical-align:top}th{color:var(--muted);font-size:.76rem}
+.badge{display:inline-block;border-radius:999px;padding:4px 8px;background:#eef2f7;color:var(--navy);font-size:.72rem;font-weight:700}
+.note{background:#fff9e9;border-left:4px solid var(--gold);padding:11px 13px;border-radius:7px;font-size:.84rem;line-height:1.5}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}.search{grid-template-columns:1fr}.hero h1{font-size:1.55rem}}
+</style>
+</head>
+<body>
+<nav><div class="nav">🎓 BAJEE JRF AI — Master Storage</div></nav>
+<main>
+<section class="hero">
+<div class="eyebrow">PHASE 10 • MASTER STORAGE</div>
+<h1>📚 Google Drive Master Storage</h1>
+<p>Use your Google Drive folder as the master source while keeping the study index local and zero-cost. Original files are never modified by scanning.</p>
+</section>
+
+<section class="card">
+<h2>1. Connect the Master Folder</h2>
+<div class="note"><strong>Zero-cost design:</strong> use Google Drive for Desktop to make the master folder available on this computer, then select that folder here. This page does not upload your files to another service.</div>
+<div class="actions" style="margin-top:12px">
+<button id="pickBtn" class="primary">Select Master Drive Folder</button>
+<button id="rescanBtn" class="secondary" disabled>Rescan Folder</button>
+</div>
+<div id="status" class="status">No master folder selected.</div>
+</section>
+
+<section class="card">
+<h2>2. Master Storage Index</h2>
+<div class="grid">
+<div class="metric"><b id="total">0</b><span>Total files</span></div>
+<div class="metric"><b id="pdf">0</b><span>PDF</span></div>
+<div class="metric"><b id="ppt">0</b><span>PPT/PPTX</span></div>
+<div class="metric"><b id="media">0</b><span>Audio/Video</span></div>
+</div>
+</section>
+
+<section class="card">
+<h2>3. Search Master Storage</h2>
+<div class="search">
+<input id="q" placeholder="Search filename or folder…">
+<select id="type"><option value="">All file types</option><option>PDF</option><option>PPT/PPTX</option><option>DOC/DOCX</option><option>Audio</option><option>Video</option><option>Text</option><option>Other</option></select>
+</div>
+<div id="results" class="status">Scan the master folder to build the local index.</div>
+</section>
+
+<section class="card">
+<h2>4. Locked Master Folder Convention</h2>
+<table>
+<thead><tr><th>Folder</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td><span class="badge">01_PAPER_I</span></td><td>Paper I Units 01–10</td></tr>
+<tr><td><span class="badge">02_PAPER_II_ENGLISH</span></td><td>Paper II English Units 01–10</td></tr>
+<tr><td><span class="badge">03_PYQs</span></td><td>Official / verified PYQ material</td></tr>
+<tr><td><span class="badge">04_BOOKS</span></td><td>Books and reference PDFs</td></tr>
+<tr><td><span class="badge">05_PPT</span></td><td>PowerPoint material</td></tr>
+<tr><td><span class="badge">06_NOTES</span></td><td>Study notes</td></tr>
+<tr><td><span class="badge">07_AUDIO</span></td><td>Audio resources</td></tr>
+<tr><td><span class="badge">08_VIDEO</span></td><td>Video resources</td></tr>
+<tr><td><span class="badge">09_STUDY_MATERIAL</span></td><td>Prepared study material</td></tr>
+<tr><td><span class="badge">10_AI_GENERATED</span></td><td>Clearly separated AI-generated material</td></tr>
+<tr><td><span class="badge">11_EXAM_RESULTS</span></td><td>Saved examination results</td></tr>
+<tr><td><span class="badge">12_REVISION_RESULTS</span></td><td>Revision / retest results</td></tr>
+<tr><td><span class="badge">13_JRF_ANALYTICS</span></td><td>JRF analytics exports</td></tr>
+</tbody>
+</table>
+</section>
+</main>
+
+<script>
+"use strict";
+const DB="bajee_master_storage_index_v1";
+let rootHandle=null, files=[];
+
+const $=id=>document.getElementById(id);
+const ext=name=>{const i=name.lastIndexOf(".");return i<0?"":name.slice(i+1).toLowerCase()};
+function category(name){
+ const e=ext(name);
+ if(e==="pdf")return"PDF";
+ if(["ppt","pptx"].includes(e))return"PPT/PPTX";
+ if(["doc","docx","odt","rtf"].includes(e))return"DOC/DOCX";
+ if(["mp3","wav","m4a","aac","ogg","flac"].includes(e))return"Audio";
+ if(["mp4","webm","mkv","avi","mov","m4v"].includes(e))return"Video";
+ if(["txt","md","csv","json"].includes(e))return"Text";
+ return"Other";
+}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function updateMetrics(){
+ $("total").textContent=files.length;
+ $("pdf").textContent=files.filter(f=>f.type==="PDF").length;
+ $("ppt").textContent=files.filter(f=>f.type==="PPT/PPTX").length;
+ $("media").textContent=files.filter(f=>["Audio","Video"].includes(f.type)).length;
+}
+function render(){
+ const q=$("q").value.trim().toLowerCase(), t=$("type").value;
+ const list=files.filter(f=>(!q || `${f.name} ${f.path}`.toLowerCase().includes(q))&&(!t||f.type===t)).slice(0,500);
+ if(!list.length){$("results").innerHTML="<div class='status'>No indexed files match the current search.</div>";return}
+ $("results").innerHTML=`<table><thead><tr><th>Name</th><th>Type</th><th>Folder path</th><th>Size</th></tr></thead><tbody>`+
+ list.map(f=>`<tr><td>${esc(f.name)}</td><td><span class="badge">${esc(f.type)}</span></td><td>${esc(f.path)}</td><td>${esc(f.sizeLabel)}</td></tr>`).join("")+
+ `</tbody></table><div class="status">Showing ${list.length} indexed result(s). The index contains metadata only; original files remain in the selected Drive folder.</div>`;
+}
+async function walk(dir,path=""){
+ const out=[];
+ for await(const entry of dir.values()){
+   const next=path?`${path}/${entry.name}`:entry.name;
+   if(entry.kind==="file"){
+     const file=await entry.getFile();
+     out.push({name:entry.name,path:next,type:category(entry.name),size:file.size,sizeLabel:formatBytes(file.size),lastModified:file.lastModified});
+   }else if(entry.kind==="directory"){
+     out.push(...await walk(entry,next));
+   }
+ }
+ return out;
+}
+function formatBytes(n){
+ if(!n)return"0 B";
+ const units=["B","KB","MB","GB"];let i=0,v=n;
+ while(v>=1024&&i<units.length-1){v/=1024;i++}
+ return`${v.toFixed(i?1:0)} ${units[i]}`;
+}
+async function scan(){
+ if(!rootHandle)return;
+ $("status").className="status";
+ $("status").textContent="Scanning master folder…";
+ try{
+   files=await walk(rootHandle);
+   updateMetrics();render();
+   localStorage.setItem(DB,JSON.stringify({savedAt:new Date().toISOString(),files}));
+   $("status").className="status ok";
+   $("status").textContent=`Scan complete: ${files.length} file(s) indexed. Original Drive files were not modified.`;
+ }catch(e){
+   $("status").className="status err";
+   $("status").textContent=`Scan failed: ${e.message}`;
+ }
+}
+$("pickBtn").onclick=async()=>{
+ if(!window.showDirectoryPicker){
+   $("status").className="status err";
+   $("status").textContent="This browser does not support folder selection. Use current Chrome/Edge on desktop.";
+   return;
+ }
+ try{
+   rootHandle=await window.showDirectoryPicker({mode:"read"});
+   $("rescanBtn").disabled=false;
+   await scan();
+ }catch(e){
+   if(e.name!=="AbortError"){
+     $("status").className="status err";
+     $("status").textContent=`Folder selection failed: ${e.message}`;
+   }
+ }
+};
+$("rescanBtn").onclick=scan;
+$("q").oninput=render;$("type").onchange=render;
+
+try{
+ const saved=JSON.parse(localStorage.getItem(DB)||"null");
+ if(saved?.files?.length){
+   files=saved.files;updateMetrics();render();
+   $("status").textContent=`Previous local index loaded (${files.length} files). Select the folder again to rescan.`;
+ }
+}catch(_){}
+</script>
+</body>
+</html>

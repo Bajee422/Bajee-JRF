@@ -1,0 +1,7 @@
+BAJEE JRF AI — GitHub Pages preparation
+
+Home page source: frontend/index.html from the supplied project archive. The old root index.html was intentionally ignored.
+This package contains the static frontend and data/ only; backend/ and node_modules/ are excluded.
+The Express API cannot run on GitHub Pages. Features that call the local API at 127.0.0.1:3000, including AI gateway functions, need a separately hosted backend and matching runtime-config.js settings before they can work online.
+No .env file was included. Never publish API keys or backend access tokens in frontend files.
+Deployment copy only: the original project ZIP has not been modified.

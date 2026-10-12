@@ -1,0 +1,3455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        BAJEE JRF AI - JRF Analytics
+    </title>
+
+
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           BAJEE JRF AI
+           JRF ANALYTICS
+        ===================================================== */
+
+        :root {
+
+            --navy: #08224d;
+            --navy-dark: #061b41;
+            --navy-light: #29405f;
+            --gold: #d9b236;
+            --gold-light: #f4c430;
+            --page: #f4f6fa;
+            --text: #172033;
+            --muted: #6c757d;
+            --green: #198754;
+            --red: #dc3545;
+            --border: #dfe3ea;
+
+        }
+
+
+        * {
+
+            box-sizing: border-box;
+
+        }
+
+
+        body {
+
+            margin: 0;
+
+            background:
+                var(--page);
+
+            color:
+                var(--text);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
+
+            background:
+                var(--navy-dark);
+
+        }
+
+
+        .navbar-brand {
+
+            color:
+                var(--gold-light) !important;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .navbar-subtitle {
+
+            color:
+                #ffffff;
+
+            font-size:
+                13px;
+
+        }
+
+
+        .back-button {
+
+            border:
+                1px solid #ffffff;
+
+            color:
+                #ffffff;
+
+            background:
+                transparent;
+
+            font-size:
+                13px;
+
+            border-radius:
+                6px;
+
+            padding:
+                5px 12px;
+
+            text-decoration:
+                none;
+
+        }
+
+
+        .back-button:hover {
+
+            background:
+                #ffffff;
+
+            color:
+                var(--navy);
+
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .analytics-hero {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy-dark),
+                    var(--navy-light)
+                );
+
+            color:
+                #ffffff;
+
+            padding:
+                48px 0;
+
+        }
+
+
+        .analytics-hero small {
+
+            color:
+                var(--gold-light);
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                .5px;
+
+        }
+
+
+        .analytics-hero h1 {
+
+            font-weight:
+                800;
+
+            margin-top:
+                8px;
+
+            margin-bottom:
+                8px;
+
+        }
+
+
+        .analytics-hero p {
+
+            max-width:
+                900px;
+
+            margin:
+                0;
+
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main-container {
+
+            max-width:
+                1100px;
+
+            margin:
+                0 auto;
+
+            padding:
+                18px 15px 50px;
+
+        }
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .analytics-status {
+
+            background:
+                #e8f7ee;
+
+            border-left:
+                4px solid var(--green);
+
+            border-radius:
+                7px;
+
+            padding:
+                12px 15px;
+
+            margin-bottom:
+                15px;
+
+            font-size:
+                13px;
+
+        }
+
+
+        /* =====================================================
+           SUMMARY CARDS
+        ===================================================== */
+
+        .summary-card {
+
+            background:
+                #ffffff;
+
+            border:
+                none;
+
+            border-radius:
+                12px;
+
+            padding:
+                20px;
+
+            text-align:
+                center;
+
+            box-shadow:
+                0 4px 18px rgba(0,0,0,.06);
+
+            height:
+                100%;
+
+        }
+
+
+        .summary-number {
+
+            color:
+                var(--navy);
+
+            font-size:
+                30px;
+
+            font-weight:
+                800;
+
+            line-height:
+                1.1;
+
+        }
+
+
+        .summary-label {
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+            margin-top:
+                7px;
+
+        }
+
+
+        /* =====================================================
+           SECTION CARD
+        ===================================================== */
+
+        .section-card {
+
+            background:
+                #ffffff;
+
+            border:
+                none;
+
+            border-radius:
+                12px;
+
+            box-shadow:
+                0 4px 18px rgba(0,0,0,.06);
+
+            padding:
+                20px;
+
+            margin-top:
+                18px;
+
+        }
+
+
+        .section-title {
+
+            color:
+                var(--navy);
+
+            font-size:
+                20px;
+
+            font-weight:
+                800;
+
+            margin-bottom:
+                3px;
+
+        }
+
+
+        .section-subtitle {
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+            margin-bottom:
+                18px;
+
+        }
+
+
+        /* =====================================================
+           UNIFIED PERFORMANCE
+        ===================================================== */
+
+        .performance-box {
+
+            background:
+                #f8f9fa;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                9px;
+
+            padding:
+                18px;
+
+            height:
+                100%;
+
+        }
+
+
+        .performance-label {
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+        }
+
+
+        .performance-value {
+
+            color:
+                var(--navy);
+
+            font-size:
+                26px;
+
+            font-weight:
+                800;
+
+            margin-top:
+                4px;
+
+        }
+
+
+        .progress {
+
+            height:
+                8px;
+
+            border-radius:
+                20px;
+
+            background:
+                #e9ecef;
+
+        }
+
+
+        .progress-bar {
+
+            border-radius:
+                20px;
+
+        }
+
+
+        /* =====================================================
+           SOURCE CARDS
+        ===================================================== */
+
+        .source-card {
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                10px;
+
+            padding:
+                16px;
+
+            height:
+                100%;
+
+        }
+
+
+        .source-title {
+
+            color:
+                var(--navy);
+
+            font-weight:
+                800;
+
+            font-size:
+                14px;
+
+        }
+
+
+        .source-description {
+
+            color:
+                var(--muted);
+
+            font-size:
+                11px;
+
+            margin-top:
+                5px;
+
+        }
+
+
+        .source-number {
+
+            color:
+                var(--navy);
+
+            font-size:
+                25px;
+
+            font-weight:
+                800;
+
+            margin-top:
+                15px;
+
+        }
+
+
+        .source-small {
+
+            color:
+                var(--muted);
+
+            font-size:
+                11px;
+
+        }
+
+
+        .connected {
+
+            display:
+                inline-block;
+
+            margin-top:
+                8px;
+
+            padding:
+                4px 8px;
+
+            border-radius:
+                20px;
+
+            background:
+                #e8f7ee;
+
+            color:
+                #146c43;
+
+            font-size:
+                10px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .no-data {
+
+            display:
+                inline-block;
+
+            margin-top:
+                8px;
+
+            padding:
+                4px 8px;
+
+            border-radius:
+                20px;
+
+            background:
+                #f1f3f5;
+
+            color:
+                #495057;
+
+            font-size:
+                10px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        /* =====================================================
+           STEP 9.3 ANALYTICS
+        ===================================================== */
+
+        .step-badge {
+
+            display:
+                inline-block;
+
+            background:
+                var(--navy);
+
+            color:
+                var(--gold-light);
+
+            font-size:
+                11px;
+
+            font-weight:
+                800;
+
+            padding:
+                5px 9px;
+
+            border-radius:
+                20px;
+
+            margin-bottom:
+                8px;
+
+        }
+
+
+        .analytics-info {
+
+            background:
+                #fffaf0;
+
+            border-left:
+                4px solid var(--gold);
+
+            border-radius:
+                7px;
+
+            padding:
+                12px 14px;
+
+            font-size:
+                12px;
+
+            margin-bottom:
+                18px;
+
+        }
+
+
+        .performance-card {
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid var(--border);
+
+            border-left:
+                4px solid #adb5bd;
+
+            border-radius:
+                10px;
+
+            padding:
+                16px;
+
+            height:
+                100%;
+
+        }
+
+
+        .performance-card.good {
+
+            border-left-color:
+                var(--green);
+
+        }
+
+
+        .performance-card.neutral {
+
+            border-left-color:
+                var(--gold);
+
+        }
+
+
+        .performance-card.weak {
+
+            border-left-color:
+                var(--red);
+
+        }
+
+
+        .performance-number {
+
+            color:
+                var(--navy);
+
+            font-size:
+                22px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .tag {
+
+            display:
+                inline-block;
+
+            font-size:
+                10px;
+
+            padding:
+                4px 7px;
+
+            border-radius:
+                20px;
+
+            margin:
+                2px 3px 2px 0;
+
+        }
+
+
+        .tag.unit {
+
+            background:
+                #eaf1ff;
+
+            color:
+                #164a9c;
+
+        }
+
+
+        .tag.concept {
+
+            background:
+                #f1eafe;
+
+            color:
+                #6336a5;
+
+        }
+
+
+        .tag.entity-tag {
+
+            background:
+                #e8f7ee;
+
+            color:
+                #146c43;
+
+        }
+
+
+        /* =====================================================
+           STEP 9.8
+           FINAL ANALYTICS INTEGRATION
+        ===================================================== */
+
+        .integration-card {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #f8fafc
+                );
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                12px;
+
+            padding:
+                18px;
+
+            height:
+                100%;
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                border-color .2s ease;
+
+        }
+
+
+        .integration-card:hover {
+
+            transform:
+                translateY(-2px);
+
+            border-color:
+                var(--gold);
+
+            box-shadow:
+                0 8px 22px rgba(0,0,0,.08);
+
+        }
+
+
+        .integration-icon {
+
+            width:
+                44px;
+
+            height:
+                44px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            border-radius:
+                10px;
+
+            background:
+                #fff5d0;
+
+            font-size:
+                22px;
+
+            margin-bottom:
+                12px;
+
+        }
+
+
+        .integration-title {
+
+            color:
+                var(--navy);
+
+            font-size:
+                15px;
+
+            font-weight:
+                800;
+
+            margin-bottom:
+                5px;
+
+        }
+
+
+        .integration-description {
+
+            color:
+                var(--muted);
+
+            font-size:
+                11px;
+
+            line-height:
+                1.55;
+
+            min-height:
+                52px;
+
+        }
+
+
+        .integration-button {
+
+            display:
+                inline-block;
+
+            margin-top:
+                12px;
+
+            padding:
+                7px 11px;
+
+            background:
+                var(--navy);
+
+            color:
+                #ffffff;
+
+            border-radius:
+                6px;
+
+            text-decoration:
+                none;
+
+            font-size:
+                11px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .integration-button:hover {
+
+            background:
+                var(--gold);
+
+            color:
+                var(--navy-dark);
+
+        }
+
+
+        .integration-flow {
+
+            background:
+                #fffaf0;
+
+            border-left:
+                4px solid var(--gold);
+
+            border-radius:
+                8px;
+
+            padding:
+                15px;
+
+            margin-bottom:
+                18px;
+
+            font-size:
+                12px;
+
+            line-height:
+                1.7;
+
+        }
+
+
+        .integration-flow strong {
+
+            color:
+                var(--navy);
+
+        }
+
+
+        /* =====================================================
+           REFRESH BUTTON
+        ===================================================== */
+
+        .btn-gold {
+
+            background:
+                var(--gold);
+
+            color:
+                var(--navy-dark);
+
+            border:
+                none;
+
+            font-weight:
+                800;
+
+            border-radius:
+                7px;
+
+        }
+
+
+        .btn-gold:hover {
+
+            background:
+                #c8a128;
+
+            color:
+                var(--navy-dark);
+
+        }
+
+
+        /* =====================================================
+           INSIGHT
+        ===================================================== */
+
+        .insight-box {
+
+            background:
+                #fffaf0;
+
+            border-left:
+                5px solid var(--gold);
+
+            border-radius:
+                8px;
+
+            padding:
+                16px;
+
+            line-height:
+                1.6;
+
+            font-size:
+                13px;
+
+        }
+
+
+        /* =====================================================
+           DATA SOURCE INFORMATION
+        ===================================================== */
+
+        .data-note {
+
+            background:
+                #f8f9fa;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                8px;
+
+            padding:
+                14px;
+
+            font-size:
+                12px;
+
+            line-height:
+                1.6;
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+
+            background:
+                var(--navy-dark);
+
+            color:
+                #ffffff;
+
+            text-align:
+                center;
+
+            padding:
+                24px;
+
+            margin-top:
+                30px;
+
+            font-size:
+                11px;
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (
+            max-width: 768px
+        ) {
+
+            .analytics-hero {
+
+                padding:
+                    35px 0;
+
+            }
+
+
+            .analytics-hero h1 {
+
+                font-size:
+                    30px;
+
+            }
+
+
+            .section-card {
+
+                padding:
+                    16px;
+
+            }
+
+
+            .summary-number {
+
+                font-size:
+                    25px;
+
+            }
+
+        }
+
+    
+        /* =====================================================
+           STEP 10.7.1 — KNOWLEDGE GRAPH ANALYTICS
+        ===================================================== */
+
+        .kg-analytics-status {
+            background: #e8f7ee;
+            border-left: 4px solid var(--green);
+            border-radius: 8px;
+            padding: 13px 15px;
+            font-size: 12px;
+            margin-bottom: 18px;
+        }
+
+        .kg-source-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            height: 100%;
+        }
+
+        .kg-source-card .kg-source-number {
+            color: var(--navy);
+            font-size: 25px;
+            font-weight: 800;
+            margin-top: 10px;
+        }
+
+        .kg-source-card .kg-source-label {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.45;
+        }
+
+        .kg-entity-panel {
+            background: #f8f9fa;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .kg-entity-name {
+            color: var(--navy);
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .kg-metric {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 13px;
+            height: 100%;
+        }
+
+        .kg-metric-label {
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .kg-metric-value {
+            color: var(--navy);
+            font-size: 22px;
+            font-weight: 800;
+            margin-top: 4px;
+        }
+
+        .kg-loop-box {
+            background: #fffaf0;
+            border-left: 4px solid var(--gold);
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .kg-snapshot {
+            background: #0b1730;
+            color: #dce7ff;
+            border-radius: 9px;
+            padding: 15px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 11px;
+            line-height: 1.55;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            min-height: 90px;
+        }
+
+
+        /* =====================================================
+           STEP 10.7.3 — CONCEPT-LEVEL INTEGRATED ANALYTICS
+        ===================================================== */
+        .concept-integrated-panel{background:linear-gradient(135deg,#fff,#f8fafc);border:1px solid var(--border);border-radius:11px;padding:17px;margin-top:14px}
+        .concept-integrated-title{color:var(--navy);font-size:15px;font-weight:800;margin-bottom:3px}
+        .concept-integrated-subtitle{color:var(--muted);font-size:11px;line-height:1.5;margin-bottom:14px}
+        .concept-integrated-card{background:#fff;border:1px solid var(--border);border-radius:9px;padding:13px;height:100%}
+        .concept-integrated-name{color:var(--navy);font-size:13px;font-weight:800}
+        .concept-integrated-type{color:var(--muted);font-size:9px;margin-top:2px}
+        .concept-integrated-value{color:var(--navy);font-size:22px;font-weight:800;margin-top:9px}
+        .concept-integrated-meta{color:var(--muted);font-size:10px;line-height:1.55}
+        .concept-integrated-bar{height:6px;background:#e9ecef;border-radius:20px;overflow:hidden;margin:8px 0}
+        .concept-integrated-fill{height:100%;background:var(--gold);border-radius:20px}
+        .concept-integrated-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}
+        .concept-integrated-action{display:inline-flex;align-items:center;justify-content:center;padding:7px 9px;border-radius:7px;background:var(--navy);color:#fff;text-decoration:none;font-size:9px;font-weight:800}
+        .concept-integrated-action:hover{background:var(--gold);color:var(--navy-dark)}
+        .concept-integrated-empty{border:1px dashed var(--border);border-radius:9px;padding:15px;color:var(--muted);font-size:11px;background:#fafafa}
+        .concept-integrated-summary{background:#fffaf0;border-left:4px solid var(--gold);border-radius:8px;padding:11px 13px;font-size:11px;line-height:1.6;margin-bottom:14px}
+
+        /* =====================================================
+           STEP 10.7.2 — ENTITY-LEVEL INTEGRATED ANALYTICS
+        ===================================================== */
+
+        .entity-integrated-panel {
+            background: linear-gradient(135deg, #ffffff, #f8fafc);
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            padding: 17px;
+            margin-top: 14px;
+        }
+
+        .entity-integrated-title {
+            color: var(--navy);
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 3px;
+        }
+
+        .entity-integrated-subtitle {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .entity-source-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            padding: 13px;
+            height: 100%;
+        }
+
+        .entity-source-label {
+            color: var(--muted);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .25px;
+        }
+
+        .entity-source-value {
+            color: var(--navy);
+            font-size: 21px;
+            font-weight: 800;
+            margin-top: 3px;
+        }
+
+        .entity-source-share {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 2px;
+        }
+
+        .entity-context {
+            background: #fffaf0;
+            border-left: 4px solid var(--gold);
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 11px;
+            line-height: 1.65;
+            margin-top: 14px;
+        }
+
+        .entity-action-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .entity-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 38px;
+            padding: 8px 7px;
+            border-radius: 7px;
+            background: var(--navy);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 800;
+            text-align: center;
+            border: 1px solid var(--navy);
+            transition: .15s ease;
+        }
+
+        .entity-action:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--navy-dark);
+        }
+
+        .entity-action.disabled {
+            opacity: .55;
+            pointer-events: none;
+        }
+
+        .entity-integrated-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 20px;
+            background: #e8f7ee;
+            color: #146c43;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        @media (max-width: 900px) {
+            .entity-action-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .entity-action-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav
+    class="navbar navbar-expand-lg"
+>
+
+    <div
+        class="container"
+    >
+
+        <a
+            class="navbar-brand"
+            href="index.html"
+        >
+            🎓 BAJEE JRF AI
+        </a>
+
+
+        <div
+            class="ms-auto"
+        >
+
+            <a
+                href="index.html"
+                class="back-button"
+            >
+                ← Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section
+    class="analytics-hero"
+>
+
+    <div
+        class="container"
+    >
+
+        <small>
+            STEP 10.7.3 • CONCEPT-LEVEL INTEGRATED ANALYTICS
+        </small>
+
+
+        <h1>
+            🧠 JRF Performance Analytics
+        </h1>
+
+
+        <p>
+            Your unified BAJEE JRF AI analytics centre — connecting
+            PYQs, AI Practice, Revision Retests, Study Resources,
+            Knowledge Entities, Concepts and the preparation loop.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main
+    class="main-container"
+>
+
+
+    <!-- =====================================================
+         STATUS
+    ====================================================== -->
+
+    <div
+        id="analyticsStatus"
+        class="analytics-status"
+    >
+
+        Analytics engine loading...
+
+    </div>
+
+
+    <!-- =====================================================
+         SUMMARY
+    ====================================================== -->
+
+    <div
+        class="row g-3"
+    >
+
+        <div
+            class="col-6 col-lg-3"
+        >
+
+            <div
+                class="summary-card"
+            >
+
+                <div
+                    id="totalAttempts"
+                    class="summary-number"
+                >
+                    0
+                </div>
+
+                <div
+                    class="summary-label"
+                >
+                    Total Recorded Attempts
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="col-6 col-lg-3"
+        >
+
+            <div
+                class="summary-card"
+            >
+
+                <div
+                    id="totalCorrect"
+                    class="summary-number text-success"
+                >
+                    0
+                </div>
+
+                <div
+                    class="summary-label"
+                >
+                    Correct
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="col-6 col-lg-3"
+        >
+
+            <div
+                class="summary-card"
+            >
+
+                <div
+                    id="totalWrong"
+                    class="summary-number text-danger"
+                >
+                    0
+                </div>
+
+                <div
+                    class="summary-label"
+                >
+                    Wrong
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="col-6 col-lg-3"
+        >
+
+            <div
+                class="summary-card"
+            >
+
+                <div
+                    id="overallAccuracy"
+                    class="summary-number"
+                >
+                    0%
+                </div>
+
+                <div
+                    class="summary-label"
+                >
+                    Recorded Accuracy
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         UNIFIED PERFORMANCE
+    ====================================================== -->
+
+    <section
+        class="section-card"
+    >
+
+        <div
+            class="
+                d-flex
+                justify-content-between
+                align-items-start
+                gap-3
+                flex-wrap
+            "
+        >
+
+            <div>
+
+                <div
+                    class="section-title"
+                >
+                    🎯 Unified Performance
+                </div>
+
+                <div
+                    class="section-subtitle"
+                >
+                    Combined recorded attempts from the available
+                    BAJEE JRF AI performance sources.
+                </div>
+
+            </div>
+
+
+            <button
+                id="refreshKnowledgeAnalytics"
+                class="btn btn-gold"
+                type="button"
+            >
+                ↻ Refresh Analytics
+            </button>
+
+        </div>
+
+
+        <div
+            class="row g-3"
+        >
+
+            <div
+                class="col-md-4"
+            >
+
+                <div
+                    class="performance-box"
+                >
+
+                    <div
+                        class="performance-label"
+                    >
+                        Accuracy
+                    </div>
+
+                    <div
+                        id="unifiedAccuracy"
+                        class="performance-value"
+                    >
+                        0%
+                    </div>
+
+                    <div
+                        class="progress mt-3"
+                    >
+
+                        <div
+                            id="unifiedAccuracyBar"
+                            class="progress-bar bg-primary"
+                            style="width:0%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="col-md-4"
+            >
+
+                <div
+                    class="performance-box"
+                >
+
+                    <div
+                        class="performance-label"
+                    >
+                        Saved AI Questions
+                    </div>
+
+                    <div
+                        id="savedAIQuestions"
+                        class="performance-value"
+                    >
+                        0
+                    </div>
+
+                    <div
+                        class="performance-label mt-2"
+                    >
+                        Questions in AI Practice Bank
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="col-md-4"
+            >
+
+                <div
+                    class="performance-box"
+                >
+
+                    <div
+                        class="performance-label"
+                    >
+                        Completed Tests
+                    </div>
+
+                    <div
+                        id="completedTests"
+                        class="performance-value"
+                    >
+                        0
+                    </div>
+
+                    <div
+                        class="performance-label mt-2"
+                    >
+                        Test Engine submissions
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DATA SOURCES
+    ====================================================== -->
+
+    <section
+        class="section-card"
+    >
+
+        <div
+            class="section-title"
+        >
+            🔗 Unified Data Sources
+        </div>
+
+        <div
+            class="section-subtitle"
+        >
+            Performance is read from the learning systems already
+            present in BAJEE JRF AI.
+        </div>
+
+
+        <div
+            class="row g-3"
+        >
+
+            <div
+                class="col-md-6 col-lg-3"
+            >
+
+                <div
+                    class="source-card"
+                >
+
+                    <div
+                        class="source-title"
+                    >
+                        📄 PYQ / Vertical Slice
+                    </div>
+
+                    <div
+                        class="source-description"
+                    >
+                        Knowledge-linked question performance
+                    </div>
+
+                    <div
+                        id="pyqAttempts"
+                        class="source-number"
+                    >
+                        0
+                    </div>
+
+                    <div
+                        class="source-small"
+                    >
+                        attempts
+                    </div>
+
+                    <span
+                        id="pyqStatus"
+                        class="no-data"
+                    >
+                        No data
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="col-md-6 col-lg-3"
+            >
+
+                <div
+                    class="source-card"
+                >
+
+                    <div
+                        class="source-title"
+                    >
+                        📋 Test Engine
+                    </div>
+
+                    <div
+                        class="source-description"
+                    >
+                        Completed test results
+                    </div>
+
+                    <div
+                        id="testAttempts"
+                        class="source-number"
+                    >
+                        0
+                    </div>
+
+                    <div
+                        class="source-small"
+                    >
+                        attempts
+                    </div>
+
+                    <span
+                        id="testStatus"
+                        class="no-data"
+                    >
+                        No tests
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="col-md-6 col-lg-3"
+            >
+
+                <div
+                    class="source-card"
+                >
+
+                    <div
+                        class="source-title"
+                    >
+                        🧠 Adaptive
+                    </div>
+
+                    <div
+                        class="source-description"
+                    >
+                        Adaptive learning performance
+                    </div>
+
+                    <div
+                        id="adaptiveAttempts"
+                        class="source-number"
+                    >
+                        0
+                    </div>
+
+                    <div
+                        class="source-small"
+                    >
+                        recorded attempts
+                    </div>
+
+                    <span
+                        id="adaptiveStatus"
+                        class="no-data"
+                    >
+                        No data
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="col-md-6 col-lg-3"
+            >
+
+                <div
+                    class="source-card"
+                >
+
+                    <div
+                        class="source-title"
+                    >
+                        🤖 AI Practice
+                    </div>
+
+                    <div
+                        class="source-description"
+                    >
+                        AI-generated practice performance
+                    </div>
+
+                    <div
+                        id="aiPracticeAttempts"
+                        class="source-number"
+                    >
+                        0
+                    </div>
+
+                    <div
+                        class="source-small"
+                    >
+                        attempts
+                    </div>
+
+                    <span
+                        id="aiPracticeStatus"
+                        class="no-data"
+                    >
+                        No data
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         UNIT PERFORMANCE
+    ====================================================== -->
+
+    <section
+        class="section-card"
+    >
+
+        <div
+            class="section-title"
+        >
+            📚 Unit-wise Performance
+        </div>
+
+        <div
+            class="section-subtitle"
+        >
+            Performance grouped across the ten UGC NET English
+            Paper II units.
+        </div>
+
+
+        <div
+            id="unitPerformance"
+        >
+
+            <div
+                class="text-secondary small"
+            >
+                Loading unit performance...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         STEP 9.3 SUMMARY
+    ====================================================== -->
+
+    <section
+        class="section-card"
+    >
+
+        <div
+            class="step-badge"
+        >
+            STEP 9.3
+        </div>
+
+
+        <div
+            class="section-title"
+        >
+            🧠 Knowledge Entity & Concept Analytics
+        </div>
+
+
+        <div
+            class="section-subtitle"
+        >
+            Identify which authors, movements, theories, works,
+            concepts and other knowledge entities require more
+            revision.
+        </div>
+
+
+        <div
+            class="analytics-info"
+        >
+
+            <strong>
+                How this works:
+            </strong>
+
+            Performance is grouped using the existing
+            knowledge mapping. Official PYQ performance and
+            AI Practice performance remain distinguishable;
+            this layer does not alter the original question
+            databases.
+
+        </div>
+
+
+        <!-- SUMMARY -->
+
+        <div
+            class="row g-3 mb-4"
+        >
+
+            <div
+                class="col-6 col-md-3"
+            >
+
+                <div
+                    class="summary-card"
+                >
+
+                    <div
+                        id="knowledgeEntityCount"
+                        class="summary-number"
+                    >
+                        0
+                    </div>
+
+                    <div
+                        class="summary-label"
+                    >
+                        Knowledge Entities
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="col-6 col-md-3"
+            >
+
+                <div
+                    class="summary-card"
+                >
+
+                    <div
+                        id="conceptCount"
+                        class="summary-number"
+                    >
+                        0
+                    </div>
+
+                    <div
+                        class="summary-label"
+                    >
+                        Concepts
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="col-6 col-md-3"
+            >
+
+                <div
+                    class="summary-card"
+                >
+
+                    <div
+                        id="weakEntityCount"
+                        class="summary-number text-danger"
+                    >
+                        0
+                    </div>
+
+                    <div
+                        class="summary-label"
+                    >
+                        Entities Needing Revision
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="col-6 col-md-3"
+            >
+
+                <div
+                    class="summary-card"
+                >
+
+                    <div
+                        id="weakConceptCount"
+                        class="summary-number text-danger"
+                    >
+                        0
+                    </div>
+
+                    <div
+                        class="summary-label"
+                    >
+                        Concepts Needing Revision
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             KNOWLEDGE ENTITIES
+        ================================================== -->
+
+        <div
+            class="mt-4"
+        >
+
+            <h3
+                class="section-title"
+                style="font-size:18px;"
+            >
+                🧩 Knowledge Entity Performance
+            </h3>
+
+            <div
+                class="section-subtitle"
+            >
+                Author, work, movement, theory and other mapped
+                knowledge-entity performance.
+            </div>
+
+
+            <div
+                id="knowledgeEntityAnalytics"
+                class="row g-3"
+            >
+
+                <div
+                    class="col-12"
+                >
+
+                    <div
+                        class="alert alert-light border"
+                    >
+                        Loading knowledge-entity analytics...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CONCEPTS
+        ================================================== -->
+
+        <div
+            class="mt-5"
+        >
+
+            <h3
+                class="section-title"
+                style="font-size:18px;"
+            >
+                💡 Concept Performance
+            </h3>
+
+            <div
+                class="section-subtitle"
+            >
+                Concept-level performance connected to the
+                knowledge entities and units.
+            </div>
+
+
+            <div
+                id="conceptAnalytics"
+                class="row g-3"
+            >
+
+                <div
+                    class="col-12"
+                >
+
+                    <div
+                        class="alert alert-light border"
+                    >
+                        Loading concept analytics...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         STEP 10.7.1 — KNOWLEDGE GRAPH ANALYTICS INTEGRATION
+    ====================================================== -->
+
+    <section
+        class="section-card"
+        id="knowledgeGraphAnalytics"
+    >
+
+        <div class="step-badge">
+            STEP 10.7.1
+        </div>
+
+        <div class="section-title">
+            🧠 Knowledge Graph Analytics Integration
+        </div>
+
+        <div class="section-subtitle">
+            A read-only analytics layer connecting existing
+            preparation signals to the Knowledge Graph.
+            No PYQ, Test Engine, Adaptive Engine or AI Practice
+            source is modified.
+        </div>
+
+
+        <div
+            id="knowledgeAnalyticsStatus"
+            class="kg-analytics-status"
+        >
+            Connecting learning signals...
+        </div>
+
+
+        <!-- SOURCE SUMMARY -->
+
+        <div class="row g-3 mb-4">
+
+            <div class="col-6 col-md-3">
+
+                <div class="kg-source-card">
+
+                    <div class="source-title">
+                        📝 Connected PYQs
+                    </div>
+
+                    <div
+                        id="analyticsPYQAttempts"
+                        class="kg-source-number"
+                    >
+                        0
+                    </div>
+
+                    <div class="kg-source-label">
+                        Recorded PYQ question attempts
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-md-3">
+
+                <div class="kg-source-card">
+
+                    <div class="source-title">
+                        🤖 AI Practice
+                    </div>
+
+                    <div
+                        id="analyticsAIPracticeAttempts"
+                        class="kg-source-number"
+                    >
+                        0
+                    </div>
+
+                    <div class="kg-source-label">
+                        AI Practice attempt records
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-md-3">
+
+                <div class="kg-source-card">
+
+                    <div class="source-title">
+                        🔄 Revision Retests
+                    </div>
+
+                    <div
+                        id="analyticsRevisionRetests"
+                        class="kg-source-number"
+                    >
+                        0
+                    </div>
+
+                    <div class="kg-source-label">
+                        Recorded revision retest attempts
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-md-3">
+
+                <div class="kg-source-card">
+
+                    <div class="source-title">
+                        📚 Study Resources
+                    </div>
+
+                    <div
+                        id="analyticsConnectedResources"
+                        class="kg-source-number"
+                    >
+                        0
+                    </div>
+
+                    <div class="kg-source-label">
+                        Connected resource records
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="analytics-info">
+
+            <strong>
+                Data-source status:
+            </strong>
+
+            <span
+                id="analyticsSourceStatus"
+            >
+                Loading integrated analytics sources...
+            </span>
+
+        </div>
+
+
+        <!-- SELECTED ENTITY -->
+
+        <div class="mt-4">
+
+            <h3
+                class="section-title"
+                style="font-size:18px;"
+            >
+                🔎 Selected Knowledge Entity
+            </h3>
+
+            <div class="section-subtitle">
+                Open this page with
+                <code>?name=Entity Name</code>
+                to inspect the integrated entity-level signal.
+            </div>
+
+
+            <div class="kg-entity-panel">
+
+                <div
+                    id="analyticsEntityName"
+                    class="kg-entity-name"
+                >
+                    No entity selected
+                </div>
+
+
+                <div class="row g-3 mt-1">
+
+                    <div class="col-6 col-md-3">
+
+                        <div class="kg-metric">
+
+                            <div class="kg-metric-label">
+                                Accuracy
+                            </div>
+
+                            <div
+                                id="analyticsEntityAccuracy"
+                                class="kg-metric-value"
+                            >
+                                0%
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <div class="kg-metric">
+
+                            <div class="kg-metric-label">
+                                Attempts
+                            </div>
+
+                            <div
+                                id="analyticsEntityAttempts"
+                                class="kg-metric-value"
+                            >
+                                0
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <div class="kg-metric">
+
+                            <div class="kg-metric-label">
+                                Correct
+                            </div>
+
+                            <div
+                                id="analyticsEntityCorrect"
+                                class="kg-metric-value text-success"
+                            >
+                                0
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <div class="kg-metric">
+
+                            <div class="kg-metric-label">
+                                Wrong
+                            </div>
+
+                            <div
+                                id="analyticsEntityWrong"
+                                class="kg-metric-value text-danger"
+                            >
+                                0
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <div class="kg-metric">
+
+                            <div class="kg-metric-label">
+                                PYQ Attempts
+                            </div>
+
+                            <div
+                                id="analyticsEntityPYQAttempts"
+                                class="kg-metric-value"
+                            >
+                                0
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <div class="kg-metric">
+
+                            <div class="kg-metric-label">
+                                AI Attempts
+                            </div>
+
+                            <div
+                                id="analyticsEntityAIAttempts"
+                                class="kg-metric-value"
+                            >
+                                0
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <div class="kg-metric">
+
+                            <div class="kg-metric-label">
+                                Revision Retests
+                            </div>
+
+                            <div
+                                id="analyticsEntityRevisionAttempts"
+                                class="kg-metric-value"
+                            >
+                                0
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6 col-md-3">
+
+                        <div class="kg-metric">
+
+                            <div class="kg-metric-label">
+                                Connected Resources
+                            </div>
+
+                            <div
+                                id="analyticsEntityResources"
+                                class="kg-metric-value"
+                            >
+                                0
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="analyticsEntitySignal"
+                    class="kg-loop-box mt-3"
+                >
+                    No entity-level analytics loaded yet.
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             STEP 10.7.2 — ENTITY-LEVEL INTEGRATED ANALYTICS
+        ================================================== -->
+
+        <div
+            id="entityIntegratedAnalytics"
+            class="entity-integrated-panel"
+        >
+
+            <div class="d-flex justify-content-between align-items-start gap-2 flex-wrap">
+
+                <div>
+                    <div class="entity-integrated-title">
+                        🔗 Entity-Level Integrated Analytics
+                    </div>
+                    <div class="entity-integrated-subtitle">
+                        A read-only view of how the selected knowledge entity
+                        is connected across PYQs, AI Practice, Revision Retests
+                        and Study Resources.
+                    </div>
+                </div>
+
+                <span
+                    id="entityIntegratedStatus"
+                    class="entity-integrated-status"
+                >
+                    Waiting for entity
+                </span>
+
+            </div>
+
+
+            <div class="row g-3">
+
+                <div class="col-6 col-md-3">
+                    <div class="entity-source-card">
+                        <div class="entity-source-label">PYQ</div>
+                        <div id="entityIntegratedPYQ" class="entity-source-value">0</div>
+                        <div id="entityIntegratedPYQShare" class="entity-source-share">0% of entity attempts</div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <div class="entity-source-card">
+                        <div class="entity-source-label">AI Practice</div>
+                        <div id="entityIntegratedAI" class="entity-source-value">0</div>
+                        <div id="entityIntegratedAIShare" class="entity-source-share">0% of entity attempts</div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <div class="entity-source-card">
+                        <div class="entity-source-label">Revision Retest</div>
+                        <div id="entityIntegratedRevision" class="entity-source-value">0</div>
+                        <div id="entityIntegratedRevisionShare" class="entity-source-share">0% of entity attempts</div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <div class="entity-source-card">
+                        <div class="entity-source-label">Resources</div>
+                        <div id="entityIntegratedResources" class="entity-source-value">0</div>
+                        <div class="entity-source-share">Connected study resources</div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div
+                id="entityIntegratedContext"
+                class="entity-context"
+            >
+                Select a knowledge entity to load its integrated analytics.
+            </div>
+
+
+            <div class="entity-action-grid">
+
+                <a id="entityActionEntity" class="entity-action disabled" href="#">
+                    🧩 Open Entity
+                </a>
+
+                <a id="entityActionPYQ" class="entity-action disabled" href="#">
+                    📝 Connected PYQs
+                </a>
+
+                <a id="entityActionResources" class="entity-action disabled" href="#">
+                    📚 Study Resources
+                </a>
+
+                <a id="entityActionRevision" class="entity-action" href="revision-intelligence.html">
+                    🔄 Revision Intelligence
+                </a>
+
+                <a id="entityActionAI" class="entity-action" href="ai-practice.html">
+                    🤖 AI Practice
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             STEP 10.7.3 — CONCEPT-LEVEL INTEGRATED ANALYTICS
+        ================================================== -->
+        <div id="conceptIntegratedAnalytics" class="concept-integrated-panel">
+            <div class="concept-integrated-title">💡 Concept-Level Integrated Analytics</div>
+            <div class="concept-integrated-subtitle">A read-only bridge from the existing Concept Performance layer to the Knowledge Graph, AI Practice and Revision signals. Existing performance data is not modified.</div>
+            <div id="conceptIntegratedSummary" class="concept-integrated-summary">Reading concept analytics...</div>
+            <div id="conceptIntegratedList" class="row g-3"><div class="col-12"><div class="concept-integrated-empty">Loading concept-level integrated analytics...</div></div></div>
+        </div>
+
+
+        <!-- KNOWLEDGE LOOP -->
+
+        <div class="mt-4">
+
+            <h3
+                class="section-title"
+                style="font-size:18px;"
+            >
+                🔁 Knowledge Preparation Loop
+            </h3>
+
+            <div class="section-subtitle">
+                The integrated path through which recorded learning
+                signals connect back to the Knowledge Graph.
+            </div>
+
+
+            <div
+                id="knowledgeLoopStatus"
+                class="kg-loop-box"
+            >
+                Loading knowledge loop...
+            </div>
+
+        </div>
+
+
+        <!-- ANALYTICS SNAPSHOT -->
+
+        <div class="mt-4">
+
+            <h3
+                class="section-title"
+                style="font-size:18px;"
+            >
+                📦 Analytics Snapshot
+            </h3>
+
+            <div class="section-subtitle">
+                Read-only browser-local snapshot exposed by the
+                existing Step 10.7 analytics engine.
+            </div>
+
+
+            <pre
+                id="analyticsSnapshot"
+                class="kg-snapshot"
+            >Loading analytics snapshot...</pre>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =====================================================
+         STEP 9.8 — FINAL ANALYTICS INTEGRATION
+    ====================================================== -->
+
+    <section
+        class="section-card"
+    >
+
+        <div
+            class="step-badge"
+        >
+            STEP 9.8 • FINAL INTEGRATION
+        </div>
+
+
+        <div
+            class="section-title"
+        >
+            🚀 JRF Intelligence Hub
+        </div>
+
+
+        <div
+            class="section-subtitle"
+        >
+            Your analytics now connects the complete
+            performance → revision → retest → adaptation →
+            readiness learning loop.
+        </div>
+
+
+        <div
+            class="integration-flow"
+        >
+
+            <strong>
+                Complete Intelligence Loop:
+            </strong>
+
+            <br>
+
+            Performance →
+            Knowledge & Concept Analytics →
+            Revision Intelligence →
+            Revision Retest →
+            Adaptive Recommendations →
+            JRF Readiness Dashboard
+
+        </div>
+
+
+        <div
+            class="row g-3"
+        >
+
+
+            <!-- =================================================
+                 REVISION INTELLIGENCE
+            ================================================== -->
+
+            <div
+                class="col-md-6 col-lg-4"
+            >
+
+                <div
+                    class="integration-card"
+                >
+
+                    <div
+                        class="integration-icon"
+                    >
+                        🧠
+                    </div>
+
+
+                    <div
+                        class="integration-title"
+                    >
+                        Revision Intelligence
+                    </div>
+
+
+                    <div
+                        class="integration-description"
+                    >
+                        See the knowledge areas that require
+                        revision based on your recorded
+                        performance.
+                    </div>
+
+
+                    <a
+                        href="revision-intelligence.html"
+                        class="integration-button"
+                    >
+                        Open Revision Intelligence →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 REVISION RETEST
+            ================================================== -->
+
+            <div
+                class="col-md-6 col-lg-4"
+            >
+
+                <div
+                    class="integration-card"
+                >
+
+                    <div
+                        class="integration-icon"
+                    >
+                        🔄
+                    </div>
+
+
+                    <div
+                        class="integration-title"
+                    >
+                        Revision Retest
+                    </div>
+
+
+                    <div
+                        class="integration-description"
+                    >
+                        Reattempt a revision question and
+                        reassess whether your understanding
+                        has improved.
+                    </div>
+
+
+                    <a
+                        href="revision-retest.html"
+                        class="integration-button"
+                    >
+                        Open Revision Retest →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ADAPTIVE RECOMMENDATIONS
+            ================================================== -->
+
+            <div
+                class="col-md-6 col-lg-4"
+            >
+
+                <div
+                    class="integration-card"
+                >
+
+                    <div
+                        class="integration-icon"
+                    >
+                        🎯
+                    </div>
+
+
+                    <div
+                        class="integration-title"
+                    >
+                        Adaptive Recommendations
+                    </div>
+
+
+                    <div
+                        class="integration-description"
+                    >
+                        Convert your performance signals into
+                        the next recommended study action.
+                    </div>
+
+
+                    <a
+                        href="adaptive-recommendations.html"
+                        class="integration-button"
+                    >
+                        Open Recommendations →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 JRF READINESS
+            ================================================== -->
+
+            <div
+                class="col-md-6 col-lg-4"
+            >
+
+                <div
+                    class="integration-card"
+                >
+
+                    <div
+                        class="integration-icon"
+                    >
+                        🏆
+                    </div>
+
+
+                    <div
+                        class="integration-title"
+                    >
+                        JRF Readiness Dashboard
+                    </div>
+
+
+                    <div
+                        class="integration-description"
+                    >
+                        View your overall preparation signal,
+                        concept strength, priority areas and
+                        unit-wise performance.
+                    </div>
+
+
+                    <a
+                        href="jrf-readiness.html"
+                        class="integration-button"
+                    >
+                        Open JRF Readiness →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 AI PRACTICE
+            ================================================== -->
+
+            <div
+                class="col-md-6 col-lg-4"
+            >
+
+                <div
+                    class="integration-card"
+                >
+
+                    <div
+                        class="integration-icon"
+                    >
+                        🤖
+                    </div>
+
+
+                    <div
+                        class="integration-title"
+                    >
+                        AI Practice
+                    </div>
+
+
+                    <div
+                        class="integration-description"
+                    >
+                        Continue AI-generated practice to create
+                        new performance signals for the intelligence
+                        engine.
+                    </div>
+
+
+                    <a
+                        href="ai-practice.html"
+                        class="integration-button"
+                    >
+                        Open AI Practice →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 CURRENT ANALYTICS
+            ================================================== -->
+
+            <div
+                class="col-md-6 col-lg-4"
+            >
+
+                <div
+                    class="integration-card"
+                >
+
+                    <div
+                        class="integration-icon"
+                    >
+                        📊
+                    </div>
+
+
+                    <div
+                        class="integration-title"
+                    >
+                        Knowledge Analytics
+                    </div>
+
+
+                    <div
+                        class="integration-description"
+                    >
+                        Return to the current entity and concept
+                        analytics layer to inspect your detailed
+                        performance signals.
+                    </div>
+
+
+                    <a
+                        href="#knowledgeEntityAnalytics"
+                        class="integration-button"
+                    >
+                        View Analytics ↓
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CURRENT INSIGHT
+    ====================================================== -->
+
+    <section
+        class="section-card"
+    >
+
+        <div
+            class="section-title"
+        >
+            🎯 Current JRF Insight
+        </div>
+
+        <div
+            class="section-subtitle"
+        >
+            A data-based summary of the current recorded
+            performance.
+        </div>
+
+
+        <div
+            id="currentJRFInsight"
+            class="insight-box"
+        >
+
+            Analytics are being calculated from the recorded
+            performance data.
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DATA SOURCES / TECHNICAL NOTE
+    ====================================================== -->
+
+    <section
+        class="section-card"
+    >
+
+        <div
+            class="section-title"
+        >
+            🔄 Analytics Data Sources
+        </div>
+
+        <div
+            class="section-subtitle"
+        >
+            Step 9.8 connects the completed intelligence layers
+            without altering the underlying question databases.
+        </div>
+
+
+        <div
+            class="data-note"
+        >
+
+            <strong>
+                Current architecture:
+            </strong>
+
+            <br>
+
+            PYQ / Vertical Slice →
+            Knowledge Mapping →
+            Performance →
+            Entity / Concept Analytics
+
+            <br><br>
+
+            Performance →
+            Revision Intelligence →
+            Revision Retest →
+            Adaptive Recommendations →
+            JRF Readiness
+
+            <br><br>
+
+            AI Practice →
+            Performance Signals →
+            Adaptive Learning Loop
+
+            <br><br>
+
+            <strong>
+                Important:
+            </strong>
+
+            Official PYQs remain untouched.
+            AI-generated questions remain separate from
+            official PYQs.
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    🎓 BAJEE JRF AI
+
+    <br>
+
+    JRF Performance & Knowledge Graph & Concept Analytics
+
+</footer>
+
+
+<!-- =========================================================
+     BOOTSTRAP
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+></script>
+
+
+<!-- =========================================================
+     STEP 9.3 JAVASCRIPT
+========================================================= -->
+
+<script
+    src="js/jrf-analytics-knowledge.js"
+></script>
+<script src="js/jrf-analytics-9.3-bridge-fix.js"></script>
+
+<script>
+/* =============================================================
+   STEP 10.7.3 — CONCEPT-LEVEL INTEGRATED ANALYTICS
+   Read-only bridge over the existing Concept Performance DOM.
+============================================================= */
+(function(){
+ "use strict";
+ const root=document.getElementById("conceptIntegratedAnalytics"); if(!root)return;
+ const $=id=>document.getElementById(id);
+ const clean=v=>String(v||"").replace(/\s+/g," ").trim();
+ const esc=v=>String(v||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+ function findConcepts(){
+    const host = $("conceptAnalytics");
+    if (!host) return [];
+
+    const out = [];
+
+    host.querySelectorAll(".performance-card").forEach((el) => {
+        const text = clean(el.textContent);
+
+        if (!text || text.length > 900) {
+            return;
+        }
+
+        const accuracyMatch = text.match(/(\d{1,3})%/);
+        const attemptsMatch = text.match(/(\d+)\s*Attempts?/i);
+        const wrongMatch = text.match(/(\d+)\s*Wrong/i);
+
+        if (!accuracyMatch || !attemptsMatch) {
+            return;
+        }
+
+        const titleElement = el.querySelector(".fw-bold");
+        const name = titleElement
+            ? clean(titleElement.textContent)
+            : "";
+
+        if (!name) {
+            return;
+        }
+
+        if (/^concept( performance)?$/i.test(name)) {
+            return;
+        }
+
+        const accuracy = Math.max(
+            0,
+            Math.min(100, Number(accuracyMatch[1]))
+        );
+
+        const attempts = Number(attemptsMatch[1]);
+
+        const wrong = wrongMatch
+            ? Number(wrongMatch[1])
+            : Math.max(
+                0,
+                attempts - Math.round(
+                    attempts * accuracy / 100
+                )
+            );
+
+        const correct = Math.max(
+            0,
+            attempts - wrong
+        );
+
+        const key = name.toLowerCase();
+
+        if (out.some((item) => item.key === key)) {
+            return;
+        }
+
+        out.push({
+            key,
+            name,
+            accuracy,
+            attempts,
+            correct,
+            wrong
+        });
+    });
+
+    return out;
+ }
+ function render(){
+   const list=$("conceptIntegratedList"), summary=$("conceptIntegratedSummary"); if(!list||!summary)return;
+   const concepts=findConcepts();
+   if(!concepts.length){summary.textContent="No concept-level performance records are currently available. This panel reads the existing Concept Performance layer."; list.innerHTML='<div class="col-12"><div class="concept-integrated-empty">No concept records detected yet.</div></div>';return;}
+   const total=concepts.reduce((a,x)=>a+x.attempts,0), correct=concepts.reduce((a,x)=>a+x.correct,0), wrong=concepts.reduce((a,x)=>a+x.wrong,0), overall=total?Math.round(correct/total*100):0;
+   summary.textContent=`${concepts.length} concept${concepts.length===1?"":"s"} connected. ${total} recorded attempt${total===1?"":"s"}, ${correct} correct, ${wrong} wrong and ${overall}% combined accuracy.`;
+   list.innerHTML=concepts.map(c=>{
+     const e=encodeURIComponent(c.name), signal=c.accuracy<50?"High revision need":c.accuracy<75?"Moderate revision need":c.accuracy<90?"Developing":"Strong";
+     return `<div class="col-12 col-md-6"><div class="concept-integrated-card"><div class="concept-integrated-name">${esc(c.name)}</div><div class="concept-integrated-type">Concept Performance</div><div class="concept-integrated-value">${c.accuracy}%</div><div class="concept-integrated-bar"><div class="concept-integrated-fill" style="width:${c.accuracy}%"></div></div><div class="concept-integrated-meta">${c.attempts} attempt${c.attempts===1?"":"s"} · ${c.correct} correct · ${c.wrong} wrong<br>Signal: <strong>${signal}</strong></div><div class="concept-integrated-actions"><a class="concept-integrated-action" href="knowledge-entity.html?name=${e}">🔗 Entity</a><a class="concept-integrated-action" href="knowledge-pyq.html?entity=${e}">📝 PYQs</a><a class="concept-integrated-action" href="knowledge-resources.html?entity=${e}">📚 Resources</a></div></div></div>`;
+   }).join("");
+ }
+ let timer; function schedule(){clearTimeout(timer);timer=setTimeout(render,150);}
+ const host=$("conceptAnalytics"); if(host)new MutationObserver(schedule).observe(host,{childList:true,characterData:true,subtree:true});
+ document.addEventListener("DOMContentLoaded",schedule); window.addEventListener("load",schedule); schedule();
+ console.log("BAJEE JRF AI: Step 10.7.3 concept-level integrated analytics ready.");
+})();
+</script>
+
+
+<script>
+/* =============================================================
+   STEP 10.7.2 — ENTITY-LEVEL INTEGRATED ANALYTICS
+   Read-only UI bridge. It does not modify the analytics engine.
+============================================================= */
+(function () {
+    "use strict";
+
+    const root = document.getElementById("entityIntegratedAnalytics");
+    if (!root) return;
+
+    const $ = (id) => document.getElementById(id);
+
+    function numberFrom(id) {
+        const el = $(id);
+        if (!el) return 0;
+        const value = parseInt(String(el.textContent || "0").replace(/[^0-9-]/g, ""), 10);
+        return Number.isFinite(value) ? value : 0;
+    }
+
+    function textFrom(id) {
+        const el = $(id);
+        return el ? String(el.textContent || "").trim() : "";
+    }
+
+    function setLink(id, href, enabled) {
+        const el = $(id);
+        if (!el) return;
+        if (enabled && href) {
+            el.href = href;
+            el.classList.remove("disabled");
+        } else {
+            el.href = "#";
+            el.classList.add("disabled");
+        }
+    }
+
+    function pct(value, total) {
+        if (!total || value <= 0) return 0;
+        return Math.round((value / total) * 100);
+    }
+
+    function updateEntityIntegratedAnalytics() {
+        const name = textFrom("analyticsEntityName");
+        const attempts = numberFrom("analyticsEntityAttempts");
+        const correct = numberFrom("analyticsEntityCorrect");
+        const wrong = numberFrom("analyticsEntityWrong");
+        const accuracy = textFrom("analyticsEntityAccuracy") || "0%";
+        const pyq = numberFrom("analyticsEntityPYQAttempts");
+        const ai = numberFrom("analyticsEntityAIAttempts");
+        const revision = numberFrom("analyticsEntityRevisionAttempts");
+        const resources = numberFrom("analyticsEntityResources");
+
+        const hasEntity = !!name &&
+            name.toLowerCase() !== "no entity selected" &&
+            name.toLowerCase() !== "loading...";
+
+        $("entityIntegratedPYQ").textContent = pyq;
+        $("entityIntegratedAI").textContent = ai;
+        $("entityIntegratedRevision").textContent = revision;
+        $("entityIntegratedResources").textContent = resources;
+
+        $("entityIntegratedPYQShare").textContent =
+            `${pct(pyq, attempts)}% of entity attempts`;
+        $("entityIntegratedAIShare").textContent =
+            `${pct(ai, attempts)}% of entity attempts`;
+        $("entityIntegratedRevisionShare").textContent =
+            `${pct(revision, attempts)}% of entity attempts`;
+
+        const status = $("entityIntegratedStatus");
+        const context = $("entityIntegratedContext");
+
+        if (!hasEntity) {
+            status.textContent = "Waiting for entity";
+            status.style.background = "#f1f3f5";
+            status.style.color = "#495057";
+            context.textContent = "Select a knowledge entity to load its integrated analytics.";
+
+            setLink("entityActionEntity", null, false);
+            setLink("entityActionPYQ", null, false);
+            setLink("entityActionResources", null, false);
+            return;
+        }
+
+        status.textContent = "Entity analytics connected";
+        status.style.background = "#e8f7ee";
+        status.style.color = "#146c43";
+
+        const encoded = encodeURIComponent(name);
+
+        setLink("entityActionEntity", `knowledge-entity.html?name=${encoded}`, true);
+        setLink("entityActionPYQ", `knowledge-pyq.html?entity=${encoded}`, true);
+        setLink("entityActionResources", `knowledge-resources.html?entity=${encoded}`, true);
+
+        let signal = "No additional performance signal recorded.";
+        if (attempts > 0) {
+            signal = `${name} has ${attempts} recorded attempt${attempts === 1 ? "" : "s"}, ` +
+                `${correct} correct and ${wrong} wrong, with ${accuracy} accuracy. ` +
+                `Source distribution: ${pyq} PYQ, ${ai} AI Practice and ${revision} revision retest attempt${revision === 1 ? "" : "s"}.`;
+        }
+
+        if (resources > 0) {
+            signal += ` ${resources} connected study resource${resources === 1 ? "" : "s"} ${resources === 1 ? "is" : "are"} available.`;
+        }
+
+        context.textContent = signal;
+    }
+
+    let timer = null;
+    function scheduleRefresh() {
+        updateEntityIntegratedAnalytics();
+        clearTimeout(timer);
+        timer = setTimeout(updateEntityIntegratedAnalytics, 250);
+    }
+
+    const observedIds = [
+        "analyticsEntityName",
+        "analyticsEntityAccuracy",
+        "analyticsEntityAttempts",
+        "analyticsEntityCorrect",
+        "analyticsEntityWrong",
+        "analyticsEntityPYQAttempts",
+        "analyticsEntityAIAttempts",
+        "analyticsEntityRevisionAttempts",
+        "analyticsEntityResources"
+    ];
+
+    observedIds.forEach((id) => {
+        const el = $(id);
+        if (!el) return;
+        const observer = new MutationObserver(scheduleRefresh);
+        observer.observe(el, { childList: true, characterData: true, subtree: true });
+    });
+
+    document.addEventListener("DOMContentLoaded", scheduleRefresh);
+    window.addEventListener("load", scheduleRefresh);
+    scheduleRefresh();
+
+    console.log("BAJEE JRF AI: Step 10.7.2 entity-level integrated analytics ready.");
+})();
+</script>
+
+
+</body>
+</html>

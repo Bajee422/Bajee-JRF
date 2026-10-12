@@ -1,0 +1,3534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        BAJEE JRF AI - Topic & Concept Balancing
+    </title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --navy: #071a3d;
+            --navy2: #102e63;
+            --gold: #d4af37;
+            --text: #172033;
+            --muted: #6b7280;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .navbar {
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy),
+                    var(--navy2)
+                );
+        }
+
+        .navbar-brand {
+            color: #f4df8a !important;
+            font-weight: 700;
+        }
+
+        .hero {
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(212,175,55,.18),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    var(--navy),
+                    var(--navy2)
+                );
+
+            color: white;
+            padding: 42px 0;
+        }
+
+        .hero h1 {
+            font-weight: 800;
+        }
+
+        .gold {
+            color: #f4df8a;
+        }
+
+        .card {
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            box-shadow:
+                0 5px 18px rgba(0,0,0,.05);
+        }
+
+        .section-title {
+            color: var(--navy);
+            font-weight: 800;
+        }
+
+        .stat-card {
+            padding: 20px;
+            height: 100%;
+        }
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--navy);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: #111827;
+            border: none;
+            font-weight: 700;
+        }
+
+        .btn-gold:hover {
+            background: #c49f2f;
+            color: #111827;
+        }
+
+        .btn-gold:disabled {
+            opacity: .55;
+        }
+
+        .status-box {
+            border-radius: 12px;
+            padding: 14px 16px;
+            background: #eef4ff;
+            border: 1px solid #cddcff;
+        }
+
+        .model-box {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            font-family: Consolas, monospace;
+            font-size: 14px;
+        }
+
+        .concept-card {
+            padding: 18px;
+            border-radius: 14px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 14px;
+        }
+
+        .topic-badge {
+            display: inline-block;
+            padding: 6px 11px;
+            border-radius: 20px;
+            background: #e8eefc;
+            color: #183b75;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .concept-badge {
+            display: inline-block;
+            padding: 5px 9px;
+            margin: 3px;
+            border-radius: 15px;
+            background: #f5f1df;
+            color: #5d4a08;
+            font-size: 12px;
+        }
+
+        .priority-high {
+            border-left: 5px solid #dc3545;
+        }
+
+        .priority-medium {
+            border-left: 5px solid #fd7e14;
+        }
+
+        .priority-normal {
+            border-left: 5px solid #198754;
+        }
+
+        .weight-badge {
+            font-weight: 700;
+            padding: 6px 10px;
+            border-radius: 15px;
+            background: var(--navy);
+            color: white;
+            font-size: 12px;
+        }
+
+        .small-muted {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .empty-state {
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .footer {
+            background: var(--navy);
+            color: #dbe4f5;
+            padding: 25px 0;
+            margin-top: 50px;
+        }
+
+        .progress {
+            height: 9px;
+            border-radius: 10px;
+        }
+
+        .loading {
+            opacity: .65;
+            pointer-events: none;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="container">
+
+        <div class="
+            d-flex
+            justify-content-between
+            align-items-center
+            w-100
+        ">
+
+            <a
+                class="navbar-brand"
+                href="index.html"
+            >
+                🎓 BAJEE JRF AI
+            </a>
+
+            <span class="text-light small">
+
+                Step 8.5 • Topic & Concept Balancing
+
+            </span>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<section class="hero">
+
+    <div class="container">
+
+        <p class="
+            text-uppercase
+            small
+            fw-bold
+            gold
+            mb-2
+        ">
+
+            JRF Adaptive Learning Engine
+
+        </p>
+
+        <h1>
+            Topic & Concept Balancing
+        </h1>
+
+        <p class="lead mb-0">
+
+            Balance weak concepts, topics and knowledge
+            coverage when building the next JRF test.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<main class="container py-4">
+
+
+    <!-- STATUS -->
+
+    <div
+        id="statusBox"
+        class="status-box mb-4"
+    >
+
+        Loading BAJEE JRF AI data...
+
+    </div>
+
+
+    <!-- STATISTICS -->
+
+    <div class="row g-3 mb-4">
+
+
+        <div class="col-md-3">
+
+            <div class="card stat-card">
+
+                <div
+                    id="questionCount"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    PYQ Questions
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="card stat-card">
+
+                <div
+                    id="topicCount"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Topics
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="card stat-card">
+
+                <div
+                    id="conceptCount"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Concepts
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="card stat-card">
+
+                <div
+                    id="weakConceptCount"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Weak Concepts
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MODEL -->
+
+    <div class="card p-4 mb-4">
+
+        <h3 class="section-title mb-3">
+
+            Step 8.5 Balancing Model
+
+        </h3>
+
+
+        <div class="model-box">
+
+            Weakness Weight
+            +
+            Difficulty Progression
+            +
+            Topic Diversity
+            +
+            Concept Coverage
+            +
+            Previous Errors
+            =
+            Balanced Adaptive Queue
+
+        </div>
+
+
+        <div class="row g-3 mt-3">
+
+
+            <div class="col-md-3">
+
+                <div class="p-3 bg-light rounded h-100">
+
+                    <strong>
+                        1. Weak Concepts
+                    </strong>
+
+                    <p class="small-muted mb-0 mt-2">
+
+                        Weak knowledge areas receive
+                        additional exposure.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="p-3 bg-light rounded h-100">
+
+                    <strong>
+                        2. Topic Diversity
+                    </strong>
+
+                    <p class="small-muted mb-0 mt-2">
+
+                        Prevents one topic from dominating
+                        the complete test.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="p-3 bg-light rounded h-100">
+
+                    <strong>
+                        3. Concept Coverage
+                    </strong>
+
+                    <p class="small-muted mb-0 mt-2">
+
+                        Related concepts are distributed
+                        across the queue.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="p-3 bg-light rounded h-100">
+
+                    <strong>
+                        4. Exploration
+                    </strong>
+
+                    <p class="small-muted mb-0 mt-2">
+
+                        Unseen concepts remain part
+                        of the learning mix.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONTROLS -->
+
+    <div class="card p-4 mb-4">
+
+        <div class="row g-3 align-items-end">
+
+
+            <div class="col-md-4">
+
+                <label class="form-label fw-bold">
+
+                    Number of Questions
+
+                </label>
+
+
+                <select
+                    id="numberOfQuestions"
+                    class="form-select"
+                >
+
+                    <option value="5">
+                        5 Questions
+                    </option>
+
+                    <option
+                        value="10"
+                        selected
+                    >
+                        10 Questions
+                    </option>
+
+                    <option value="15">
+                        15 Questions
+                    </option>
+
+                    <option value="20">
+                        20 Questions
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <label class="form-label fw-bold">
+
+                    Unit
+
+                </label>
+
+
+                <select
+                    id="unitFilter"
+                    class="form-select"
+                >
+
+                    <option value="all">
+                        All Paper II Units
+                    </option>
+
+                    <option value="Unit I">
+                        Unit I — Drama
+                    </option>
+
+                    <option value="Unit II">
+                        Unit II — Poetry
+                    </option>
+
+                    <option value="Unit III">
+                        Unit III — Fiction
+                    </option>
+
+                    <option value="Unit IV">
+                        Unit IV — Non-Fiction
+                    </option>
+
+                    <option value="Unit V">
+                        Unit V — Language
+                    </option>
+
+                    <option value="Unit VI">
+                        Unit VI — English in India
+                    </option>
+
+                    <option value="Unit VII">
+                        Unit VII — Cultural Studies
+                    </option>
+
+                    <option value="Unit VIII">
+                        Unit VIII — Literary Criticism
+                    </option>
+
+                    <option value="Unit IX">
+                        Unit IX — Literary Theory
+                    </option>
+
+                    <option value="Unit X">
+                        Unit X — Research Methods
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <button
+                    id="generateBtn"
+                    type="button"
+                    class="
+                        btn
+                        btn-gold
+                        w-100
+                        py-2
+                    "
+                    disabled
+                >
+
+                    ⏳ Loading...
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONCEPT PRIORITY -->
+
+    <div class="
+        d-flex
+        justify-content-between
+        align-items-center
+        mb-3
+    ">
+
+        <h3 class="section-title mb-0">
+
+            Concept Priority
+
+        </h3>
+
+
+        <span
+            id="conceptBadge"
+            class="badge bg-secondary"
+        >
+
+            Not generated
+
+        </span>
+
+    </div>
+
+
+    <div id="conceptContainer">
+
+        <div class="card empty-state">
+
+            Generate the balanced queue to calculate
+            concept priorities.
+
+        </div>
+
+    </div>
+
+
+    <!-- QUEUE -->
+
+    <div class="
+        d-flex
+        justify-content-between
+        align-items-center
+        mt-5
+        mb-3
+    ">
+
+        <h3 class="section-title mb-0">
+
+            Balanced Question Queue
+
+        </h3>
+
+
+        <span
+            id="queueBadge"
+            class="badge bg-secondary"
+        >
+
+            Not generated
+
+        </span>
+
+    </div>
+
+
+    <div id="queueContainer">
+
+        <div class="card empty-state">
+
+            Generate the balanced queue to see
+            topic and concept distribution.
+
+        </div>
+
+    </div>
+
+
+    <!-- TECHNICAL STATUS -->
+
+    <div class="card p-4 mt-4">
+
+        <h4 class="section-title mb-3">
+
+            Step 8.5 Technical Status
+
+        </h4>
+
+
+        <div class="table-responsive">
+
+            <table class="table table-sm">
+
+                <tbody>
+
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                PYQ Database
+                            </strong>
+                        </td>
+
+                        <td id="pyqStatus">
+                            Waiting...
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                Knowledge Mapping
+                            </strong>
+                        </td>
+
+                        <td id="mappingStatus">
+                            Waiting...
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                Performance History
+                            </strong>
+                        </td>
+
+                        <td id="historyStatus">
+                            Waiting...
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                Difficulty Engine
+                            </strong>
+                        </td>
+
+                        <td>
+
+                            <span class="badge bg-success">
+
+                                Step 8.4 Connected
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                Balancing Engine
+                            </strong>
+                        </td>
+
+                        <td id="engineStatus">
+                            Waiting...
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                Output
+                            </strong>
+                        </td>
+
+                        <td>
+
+                            <span class="badge bg-secondary">
+
+                                Balanced Queue v1
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                AI API
+                            </strong>
+                        </td>
+
+                        <td>
+
+                            <span class="badge bg-secondary">
+
+                                Not used in Step 8.5
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer class="footer">
+
+    <div class="container text-center">
+
+        <strong>
+            BAJEE JRF AI
+        </strong>
+
+        <div class="small mt-1">
+
+            Step 8.5 — Topic & Concept Balancing
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+/*
+==============================================================
+BAJEE JRF AI
+STEP 8.5
+TOPIC & CONCEPT BALANCING
+==============================================================
+*/
+
+
+"use strict";
+
+
+/*
+==============================================================
+PATHS
+==============================================================
+*/
+
+const PYQ_PATH =
+    "data/pyqs/pyq-database.json";
+
+const MAPPING_PATH =
+    "data/pyqs/pyq-knowledge-map.json";
+
+
+/*
+==============================================================
+LOCAL STORAGE
+==============================================================
+*/
+
+const TEST_HISTORY_KEY =
+    "bajee_jrf_ai_test_history_v1";
+
+const ADAPTIVE_QUEUE_KEY =
+    "bajee_jrf_ai_adaptive_queue_v1";
+
+const PROGRESSIVE_QUEUE_KEY =
+    "bajee_jrf_ai_progressive_queue_v1";
+
+const BALANCED_QUEUE_KEY =
+    "bajee_jrf_ai_balanced_queue_v1";
+
+
+/*
+==============================================================
+DATA
+==============================================================
+*/
+
+let questions = [];
+
+let mappings = [];
+
+let history = [];
+
+let adaptiveQueue = [];
+
+let progressiveQueue = [];
+
+let questionPerformance = {};
+
+let topicPerformance = {};
+
+let conceptPerformance = {};
+
+let conceptPriority = {};
+
+let balancedQueue = [];
+
+
+/*
+==============================================================
+ELEMENTS
+==============================================================
+*/
+
+const statusBox =
+    document.getElementById(
+        "statusBox"
+    );
+
+const generateBtn =
+    document.getElementById(
+        "generateBtn"
+    );
+
+
+/*
+==============================================================
+UTILITY
+==============================================================
+*/
+
+function normalize(value) {
+
+    return String(
+        value ?? ""
+    )
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ");
+
+}
+
+
+function escapeHtml(value) {
+
+    return String(
+        value ?? ""
+    )
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+function normalizeList(value) {
+
+    if (
+        Array.isArray(value)
+    ) {
+
+        return value
+            .map(
+                item =>
+                    String(
+                        item ?? ""
+                    ).trim()
+            )
+            .filter(Boolean);
+
+    }
+
+
+    if (
+        typeof value === "string"
+    ) {
+
+        return value
+            .split(/[,;|]/)
+            .map(
+                item =>
+                    item.trim()
+            )
+            .filter(Boolean);
+
+    }
+
+
+    return [];
+
+}
+
+
+/*
+==============================================================
+LOAD LOCAL STORAGE SAFELY
+==============================================================
+*/
+
+function loadLocalData() {
+
+    /*
+    TEST HISTORY
+    */
+
+    try {
+
+        const raw =
+            localStorage.getItem(
+                TEST_HISTORY_KEY
+            );
+
+
+        if (raw) {
+
+            const parsed =
+                JSON.parse(raw);
+
+
+            if (
+                Array.isArray(parsed)
+            ) {
+
+                history = parsed;
+
+            }
+            else if (
+                parsed &&
+                Array.isArray(
+                    parsed.tests
+                )
+            ) {
+
+                history =
+                    parsed.tests;
+
+            }
+
+        }
+
+    }
+    catch (error) {
+
+        console.warn(
+            "Test history could not be read:",
+            error
+        );
+
+        history = [];
+
+    }
+
+
+    /*
+    ADAPTIVE QUEUE
+    */
+
+    try {
+
+        const raw =
+            localStorage.getItem(
+                ADAPTIVE_QUEUE_KEY
+            );
+
+
+        if (raw) {
+
+            const parsed =
+                JSON.parse(raw);
+
+
+            adaptiveQueue =
+                Array.isArray(parsed)
+                    ? parsed
+                    : Array.isArray(
+                        parsed.questions
+                    )
+                        ? parsed.questions
+                        : [];
+
+        }
+
+    }
+    catch (error) {
+
+        console.warn(
+            "Adaptive queue could not be read:",
+            error
+        );
+
+        adaptiveQueue = [];
+
+    }
+
+
+    /*
+    PROGRESSIVE QUEUE
+    */
+
+    try {
+
+        const raw =
+            localStorage.getItem(
+                PROGRESSIVE_QUEUE_KEY
+            );
+
+
+        if (raw) {
+
+            const parsed =
+                JSON.parse(raw);
+
+
+            progressiveQueue =
+                Array.isArray(parsed)
+                    ? parsed
+                    : Array.isArray(
+                        parsed.questions
+                    )
+                        ? parsed.questions
+                        : [];
+
+        }
+
+    }
+    catch (error) {
+
+        console.warn(
+            "Progressive queue could not be read:",
+            error
+        );
+
+        progressiveQueue = [];
+
+    }
+
+}
+
+
+/*
+==============================================================
+PYQ LOADER
+==============================================================
+*/
+
+async function loadPYQs() {
+
+    const response =
+        await fetch(
+            PYQ_PATH,
+            {
+                cache: "no-store"
+            }
+        );
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            "PYQ database returned HTTP " +
+            response.status
+        );
+
+    }
+
+
+    const data =
+        await response.json();
+
+
+    if (
+        Array.isArray(data)
+    ) {
+
+        questions = data;
+
+    }
+    else if (
+        data &&
+        Array.isArray(
+            data.questions
+        )
+    ) {
+
+        questions =
+            data.questions;
+
+    }
+    else {
+
+        throw new Error(
+            "PYQ database format is not recognised."
+        );
+
+    }
+
+
+    return questions.length;
+
+}
+
+
+/*
+==============================================================
+MAPPING LOADER
+==============================================================
+
+IMPORTANT:
+
+Mapping failure will NOT stop the application.
+
+==============================================================
+*/
+
+async function loadMappings() {
+
+    try {
+
+        const response =
+            await fetch(
+                MAPPING_PATH,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            Array.isArray(data)
+        ) {
+
+            mappings = data;
+
+        }
+        else if (
+            data &&
+            Array.isArray(
+                data.mappings
+            )
+        ) {
+
+            mappings =
+                data.mappings;
+
+        }
+        else {
+
+            mappings = [];
+
+        }
+
+
+        document.getElementById(
+            "mappingStatus"
+        ).innerHTML =
+
+            '<span class="badge bg-success">' +
+            mappings.length +
+            " record(s)</span>";
+
+    }
+    catch (error) {
+
+        console.warn(
+            "Knowledge mapping unavailable:",
+            error
+        );
+
+
+        mappings = [];
+
+
+        document.getElementById(
+            "mappingStatus"
+        ).innerHTML =
+
+            '<span class="badge bg-warning text-dark">' +
+            "Optional / unavailable" +
+            "</span>";
+
+    }
+
+}
+
+
+/*
+==============================================================
+QUESTION PERFORMANCE
+==============================================================
+*/
+
+function buildQuestionPerformance() {
+
+    questionPerformance = {};
+
+
+    history.forEach(
+        test => {
+
+            const results =
+                Array.isArray(
+                    test.question_results
+                )
+                    ? test.question_results
+                    : [];
+
+
+            results.forEach(
+                result => {
+
+                    const id =
+                        String(
+                            result.question_id ??
+                            result.id ??
+                            ""
+                        );
+
+
+                    if (!id) {
+
+                        return;
+
+                    }
+
+
+                    if (
+                        !questionPerformance[id]
+                    ) {
+
+                        questionPerformance[id] = {
+
+                            attempts: 0,
+
+                            correct: 0,
+
+                            wrong: 0,
+
+                            recentResults: []
+
+                        };
+
+                    }
+
+
+                    const record =
+                        questionPerformance[id];
+
+
+                    record.attempts++;
+
+
+                    let correct = false;
+
+
+                    if (
+                        result.is_correct === true ||
+                        result.isCorrect === true
+                    ) {
+
+                        correct = true;
+
+                    }
+                    else if (
+                        result.correct_answer &&
+                        result.selected_answer
+                    ) {
+
+                        correct =
+                            normalize(
+                                result.correct_answer
+                            ) ===
+                            normalize(
+                                result.selected_answer
+                            );
+
+                    }
+
+
+                    if (correct) {
+
+                        record.correct++;
+
+                    }
+                    else {
+
+                        record.wrong++;
+
+                    }
+
+
+                    record.recentResults.push(
+                        correct
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/*
+==============================================================
+QUESTION MAPPING
+==============================================================
+*/
+
+function getQuestionMappings(
+    questionId
+) {
+
+    return mappings.filter(
+        mapping => {
+
+            const id =
+                mapping.pyq_id ??
+                mapping.question_id ??
+                mapping.id ??
+                "";
+
+            return (
+                String(id) ===
+                String(questionId)
+            );
+
+        }
+    );
+
+}
+
+
+/*
+==============================================================
+CONCEPTS
+==============================================================
+*/
+
+function getQuestionConcepts(
+    question
+) {
+
+    const values = [];
+
+
+    [
+        "concepts",
+        "topics",
+        "keywords",
+        "key_concepts"
+    ]
+    .forEach(
+        property => {
+
+            values.push(
+                ...normalizeList(
+                    question[property]
+                )
+            );
+
+        }
+    );
+
+
+    getQuestionMappings(
+        question.id
+    )
+    .forEach(
+        mapping => {
+
+            [
+                "concepts",
+                "topics",
+                "keywords",
+                "key_concepts"
+            ]
+            .forEach(
+                property => {
+
+                    values.push(
+                        ...normalizeList(
+                            mapping[property]
+                        )
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    return [
+        ...new Map(
+            values.map(
+                value => [
+                    normalize(value),
+                    value
+                ]
+            )
+        ).values()
+    ];
+
+}
+
+
+/*
+==============================================================
+ENTITIES
+==============================================================
+*/
+
+function getQuestionEntities(
+    question
+) {
+
+    const values = [];
+
+
+    const collect =
+        source => {
+
+            if (!source) {
+
+                return;
+
+            }
+
+
+            [
+                "knowledge_entities",
+                "entities",
+                "related_entities"
+            ]
+            .forEach(
+                property => {
+
+                    const list =
+                        source[property];
+
+
+                    if (
+                        !Array.isArray(list)
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    list.forEach(
+                        item => {
+
+                            if (
+                                typeof item ===
+                                "string"
+                            ) {
+
+                                if (
+                                    item.trim()
+                                ) {
+
+                                    values.push(
+                                        item.trim()
+                                    );
+
+                                }
+
+                            }
+                            else if (
+                                item &&
+                                typeof item ===
+                                "object"
+                            ) {
+
+                                const name =
+                                    item.name ??
+                                    item.title ??
+                                    item.entity ??
+                                    item.id ??
+                                    "";
+
+
+                                if (
+                                    String(
+                                        name
+                                    ).trim()
+                                ) {
+
+                                    values.push(
+                                        String(
+                                            name
+                                        ).trim()
+                                    );
+
+                                }
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+        };
+
+
+    collect(question);
+
+
+    getQuestionMappings(
+        question.id
+    )
+    .forEach(
+        collect
+    );
+
+
+    return [
+        ...new Map(
+            values.map(
+                value => [
+                    normalize(value),
+                    value
+                ]
+            )
+        ).values()
+    ];
+
+}
+
+
+/*
+==============================================================
+TOPIC
+==============================================================
+*/
+
+function getQuestionTopic(
+    question
+) {
+
+    return String(
+        question.topic ??
+        question.category ??
+        question.subject ??
+        "General"
+    ).trim();
+
+}
+
+
+/*
+==============================================================
+UNIT
+==============================================================
+*/
+
+function getQuestionUnit(
+    question
+) {
+
+    return String(
+        question.unit ??
+        ""
+    ).trim();
+
+}
+
+
+/*
+==============================================================
+DIFFICULTY
+==============================================================
+*/
+
+function getDifficulty(
+    question
+) {
+
+    const value =
+        normalize(
+            question.difficulty
+        );
+
+
+    if (
+        value === "hard"
+    ) {
+
+        return "Hard";
+
+    }
+
+
+    if (
+        value === "medium"
+    ) {
+
+        return "Medium";
+
+    }
+
+
+    return "Easy";
+
+}
+
+
+/*
+==============================================================
+TOPIC PERFORMANCE
+==============================================================
+*/
+
+function buildTopicPerformance() {
+
+    topicPerformance = {};
+
+
+    questions.forEach(
+        question => {
+
+            const topic =
+                getQuestionTopic(
+                    question
+                );
+
+
+            const key =
+                normalize(topic);
+
+
+            if (
+                !topicPerformance[key]
+            ) {
+
+                topicPerformance[key] = {
+
+                    name: topic,
+
+                    attempts: 0,
+
+                    correct: 0,
+
+                    wrong: 0,
+
+                    questions: 0
+
+                };
+
+            }
+
+
+            topicPerformance[key]
+                .questions++;
+
+
+            const performance =
+                questionPerformance[
+                    String(question.id)
+                ];
+
+
+            if (!performance) {
+
+                return;
+
+            }
+
+
+            topicPerformance[key]
+                .attempts +=
+                performance.attempts;
+
+
+            topicPerformance[key]
+                .correct +=
+                performance.correct;
+
+
+            topicPerformance[key]
+                .wrong +=
+                performance.wrong;
+
+        }
+    );
+
+}
+
+
+/*
+==============================================================
+CONCEPT PERFORMANCE
+==============================================================
+*/
+
+function buildConceptPerformance() {
+
+    conceptPerformance = {};
+
+
+    questions.forEach(
+        question => {
+
+            const concepts =
+                getQuestionConcepts(
+                    question
+                );
+
+
+            const performance =
+                questionPerformance[
+                    String(question.id)
+                ];
+
+
+            concepts.forEach(
+                concept => {
+
+                    const key =
+                        normalize(
+                            concept
+                        );
+
+
+                    if (
+                        !conceptPerformance[key]
+                    ) {
+
+                        conceptPerformance[key] = {
+
+                            name: concept,
+
+                            attempts: 0,
+
+                            correct: 0,
+
+                            wrong: 0,
+
+                            questions: 0
+
+                        };
+
+                    }
+
+
+                    conceptPerformance[key]
+                        .questions++;
+
+
+                    if (!performance) {
+
+                        return;
+
+                    }
+
+
+                    conceptPerformance[key]
+                        .attempts +=
+                        performance.attempts;
+
+
+                    conceptPerformance[key]
+                        .correct +=
+                        performance.correct;
+
+
+                    conceptPerformance[key]
+                        .wrong +=
+                        performance.wrong;
+
+                }
+            );
+
+        }
+    );
+
+
+    calculateConceptPriority();
+
+}
+
+
+/*
+==============================================================
+CONCEPT PRIORITY
+==============================================================
+*/
+
+function calculateConceptPriority() {
+
+    conceptPriority = {};
+
+
+    Object.keys(
+        conceptPerformance
+    )
+    .forEach(
+        key => {
+
+            const record =
+                conceptPerformance[key];
+
+
+            let score = 10;
+
+
+            let accuracy = null;
+
+
+            if (
+                record.attempts > 0
+            ) {
+
+                accuracy =
+                    (
+                        record.correct /
+                        record.attempts
+                    ) * 100;
+
+
+                if (
+                    accuracy < 50
+                ) {
+
+                    score += 60;
+
+                }
+                else if (
+                    accuracy < 70
+                ) {
+
+                    score += 45;
+
+                }
+                else if (
+                    accuracy < 85
+                ) {
+
+                    score += 25;
+
+                }
+                else {
+
+                    score += 5;
+
+                }
+
+
+                if (
+                    record.wrong >= 3
+                ) {
+
+                    score += 20;
+
+                }
+                else if (
+                    record.wrong >= 1
+                ) {
+
+                    score += 10;
+
+                }
+
+            }
+            else {
+
+                score += 15;
+
+            }
+
+
+            conceptPriority[key] = {
+
+                ...record,
+
+                accuracy,
+
+                priority: score
+
+            };
+
+        }
+    );
+
+}
+
+
+/*
+==============================================================
+QUESTION CONCEPT SCORE
+==============================================================
+*/
+
+function getQuestionConceptScore(
+    question
+) {
+
+    const concepts =
+        getQuestionConcepts(
+            question
+        );
+
+
+    if (
+        concepts.length === 0
+    ) {
+
+        return 10;
+
+    }
+
+
+    let maximum = 10;
+
+
+    concepts.forEach(
+        concept => {
+
+            const record =
+                conceptPriority[
+                    normalize(
+                        concept
+                    )
+                ];
+
+
+            if (record) {
+
+                maximum =
+                    Math.max(
+                        maximum,
+                        record.priority
+                    );
+
+            }
+
+        }
+    );
+
+
+    return maximum;
+
+}
+
+
+/*
+==============================================================
+TOPIC SCORE
+==============================================================
+*/
+
+function getTopicScore(
+    question
+) {
+
+    const topic =
+        getQuestionTopic(
+            question
+        );
+
+
+    const record =
+        topicPerformance[
+            normalize(topic)
+        ];
+
+
+    if (!record) {
+
+        return 10;
+
+    }
+
+
+    if (
+        record.attempts === 0
+    ) {
+
+        return 15;
+
+    }
+
+
+    const accuracy =
+        (
+            record.correct /
+            record.attempts
+        ) * 100;
+
+
+    if (
+        accuracy < 50
+    ) {
+
+        return 50;
+
+    }
+
+
+    if (
+        accuracy < 70
+    ) {
+
+        return 40;
+
+    }
+
+
+    if (
+        accuracy < 85
+    ) {
+
+        return 25;
+
+    }
+
+
+    return 10;
+
+}
+
+
+/*
+==============================================================
+ADAPTIVE SCORE
+==============================================================
+*/
+
+function getAdaptiveScore(
+    question
+) {
+
+    const item =
+        adaptiveQueue.find(
+            entry => {
+
+                const id =
+                    entry.question_id ??
+                    entry.id ??
+                    "";
+
+
+                return (
+                    String(id) ===
+                    String(question.id)
+                );
+
+            }
+        );
+
+
+    if (!item) {
+
+        return 0;
+
+    }
+
+
+    return Number(
+        item.score ??
+        item.weight ??
+        item.adaptive_score ??
+        0
+    ) || 0;
+
+}
+
+
+/*
+==============================================================
+PROGRESSIVE SCORE
+==============================================================
+*/
+
+function getProgressiveScore(
+    question
+) {
+
+    const item =
+        progressiveQueue.find(
+            entry => {
+
+                const id =
+                    entry.question_id ??
+                    entry.id ??
+                    "";
+
+
+                return (
+                    String(id) ===
+                    String(question.id)
+                );
+
+            }
+        );
+
+
+    if (!item) {
+
+        return 0;
+
+    }
+
+
+    return Number(
+        item.score ??
+        item.weight ??
+        0
+    ) || 0;
+
+}
+
+
+/*
+==============================================================
+QUESTION SCORE
+==============================================================
+*/
+
+function scoreQuestion(
+    question
+) {
+
+    const concepts =
+        getQuestionConcepts(
+            question
+        );
+
+
+    const conceptScore =
+        getQuestionConceptScore(
+            question
+        );
+
+
+    const topicScore =
+        getTopicScore(
+            question
+        );
+
+
+    const adaptiveScore =
+        getAdaptiveScore(
+            question
+        );
+
+
+    const progressiveScore =
+        getProgressiveScore(
+            question
+        );
+
+
+    let explorationScore = 0;
+
+
+    concepts.forEach(
+        concept => {
+
+            const record =
+                conceptPriority[
+                    normalize(
+                        concept
+                    )
+                ];
+
+
+            if (
+                !record ||
+                record.attempts === 0
+            ) {
+
+                explorationScore = 15;
+
+            }
+
+        }
+    );
+
+
+    return {
+
+        question,
+
+        concepts,
+
+        conceptScore,
+
+        topicScore,
+
+        adaptiveScore,
+
+        progressiveScore,
+
+        explorationScore,
+
+        total:
+
+            conceptScore +
+
+            topicScore +
+
+            explorationScore +
+
+            Math.min(
+                adaptiveScore,
+                40
+            ) +
+
+            Math.min(
+                progressiveScore,
+                30
+            )
+
+    };
+
+}
+
+
+/*
+==============================================================
+GENERATE
+==============================================================
+*/
+
+function generateBalancedQueue() {
+
+    if (
+        questions.length === 0
+    ) {
+
+        statusBox.className =
+            "status-box mb-4 bg-danger-subtle border-danger";
+
+
+        statusBox.innerHTML =
+            "<strong>No PYQs loaded.</strong> " +
+            "The PYQ database could not be loaded.";
+
+        return;
+
+    }
+
+
+    const requested =
+        Number(
+            document.getElementById(
+                "numberOfQuestions"
+            ).value
+        );
+
+
+    const selectedUnit =
+        document.getElementById(
+            "unitFilter"
+        ).value;
+
+
+    let candidates =
+        [...questions];
+
+
+    /*
+    UNIT FILTER
+    */
+
+    if (
+        selectedUnit !== "all"
+    ) {
+
+        candidates =
+            candidates.filter(
+                question => {
+
+                    return normalize(
+                        getQuestionUnit(
+                            question
+                        )
+                    ) ===
+                    normalize(
+                        selectedUnit
+                    );
+
+                }
+            );
+
+    }
+
+
+    if (
+        candidates.length === 0
+    ) {
+
+        statusBox.className =
+            "status-box mb-4 bg-warning-subtle border-warning";
+
+
+        statusBox.innerHTML =
+            "<strong>No questions found.</strong> " +
+            "Try All Paper II Units.";
+
+        return;
+
+    }
+
+
+    /*
+    SCORE
+    */
+
+    const scored =
+        candidates.map(
+            scoreQuestion
+        );
+
+
+    scored.sort(
+        (a, b) =>
+            b.total -
+            a.total
+    );
+
+
+    /*
+    DIVERSITY SELECTION
+    */
+
+    const selected = [];
+
+    const topicCounts = {};
+
+    const conceptCounts = {};
+
+
+    for (
+        const item of scored
+    ) {
+
+        if (
+            selected.length >= requested
+        ) {
+
+            break;
+
+        }
+
+
+        const topic =
+            normalize(
+                getQuestionTopic(
+                    item.question
+                )
+            );
+
+
+        const concepts =
+            item.concepts.map(
+                normalize
+            );
+
+
+        const topicCount =
+            topicCounts[topic] || 0;
+
+
+        const repeatedConcept =
+            concepts.some(
+                concept =>
+                    (
+                        conceptCounts[
+                            concept
+                        ] || 0
+                    ) >= 2
+            );
+
+
+        /*
+        Strong weakness always gets priority.
+        */
+
+        const veryWeak =
+            item.conceptScore >= 60;
+
+
+        if (
+            topicCount >= 3 &&
+            !veryWeak
+        ) {
+
+            continue;
+
+        }
+
+
+        if (
+            repeatedConcept &&
+            !veryWeak
+        ) {
+
+            continue;
+
+        }
+
+
+        selected.push(item);
+
+
+        topicCounts[topic] =
+            topicCount + 1;
+
+
+        concepts.forEach(
+            concept => {
+
+                conceptCounts[concept] =
+                    (
+                        conceptCounts[concept] ||
+                        0
+                    ) + 1;
+
+            }
+        );
+
+    }
+
+
+    /*
+    FILL REMAINING QUESTIONS
+    */
+
+    if (
+        selected.length < requested
+    ) {
+
+        for (
+            const item of scored
+        ) {
+
+            if (
+                selected.length >= requested
+            ) {
+
+                break;
+
+            }
+
+
+            const exists =
+                selected.some(
+                    selectedItem =>
+
+                        String(
+                            selectedItem.question.id
+                        ) ===
+                        String(
+                            item.question.id
+                        )
+                );
+
+
+            if (!exists) {
+
+                selected.push(
+                    item
+                );
+
+            }
+
+        }
+
+    }
+
+
+    balancedQueue =
+        selected;
+
+
+    saveBalancedQueue();
+
+
+    renderConceptPriority();
+
+    renderQueue();
+
+
+    statusBox.className =
+        "status-box mb-4 bg-success-subtle border-success";
+
+
+    statusBox.innerHTML =
+
+        "<strong>Balanced queue generated successfully.</strong> " +
+
+        balancedQueue.length +
+
+        " question(s) selected from " +
+
+        candidates.length +
+
+        " available question(s).";
+
+
+    document.getElementById(
+        "engineStatus"
+    ).innerHTML =
+        '<span class="badge bg-success">Generated</span>';
+
+}
+
+
+/*
+==============================================================
+SAVE
+==============================================================
+*/
+
+function saveBalancedQueue() {
+
+    const payload = {
+
+        project:
+            "BAJEE JRF AI",
+
+        step:
+            "8.5",
+
+        title:
+            "Topic & Concept Balanced Queue",
+
+        version:
+            "1.0",
+
+        generated_at:
+            new Date().toISOString(),
+
+        questions:
+            balancedQueue.map(
+                item => ({
+
+                    question_id:
+                        item.question.id,
+
+                    question:
+                        item.question.question,
+
+                    unit:
+                        getQuestionUnit(
+                            item.question
+                        ),
+
+                    topic:
+                        getQuestionTopic(
+                            item.question
+                        ),
+
+                    difficulty:
+                        getDifficulty(
+                            item.question
+                        ),
+
+                    concepts:
+                        item.concepts,
+
+                    concept_score:
+                        item.conceptScore,
+
+                    topic_score:
+                        item.topicScore,
+
+                    adaptive_score:
+                        item.adaptiveScore,
+
+                    progressive_score:
+                        item.progressiveScore,
+
+                    exploration_score:
+                        item.explorationScore,
+
+                    total_score:
+                        item.total
+
+                })
+            )
+
+    };
+
+
+    localStorage.setItem(
+        BALANCED_QUEUE_KEY,
+        JSON.stringify(
+            payload
+        )
+    );
+
+}
+
+
+/*
+==============================================================
+RENDER CONCEPTS
+==============================================================
+*/
+
+function renderConceptPriority() {
+
+    const container =
+        document.getElementById(
+            "conceptContainer"
+        );
+
+
+    const badge =
+        document.getElementById(
+            "conceptBadge"
+        );
+
+
+    const records =
+        Object.values(
+            conceptPriority
+        )
+        .sort(
+            (a, b) =>
+                b.priority -
+                a.priority
+        );
+
+
+    badge.textContent =
+        records.length +
+        " Concepts";
+
+
+    badge.className =
+        "badge bg-success";
+
+
+    if (
+        records.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="card empty-state">
+
+                No concept information is
+                available in the current PYQ data.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        records
+        .slice(0, 15)
+        .map(
+            record => {
+
+                let priorityClass =
+                    "priority-normal";
+
+
+                if (
+                    record.priority >= 60
+                ) {
+
+                    priorityClass =
+                        "priority-high";
+
+                }
+                else if (
+                    record.priority >= 40
+                ) {
+
+                    priorityClass =
+                        "priority-medium";
+
+                }
+
+
+                const accuracy =
+                    record.accuracy === null
+                        ? "Unseen"
+                        : Math.round(
+                            record.accuracy
+                        ) + "%";
+
+
+                const width =
+                    record.accuracy === null
+                        ? 15
+                        : Math.max(
+                            5,
+                            Math.min(
+                                100,
+                                record.accuracy
+                            )
+                        );
+
+
+                return `
+
+                    <div class="
+                        concept-card
+                        ${priorityClass}
+                    ">
+
+                        <div class="
+                            d-flex
+                            justify-content-between
+                            align-items-center
+                        ">
+
+                            <div>
+
+                                <strong>
+
+                                    ${escapeHtml(
+                                        record.name
+                                    )}
+
+                                </strong>
+
+
+                                <div class="
+                                    small-muted
+                                    mt-1
+                                ">
+
+                                    ${
+                                        record.attempts
+                                    }
+                                    attempts
+                                    •
+                                    ${
+                                        record.correct
+                                    }
+                                    correct
+                                    •
+                                    ${
+                                        record.wrong
+                                    }
+                                    wrong
+
+                                </div>
+
+                            </div>
+
+
+                            <span class="weight-badge">
+
+                                Priority
+                                ${
+                                    record.priority
+                                }
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="mt-3">
+
+                            <div class="
+                                d-flex
+                                justify-content-between
+                                small-muted
+                            ">
+
+                                <span>
+                                    Accuracy
+                                </span>
+
+                                <strong>
+                                    ${accuracy}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="
+                                progress
+                                mt-2
+                            ">
+
+                                <div
+                                    class="progress-bar"
+                                    style="
+                                        width:
+                                        ${width}%;
+                                    "
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/*
+==============================================================
+RENDER QUEUE
+==============================================================
+*/
+
+function renderQueue() {
+
+    const container =
+        document.getElementById(
+            "queueContainer"
+        );
+
+
+    const badge =
+        document.getElementById(
+            "queueBadge"
+        );
+
+
+    badge.textContent =
+        balancedQueue.length +
+        " Questions";
+
+
+    badge.className =
+        "badge bg-success";
+
+
+    if (
+        balancedQueue.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="card empty-state">
+
+                No questions available.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        balancedQueue
+        .map(
+            (item, index) => {
+
+                const question =
+                    item.question;
+
+
+                const conceptHtml =
+                    item.concepts.length
+                        ? item.concepts
+                            .map(
+                                concept =>
+                                    `
+                                    <span
+                                        class="
+                                            concept-badge
+                                        "
+                                    >
+                                        ${escapeHtml(
+                                            concept
+                                        )}
+                                    </span>
+                                    `
+                            )
+                            .join("")
+                        : `
+                            <span
+                                class="small-muted"
+                            >
+                                No concept tags
+                            </span>
+                        `;
+
+
+                let priorityClass =
+                    "priority-normal";
+
+
+                if (
+                    item.total >= 70
+                ) {
+
+                    priorityClass =
+                        "priority-high";
+
+                }
+                else if (
+                    item.total >= 40
+                ) {
+
+                    priorityClass =
+                        "priority-medium";
+
+                }
+
+
+                return `
+
+                    <div class="
+                        concept-card
+                        ${priorityClass}
+                    ">
+
+                        <div class="
+                            d-flex
+                            justify-content-between
+                            align-items-start
+                        ">
+
+                            <strong>
+                                #${index + 1}
+                            </strong>
+
+
+                            <span class="weight-badge">
+
+                                Score
+                                ${item.total}
+
+                            </span>
+
+                        </div>
+
+
+                        <h5 class="mt-3">
+
+                            ${escapeHtml(
+                                question.question
+                            )}
+
+                        </h5>
+
+
+                        <div class="
+                            small-muted
+                            mt-2
+                        ">
+
+                            <span class="topic-badge">
+
+                                ${escapeHtml(
+                                    getQuestionTopic(
+                                        question
+                                    )
+                                )}
+
+                            </span>
+
+                            &nbsp; • &nbsp;
+
+                            ${escapeHtml(
+                                getQuestionUnit(
+                                    question
+                                )
+                            )}
+
+                            &nbsp; • &nbsp;
+
+                            ${escapeHtml(
+                                question.id
+                            )}
+
+                        </div>
+
+
+                        <div class="mt-3">
+
+                            <div class="
+                                small-muted
+                                mb-2
+                            ">
+
+                                Concepts
+
+                            </div>
+
+
+                            ${conceptHtml}
+
+                        </div>
+
+
+                        <div class="
+                            row
+                            g-2
+                            mt-3
+                        ">
+
+
+                            <div class="col-md-3">
+
+                                <div class="
+                                    p-2
+                                    bg-light
+                                    rounded
+                                ">
+
+                                    <div class="small-muted">
+                                        Concept
+                                    </div>
+
+                                    <strong>
+                                        ${
+                                            item.conceptScore
+                                        }
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                <div class="
+                                    p-2
+                                    bg-light
+                                    rounded
+                                ">
+
+                                    <div class="small-muted">
+                                        Topic
+                                    </div>
+
+                                    <strong>
+                                        ${
+                                            item.topicScore
+                                        }
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                <div class="
+                                    p-2
+                                    bg-light
+                                    rounded
+                                ">
+
+                                    <div class="small-muted">
+                                        Adaptive
+                                    </div>
+
+                                    <strong>
+                                        ${
+                                            item.adaptiveScore
+                                        }
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                <div class="
+                                    p-2
+                                    bg-light
+                                    rounded
+                                ">
+
+                                    <div class="small-muted">
+                                        Progressive
+                                    </div>
+
+                                    <strong>
+                                        ${
+                                            item.progressiveScore
+                                        }
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="mt-3">
+
+                            <strong>
+                                Selection:
+                            </strong>
+
+                            <span class="small-muted">
+
+                                ${
+                                    item.conceptScore >= 60
+                                        ? "Weak concept"
+                                        : item.explorationScore > 0
+                                            ? "Concept exploration"
+                                            : "Topic balancing"
+                                }
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/*
+==============================================================
+STATISTICS
+==============================================================
+*/
+
+function updateStatistics() {
+
+    document.getElementById(
+        "questionCount"
+    ).textContent =
+        questions.length;
+
+
+    document.getElementById(
+        "topicCount"
+    ).textContent =
+        Object.keys(
+            topicPerformance
+        ).length;
+
+
+    document.getElementById(
+        "conceptCount"
+    ).textContent =
+        Object.keys(
+            conceptPerformance
+        ).length;
+
+
+    document.getElementById(
+        "weakConceptCount"
+    ).textContent =
+        Object.values(
+            conceptPriority
+        )
+        .filter(
+            item =>
+                item.priority >= 40
+        )
+        .length;
+
+}
+
+
+/*
+==============================================================
+INITIALIZE
+==============================================================
+*/
+
+async function initialize() {
+
+    try {
+
+        statusBox.innerHTML =
+            "<strong>Loading PYQ database...</strong>";
+
+
+        /*
+        LOAD PYQs FIRST.
+        This is the essential dependency.
+        */
+
+        await loadPYQs();
+
+
+        document.getElementById(
+            "pyqStatus"
+        ).innerHTML =
+            '<span class="badge bg-success">' +
+            questions.length +
+            " question(s)</span>";
+
+
+        /*
+        Optional mapping.
+        */
+
+        await loadMappings();
+
+
+        /*
+        Local data.
+        */
+
+        loadLocalData();
+
+
+        /*
+        Performance.
+        */
+
+        buildQuestionPerformance();
+
+        buildTopicPerformance();
+
+        buildConceptPerformance();
+
+
+        updateStatistics();
+
+
+        /*
+        ENABLE BUTTON.
+        */
+
+        generateBtn.disabled =
+            false;
+
+
+        generateBtn.textContent =
+            "⚖ Generate Balanced Queue";
+
+
+        document.getElementById(
+            "historyStatus"
+        ).innerHTML =
+            '<span class="badge bg-success">' +
+            history.length +
+            " test record(s)</span>";
+
+
+        document.getElementById(
+            "engineStatus"
+        ).innerHTML =
+            '<span class="badge bg-success">Ready</span>';
+
+
+        statusBox.className =
+            "status-box mb-4 bg-success-subtle border-success";
+
+
+        statusBox.innerHTML =
+
+            "<strong>Step 8.5 ready.</strong> " +
+
+            questions.length +
+
+            " PYQ(s) loaded. " +
+
+            Object.keys(
+                conceptPerformance
+            ).length +
+
+            " concepts detected.";
+
+    }
+    catch (error) {
+
+        console.error(
+            "Step 8.5 initialization error:",
+            error
+        );
+
+
+        generateBtn.disabled =
+            true;
+
+
+        generateBtn.textContent =
+            "⚠ Loading Error";
+
+
+        statusBox.className =
+            "status-box mb-4 bg-danger-subtle border-danger";
+
+
+        statusBox.innerHTML =
+
+            "<strong>Step 8.5 could not load the PYQ database.</strong><br>" +
+
+            escapeHtml(
+                error.message
+            );
+
+
+        document.getElementById(
+            "pyqStatus"
+        ).innerHTML =
+            '<span class="badge bg-danger">Failed</span>';
+
+
+        document.getElementById(
+            "engineStatus"
+        ).innerHTML =
+            '<span class="badge bg-danger">Not Ready</span>';
+
+    }
+
+}
+
+
+/*
+==============================================================
+BUTTON
+==============================================================
+*/
+
+generateBtn.addEventListener(
+    "click",
+    function () {
+
+        console.log(
+            "Step 8.5 Generate button clicked."
+        );
+
+
+        generateBalancedQueue();
+
+    }
+);
+
+
+/*
+==============================================================
+START
+==============================================================
+*/
+
+initialize();
+
+</script>
+
+
+</body>
+
+</html>

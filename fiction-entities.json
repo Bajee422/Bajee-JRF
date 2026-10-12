@@ -1,0 +1,877 @@
+{
+  "project": "BAJEE JRF AI",
+  "step": "7.3",
+  "title": "Fiction & Short Story Knowledge Expansion",
+  "zero_cost": true,
+  "description": "JRF-oriented knowledge entities for UGC NET English Paper II Unit III - Fiction and Short Story.",
+  "unit": "Unit III",
+  "entities": [
+    {
+      "id": "daniel-defoe",
+      "name": "Daniel Defoe",
+      "type": "Novelist",
+      "period": "Restoration / Early Eighteenth Century",
+      "works": [
+        "Robinson Crusoe",
+        "Moll Flanders",
+        "A Journal of the Plague Year"
+      ],
+      "years": [
+        "Robinson Crusoe: 1719",
+        "Moll Flanders: 1722",
+        "A Journal of the Plague Year: 1722"
+      ],
+      "concepts": [
+        "rise of the English novel",
+        "individualism",
+        "realism",
+        "adventure narrative",
+        "first-person narration",
+        "economic individualism"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Samuel Richardson",
+        "Henry Fielding",
+        "Laurence Sterne"
+      ],
+      "description": "Defoe is associated with the early development of the English novel, particularly through realistic detail, individual experience, adventure, and first-person narrative."
+    },
+    {
+      "id": "samuel-richardson",
+      "name": "Samuel Richardson",
+      "type": "Novelist",
+      "period": "Eighteenth Century",
+      "works": [
+        "Pamela",
+        "Clarissa",
+        "Sir Charles Grandison"
+      ],
+      "years": [
+        "Pamela: 1740",
+        "Clarissa: 1747-1748",
+        "Sir Charles Grandison: 1753-1754"
+      ],
+      "concepts": [
+        "epistolary novel",
+        "sentimental fiction",
+        "female virtue",
+        "psychological realism",
+        "letters",
+        "moral narrative"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Daniel Defoe",
+        "Henry Fielding",
+        "Laurence Sterne"
+      ],
+      "description": "Richardson is especially important for the development of the epistolary novel and psychological representation through letters."
+    },
+    {
+      "id": "henry-fielding",
+      "name": "Henry Fielding",
+      "type": "Novelist",
+      "period": "Eighteenth Century",
+      "works": [
+        "Joseph Andrews",
+        "Tom Jones",
+        "Amelia"
+      ],
+      "years": [
+        "Joseph Andrews: 1742",
+        "Tom Jones: 1749",
+        "Amelia: 1751"
+      ],
+      "concepts": [
+        "comic epic in prose",
+        "omniscient narration",
+        "satire",
+        "picaresque elements",
+        "social panorama",
+        "narrative intrusion"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Samuel Richardson",
+        "Tobias Smollett",
+        "Laurence Sterne"
+      ],
+      "description": "Fielding developed a broad comic and socially panoramic form of prose fiction and famously described Tom Jones as a comic epic in prose."
+    },
+    {
+      "id": "laurence-sterne",
+      "name": "Laurence Sterne",
+      "type": "Novelist",
+      "period": "Eighteenth Century",
+      "works": [
+        "The Life and Opinions of Tristram Shandy, Gentleman",
+        "A Sentimental Journey Through France and Italy"
+      ],
+      "years": [
+        "Tristram Shandy: 1759-1767",
+        "A Sentimental Journey: 1768"
+      ],
+      "concepts": [
+        "experimental fiction",
+        "digression",
+        "non-linear narrative",
+        "self-reflexivity",
+        "stream-like narration",
+        "narrative interruption"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Henry Fielding",
+        "Henry James",
+        "Virginia Woolf"
+      ],
+      "description": "Sterne's Tristram Shandy is a major experimental novel known for digression, disrupted chronology, narrative play, and self-conscious storytelling."
+    },
+    {
+      "id": "jane-austen",
+      "name": "Jane Austen",
+      "type": "Novelist",
+      "period": "Romantic Period",
+      "works": [
+        "Sense and Sensibility",
+        "Pride and Prejudice",
+        "Mansfield Park",
+        "Emma",
+        "Northanger Abbey",
+        "Persuasion"
+      ],
+      "years": [
+        "Sense and Sensibility: 1811",
+        "Pride and Prejudice: 1813",
+        "Mansfield Park: 1814",
+        "Emma: 1815",
+        "Northanger Abbey: 1817",
+        "Persuasion: 1817"
+      ],
+      "concepts": [
+        "social comedy",
+        "irony",
+        "free indirect discourse",
+        "marriage",
+        "class",
+        "domestic fiction",
+        "female experience"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Samuel Richardson",
+        "George Eliot",
+        "Virginia Woolf"
+      ],
+      "description": "Austen's fiction combines social observation, irony, characterization, marriage plots, and subtle narrative techniques such as free indirect discourse."
+    },
+    {
+      "id": "charles-dickens",
+      "name": "Charles Dickens",
+      "type": "Novelist",
+      "period": "Victorian",
+      "works": [
+        "Oliver Twist",
+        "David Copperfield",
+        "Bleak House",
+        "Great Expectations",
+        "Hard Times"
+      ],
+      "years": [
+        "Oliver Twist: 1837-1839",
+        "David Copperfield: 1849-1850",
+        "Bleak House: 1852-1853",
+        "Hard Times: 1854",
+        "Great Expectations: 1860-1861"
+      ],
+      "concepts": [
+        "Victorian novel",
+        "social criticism",
+        "childhood",
+        "industrial society",
+        "satire",
+        "serialization",
+        "characterisation"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "George Eliot",
+        "Thomas Hardy",
+        "William Makepeace Thackeray"
+      ],
+      "description": "Dickens is central to Victorian fiction and is known for memorable characters, social criticism, serialization, humour, and representations of poverty and industrial society."
+    },
+    {
+      "id": "george-eliot",
+      "name": "George Eliot",
+      "type": "Novelist",
+      "period": "Victorian",
+      "works": [
+        "Adam Bede",
+        "The Mill on the Floss",
+        "Silas Marner",
+        "Middlemarch",
+        "Daniel Deronda"
+      ],
+      "years": [
+        "Adam Bede: 1859",
+        "The Mill on the Floss: 1860",
+        "Silas Marner: 1861",
+        "Middlemarch: 1871-1872",
+        "Daniel Deronda: 1876"
+      ],
+      "concepts": [
+        "psychological realism",
+        "social realism",
+        "provincial life",
+        "moral choice",
+        "omniscient narration",
+        "ethical realism"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Charles Dickens",
+        "Thomas Hardy",
+        "Jane Austen"
+      ],
+      "description": "George Eliot's novels are strongly associated with psychological and social realism, ethical complexity, and detailed representations of provincial communities."
+    },
+    {
+      "id": "thomas-hardy",
+      "name": "Thomas Hardy",
+      "type": "Novelist",
+      "period": "Victorian / Late Nineteenth Century",
+      "works": [
+        "Far from the Madding Crowd",
+        "The Mayor of Casterbridge",
+        "Tess of the d'Urbervilles",
+        "Jude the Obscure"
+      ],
+      "years": [
+        "Far from the Madding Crowd: 1874",
+        "The Mayor of Casterbridge: 1886",
+        "Tess of the d'Urbervilles: 1891",
+        "Jude the Obscure: 1895"
+      ],
+      "concepts": [
+        "tragic realism",
+        "determinism",
+        "fate",
+        "Wessex",
+        "social convention",
+        "rural life",
+        "modernity"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "George Eliot",
+        "Charles Dickens",
+        "Naturalism"
+      ],
+      "description": "Hardy's fiction frequently explores fate, social constraints, rural communities, modernity, and tragic human experience, particularly through the fictional region of Wessex."
+    },
+    {
+      "id": "joseph-conrad",
+      "name": "Joseph Conrad",
+      "type": "Novelist",
+      "period": "Modern / Early Twentieth Century",
+      "works": [
+        "Heart of Darkness",
+        "Lord Jim",
+        "Nostromo",
+        "The Secret Agent"
+      ],
+      "years": [
+        "Heart of Darkness: 1899",
+        "Lord Jim: 1900",
+        "Nostromo: 1904",
+        "The Secret Agent: 1907"
+      ],
+      "concepts": [
+        "frame narrative",
+        "unreliable narration",
+        "colonialism",
+        "modernism",
+        "psychological depth",
+        "narrative perspective"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Ford Madox Ford",
+        "E. M. Forster",
+        "Modernism"
+      ],
+      "description": "Conrad is important for modern narrative technique, complex points of view, frame narration, psychological depth, and representations of imperial and colonial experience."
+    },
+    {
+      "id": "e-m-forster",
+      "name": "E. M. Forster",
+      "type": "Novelist",
+      "period": "Modern Period",
+      "works": [
+        "Where Angels Fear to Tread",
+        "A Room with a View",
+        "Howards End",
+        "A Passage to India"
+      ],
+      "years": [
+        "Where Angels Fear to Tread: 1905",
+        "A Room with a View: 1908",
+        "Howards End: 1910",
+        "A Passage to India: 1924"
+      ],
+      "concepts": [
+        "flat and round characters",
+        "social relationships",
+        "liberal humanism",
+        "colonial encounter",
+        "narrative technique",
+        "personal relations"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Joseph Conrad",
+        "Virginia Woolf",
+        "Edward Morgan Forster"
+      ],
+      "description": "Forster's fiction explores personal relationships, social structures, class, colonial encounter, and narrative characterization."
+    },
+    {
+      "id": "virginia-woolf",
+      "name": "Virginia Woolf",
+      "type": "Novelist",
+      "period": "Modernism",
+      "works": [
+        "Mrs Dalloway",
+        "To the Lighthouse",
+        "The Waves",
+        "Jacob's Room"
+      ],
+      "years": [
+        "Jacob's Room: 1922",
+        "Mrs Dalloway: 1925",
+        "To the Lighthouse: 1927",
+        "The Waves: 1931"
+      ],
+      "concepts": [
+        "stream of consciousness",
+        "interior monologue",
+        "subjective time",
+        "modernism",
+        "memory",
+        "psychological fiction",
+        "moments of being"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "James Joyce",
+        "Dorothy Richardson",
+        "Marcel Proust"
+      ],
+      "description": "Woolf's modernist fiction foregrounds consciousness, memory, subjective time, interior experience, and experimental narrative form."
+    },
+    {
+      "id": "james-joyce",
+      "name": "James Joyce",
+      "type": "Novelist",
+      "period": "Modernism",
+      "works": [
+        "Dubliners",
+        "A Portrait of the Artist as a Young Man",
+        "Ulysses",
+        "Finnegans Wake"
+      ],
+      "years": [
+        "Dubliners: 1914",
+        "A Portrait of the Artist as a Young Man: 1916",
+        "Ulysses: 1922",
+        "Finnegans Wake: 1939"
+      ],
+      "concepts": [
+        "stream of consciousness",
+        "epiphany",
+        "mythic method",
+        "interior monologue",
+        "modernism",
+        "experimental language"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Virginia Woolf",
+        "T. S. Eliot",
+        "Ezra Pound"
+      ],
+      "description": "Joyce is a central modernist novelist whose fiction experiments with consciousness, language, myth, narrative structure, and the representation of ordinary life."
+    },
+    {
+      "id": "d-h-lawrence",
+      "name": "D. H. Lawrence",
+      "type": "Novelist",
+      "period": "Modern Period",
+      "works": [
+        "Sons and Lovers",
+        "The Rainbow",
+        "Women in Love",
+        "Lady Chatterley's Lover"
+      ],
+      "years": [
+        "Sons and Lovers: 1913",
+        "The Rainbow: 1915",
+        "Women in Love: 1920",
+        "Lady Chatterley's Lover: 1928"
+      ],
+      "concepts": [
+        "psychological fiction",
+        "sexuality",
+        "industrialisation",
+        "human relationships",
+        "nature",
+        "modern civilisation"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Virginia Woolf",
+        "James Joyce",
+        "Modernism"
+      ],
+      "description": "Lawrence's fiction examines sexuality, relationships, industrial society, nature, and the tension between modern civilisation and human vitality."
+    },
+    {
+      "id": "william-faulkner",
+      "name": "William Faulkner",
+      "type": "Novelist",
+      "period": "Modern / American Modernism",
+      "works": [
+        "The Sound and the Fury",
+        "As I Lay Dying",
+        "Light in August",
+        "Absalom, Absalom!"
+      ],
+      "years": [
+        "The Sound and the Fury: 1929",
+        "As I Lay Dying: 1930",
+        "Light in August: 1932",
+        "Absalom, Absalom!: 1936"
+      ],
+      "concepts": [
+        "stream of consciousness",
+        "multiple perspectives",
+        "non-linear chronology",
+        "memory",
+        "Southern Gothic",
+        "modernism"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "James Joyce",
+        "Virginia Woolf",
+        "Southern Gothic"
+      ],
+      "description": "Faulkner's fiction is known for multiple perspectives, fragmented chronology, stream-of-consciousness techniques, memory, and the history of the American South."
+    },
+    {
+      "id": "gabriel-garcia-marquez",
+      "name": "Gabriel García Márquez",
+      "type": "Novelist",
+      "period": "Latin American / Postmodern",
+      "works": [
+        "One Hundred Years of Solitude",
+        "Love in the Time of Cholera",
+        "Chronicle of a Death Foretold"
+      ],
+      "years": [
+        "One Hundred Years of Solitude: 1967",
+        "Chronicle of a Death Foretold: 1981",
+        "Love in the Time of Cholera: 1985"
+      ],
+      "concepts": [
+        "magical realism",
+        "cyclical time",
+        "memory",
+        "myth",
+        "history",
+        "collective consciousness"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Magical Realism",
+        "Postmodernism",
+        "Salman Rushdie"
+      ],
+      "description": "García Márquez is strongly associated with magical realism, particularly through the blending of extraordinary events with ordinary social and historical reality."
+    },
+    {
+      "id": "salman-rushdie",
+      "name": "Salman Rushdie",
+      "type": "Novelist",
+      "period": "Postcolonial / Contemporary",
+      "works": [
+        "Midnight's Children",
+        "Shame",
+        "The Satanic Verses",
+        "The Moor's Last Sigh"
+      ],
+      "years": [
+        "Midnight's Children: 1981",
+        "Shame: 1983",
+        "The Satanic Verses: 1988",
+        "The Moor's Last Sigh: 1995"
+      ],
+      "concepts": [
+        "magical realism",
+        "postcolonial fiction",
+        "national identity",
+        "history",
+        "hybridity",
+        "fragmented narrative",
+        "metafiction"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Gabriel García Márquez",
+        "Homi K. Bhabha",
+        "Postcolonialism"
+      ],
+      "description": "Rushdie's fiction frequently combines history, fantasy, political events, linguistic experimentation, and questions of national and postcolonial identity."
+    },
+    {
+      "id": "r-k-narayan",
+      "name": "R. K. Narayan",
+      "type": "Indian English Novelist",
+      "period": "Indian English Literature",
+      "works": [
+        "Swami and Friends",
+        "The Bachelor of Arts",
+        "The English Teacher",
+        "The Guide",
+        "The Man-Eater of Malgudi"
+      ],
+      "years": [
+        "Swami and Friends: 1935",
+        "The Bachelor of Arts: 1937",
+        "The English Teacher: 1945",
+        "The Guide: 1958",
+        "The Man-Eater of Malgudi: 1961"
+      ],
+      "concepts": [
+        "Malgudi",
+        "Indian English fiction",
+        "ordinary life",
+        "humour",
+        "irony",
+        "social observation"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Mulk Raj Anand",
+        "Raja Rao",
+        "Indian English Literature"
+      ],
+      "description": "Narayan is a major Indian English novelist whose fictional town of Malgudi provides the setting for many explorations of ordinary Indian life, society, humour, and human relationships."
+    },
+    {
+      "id": "mulk-raj-anand",
+      "name": "Mulk Raj Anand",
+      "type": "Indian English Novelist",
+      "period": "Indian English Literature",
+      "works": [
+        "Untouchable",
+        "Coolie",
+        "Two Leaves and a Bud"
+      ],
+      "years": [
+        "Untouchable: 1935",
+        "Coolie: 1936",
+        "Two Leaves and a Bud: 1937"
+      ],
+      "concepts": [
+        "social realism",
+        "caste",
+        "poverty",
+        "colonialism",
+        "working class",
+        "social injustice"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "R. K. Narayan",
+        "Raja Rao",
+        "Indian English Literature"
+      ],
+      "description": "Anand's fiction is associated with social realism and representations of caste, poverty, labour, colonialism, and social inequality."
+    },
+    {
+      "id": "raja-rao",
+      "name": "Raja Rao",
+      "type": "Indian English Novelist",
+      "period": "Indian English Literature",
+      "works": [
+        "Kanthapura",
+        "The Serpent and the Rope",
+        "The Cat and Shakespeare"
+      ],
+      "years": [
+        "Kanthapura: 1938",
+        "The Serpent and the Rope: 1960",
+        "The Cat and Shakespeare: 1965"
+      ],
+      "concepts": [
+        "Indian nationalism",
+        "Gandhian movement",
+        "myth",
+        "Indian narrative style",
+        "oral storytelling",
+        "spirituality"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Mulk Raj Anand",
+        "R. K. Narayan",
+        "Indian English Literature"
+      ],
+      "description": "Raja Rao's fiction combines Indian philosophical traditions, oral storytelling patterns, nationalism, myth, and experimentation with English narrative form."
+    },
+    {
+      "id": "rudyard-kipling",
+      "name": "Rudyard Kipling",
+      "type": "Short Story Writer / Novelist",
+      "period": "Victorian / Colonial",
+      "works": [
+        "The Jungle Book",
+        "Kim",
+        "Plain Tales from the Hills"
+      ],
+      "years": [
+        "Plain Tales from the Hills: 1888",
+        "The Jungle Book: 1894",
+        "Kim: 1901"
+      ],
+      "concepts": [
+        "colonial fiction",
+        "short story",
+        "empire",
+        "India",
+        "adventure",
+        "narrative voice"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Joseph Conrad",
+        "Indian English Literature",
+        "Colonial Literature"
+      ],
+      "description": "Kipling's fiction includes stories and novels connected with colonial India, imperial culture, adventure, childhood, and the British Empire."
+    },
+    {
+      "id": "anton-chekhov",
+      "name": "Anton Chekhov",
+      "type": "Short Story Writer",
+      "period": "Russian Realism",
+      "works": [
+        "The Lady with the Dog",
+        "The Bet",
+        "The Lottery Ticket",
+        "The Cherry Orchard"
+      ],
+      "years": [
+        "The Lady with the Dog: 1899",
+        "The Bet: 1889",
+        "The Lottery Ticket: 1887",
+        "The Cherry Orchard: 1904"
+      ],
+      "concepts": [
+        "modern short story",
+        "psychological realism",
+        "open ending",
+        "ordinary life",
+        "subtle characterization",
+        "dramatic understatement"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Katherine Mansfield",
+        "James Joyce",
+        "Short Story"
+      ],
+      "description": "Chekhov is a major influence on the modern short story, particularly through psychological realism, ordinary situations, understated conflict, and open endings."
+    },
+    {
+      "id": "katherine-mansfield",
+      "name": "Katherine Mansfield",
+      "type": "Short Story Writer",
+      "period": "Modernism",
+      "works": [
+        "The Garden Party",
+        "Bliss",
+        "The Doll's House",
+        "Prelude"
+      ],
+      "years": [
+        "The Garden Party: 1922",
+        "Bliss: 1920",
+        "The Doll's House: 1922",
+        "Prelude: 1918"
+      ],
+      "concepts": [
+        "modern short story",
+        "impressionism",
+        "epiphany",
+        "consciousness",
+        "social class",
+        "fragmentation"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Anton Chekhov",
+        "Virginia Woolf",
+        "Modernist Short Story"
+      ],
+      "description": "Mansfield's short stories are associated with modernist techniques, impressionistic detail, consciousness, class distinctions, and moments of revelation."
+    },
+    {
+      "id": "james-joyce-dubliners",
+      "name": "James Joyce - Dubliners",
+      "type": "Short Story Collection",
+      "period": "Modernism",
+      "works": [
+        "Dubliners",
+        "Araby",
+        "The Dead",
+        "Eveline"
+      ],
+      "years": [
+        "Dubliners: 1914"
+      ],
+      "concepts": [
+        "epiphany",
+        "paralysis",
+        "Irish identity",
+        "urban life",
+        "realism",
+        "modern short story"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "James Joyce",
+        "Katherine Mansfield",
+        "Modernism"
+      ],
+      "description": "Dubliners presents interconnected stories of Dublin life and is particularly important for Joyce's concept of epiphany and the recurring theme of paralysis."
+    },
+    {
+      "id": "ernest-hemingway",
+      "name": "Ernest Hemingway",
+      "type": "Novelist / Short Story Writer",
+      "period": "Modernism",
+      "works": [
+        "The Sun Also Rises",
+        "A Farewell to Arms",
+        "For Whom the Bell Tolls",
+        "The Old Man and the Sea"
+      ],
+      "years": [
+        "The Sun Also Rises: 1926",
+        "A Farewell to Arms: 1929",
+        "For Whom the Bell Tolls: 1940",
+        "The Old Man and the Sea: 1952"
+      ],
+      "concepts": [
+        "iceberg theory",
+        "minimalism",
+        "war fiction",
+        "masculinity",
+        "dialogue",
+        "understatement"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Modernism",
+        "Short Story",
+        "F. Scott Fitzgerald"
+      ],
+      "description": "Hemingway developed a highly economical prose style often associated with the iceberg theory, understatement, concise dialogue, and omission of explicit explanation."
+    },
+    {
+      "id": "jorge-luis-borges",
+      "name": "Jorge Luis Borges",
+      "type": "Short Story Writer",
+      "period": "Modern / Postmodern",
+      "works": [
+        "Ficciones",
+        "The Aleph",
+        "The Garden of Forking Paths"
+      ],
+      "years": [
+        "The Garden of Forking Paths: 1941",
+        "Ficciones: 1944",
+        "The Aleph: 1949"
+      ],
+      "concepts": [
+        "metafiction",
+        "labyrinth",
+        "infinite texts",
+        "multiple realities",
+        "intertextuality",
+        "postmodern fiction"
+      ],
+      "units": [
+        "Unit III"
+      ],
+      "relatedEntities": [
+        "Postmodernism",
+        "Magical Realism",
+        "Metafiction"
+      ],
+      "description": "Borges's fiction frequently explores labyrinths, infinite possibilities, books within books, multiple realities, and the boundaries between fiction and reality."
+    }
+  ]
+}

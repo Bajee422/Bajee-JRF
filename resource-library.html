@@ -1,0 +1,4338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>BAJEE JRF AI — Resource Library & Search</title>
+
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+>
+
+<link
+  rel="stylesheet"
+  href="css/style.css"
+>
+
+<style>
+
+body {
+  background: #f4f6fa;
+}
+
+.header-card {
+  background: #0d2b52;
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+}
+
+.search-box {
+  background: #ffffff;
+  border: 1px solid #e1e5eb;
+  border-radius: 18px;
+  padding: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+}
+
+.search-box input {
+  border: 0;
+  outline: 0;
+  box-shadow: none !important;
+}
+
+.search-btn {
+  background: #0d2b52;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 12px 24px;
+}
+
+.search-btn:hover {
+  background: #173d6b;
+  color: #ffffff;
+}
+
+.filter-card,
+.result-card,
+.resource-card {
+  background: #ffffff;
+  border: 1px solid #e3e7ed;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.icon-box {
+  font-size: 1.8rem;
+}
+
+.tag {
+  display: inline-block;
+  background: #f7efd6;
+  border: 1px solid #e3c36a;
+  color: #6d5210;
+  border-radius: 20px;
+  padding: 4px 9px;
+  margin: 3px;
+  font-size: .78rem;
+}
+
+.answer-card {
+  border-left: 4px solid #d9b34c;
+}
+
+.empty-state {
+  padding: 50px 20px;
+  text-align: center;
+  color: #6c757d;
+}
+
+.quick-search button {
+  margin: 4px;
+}
+
+.search-status {
+  font-size: .82rem;
+}
+
+.library-stat-card {
+  background: #ffffff;
+  border: 1px solid #e3e7ed;
+  border-radius: 14px;
+  padding: 18px;
+  height: 100%;
+}
+
+.library-stat-value {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #0d2b52;
+}
+
+.library-stat-label {
+  font-size: .78rem;
+  color: #6c757d;
+}
+
+.library-toolbar {
+  background: #ffffff;
+  border: 1px solid #e3e7ed;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.resource-meta {
+  font-size: .76rem;
+  color: #6c757d;
+  line-height: 1.45;
+}
+
+.resource-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.resource-open-btn {
+  background: #0d2b52;
+  color: #ffffff;
+  border-radius: 9px;
+  padding: 7px 12px;
+  text-decoration: none;
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.resource-open-btn:hover {
+  background: #173d6b;
+  color: #ffffff;
+}
+
+.resource-indexed-badge {
+  display: inline-block;
+  background: #f7efd6;
+  border: 1px solid #e3c36a;
+  color: #6d5210;
+  border-radius: 20px;
+  padding: 5px 9px;
+  font-size: .74rem;
+  font-weight: 600;
+}
+
+.paper-filter-note {
+  font-size: .72rem;
+  line-height: 1.35;
+  color: #6c757d;
+}
+
+.filter-section-title {
+  font-size: .76rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: #6c757d;
+  font-weight: 700;
+}
+
+.loading {
+  padding: 30px;
+  text-align: center;
+  color: #6c757d;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<nav class="navbar navbar-dark bg-navy">
+
+  <div class="container">
+
+    <a
+      class="navbar-brand fw-bold"
+      href="index.html"
+    >
+      🎓 BAJEE JRF AI
+    </a>
+
+    <span class="navbar-text text-gold">
+      Global Study Library • JRF Search
+    </span>
+
+  </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="container py-5">
+
+
+  <!-- =======================================================
+       HEADER
+  ======================================================== -->
+
+  <section class="header-card mb-4">
+
+    <p class="eyebrow text-gold">
+      STEP 11.1 — GLOBAL STUDY LIBRARY
+    </p>
+
+    <h1>
+      📚 JRF Global Study Library
+    </h1>
+
+    <p class="mb-0">
+      Browse and search your connected JRF knowledge, study resources,
+      units and topics from one place.
+    </p>
+
+  </section>
+
+
+
+  <!-- =======================================================
+       LIBRARY OVERVIEW
+  ======================================================== -->
+
+  <section class="mb-4">
+
+    <div class="row g-3">
+
+      <div class="col-6 col-lg-3">
+
+        <div class="library-stat-card">
+
+          <div
+            id="statKnowledge"
+            class="library-stat-value"
+          >
+            0
+          </div>
+
+          <div class="library-stat-label">
+            Knowledge Entities
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-6 col-lg-3">
+
+        <div class="library-stat-card">
+
+          <div
+            id="statResources"
+            class="library-stat-value"
+          >
+            0
+          </div>
+
+          <div class="library-stat-label">
+            Study Resources
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-6 col-lg-3">
+
+        <div class="library-stat-card">
+
+          <div
+            id="statTypes"
+            class="library-stat-value"
+          >
+            0
+          </div>
+
+          <div class="library-stat-label">
+            Resource Types
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-6 col-lg-3">
+
+        <div class="library-stat-card">
+
+          <div
+            id="statUnits"
+            class="library-stat-value"
+          >
+            0
+          </div>
+
+          <div class="library-stat-label">
+            Mapped Units
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =======================================================
+       SEARCH
+  ======================================================== -->
+
+  <section class="search-box mb-4">
+
+    <div class="input-group input-group-lg">
+
+      <span class="input-group-text bg-white border-0">
+        🔎
+      </span>
+
+      <input
+        id="searchInput"
+        class="form-control"
+        type="search"
+        placeholder="Search meaning, author, work, concept, theory, explanation, example, year..."
+        autocomplete="off"
+      >
+
+      <button
+        id="clearBtn"
+        class="btn btn-light d-none"
+        type="button"
+        title="Clear search"
+      >
+        ✕
+      </button>
+
+      <button
+        id="searchBtn"
+        class="btn search-btn"
+        type="button"
+      >
+        Search
+      </button>
+
+    </div>
+
+
+
+    <!-- QUICK SEARCH -->
+
+    <div class="quick-search mt-3">
+
+      <span class="small text-secondary me-2">
+        Try:
+      </span>
+
+      <button
+        class="btn btn-sm btn-outline-secondary quick"
+        data-q="mimesis"
+        type="button"
+      >
+        mimesis
+      </button>
+
+      <button
+        class="btn btn-sm btn-outline-secondary quick"
+        data-q="deconstruction"
+        type="button"
+      >
+        deconstruction
+      </button>
+
+      <button
+        class="btn btn-sm btn-outline-secondary quick"
+        data-q="T. S. Eliot"
+        type="button"
+      >
+        T. S. Eliot
+      </button>
+
+      <button
+        class="btn btn-sm btn-outline-secondary quick"
+        data-q="Orientalism"
+        type="button"
+      >
+        Orientalism
+      </button>
+
+      <button
+        class="btn btn-sm btn-outline-secondary quick"
+        data-q="1916"
+        type="button"
+      >
+        1916
+      </button>
+
+    </div>
+
+
+    <div
+      id="searchStatus"
+      class="search-status text-secondary mt-2"
+    >
+      Loading JRF knowledge database...
+    </div>
+
+  </section>
+
+
+
+  <!-- =======================================================
+       FILTER + RESULTS
+  ======================================================== -->
+
+  <div class="row g-4">
+
+
+    <!-- =====================================================
+         FILTERS
+    ====================================================== -->
+
+    <div class="col-lg-3">
+
+      <div class="filter-card">
+
+        <h2 class="h6 fw-bold">
+          Search Scope
+        </h2>
+
+
+        <div class="form-check mt-3">
+
+          <input
+            class="form-check-input scope"
+            type="checkbox"
+            value="knowledge"
+            id="scopeKnowledge"
+            checked
+          >
+
+          <label
+            class="form-check-label"
+            for="scopeKnowledge"
+          >
+            Knowledge Base
+          </label>
+
+        </div>
+
+
+        <div class="form-check">
+
+          <input
+            class="form-check-input scope"
+            type="checkbox"
+            value="resources"
+            id="scopeResources"
+            checked
+          >
+
+          <label
+            class="form-check-label"
+            for="scopeResources"
+          >
+            My Resources
+          </label>
+
+        </div>
+
+
+        <hr>
+
+
+        <!-- PAPER -->
+
+        <p class="filter-section-title mb-2">
+          Paper
+        </p>
+
+        <select
+          id="paperFilter"
+          class="form-select form-select-sm"
+          autocomplete="off"
+        >
+
+          <option value="">
+            All papers
+          </option>
+
+          <option value="paper1">
+            Paper I — General
+          </option>
+
+          <option value="paper2">
+            Paper II — English
+          </option>
+
+        </select>
+
+        <div
+          id="paperMappingStatus"
+          class="paper-filter-note mt-2"
+        >
+          Loading paper mapping...
+        </div>
+
+
+
+        <!-- RESOURCE TYPES -->
+
+        <p class="filter-section-title mt-4 mb-2">
+          Resource Types
+        </p>
+
+        <select
+          id="resourceType"
+          class="form-select form-select-sm"
+        >
+
+          <option value="">
+            All types
+          </option>
+
+          <option value="Book">
+            Book
+          </option>
+
+          <option value="PDF">
+            PDF
+          </option>
+
+          <option value="PPT">
+            PPT
+          </option>
+
+          <option value="MP3">
+            MP3
+          </option>
+
+          <option value="Video">
+            Video
+          </option>
+
+          <option value="YouTube">
+            YouTube
+          </option>
+
+          <option value="Notes">
+            Notes
+          </option>
+
+        </select>
+
+
+
+        <!-- ORGANIZATION -->
+
+        <p class="filter-section-title mt-4 mb-2">
+          Organization Filters
+        </p>
+
+        <p class="small text-secondary mb-2">
+          Narrow resources by unit, topic, author,
+          knowledge entity or concept.
+        </p>
+
+
+
+        <!-- UNIT -->
+
+        <p class="filter-section-title mb-2">
+          Unit
+        </p>
+
+        <select
+          id="unitFilter"
+          class="form-select form-select-sm"
+        >
+
+          <option value="">
+            All units
+          </option>
+
+        </select>
+
+
+
+        <!-- TOPIC -->
+
+        <p class="filter-section-title mt-3 mb-2">
+          Topic
+        </p>
+
+        <select
+          id="topicFilter"
+          class="form-select form-select-sm"
+        >
+
+          <option value="">
+            All topics
+          </option>
+
+        </select>
+
+
+
+        <!-- AUTHOR -->
+
+        <p class="filter-section-title mt-3 mb-2">
+          Author
+        </p>
+
+        <select
+          id="authorFilter"
+          class="form-select form-select-sm"
+        >
+
+          <option value="">
+            All authors
+          </option>
+
+        </select>
+
+
+
+        <!-- ENTITY -->
+
+        <p class="filter-section-title mt-3 mb-2">
+          Knowledge Entity
+        </p>
+
+        <select
+          id="entityFilter"
+          class="form-select form-select-sm"
+        >
+
+          <option value="">
+            All entities
+          </option>
+
+        </select>
+
+
+
+        <!-- CONCEPT -->
+
+        <p class="filter-section-title mt-3 mb-2">
+          Concept
+        </p>
+
+        <select
+          id="conceptFilter"
+          class="form-select form-select-sm"
+        >
+
+          <option value="">
+            All concepts
+          </option>
+
+        </select>
+
+
+
+        <!-- BROWSE -->
+
+        <button
+          id="browseAllBtn"
+          class="btn btn-sm btn-outline-primary w-100 mt-3"
+          type="button"
+        >
+          📚 Browse All Resources
+        </button>
+
+
+
+        <div class="alert alert-light border small mt-3 mb-0">
+
+          This version searches the local JRF
+          knowledge database and your resource inventory.
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         RESULTS
+    ====================================================== -->
+
+    <div class="col-lg-9">
+
+      <div
+        class="library-toolbar mb-3 d-flex flex-wrap
+               justify-content-between align-items-center gap-2"
+      >
+
+        <div>
+
+          <strong>
+            Study Library
+          </strong>
+
+          <div class="small text-secondary">
+            Search, filter or browse the connected JRF resource inventory.
+          </div>
+
+        </div>
+
+
+        <button
+          id="clearLibraryFiltersBtn"
+          class="btn btn-sm btn-outline-secondary"
+          type="button"
+        >
+          Reset Filters
+        </button>
+
+      </div>
+
+
+      <div
+        id="answerArea"
+        class="mb-4"
+      >
+      </div>
+
+
+      <div id="resultsArea">
+
+        <div class="empty-state bg-white rounded-4 border">
+
+          <div class="icon-box">
+            🔎
+          </div>
+
+          <h2 class="h5 mt-3">
+            JRF Search
+          </h2>
+
+          <p class="mb-0">
+            Search the JRF knowledge base or browse
+            the connected study resources.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+
+<script>
+
+/* =========================================================
+   DATABASE STATE
+========================================================= */
+
+let knowledgeDatabase = [];
+
+let resourceDatabase = [];
+
+let databaseReady = false;
+
+let browseMode = false;
+
+
+
+/* =========================================================
+   UGC NET PAPER / UNIT DIRECTORY
+========================================================= */
+
+const JRF_PAPER_UNITS = {
+
+  paper1: [
+
+    {
+      id: "Unit I",
+      label: "Unit I — Teaching Aptitude"
+    },
+
+    {
+      id: "Unit II",
+      label: "Unit II — Research Aptitude"
+    },
+
+    {
+      id: "Unit III",
+      label: "Unit III — Comprehension"
+    },
+
+    {
+      id: "Unit IV",
+      label: "Unit IV — Communication"
+    },
+
+    {
+      id: "Unit V",
+      label: "Unit V — Mathematical Reasoning and Aptitude"
+    },
+
+    {
+      id: "Unit VI",
+      label: "Unit VI — Logical Reasoning"
+    },
+
+    {
+      id: "Unit VII",
+      label: "Unit VII — Data Interpretation"
+    },
+
+    {
+      id: "Unit VIII",
+      label: "Unit VIII — Information and Communication Technology (ICT)"
+    },
+
+    {
+      id: "Unit IX",
+      label: "Unit IX — People, Development and Environment"
+    },
+
+    {
+      id: "Unit X",
+      label: "Unit X — Higher Education System"
+    }
+
+  ],
+
+
+  paper2: [
+
+    {
+      id: "Unit I",
+      label: "Unit I — Drama"
+    },
+
+    {
+      id: "Unit II",
+      label: "Unit II — Poetry"
+    },
+
+    {
+      id: "Unit III",
+      label: "Unit III — Fiction, Short Story"
+    },
+
+    {
+      id: "Unit IV",
+      label: "Unit IV — Non-Fictional Prose"
+    },
+
+    {
+      id: "Unit V",
+      label: "Unit V — Language: Basic Concepts, Theories and Pedagogy. English in Use"
+    },
+
+    {
+      id: "Unit VI",
+      label: "Unit VI — English in India: History, Evolution and Futures"
+    },
+
+    {
+      id: "Unit VII",
+      label: "Unit VII — Cultural Studies"
+    },
+
+    {
+      id: "Unit VIII",
+      label: "Unit VIII — Literary Criticism"
+    },
+
+    {
+      id: "Unit IX",
+      label: "Unit IX — Literary Theory Post World War II"
+    },
+
+    {
+      id: "Unit X",
+      label: "Unit X — Research Methods and Materials in English"
+    }
+
+  ]
+
+};
+
+
+
+/* =========================================================
+   BASIC HELPERS
+========================================================= */
+
+function normalize(text) {
+
+  return String(text ?? "")
+    .toLowerCase()
+    .trim();
+
+}
+
+
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replace(
+      /[&<>"']/g,
+      function(match) {
+
+        return {
+
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+
+        }[match];
+
+      }
+    );
+
+}
+
+
+function valueToText(value) {
+
+  if (
+    value === null ||
+    value === undefined
+  ) {
+
+    return "";
+
+  }
+
+
+  if (
+    typeof value === "string" ||
+    typeof value === "number"
+  ) {
+
+    return String(value);
+
+  }
+
+
+  if (Array.isArray(value)) {
+
+    return value
+      .map(item => valueToText(item))
+      .join(" ");
+
+  }
+
+
+  if (typeof value === "object") {
+
+    return Object
+      .values(value)
+      .map(item => valueToText(item))
+      .join(" ");
+
+  }
+
+
+  return "";
+
+}
+
+
+function firstValue(object, fields) {
+
+  for (const field of fields) {
+
+    if (
+      object &&
+      object[field] !== undefined &&
+      object[field] !== null
+    ) {
+
+      return object[field];
+
+    }
+
+  }
+
+  return "";
+
+}
+
+
+function textList(value) {
+
+  if (Array.isArray(value)) {
+
+    return value
+      .map(item => valueToText(item))
+      .filter(Boolean);
+
+  }
+
+
+  const text = valueToText(value);
+
+  return text
+    ? [text]
+    : [];
+
+}
+
+
+
+/* =========================================================
+   DATABASE NORMALIZATION
+========================================================= */
+
+function getKnowledgeEntities(data) {
+
+  if (!data) {
+    return [];
+  }
+
+
+  if (Array.isArray(data.entities)) {
+    return data.entities;
+  }
+
+
+  if (Array.isArray(data.records)) {
+    return data.records;
+  }
+
+
+  if (Array.isArray(data.knowledgeEntities)) {
+    return data.knowledgeEntities;
+  }
+
+
+  if (Array.isArray(data.knowledge)) {
+    return data.knowledge;
+  }
+
+
+  if (Array.isArray(data)) {
+    return data;
+  }
+
+
+  return [];
+
+}
+
+
+function getResources(data) {
+
+  if (!data) {
+    return [];
+  }
+
+
+  if (Array.isArray(data.resources)) {
+    return data.resources;
+  }
+
+
+  if (Array.isArray(data.records)) {
+    return data.records;
+  }
+
+
+  if (Array.isArray(data)) {
+    return data;
+  }
+
+
+  return [];
+
+}
+
+
+
+/* =========================================================
+   RESOURCE FIELD HELPERS
+========================================================= */
+
+function getRecordUnit(record) {
+
+  return firstValue(
+    record,
+    [
+      "unit",
+      "units",
+      "syllabusUnit",
+      "paperUnit"
+    ]
+  );
+
+}
+
+
+function getRecordTopic(record) {
+
+  return firstValue(
+    record,
+    [
+      "topic",
+      "topics",
+      "subjectTopic",
+      "theme"
+    ]
+  );
+
+}
+
+
+function getRecordAuthor(record) {
+
+  return firstValue(
+    record,
+    [
+      "author",
+      "authors",
+      "creator",
+      "contributor"
+    ]
+  );
+
+}
+
+
+function getRecordEntityIds(record) {
+
+  return firstValue(
+    record,
+    [
+      "entity_ids",
+      "entityIds",
+      "entities",
+      "knowledge_entities",
+      "knowledgeEntityIds"
+    ]
+  );
+
+}
+
+
+function getRecordConceptIds(record) {
+
+  return firstValue(
+    record,
+    [
+      "concept_ids",
+      "conceptIds",
+      "concepts",
+      "keyConcepts",
+      "coreConcepts"
+    ]
+  );
+
+}
+
+
+
+/* =========================================================
+   PAPER DETECTION
+========================================================= */
+
+function getRecordPaper(record) {
+
+  const value = firstValue(
+    record,
+    [
+      "paper",
+      "paperId",
+      "paperName",
+      "examPaper",
+      "paperType",
+      "syllabusPaper",
+      "paper_number",
+      "paperNumber"
+    ]
+  );
+
+
+  const raw =
+    valueToText(value)
+      .trim();
+
+
+  if (!raw) {
+    return "";
+  }
+
+
+  const normalized =
+    normalize(raw)
+      .replace(/[–—]/g, "-")
+      .replace(/\s+/g, " ");
+
+
+  if (
+    normalized === "paper2" ||
+    normalized === "paper 2" ||
+    normalized === "p2" ||
+    normalized.includes("paper ii")
+  ) {
+
+    return "paper2";
+
+  }
+
+
+  if (
+    normalized === "paper1" ||
+    normalized === "paper 1" ||
+    normalized === "p1" ||
+    normalized.includes("paper i")
+  ) {
+
+    return "paper1";
+
+  }
+
+
+  if (normalized === "1") {
+    return "paper1";
+  }
+
+
+  if (normalized === "2") {
+    return "paper2";
+  }
+
+
+  return "";
+
+}
+
+
+function getPaperLabel(paperId) {
+
+  if (paperId === "paper1") {
+    return "Paper I — General";
+  }
+
+
+  if (paperId === "paper2") {
+    return "Paper II — English";
+  }
+
+
+  return "Unassigned";
+
+}
+
+
+function recordMatchesPaper(record, paperId) {
+
+  if (!paperId) {
+    return true;
+  }
+
+  return getRecordPaper(record) === paperId;
+
+}
+
+
+
+/* =========================================================
+   KNOWLEDGE ENTITY HELPERS
+========================================================= */
+
+function getKnowledgeEntityId(record) {
+
+  return valueToText(
+    firstValue(
+      record,
+      [
+        "id",
+        "entityId",
+        "knowledgeEntityId"
+      ]
+    )
+  ).trim();
+
+}
+
+
+function getKnowledgeEntityName(record) {
+
+  return valueToText(
+    firstValue(
+      record,
+      [
+        "name",
+        "entityName",
+        "knowledgeEntity",
+        "title"
+      ]
+    )
+  ).trim();
+
+}
+
+
+function getEntityLabelById(entityId) {
+
+  const requested =
+    normalize(entityId);
+
+
+  if (!requested) {
+    return "";
+  }
+
+
+  const entity =
+    knowledgeDatabase.find(
+      record => {
+
+        const id =
+          normalize(
+            getKnowledgeEntityId(record)
+          );
+
+        const name =
+          normalize(
+            getKnowledgeEntityName(record)
+          );
+
+        return (
+          id === requested ||
+          name === requested
+        );
+
+      }
+    );
+
+
+  if (entity) {
+
+    return (
+      getKnowledgeEntityName(entity) ||
+      getKnowledgeEntityId(entity)
+    );
+
+  }
+
+
+  return String(entityId);
+
+}
+
+
+function prettifyConceptId(value) {
+
+  const text =
+    valueToText(value)
+      .trim();
+
+
+  if (!text) {
+    return "";
+  }
+
+
+  return text
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .replace(
+      /\b\w/g,
+      letter => letter.toUpperCase()
+    );
+
+}
+
+
+
+/* =========================================================
+   DISTINCT FILTER VALUES
+========================================================= */
+
+function collectDistinctValues(
+  records,
+  fields
+) {
+
+  const values = new Set();
+
+
+  records.forEach(record => {
+
+    const value =
+      firstValue(
+        record,
+        fields
+      );
+
+
+    textList(value)
+      .forEach(item => {
+
+        const clean =
+          String(item).trim();
+
+
+        if (clean) {
+          values.add(clean);
+        }
+
+      });
+
+  });
+
+
+  return [...values]
+    .sort(
+      (a, b) =>
+        a.localeCompare(
+          b,
+          undefined,
+          {
+            numeric: true,
+            sensitivity: "base"
+          }
+        )
+    );
+
+}
+
+
+function collectDistinctEntityValues(records) {
+
+  const values = new Map();
+
+
+  records.forEach(record => {
+
+    textList(
+      getRecordEntityIds(record)
+    )
+    .forEach(entityId => {
+
+      const id =
+        String(entityId).trim();
+
+
+      if (!id) {
+        return;
+      }
+
+
+      const key =
+        normalize(id);
+
+
+      if (!values.has(key)) {
+
+        values.set(
+          key,
+          {
+            value: id,
+            label:
+              getEntityLabelById(id) ||
+              id
+          }
+        );
+
+      }
+
+    });
+
+  });
+
+
+  return [...values.values()]
+    .sort(
+      (a, b) =>
+        a.label.localeCompare(
+          b.label,
+          undefined,
+          {
+            numeric: true,
+            sensitivity: "base"
+          }
+        )
+    );
+
+}
+
+
+function collectDistinctConceptValues(records) {
+
+  const values = new Map();
+
+
+  records.forEach(record => {
+
+    textList(
+      getRecordConceptIds(record)
+    )
+    .forEach(conceptId => {
+
+      const id =
+        String(conceptId).trim();
+
+
+      if (!id) {
+        return;
+      }
+
+
+      const key =
+        normalize(id);
+
+
+      if (!values.has(key)) {
+
+        values.set(
+          key,
+          {
+            value: id,
+            label:
+              prettifyConceptId(id)
+          }
+        );
+
+      }
+
+    });
+
+  });
+
+
+  return [...values.values()]
+    .sort(
+      (a, b) =>
+        a.label.localeCompare(
+          b.label,
+          undefined,
+          {
+            numeric: true,
+            sensitivity: "base"
+          }
+        )
+    );
+
+}
+
+
+
+/* =========================================================
+   GENERIC SELECT
+========================================================= */
+
+function populateSelect(
+  elementId,
+  values,
+  defaultLabel
+) {
+
+  const select =
+    document.getElementById(elementId);
+
+
+  if (!select) {
+    return;
+  }
+
+
+  const current =
+    select.value;
+
+
+  select.innerHTML = "";
+
+
+  const defaultOption =
+    document.createElement("option");
+
+
+  defaultOption.value = "";
+
+  defaultOption.textContent =
+    defaultLabel;
+
+
+  select.appendChild(
+    defaultOption
+  );
+
+
+  values.forEach(value => {
+
+    const option =
+      document.createElement("option");
+
+
+    if (
+      typeof value === "object" &&
+      value !== null
+    ) {
+
+      option.value =
+        value.value ?? "";
+
+      option.textContent =
+        value.label ??
+        value.value ??
+        "";
+
+    }
+
+    else {
+
+      option.value = value;
+
+      option.textContent = value;
+
+    }
+
+
+    select.appendChild(option);
+
+  });
+
+
+  const availableValues =
+    values.map(
+      value =>
+        typeof value === "object" &&
+        value !== null
+          ? value.value
+          : value
+    );
+
+
+  if (
+    availableValues.includes(current)
+  ) {
+
+    select.value = current;
+
+  }
+
+}
+
+
+
+/* =========================================================
+   PAPER UNIT DIRECTORY
+========================================================= */
+
+function getPaperUnitDirectory(paperId) {
+
+  if (paperId === "paper1") {
+    return JRF_PAPER_UNITS.paper1;
+  }
+
+
+  if (paperId === "paper2") {
+    return JRF_PAPER_UNITS.paper2;
+  }
+
+
+  return [];
+
+}
+
+
+function getUnitFilterOptions(selectedPaper) {
+
+  if (selectedPaper) {
+
+    return getPaperUnitDirectory(
+      selectedPaper
+    )
+    .map(
+      unit => ({
+        value: unit.id,
+        label: unit.label
+      })
+    );
+
+  }
+
+
+  /*
+     All Papers:
+
+     Unit I is ambiguous because Paper I and
+     Paper II both contain Unit I.
+
+     Therefore keep paper + unit distinct.
+  */
+
+  return [
+
+    ...JRF_PAPER_UNITS.paper1
+      .map(
+        unit => ({
+          value:
+            `paper1::${unit.id}`,
+          label:
+            `Paper I — ${unit.label}`
+        })
+      ),
+
+    ...JRF_PAPER_UNITS.paper2
+      .map(
+        unit => ({
+          value:
+            `paper2::${unit.id}`,
+          label:
+            `Paper II — English — ${unit.label}`
+        })
+      )
+
+  ];
+
+}
+
+
+function populateUnitSelect(
+  options,
+  defaultLabel
+) {
+
+  const select =
+    document.getElementById(
+      "unitFilter"
+    );
+
+
+  if (!select) {
+    return;
+  }
+
+
+  const current =
+    select.value;
+
+
+  select.innerHTML = "";
+
+
+  const defaultOption =
+    document.createElement("option");
+
+
+  defaultOption.value = "";
+
+  defaultOption.textContent =
+    defaultLabel;
+
+
+  select.appendChild(
+    defaultOption
+  );
+
+
+  options.forEach(
+    optionData => {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        optionData.value;
+
+
+      option.textContent =
+        optionData.label;
+
+
+      select.appendChild(option);
+
+    }
+  );
+
+
+  if (
+    [...select.options]
+      .some(
+        option =>
+          option.value === current
+      )
+  ) {
+
+    select.value = current;
+
+  }
+
+  else {
+
+    select.value = "";
+
+  }
+
+}
+
+
+function parseUnitFilterValue(value) {
+
+  const raw =
+    String(value || "");
+
+
+  if (!raw.includes("::")) {
+
+    return {
+      paper: "",
+      unit: raw
+    };
+
+  }
+
+
+  const [
+    paper,
+    ...unitParts
+  ] =
+    raw.split("::");
+
+
+  return {
+
+    paper,
+
+    unit:
+      unitParts.join("::")
+
+  };
+
+}
+
+
+
+/* =========================================================
+   LIBRARY OVERVIEW
+========================================================= */
+
+function updateLibraryOverview() {
+
+  const selectedPaper =
+    document.getElementById(
+      "paperFilter"
+    )?.value || "";
+
+
+  const allOrganizationRecords =
+    knowledgeDatabase.concat(
+      resourceDatabase
+    );
+
+
+  const scopedOrganizationRecords =
+    selectedPaper
+
+      ? allOrganizationRecords
+          .filter(
+            record =>
+              recordMatchesPaper(
+                record,
+                selectedPaper
+              )
+          )
+
+      : allOrganizationRecords;
+
+
+  const scopedResourceRecords =
+    selectedPaper
+
+      ? resourceDatabase
+          .filter(
+            record =>
+              recordMatchesPaper(
+                record,
+                selectedPaper
+              )
+          )
+
+      : resourceDatabase;
+
+
+  const types =
+    collectDistinctValues(
+      resourceDatabase,
+      [
+        "type",
+        "resourceType"
+      ]
+    );
+
+
+  const units =
+    getUnitFilterOptions(
+      selectedPaper
+    );
+
+
+  const topics =
+    collectDistinctValues(
+      scopedOrganizationRecords,
+      [
+        "topic",
+        "topics",
+        "subjectTopic",
+        "theme"
+      ]
+    );
+
+
+  const authors =
+    collectDistinctValues(
+      scopedResourceRecords,
+      [
+        "author",
+        "authors",
+        "creator",
+        "contributor"
+      ]
+    );
+
+
+  const entities =
+    collectDistinctEntityValues(
+      scopedResourceRecords
+    );
+
+
+  const concepts =
+    collectDistinctConceptValues(
+      scopedResourceRecords
+    );
+
+
+  document.getElementById(
+    "statKnowledge"
+  ).textContent =
+    knowledgeDatabase.length;
+
+
+  document.getElementById(
+    "statResources"
+  ).textContent =
+    resourceDatabase.length;
+
+
+  document.getElementById(
+    "statTypes"
+  ).textContent =
+    types.length;
+
+
+  /*
+     IMPORTANT:
+
+     A master resource mapped to Units I–X is counted
+     as covering those units, while a normal resource
+     keeps its actual unit.
+
+     This is why the Testbook resource can appear when
+     Unit I, Unit II ... Unit X is selected.
+  */
+
+  const mappedUnitSet =
+    new Set();
+
+
+  scopedResourceRecords.forEach(
+    record => {
+
+      textList(
+        getRecordUnit(record)
+      )
+      .forEach(
+        unitValue => {
+
+          const normalizedUnit =
+            normalize(unitValue);
+
+
+          if (
+            normalizedUnit.includes("unit i") ||
+            normalizedUnit.includes("unit ii") ||
+            normalizedUnit.includes("unit iii") ||
+            normalizedUnit.includes("unit iv") ||
+            normalizedUnit.includes("unit v") ||
+            normalizedUnit.includes("unit vi") ||
+            normalizedUnit.includes("unit vii") ||
+            normalizedUnit.includes("unit viii") ||
+            normalizedUnit.includes("unit ix") ||
+            normalizedUnit.includes("unit x")
+          ) {
+
+            mappedUnitSet.add(
+              normalizedUnit
+            );
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+
+  document.getElementById(
+    "statUnits"
+  ).textContent =
+    mappedUnitSet.size;
+
+
+  populateUnitSelect(
+    units,
+    selectedPaper
+      ? `All ${getPaperLabel(selectedPaper)} units`
+      : "All units"
+  );
+
+
+  populateSelect(
+    "topicFilter",
+    topics,
+    "All topics"
+  );
+
+
+  populateSelect(
+    "authorFilter",
+    authors,
+    "All authors"
+  );
+
+
+  populateSelect(
+    "entityFilter",
+    entities,
+    "All entities"
+  );
+
+
+  populateSelect(
+    "conceptFilter",
+    concepts,
+    "All concepts"
+  );
+
+
+  const paperStatus =
+    document.getElementById(
+      "paperMappingStatus"
+    );
+
+
+  if (paperStatus) {
+
+    const paper1Count =
+      allOrganizationRecords
+        .filter(
+          record =>
+            getRecordPaper(record) ===
+            "paper1"
+        )
+        .length;
+
+
+    const paper2Count =
+      allOrganizationRecords
+        .filter(
+          record =>
+            getRecordPaper(record) ===
+            "paper2"
+        )
+        .length;
+
+
+    paperStatus.textContent =
+      `Mapped records — Paper I: ${paper1Count} • Paper II: ${paper2Count} • All 10 units are available for each paper`;
+
+  }
+
+}
+
+
+
+/* =========================================================
+   SELECTED FILTERS
+========================================================= */
+
+function getSelectedFilters() {
+
+  return {
+
+    paper:
+      document.getElementById(
+        "paperFilter"
+      )?.value || "",
+
+    type:
+      document.getElementById(
+        "resourceType"
+      )?.value || "",
+
+    unit:
+      document.getElementById(
+        "unitFilter"
+      )?.value || "",
+
+    topic:
+      document.getElementById(
+        "topicFilter"
+      )?.value || "",
+
+    author:
+      document.getElementById(
+        "authorFilter"
+      )?.value || "",
+
+    entity:
+      document.getElementById(
+        "entityFilter"
+      )?.value || "",
+
+    concept:
+      document.getElementById(
+        "conceptFilter"
+      )?.value || ""
+
+  };
+
+}
+
+
+
+/* =========================================================
+   UNIT MATCHING
+========================================================= */
+
+function recordMatchesSelectedUnit(
+  record,
+  selectedUnitValue
+) {
+
+  if (!selectedUnitValue) {
+    return true;
+  }
+
+
+  const parsed =
+    parseUnitFilterValue(
+      selectedUnitValue
+    );
+
+
+  /*
+     If the Unit filter itself specifies
+     a paper, enforce it.
+  */
+
+  if (
+    parsed.paper &&
+    getRecordPaper(record) !==
+      parsed.paper
+  ) {
+
+    return false;
+
+  }
+
+
+  const selectedUnit =
+    normalize(parsed.unit);
+
+
+  if (!selectedUnit) {
+    return true;
+  }
+
+
+  const units =
+    textList(
+      getRecordUnit(record)
+    )
+    .map(normalize);
+
+
+  /*
+     Normal resource:
+     Unit IX matches Unit IX.
+
+     Master Testbook:
+     Unit I | Unit II | ... | Unit X
+     is represented by the inventory record,
+     therefore it matches the corresponding unit.
+  */
+
+  return units.includes(
+    selectedUnit
+  );
+
+}
+
+
+
+/* =========================================================
+   RESOURCE FILTER MATCHING
+========================================================= */
+
+function recordMatchesFilters(
+  record,
+  kind
+) {
+
+  const filters =
+    getSelectedFilters();
+
+
+  if (
+    filters.paper &&
+    !recordMatchesPaper(
+      record,
+      filters.paper
+    )
+  ) {
+
+    return false;
+
+  }
+
+
+  if (
+    filters.unit &&
+    !recordMatchesSelectedUnit(
+      record,
+      filters.unit
+    )
+  ) {
+
+    return false;
+
+  }
+
+
+  const topics =
+    textList(
+      getRecordTopic(record)
+    )
+    .map(normalize);
+
+
+  const authors =
+    textList(
+      getRecordAuthor(record)
+    )
+    .map(normalize);
+
+
+  const entityIds =
+    textList(
+      getRecordEntityIds(record)
+    )
+    .map(normalize);
+
+
+  const entityNames =
+    entityIds.map(
+      id =>
+        normalize(
+          getEntityLabelById(id)
+        )
+    );
+
+
+  const concepts =
+    textList(
+      getRecordConceptIds(record)
+    )
+    .map(normalize);
+
+
+  if (
+    filters.type &&
+    kind === "resource"
+  ) {
+
+    const type =
+      normalize(
+        firstValue(
+          record,
+          [
+            "type",
+            "resourceType"
+          ]
+        )
+      );
+
+
+    if (
+      type !==
+      normalize(filters.type)
+    ) {
+
+      return false;
+
+    }
+
+  }
+
+
+  if (
+    filters.topic &&
+    !topics.includes(
+      normalize(filters.topic)
+    )
+  ) {
+
+    return false;
+
+  }
+
+
+  if (
+    filters.author &&
+    kind === "resource" &&
+    !authors.includes(
+      normalize(filters.author)
+    )
+  ) {
+
+    return false;
+
+  }
+
+
+  if (
+    filters.entity &&
+    kind === "resource"
+  ) {
+
+    const entity =
+      normalize(filters.entity);
+
+
+    if (
+      !entityIds.includes(entity) &&
+      !entityNames.includes(entity)
+    ) {
+
+      return false;
+
+    }
+
+  }
+
+
+  if (
+    filters.concept &&
+    kind === "resource"
+  ) {
+
+    if (
+      !concepts.includes(
+        normalize(filters.concept)
+      )
+    ) {
+
+      return false;
+
+    }
+
+  }
+
+
+  return true;
+
+}
+
+
+
+/* =========================================================
+   LOAD DATABASE
+========================================================= */
+
+async function loadData() {
+
+  const status =
+    document.getElementById(
+      "searchStatus"
+    );
+
+
+  try {
+
+    status.textContent =
+      "Loading JRF knowledge database...";
+
+
+    const [
+      knowledgeResponse,
+      resourceResponse
+    ] =
+      await Promise.all([
+
+        fetch(
+          "data/knowledge/knowledge-entities.json"
+        ),
+
+        fetch(
+          "data/resources/resource-inventory.json"
+        )
+
+      ]);
+
+
+    if (
+      !knowledgeResponse.ok
+    ) {
+
+      throw new Error(
+        "Knowledge database could not be loaded."
+      );
+
+    }
+
+
+    if (
+      !resourceResponse.ok
+    ) {
+
+      throw new Error(
+        "Resource inventory could not be loaded."
+      );
+
+    }
+
+
+    const knowledgeData =
+      await knowledgeResponse.json();
+
+
+    const resourceData =
+      await resourceResponse.json();
+
+
+    knowledgeDatabase =
+      getKnowledgeEntities(
+        knowledgeData
+      );
+
+
+    resourceDatabase =
+      getResources(
+        resourceData
+      );
+
+
+    /*
+       Always begin at All Papers.
+
+       This prevents browser select restoration
+       from accidentally reopening Paper I.
+    */
+
+    const paperFilter =
+      document.getElementById(
+        "paperFilter"
+      );
+
+
+    if (paperFilter) {
+      paperFilter.value = "";
+    }
+
+
+    databaseReady = true;
+
+
+    updateLibraryOverview();
+
+
+    status.innerHTML = `
+
+      <span class="text-success fw-bold">
+        ✓ Search database connected
+      </span>
+
+      • ${knowledgeDatabase.length}
+      knowledge entities
+
+      • ${resourceDatabase.length}
+      resources
+
+      • ${
+        collectDistinctValues(
+          resourceDatabase,
+          [
+            "type",
+            "resourceType"
+          ]
+        ).length
+      }
+      resource types
+
+    `;
+
+
+    console.log(
+      "BAJEE JRF AI Resource Library loaded:",
+      {
+        knowledge:
+          knowledgeDatabase.length,
+
+        resources:
+          resourceDatabase.length
+      }
+    );
+
+  }
+
+
+  catch (error) {
+
+    databaseReady = false;
+
+
+    console.error(
+      "Resource Library loading error:",
+      error
+    );
+
+
+    status.innerHTML = `
+
+      <span class="text-danger fw-bold">
+        ✕ Database loading error
+      </span>
+
+      • ${escapeHtml(
+        error.message
+      )}
+
+    `;
+
+
+    document.getElementById(
+      "resultsArea"
+    ).innerHTML = `
+
+      <div class="alert alert-danger">
+
+        <strong>
+          Could not load JRF search data.
+        </strong>
+
+        <div class="small mt-2">
+          Please make sure this page is opened
+          through VS Code Live Server.
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+
+/* =========================================================
+   KNOWLEDGE SEARCH TEXT
+========================================================= */
+
+function knowledgeSearchText(record) {
+
+  if (!record) {
+    return "";
+  }
+
+
+  const name =
+    firstValue(
+      record,
+      [
+        "name",
+        "entityName",
+        "knowledgeEntity",
+        "title"
+      ]
+    );
+
+
+  const type =
+    firstValue(
+      record,
+      [
+        "type",
+        "category"
+      ]
+    );
+
+
+  const period =
+    firstValue(
+      record,
+      [
+        "period",
+        "age",
+        "era"
+      ]
+    );
+
+
+  const works =
+    firstValue(
+      record,
+      [
+        "works",
+        "importantWorks",
+        "keyWorks"
+      ]
+    );
+
+
+  const concepts =
+    firstValue(
+      record,
+      [
+        "concepts",
+        "keyConcepts",
+        "coreConcepts"
+      ]
+    );
+
+
+  const units =
+    firstValue(
+      record,
+      [
+        "units",
+        "unit",
+        "syllabusUnit"
+      ]
+    );
+
+
+  const description =
+    firstValue(
+      record,
+      [
+        "description",
+        "summary",
+        "simpleNote",
+        "notes"
+      ]
+    );
+
+
+  const publishedYear =
+    firstValue(
+      record,
+      [
+        "publishedYear",
+        "publicationYear",
+        "year"
+      ]
+    );
+
+
+  return [
+
+    name,
+    type,
+    period,
+    valueToText(works),
+    valueToText(concepts),
+    valueToText(units),
+    description,
+    publishedYear,
+    valueToText(record)
+
+  ]
+  .join(" ");
+
+}
+
+
+
+/* =========================================================
+   RESOURCE SEARCH TEXT
+========================================================= */
+
+function resourceSearchText(record) {
+
+  if (!record) {
+    return "";
+  }
+
+
+  return [
+
+    record.title,
+    record.name,
+    record.type,
+    record.resourceType,
+    record.subject,
+    record.unit,
+    record.units,
+    record.topic,
+    record.topics,
+    record.author,
+    record.description,
+    record.year,
+    record.publicationYear,
+    record.paper,
+    record.paperName,
+    record.entity_ids,
+    record.entityIds,
+    record.concept_ids,
+    record.conceptIds
+
+  ]
+  .concat(
+    Object.values(record)
+  )
+  .map(valueToText)
+  .join(" ");
+
+}
+
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function performSearch(
+  queryText
+) {
+
+  browseMode = false;
+
+
+  const query =
+    normalize(queryText);
+
+
+  const answerArea =
+    document.getElementById(
+      "answerArea"
+    );
+
+
+  const resultsArea =
+    document.getElementById(
+      "resultsArea"
+    );
+
+
+  if (!databaseReady) {
+
+    answerArea.innerHTML = "";
+
+    resultsArea.innerHTML = `
+
+      <div class="alert alert-warning">
+
+        JRF search database is still loading.
+        Please wait a moment and search again.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  if (!query) {
+
+    const filters =
+      getSelectedFilters();
+
+
+    const hasResourceFilters =
+      Boolean(
+
+        filters.paper ||
+        filters.type ||
+        filters.unit ||
+        filters.topic ||
+        filters.author ||
+        filters.entity ||
+        filters.concept
+
+      );
+
+
+    if (!hasResourceFilters) {
+
+      answerArea.innerHTML = "";
+
+      resultsArea.innerHTML = `
+
+        <div class="empty-state bg-white rounded-4 border">
+
+          <div class="icon-box">
+            🔎
+          </div>
+
+          <h2 class="h5 mt-3">
+            JRF Search
+          </h2>
+
+          <p class="mb-0">
+            Search an author, theory, concept,
+            work, year or keyword.
+          </p>
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    renderAllResources();
+
+    return;
+
+  }
+
+
+  const scopes =
+    [
+      ...document.querySelectorAll(
+        ".scope:checked"
+      )
+    ]
+    .map(
+      checkbox =>
+        checkbox.value
+    );
+
+
+  const results = [];
+
+
+
+  /* =======================================================
+     KNOWLEDGE SEARCH
+  ======================================================== */
+
+  if (
+    scopes.includes(
+      "knowledge"
+    )
+  ) {
+
+    knowledgeDatabase.forEach(
+      record => {
+
+        const searchable =
+          normalize(
+            knowledgeSearchText(
+              record
+            )
+          );
+
+
+        if (
+          searchable.includes(
+            query
+          ) &&
+          recordMatchesFilters(
+            record,
+            "knowledge"
+          )
+        ) {
+
+          results.push({
+
+            kind:
+              "knowledge",
+
+            record
+
+          });
+
+        }
+
+      }
+    );
+
+  }
+
+
+
+  /* =======================================================
+     RESOURCE SEARCH
+  ======================================================== */
+
+  if (
+    scopes.includes(
+      "resources"
+    )
+  ) {
+
+    resourceDatabase.forEach(
+      record => {
+
+        if (
+          !recordMatchesFilters(
+            record,
+            "resource"
+          )
+        ) {
+
+          return;
+
+        }
+
+
+        const searchable =
+          normalize(
+            resourceSearchText(
+              record
+            )
+          );
+
+
+        if (
+          searchable.includes(
+            query
+          )
+        ) {
+
+          results.push({
+
+            kind:
+              "resource",
+
+            record
+
+          });
+
+        }
+
+      }
+    );
+
+  }
+
+
+  renderResults(
+    queryText,
+    results
+  );
+
+}
+
+
+
+/* =========================================================
+   BROWSE ALL RESOURCES
+========================================================= */
+
+function renderAllResources() {
+
+  browseMode = true;
+
+
+  const answerArea =
+    document.getElementById(
+      "answerArea"
+    );
+
+
+  const resultsArea =
+    document.getElementById(
+      "resultsArea"
+    );
+
+
+  const resources =
+    resourceDatabase.filter(
+      record =>
+        recordMatchesFilters(
+          record,
+          "resource"
+        )
+    );
+
+
+  answerArea.innerHTML = `
+
+    <div class="result-card answer-card">
+
+      <div class="small text-secondary">
+        STUDY LIBRARY
+      </div>
+
+      <h2 class="h5 mt-1">
+        Connected Study Resources
+      </h2>
+
+      <p class="mb-0 text-secondary">
+
+        Showing ${resources.length}
+        connected resource${
+          resources.length === 1
+            ? ""
+            : "s"
+        }
+        from the local JRF resource inventory.
+
+      </p>
+
+    </div>
+
+  `;
+
+
+  if (!resources.length) {
+
+    resultsArea.innerHTML = `
+
+      <div class="empty-state bg-white rounded-4 border">
+
+        <div class="icon-box">
+          📚
+        </div>
+
+        <h2 class="h5 mt-3">
+          No resources match the current filters
+        </h2>
+
+        <p class="mb-0">
+          Reset the filters or choose another
+          unit, topic or resource type.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  resultsArea.innerHTML = `
+
+    <div
+      class="d-flex justify-content-between
+             align-items-center mb-3"
+    >
+
+      <h2 class="h5 mb-0">
+        Connected Resources
+      </h2>
+
+      <span class="small text-secondary">
+
+        ${resources.length}
+        resource${
+          resources.length === 1
+            ? ""
+            : "s"
+        }
+
+      </span>
+
+    </div>
+
+
+    <div class="row g-3">
+
+      ${
+        resources
+          .map(renderResourceCard)
+          .join("")
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   SEARCH RESULTS
+========================================================= */
+
+function renderResults(
+  originalQuery,
+  results
+) {
+
+  const answerArea =
+    document.getElementById(
+      "answerArea"
+    );
+
+
+  const resultsArea =
+    document.getElementById(
+      "resultsArea"
+    );
+
+
+  if (!results.length) {
+
+    answerArea.innerHTML = `
+
+      <div class="result-card answer-card">
+
+        <h2 class="h5">
+          No local result yet
+        </h2>
+
+        <p class="text-secondary mb-0">
+
+          “${escapeHtml(
+            originalQuery
+          )}”
+          is not currently available in the
+          local JRF database.
+
+        </p>
+
+      </div>
+
+    `;
+
+
+    resultsArea.innerHTML = "";
+
+    return;
+
+  }
+
+
+
+  /* =======================================================
+     QUICK ANSWER
+  ======================================================== */
+
+  const first =
+    results[0];
+
+
+  if (
+    first.kind ===
+    "knowledge"
+  ) {
+
+    const record =
+      first.record;
+
+
+    const name =
+      firstValue(
+        record,
+        [
+          "name",
+          "entityName",
+          "knowledgeEntity",
+          "title"
+        ]
+      );
+
+
+    const type =
+      firstValue(
+        record,
+        [
+          "type",
+          "category"
+        ]
+      );
+
+
+    const period =
+      firstValue(
+        record,
+        [
+          "period",
+          "age",
+          "era"
+        ]
+      );
+
+
+    const works =
+      firstValue(
+        record,
+        [
+          "works",
+          "importantWorks",
+          "keyWorks"
+        ]
+      );
+
+
+    const concepts =
+      firstValue(
+        record,
+        [
+          "concepts",
+          "keyConcepts",
+          "coreConcepts"
+        ]
+      );
+
+
+    const units =
+      firstValue(
+        record,
+        [
+          "units",
+          "unit",
+          "syllabusUnit"
+        ]
+      );
+
+
+    const description =
+      firstValue(
+        record,
+        [
+          "description",
+          "summary",
+          "simpleNote",
+          "notes"
+        ]
+      );
+
+
+    answerArea.innerHTML = `
+
+      <div class="result-card answer-card">
+
+        <div class="small text-secondary">
+          QUICK JRF ANSWER
+        </div>
+
+        <h2 class="h4 mt-1">
+          ${escapeHtml(
+            name ||
+            "Knowledge Entity"
+          )}
+        </h2>
+
+
+        ${
+          type || period
+            ? `
+
+              <p class="mb-2">
+
+                ${
+                  type
+                    ? `
+                      <strong>
+                        Type:
+                      </strong>
+
+                      ${escapeHtml(type)}
+                    `
+                    : ""
+                }
+
+                ${
+                  type && period
+                    ? "&nbsp; • &nbsp;"
+                    : ""
+                }
+
+                ${
+                  period
+                    ? `
+                      <strong>
+                        Period:
+                      </strong>
+
+                      ${escapeHtml(period)}
+                    `
+                    : ""
+                }
+
+              </p>
+
+            `
+            : ""
+        }
+
+
+        ${
+          description
+            ? `
+
+              <p class="mb-3">
+
+                <strong>
+                  Explanation:
+                </strong>
+
+                ${escapeHtml(
+                  description
+                )}
+
+              </p>
+
+            `
+            : ""
+        }
+
+
+        <p class="mb-2">
+
+          <strong>
+            Important works:
+          </strong>
+
+          ${
+            valueToText(works)
+              ? escapeHtml(
+                  valueToText(works)
+                )
+              : "Not yet added"
+          }
+
+        </p>
+
+
+        <p class="mb-2">
+
+          <strong>
+            Core concepts:
+          </strong>
+
+          ${
+            valueToText(concepts)
+              ? escapeHtml(
+                  valueToText(concepts)
+                )
+              : "Not yet added"
+          }
+
+        </p>
+
+
+        <p class="mb-0">
+
+          <strong>
+            Linked units:
+          </strong>
+
+          ${
+            valueToText(units)
+              ? escapeHtml(
+                  valueToText(units)
+                )
+              : "Not yet mapped"
+          }
+
+        </p>
+
+      </div>
+
+    `;
+
+  }
+
+
+  else {
+
+    const resource =
+      first.record;
+
+
+    answerArea.innerHTML = `
+
+      <div class="result-card answer-card">
+
+        <div class="small text-secondary">
+          RESOURCE MATCH
+        </div>
+
+        <h2 class="h5 mt-1">
+
+          ${escapeHtml(
+            resource.title ||
+            resource.name ||
+            "Resource"
+          )}
+
+        </h2>
+
+        <p class="text-secondary mb-0">
+
+          This resource matches your search
+          and is in the local resource inventory.
+
+        </p>
+
+      </div>
+
+    `;
+
+  }
+
+
+
+  /* =======================================================
+     RESULTS HEADER
+  ======================================================== */
+
+  resultsArea.innerHTML = `
+
+    <div
+      class="d-flex justify-content-between
+             align-items-center mb-3"
+    >
+
+      <h2 class="h5 mb-0">
+        Search Results
+      </h2>
+
+      <span class="small text-secondary">
+
+        ${results.length}
+        result${
+          results.length === 1
+            ? ""
+            : "s"
+        }
+
+      </span>
+
+    </div>
+
+
+    <div class="row g-3">
+
+      ${
+        results
+          .map(
+            result => {
+
+              if (
+                result.kind ===
+                "knowledge"
+              ) {
+
+                return renderKnowledgeCard(
+                  result.record
+                );
+
+              }
+
+
+              return renderResourceCard(
+                result.record
+              );
+
+            }
+          )
+          .join("")
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   KNOWLEDGE CARD
+========================================================= */
+
+function renderKnowledgeCard(
+  record
+) {
+
+  const name =
+    firstValue(
+      record,
+      [
+        "name",
+        "entityName",
+        "knowledgeEntity",
+        "title"
+      ]
+    );
+
+
+  const type =
+    firstValue(
+      record,
+      [
+        "type",
+        "category"
+      ]
+    );
+
+
+  const period =
+    firstValue(
+      record,
+      [
+        "period",
+        "age",
+        "era"
+      ]
+    );
+
+
+  const works =
+    firstValue(
+      record,
+      [
+        "works",
+        "importantWorks",
+        "keyWorks"
+      ]
+    );
+
+
+  const concepts =
+    firstValue(
+      record,
+      [
+        "concepts",
+        "keyConcepts",
+        "coreConcepts"
+      ]
+    );
+
+
+  return `
+
+    <div class="col-md-6">
+
+      <div class="result-card h-100">
+
+        <div class="small text-secondary">
+
+          ${escapeHtml(
+            type ||
+            "Knowledge Entity"
+          )}
+
+          ${
+            period
+              ? ` • ${escapeHtml(period)}`
+              : ""
+          }
+
+        </div>
+
+
+        <h3 class="h6 mt-1">
+
+          ${escapeHtml(
+            name ||
+            "Unknown"
+          )}
+
+        </h3>
+
+
+        ${
+          Array.isArray(works)
+
+            ? works
+                .map(
+                  work => `
+
+                    <div class="small mb-1">
+
+                      📖
+
+                      ${escapeHtml(
+                        typeof work === "object"
+                          ? (
+                              work.title ||
+                              work.name ||
+                              ""
+                            )
+                          : work
+                      )}
+
+                      ${
+                        typeof work === "object" &&
+                        work.approx_year
+                          ? ` — ${escapeHtml(
+                              work.approx_year
+                            )}`
+                          : ""
+                      }
+
+                    </div>
+
+                  `
+                )
+                .join("")
+
+            : works
+              ? `
+
+                  <div class="small mb-1">
+
+                    📖
+
+                    ${escapeHtml(
+                      valueToText(
+                        works
+                      )
+                    )}
+
+                  </div>
+
+                `
+              : ""
+        }
+
+
+        <div class="mt-2">
+
+          ${
+            Array.isArray(concepts)
+
+              ? concepts
+                  .map(
+                    concept => `
+
+                      <span class="tag">
+
+                        ${escapeHtml(
+                          concept
+                        )}
+
+                      </span>
+
+                    `
+                  )
+                  .join("")
+
+              : concepts
+                ? `
+
+                    <span class="tag">
+
+                      ${escapeHtml(
+                        valueToText(
+                          concepts
+                        )
+                      )}
+
+                    </span>
+
+                  `
+                : ""
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   RESOURCE CARD
+========================================================= */
+
+function renderResourceCard(
+  record
+) {
+
+  const title =
+    record.title ||
+    record.name ||
+    "Untitled Resource";
+
+
+  const type =
+    record.type ||
+    record.resourceType ||
+    "Resource";
+
+
+  const description =
+    record.description ||
+    "";
+
+
+  const author =
+    valueToText(
+      record.author ||
+      record.authors ||
+      ""
+    );
+
+
+  const subject =
+    valueToText(
+      record.subject ||
+      ""
+    );
+
+
+  const unit =
+    valueToText(
+      getRecordUnit(record)
+    );
+
+
+  const topic =
+    valueToText(
+      getRecordTopic(record)
+    );
+
+
+  const paper =
+    getRecordPaper(record);
+
+
+  const paperLabel =
+    paper
+      ? getPaperLabel(paper)
+      : "";
+
+
+  const url =
+    getResourceUrl(record);
+
+
+  const canOpen =
+    isSafeResourceUrl(url);
+
+
+  const metadata =
+    [
+
+      author
+        ? `Author: ${escapeHtml(author)}`
+        : "",
+
+      subject
+        ? `Subject: ${escapeHtml(subject)}`
+        : "",
+
+      unit
+        ? `Unit: ${escapeHtml(unit)}`
+        : "",
+
+      topic
+        ? `Topic: ${escapeHtml(topic)}`
+        : "",
+
+      paperLabel
+        ? `Paper: ${escapeHtml(paperLabel)}`
+        : ""
+
+    ]
+    .filter(Boolean)
+    .join(" • ");
+
+
+  return `
+
+    <div class="col-md-6">
+
+      <div class="resource-card h-100">
+
+        <div class="small text-secondary">
+
+          ${escapeHtml(type)}
+
+        </div>
+
+
+        <h3 class="h6 mt-1">
+
+          ${escapeHtml(title)}
+
+        </h3>
+
+
+        ${
+          description
+            ? `
+
+              <p class="small text-secondary mb-0">
+
+                ${escapeHtml(
+                  description
+                )}
+
+              </p>
+
+            `
+            : ""
+        }
+
+
+        ${
+          metadata
+            ? `
+
+              <div class="resource-meta mt-3">
+
+                ${metadata}
+
+              </div>
+
+            `
+            : ""
+        }
+
+
+        <div class="resource-actions">
+
+          ${
+            canOpen
+
+              ? `
+
+                <a
+                  class="resource-open-btn"
+                  href="${escapeHtml(url)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open Resource →
+                </a>
+
+              `
+
+              : `
+
+                <span class="resource-indexed-badge">
+
+                  📌 Indexed Resource
+
+                </span>
+
+              `
+
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   RESOURCE URL
+========================================================= */
+
+function getResourceUrl(record) {
+
+  const value =
+    firstValue(
+      record,
+      [
+        "url",
+        "link",
+        "href",
+        "resourceUrl",
+        "sourceUrl",
+        "path"
+      ]
+    );
+
+
+  return valueToText(
+    value
+  ).trim();
+
+}
+
+
+function isSafeResourceUrl(url) {
+
+  if (!url) {
+    return false;
+  }
+
+
+  const value =
+    String(url).trim();
+
+
+  return (
+
+    /^https?:\/\//i.test(value) ||
+    /^\/\//.test(value) ||
+    /^\.\//.test(value) ||
+    /^\//.test(value)
+
+  );
+
+}
+
+
+
+/* =========================================================
+   SEARCH BUTTON
+========================================================= */
+
+document
+  .getElementById(
+    "searchBtn"
+  )
+  .addEventListener(
+    "click",
+    function() {
+
+      performSearch(
+        document.getElementById(
+          "searchInput"
+        ).value
+      );
+
+    }
+  );
+
+
+
+/* =========================================================
+   ENTER KEY
+========================================================= */
+
+document
+  .getElementById(
+    "searchInput"
+  )
+  .addEventListener(
+    "keydown",
+    function(event) {
+
+      if (
+        event.key ===
+        "Enter"
+      ) {
+
+        event.preventDefault();
+
+
+        performSearch(
+          event.target.value
+        );
+
+      }
+
+    }
+  );
+
+
+
+/* =========================================================
+   CLEAR BUTTON
+========================================================= */
+
+const searchInput =
+  document.getElementById(
+    "searchInput"
+  );
+
+
+const clearBtn =
+  document.getElementById(
+    "clearBtn"
+  );
+
+
+searchInput.addEventListener(
+  "input",
+  function() {
+
+    clearBtn.classList.toggle(
+      "d-none",
+      !searchInput.value.trim()
+    );
+
+  }
+);
+
+
+clearBtn.addEventListener(
+  "click",
+  function() {
+
+    searchInput.value = "";
+
+
+    clearBtn.classList.add(
+      "d-none"
+    );
+
+
+    performSearch("");
+
+
+    searchInput.focus();
+
+  }
+);
+
+
+
+/* =========================================================
+   QUICK SEARCH
+========================================================= */
+
+document
+  .querySelectorAll(
+    ".quick"
+  )
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        function() {
+
+          const query =
+            button.dataset.q;
+
+
+          searchInput.value =
+            query;
+
+
+          clearBtn.classList.remove(
+            "d-none"
+          );
+
+
+          performSearch(
+            query
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+
+/* =========================================================
+   SEARCH SCOPE CHANGES
+========================================================= */
+
+document
+  .querySelectorAll(
+    ".scope"
+  )
+  .forEach(
+    checkbox => {
+
+      checkbox.addEventListener(
+        "change",
+        function() {
+
+          if (
+            searchInput.value.trim()
+          ) {
+
+            performSearch(
+              searchInput.value
+            );
+
+          }
+
+          else if (
+            browseMode ||
+            Object
+              .values(
+                getSelectedFilters()
+              )
+              .some(Boolean)
+          ) {
+
+            renderAllResources();
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+
+
+/* =========================================================
+   BROWSE ALL
+========================================================= */
+
+document
+  .getElementById(
+    "browseAllBtn"
+  )
+  .addEventListener(
+    "click",
+    function() {
+
+      renderAllResources();
+
+    }
+  );
+
+
+
+/* =========================================================
+   RESET FILTERS
+========================================================= */
+
+document
+  .getElementById(
+    "clearLibraryFiltersBtn"
+  )
+  .addEventListener(
+    "click",
+    function() {
+
+      document.getElementById(
+        "paperFilter"
+      ).value = "";
+
+
+      document.getElementById(
+        "resourceType"
+      ).value = "";
+
+
+      document.getElementById(
+        "unitFilter"
+      ).value = "";
+
+
+      document.getElementById(
+        "topicFilter"
+      ).value = "";
+
+
+      document.getElementById(
+        "authorFilter"
+      ).value = "";
+
+
+      document.getElementById(
+        "entityFilter"
+      ).value = "";
+
+
+      document.getElementById(
+        "conceptFilter"
+      ).value = "";
+
+
+      updateLibraryOverview();
+
+
+      browseMode = false;
+
+
+      if (
+        searchInput.value.trim()
+      ) {
+
+        performSearch(
+          searchInput.value
+        );
+
+      }
+
+      else {
+
+        renderAllResources();
+
+      }
+
+    }
+  );
+
+
+
+/* =========================================================
+   FILTER CHANGE EVENTS
+========================================================= */
+
+[
+  "paperFilter",
+  "resourceType",
+  "unitFilter",
+  "topicFilter",
+  "authorFilter",
+  "entityFilter",
+  "conceptFilter"
+
+].forEach(
+  id => {
+
+    document
+      .getElementById(id)
+      .addEventListener(
+        "change",
+        function() {
+
+          /*
+             When Paper changes, rebuild the Unit,
+             Topic, Author, Entity and Concept options
+             for that paper.
+          */
+
+          if (
+            id === "paperFilter"
+          ) {
+
+            updateLibraryOverview();
+
+          }
+
+
+          if (
+            searchInput.value.trim()
+          ) {
+
+            performSearch(
+              searchInput.value
+            );
+
+          }
+
+          else {
+
+            renderAllResources();
+
+          }
+
+        }
+      );
+
+  }
+);
+
+
+
+/* =========================================================
+   START APPLICATION
+========================================================= */
+
+loadData();
+
+</script>
+
+
+</body>
+
+</html>

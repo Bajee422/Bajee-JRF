@@ -1,0 +1,102 @@
+{
+  "project": "BAJEE JRF AI",
+  "step": "2.7.1",
+  "slice": "Paper II - Unit VIII - Literary Criticism",
+  "zero_cost": true,
+
+  "unit": {
+    "id": "P2-U8",
+    "name": "Literary Criticism"
+  },
+
+  "knowledge": [
+
+    {
+      "id": "KC-001",
+      "entity": "John Dryden",
+      "type": "Critic",
+      "period": "Restoration",
+      "works": [
+        "An Essay of Dramatic Poesy"
+      ],
+      "concepts": [
+        "dramatic criticism",
+        "ancients and moderns",
+        "French drama",
+        "English drama"
+      ],
+      "years": [
+        "1668"
+      ]
+    },
+
+    {
+      "id": "KC-002",
+      "entity": "Jacques Derrida",
+      "type": "Theorist",
+      "period": "Post-World War II Theory",
+      "works": [
+        "Of Grammatology"
+      ],
+      "concepts": [
+        "deconstruction",
+        "différance",
+        "logocentrism",
+        "binary opposition"
+      ],
+      "years": [
+        "1967"
+      ]
+    }
+
+  ],
+
+  "pyqs": [
+
+    {
+      "id": "ENG-PYQ-DEMO-001",
+
+      "knowledge_id": "KC-001",
+
+      "question": "Who wrote An Essay of Dramatic Poesy?",
+
+      "options": {
+        "A": "John Dryden",
+        "B": "Samuel Johnson",
+        "C": "Alexander Pope",
+        "D": "William Wordsworth"
+      },
+
+      "correct_answer": "A",
+
+      "explanation": "An Essay of Dramatic Poesy was written by John Dryden and published in 1668. It is an important work of Restoration literary and dramatic criticism.",
+
+      "difficulty": "Easy"
+
+    },
+
+    {
+      "id": "ENG-PYQ-DEMO-002",
+
+      "knowledge_id": "KC-002",
+
+      "question": "Which concept is closely associated with Jacques Derrida?",
+
+      "options": {
+        "A": "Objective Correlative",
+        "B": "Deconstruction",
+        "C": "Touchstone Method",
+        "D": "Negative Capability"
+      },
+
+      "correct_answer": "B",
+
+      "explanation": "Deconstruction is closely associated with Jacques Derrida. His theoretical work questions fixed meanings, stable centres and binary oppositions.",
+
+      "difficulty": "Easy"
+
+    }
+
+  ]
+
+}

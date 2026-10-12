@@ -1,0 +1,293 @@
+{
+  "project": "BAJEE JRF AI",
+  "step": "2.2",
+  "title": "Paper II — English JRF Knowledge Taxonomy",
+  "note": "This is a JRF-oriented project taxonomy built around the exact 10-unit Paper II structure supplied by the user. It is not presented as additional official UGC wording.",
+  "units": [
+    {
+      "unit": "Unit I",
+      "title": "Drama",
+      "areas": [
+        "Drama: origin, development, forms and conventions",
+        "Classical Greek and Roman drama",
+        "Medieval English drama: mystery, miracle, morality and interlude",
+        "Renaissance and Elizabethan drama",
+        "Jacobean and Caroline drama",
+        "Restoration and eighteenth-century drama",
+        "Romantic and Victorian drama",
+        "Modern and post-war drama",
+        "Indian English and postcolonial drama",
+        "Major dramatic forms: tragedy, comedy, tragicomedy, history, problem play, absurd drama",
+        "Dramatic techniques and terminology",
+        "Major playwrights, plays, characters, themes and chronology"
+      ],
+      "core_terms": [
+        "tragedy",
+        "comedy",
+        "tragicomedy",
+        "catharsis",
+        "hamartia",
+        "dramatic irony",
+        "soliloquy",
+        "aside",
+        "chorus",
+        "theatre of the absurd"
+      ]
+    },
+    {
+      "unit": "Unit II",
+      "title": "Poetry",
+      "areas": [
+        "Origins and development of English poetry",
+        "Major poetic periods and movements",
+        "Medieval, Renaissance, Metaphysical and Neoclassical poetry",
+        "Romantic, Victorian, Modernist and post-war poetry",
+        "Indian English poetry and World Englishes",
+        "Major poetic forms and genres",
+        "Prosody, metre, rhyme and stanza forms",
+        "Figures of speech and poetic devices",
+        "Major poets, poems, themes, contexts and chronology",
+        "Close reading and interpretation"
+      ],
+      "core_terms": [
+        "iambic pentameter",
+        "blank verse",
+        "heroic couplet",
+        "sonnet",
+        "ode",
+        "elegy",
+        "ballad",
+        "dramatic monologue",
+        "alliteration",
+        "enjambment"
+      ]
+    },
+    {
+      "unit": "Unit III",
+      "title": "Fiction, short story",
+      "areas": [
+        "Rise and development of the English novel",
+        "Major novel forms and genres",
+        "Picaresque, epistolary, historical, Gothic, bildungsroman and psychological fiction",
+        "Modernist and postmodern fiction",
+        "Indian English fiction",
+        "Short story: origin, development, forms and techniques",
+        "Narrative voice, point of view, characterization, setting and plot",
+        "Time, stream of consciousness, unreliable narration and metafiction",
+        "Major novelists, novels, short-story writers and works",
+        "Comparative chronology and recurring JRF concepts"
+      ],
+      "core_terms": [
+        "bildungsroman",
+        "epistolary novel",
+        "Gothic",
+        "picaresque",
+        "stream of consciousness",
+        "unreliable narrator",
+        "metafiction",
+        "point of view"
+      ]
+    },
+    {
+      "unit": "Unit IV",
+      "title": "Non-Fictional Prose",
+      "areas": [
+        "Essay: formal, familiar and periodical essay",
+        "Biography and autobiography",
+        "Travel writing",
+        "Diary, journal and memoir",
+        "Letters and epistolary prose",
+        "Speeches and public prose",
+        "Philosophical, political and social prose",
+        "Major essayists and prose writers across periods",
+        "Indian and postcolonial non-fiction",
+        "Prose style, rhetoric, argument and close reading"
+      ],
+      "core_terms": [
+        "essay",
+        "aphorism",
+        "rhetoric",
+        "autobiography",
+        "memoir",
+        "travel writing",
+        "polemic",
+        "satire",
+        "persuasion"
+      ]
+    },
+    {
+      "unit": "Unit V",
+      "title": "Language: Basic concepts, theories, and pedagogy. English in Use.",
+      "areas": [
+        "Language: nature, origin, functions and characteristics",
+        "Phonetics and phonology",
+        "Morphology and word formation",
+        "Syntax and grammar",
+        "Semantics and lexical relations",
+        "Pragmatics and discourse",
+        "Sociolinguistics and varieties of English",
+        "Psycholinguistics and language acquisition",
+        "Major linguistic theories and scholars",
+        "English language teaching: approaches, methods and techniques",
+        "Language assessment and learner errors",
+        "English in Use: register, style, collocation, idiom and context"
+      ],
+      "core_terms": [
+        "phoneme",
+        "morpheme",
+        "allophone",
+        "syntax",
+        "semantics",
+        "pragmatics",
+        "register",
+        "code-switching",
+        "language acquisition",
+        "communicative competence"
+      ]
+    },
+    {
+      "unit": "Unit VI",
+      "title": "English in India: history, evolution, and futures",
+      "areas": [
+        "History of English in India",
+        "English education during colonial India",
+        "Macaulay and colonial language policy",
+        "English and Indian education institutions",
+        "Indian English: features and varieties",
+        "World Englishes and Indian English",
+        "English, multilingualism and language politics",
+        "Postcolonial perspectives on English in India",
+        "Major Indian English writers and texts",
+        "English in contemporary India and possible futures"
+      ],
+      "core_terms": [
+        "Indian English",
+        "World Englishes",
+        "nativization",
+        "indigenization",
+        "code-mixing",
+        "bilingualism",
+        "multilingualism"
+      ]
+    },
+    {
+      "unit": "Unit VII",
+      "title": "Cultural Studies",
+      "areas": [
+        "Culture, society and representation",
+        "Ideology and hegemony",
+        "Popular culture and mass media",
+        "Class, race, gender and identity",
+        "Power, discourse and representation",
+        "Subculture and counterculture",
+        "Postcolonial and diasporic cultures",
+        "Nation, nationalism and imagined communities",
+        "Consumer culture and cultural industries",
+        "Digital culture, media and contemporary cultural studies",
+        "Major cultural theorists and key texts"
+      ],
+      "core_terms": [
+        "culture",
+        "ideology",
+        "hegemony",
+        "representation",
+        "discourse",
+        "popular culture",
+        "cultural industry",
+        "diaspora",
+        "subaltern"
+      ]
+    },
+    {
+      "unit": "Unit VIII",
+      "title": "Literary Criticism",
+      "areas": [
+        "Classical criticism",
+        "Medieval and Renaissance criticism",
+        "Neoclassical criticism",
+        "Romantic criticism",
+        "Victorian criticism",
+        "Modern criticism",
+        "Practical criticism and New Criticism",
+        "Major critics, critical concepts and landmark texts",
+        "Critical debates and contrasting positions",
+        "Chronology of critics, works and concepts"
+      ],
+      "core_terms": [
+        "mimesis",
+        "catharsis",
+        "decorum",
+        "imagination",
+        "negative capability",
+        "touchstone",
+        "objective correlative",
+        "intentional fallacy"
+      ]
+    },
+    {
+      "unit": "Unit IX",
+      "title": "Literary Theory post World War II",
+      "areas": [
+        "Structuralism",
+        "Poststructuralism and deconstruction",
+        "Reader-response theory",
+        "Psychoanalytic criticism",
+        "Marxist criticism and cultural materialism",
+        "New Historicism",
+        "Feminist and gender theory",
+        "Postcolonial theory",
+        "Queer theory",
+        "Ecocriticism",
+        "Race and ethnic studies",
+        "Disability studies and trauma studies",
+        "Digital humanities and emerging theoretical approaches",
+        "Major theorists, concepts, texts and intellectual relationships"
+      ],
+      "core_terms": [
+        "signifier/signified",
+        "binary opposition",
+        "différance",
+        "intertextuality",
+        "gaze",
+        "ideology",
+        "discourse",
+        "hybridity",
+        "mimicry",
+        "gender performativity",
+        "ecocriticism"
+      ]
+    },
+    {
+      "unit": "Unit X",
+      "title": "Research Methods and Materials in English",
+      "areas": [
+        "Research design and research questions",
+        "Primary and secondary sources",
+        "Literature review",
+        "Bibliography and documentation",
+        "Citation and referencing systems",
+        "Plagiarism, academic integrity and research ethics",
+        "Textual research and close reading",
+        "Archives, manuscripts and digital resources",
+        "Databases and scholarly search strategies",
+        "Thesis, dissertation and article structure",
+        "Abstract, keywords, methodology, findings and conclusion",
+        "Literary research methods",
+        "Digital humanities tools and research workflows",
+        "Publication and peer-review basics"
+      ],
+      "core_terms": [
+        "primary source",
+        "secondary source",
+        "literature review",
+        "bibliography",
+        "citation",
+        "plagiarism",
+        "research question",
+        "methodology",
+        "peer review",
+        "academic integrity"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,513 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "youtube-Gh8qaEvR6dY",
+      "type": "YouTube Study Material",
+      "savedAt": "2026-10-08T11:07:44.749Z",
+      "updatedAt": "2026-10-08T11:07:44.749Z",
+      "source": {
+        "videoId": "Gh8qaEvR6dY",
+        "title": "NTA UGC NET 2025 English literature Questions and answers on Geoffrey Chaucer's The Canterbury Tales",
+        "channel": "engpot /SHIJI MOHAN",
+        "url": "https://www.youtube.com/watch?v=Gh8qaEvR6dY",
+        "normalizedUrl": "https://www.youtube.com/watch?v=Gh8qaEvR6dY",
+        "language": "en",
+        "durationSeconds": 327,
+        "acquisitionMethod": "yt-dlp audio + local faster-whisper",
+        "sourceType": "youtube_transcript",
+        "transcript": "Name the horse to the Canterbury tails Harry Bailey What is the most common meter employed in Chaucer's for in the Canterbury tails the heroic couplet? How many tails are there in the Canterbury tails 24? How many tails are in worse 22 tails? The Canterbury tails depicts a picture gallery of contemporary society of the age The pilgrims in the Canterbury tails assembled at the Tabard Inn What does the priory's name eglentine me sweet briar how many women characters figure in the Canterbury tails Three to which shrine are the pilgrims going shrine of Saint Thomas Beckett at Canterbury The tail which is written in prose the Parsons tail One of the portraits in the prologue is that of the wife of Bath. What is Bath? The name of the town to which she belonged He was as fresh as a month of May. This line occurs in the prologue. Whom does this line refer to? Squire The letter a on the brochure priory stands for Amal wins the Tomya, which means love conquers all How many stories does Chaucer himself tell in the Canterbury tails To the tail of Sir Topers and the tail of Millie B The real name of the wife of Bath Allison who is the only ideal clergyman in the Canterbury tails the good person What is Dryden's comment on the Canterbury tails? Here is God's plenty Who said the Canterbury tails is a portrait gallery Dryden Where does the phrase here is God's plenty originally appear in the Miller's tale? Miller concludes the description of a good wife as here is God's plenty The gap tooth is associated with the character the wife of Bath Which Greek philosopher is quoted towards the end of the prologue to the Canterbury tails? Plato, which is the source of the wife of Bath's tale? Jean de Mune's Roman dealer rose The pilgrim who told the first tale the night The pilgrim who told the last tale followed by Chaucer's retraction The parson how many pilgrims are going on the pilgrimage? 29 how many pilgrims represent the military profession? three how many ecclesiastical characters are portrayed? 8 which pilgrim is referred to in the lines a manly man to be an ember table? Full many a dainty horse had he in the table The monk how many lines are there in the Canterbury tails? In which month did Chaucer's pilgrims go on their pilgrimage? April Chaucer uses the word worthy or worthiness five times to describe the character the night How many stories did Chaucer intend to write originally in the Canterbury tails? 120 the longest tail is The parson of the Canterbury tails has been reincarnated by Oliver Goldsmith in his novel Vicar of Bakefield in the name Dr. Primrose named the 18th century scholar who established that Chaucer's versus perfectly metrical Thomas Tywin",
+        "transcriptCharacters": 2692,
+        "sourceGrounded": true
+      },
+      "notes": {
+        "title": "Study Notes: Geoffrey Chaucer's The Canterbury Tales",
+        "overview": "This transcript provides a collection of factual questions and answers regarding Geoffrey Chaucer's The Canterbury Tales, covering its structure, characters, literary devices, and critical reception.",
+        "sections": [
+          {
+            "heading": "Structure and Composition",
+            "points": [
+              "The Canterbury Tales contains 24 tales in total.",
+              "22 of the tales are written in verse.",
+              "The Parson's Tale is written in prose.",
+              "Chaucer originally intended to write 120 stories.",
+              "The heroic couplet is the most common meter employed.",
+              "The pilgrims assemble at the Tabard Inn.",
+              "The pilgrimage is to the shrine of Saint Thomas Becket at Canterbury.",
+              "The pilgrimage takes place in the month of April."
+            ]
+          },
+          {
+            "heading": "Characters and Pilgrims",
+            "points": [
+              "There are 29 pilgrims on the pilgrimage.",
+              "Three pilgrims represent the military profession.",
+              "Eight ecclesiastical characters are portrayed.",
+              "There are three women characters in the work.",
+              "The Knight told the first tale.",
+              "The Parson told the last tale, followed by Chaucer's retraction.",
+              "Chaucer tells two tales: the Tale of Sir Thopas and the Tale of Melibee.",
+              "The Prioress's name, Eglantine, means 'sweet briar'.",
+              "The letter 'A' on the Prioress's brooch stands for 'Amor Vincit Omnia', meaning 'love conquers all'.",
+              "The Wife of Bath's real name is Allison; 'Bath' refers to the town she belonged to.",
+              "The Wife of Bath is associated with being gap-toothed.",
+              "The Squire is described as being 'as fresh as a month of May'.",
+              "The Monk is described as 'a manly man' and 'an able' man who had many dainty horses.",
+              "The Good Parson is considered the only ideal clergyman.",
+              "The Good Parson was reincarnated by Oliver Goldsmith in the novel 'Vicar of Wakefield' as Dr. Primrose.",
+              "The Knight is described using the word 'worthy' or 'worthiness' five times."
+            ]
+          },
+          {
+            "heading": "Literary Context and Criticism",
+            "points": [
+              "The Canterbury Tales is described as a 'picture gallery of contemporary society'.",
+              "Dryden referred to the work as a 'portrait gallery' and famously commented, 'Here is God's plenty'.",
+              "The phrase 'Here is God's plenty' originally appears in the Miller's Tale, where the Miller concludes the description of a good wife.",
+              "Plato is the Greek philosopher quoted towards the end of the prologue.",
+              "The source of the Wife of Bath's tale is Jean de Meun's 'Roman de la Rose'.",
+              "Thomas Tyrwhitt is the 18th-century scholar who established that Chaucer's verses were perfectly metrical."
+            ]
+          }
+        ],
+        "sourceGrounded": true,
+        "sourceVideoId": "Gh8qaEvR6dY",
+        "sourceTitle": "NTA UGC NET 2025 English literature Questions and answers on Geoffrey Chaucer's The Canterbury Tales",
+        "sourceUrl": "https://www.youtube.com/watch?v=Gh8qaEvR6dY",
+        "transcriptCharacters": 2692,
+        "model": "gemini-3.1-flash-lite"
+      },
+      "materials": {
+        "keyPoints": [
+          "The Canterbury Tales consists of 24 tales in total, with 22 written in verse.",
+          "The pilgrims assemble at the Tabard Inn to travel to the shrine of Saint Thomas Becket at Canterbury.",
+          "The work is described as a picture gallery of contemporary society of the age.",
+          "Chaucer originally intended to write 120 stories for the collection.",
+          "The Parson's tale is the only one written in prose.",
+          "The Knight told the first tale, while the Parson told the last one.",
+          "The Parson is considered the only ideal clergyman in the work.",
+          "John Dryden famously commented on the work, calling it 'God's plenty'."
+        ],
+        "concepts": [
+          {
+            "name": "Heroic Couplet",
+            "explanation": "The most common meter employed by Chaucer in The Canterbury Tales."
+          },
+          {
+            "name": "Amor Vincit Omnia",
+            "explanation": "A Latin phrase meaning 'love conquers all', represented by the letter 'A' on the Prioress's brooch."
+          },
+          {
+            "name": "Eglentine",
+            "explanation": "The name of the Prioress, which means 'sweet briar'."
+          }
+        ],
+        "quiz": [
+          {
+            "question": "How many pilgrims are going on the pilgrimage in The Canterbury Tales?",
+            "options": [
+              "24",
+              "29",
+              "120",
+              "8"
+            ],
+            "correctAnswer": 1,
+            "explanation": "The total number of pilgrims going on the pilgrimage is 29."
+          },
+          {
+            "question": "Which character is described as being 'as fresh as a month of May'?",
+            "options": [
+              "The Knight",
+              "The Parson",
+              "The Squire",
+              "The Monk"
+            ],
+            "correctAnswer": 2,
+            "explanation": "The line 'He was as fresh as a month of May' refers to the Squire."
+          },
+          {
+            "question": "Who is the only ideal clergyman portrayed in The Canterbury Tales?",
+            "options": [
+              "The Monk",
+              "The Prioress",
+              "The Parson",
+              "The Miller"
+            ],
+            "correctAnswer": 2,
+            "explanation": "The good Parson is identified as the only ideal clergyman in the work."
+          },
+          {
+            "question": "What is the real name of the Wife of Bath?",
+            "options": [
+              "Eglentine",
+              "Allison",
+              "Primrose",
+              "Tabard"
+            ],
+            "correctAnswer": 1,
+            "explanation": "The real name of the Wife of Bath is Allison."
+          },
+          {
+            "question": "Which month did the pilgrims go on their pilgrimage?",
+            "options": [
+              "May",
+              "March",
+              "April",
+              "June"
+            ],
+            "correctAnswer": 2,
+            "explanation": "The pilgrims went on their pilgrimage in the month of April."
+          }
+        ],
+        "sourceGrounded": true,
+        "sourceVideoId": "Gh8qaEvR6dY",
+        "sourceTitle": "NTA UGC NET 2025 English literature Questions and answers on Geoffrey Chaucer's The Canterbury Tales",
+        "sourceUrl": "https://www.youtube.com/watch?v=Gh8qaEvR6dY",
+        "transcriptCharacters": 2692,
+        "model": "gemini-3.1-flash-lite"
+      }
+    },
+    {
+      "id": "youtube-yQQh6qkhXwY",
+      "type": "YouTube Study Material",
+      "savedAt": "2026-10-07T16:27:56.010Z",
+      "updatedAt": "2026-10-08T10:48:20.979Z",
+      "source": {
+        "videoId": "yQQh6qkhXwY",
+        "title": "UGC NET English Literature | Geoffrey Chaucer : All Works | UGC NET English PYQs 2025",
+        "channel": "PW UGC NET",
+        "url": "https://www.youtube.com/watch?v=yQQh6qkhXwY",
+        "normalizedUrl": "https://www.youtube.com/watch?v=yQQh6qkhXwY",
+        "language": "hi",
+        "durationSeconds": 960,
+        "acquisitionMethod": "yt-dlp audio + local faster-whisper",
+        "sourceType": "youtube_transcript",
+        "transcript": "Hello everyone and welcome to another session in the 10 minutes exam ready series. So today we are going to discuss a very important topic and today we are going to tell you about the quality, but we are going to talk about the facts their stories, key pilgrims, her work, her cheese, co-current within 10 to 20 minutes we will discuss it. So Jiwafri Chaucer's experiment is discussed. Let's start. So Jiwafri Chaucer of course, her birth is not exactly short, but in the 14th of the 14th century, but it looks like this, that is the approximate for 1340. Now all of us know that he is the father of English poetry. He is kind of father of the modern English language as well, because he used to standardise English poetry, which he didn't have any other words. And he is the first major English narrative poet as well. He is also buried at the post Poets Corner in West Minister. He is also very famous here and we are very very, very, very very, very, very, very, very, very, very, very, very, very, very important. Lord, Lord of Walthas have been buried actually. I will all of you take a day to go there. All the literature will be worth all of. So we will take a day to go there. Let's go. So if we talk about historical background then we will talk about the 14th century. So there was a Good Year's Day, His beginning was early, he was the only one who was standing in the 15th of his death. You know, England or France is the only one who was born in black-death. 1-1-3rd of the population was wiped out of England. In which, you know, your presence revolts in your presence revolts in your language. People who were available in the same way, people who were available in the same way. Demanding more which, then your lower movement also happens, which is a religious movement started by a John Wycliffe. He is kind of known to have at least initiated the translation of the Bible. In 1818, the disciples did not translate it, but he has kind of initiated the translation. In the picture, John of Gond, who was the Duke of Lancaster. John of Gond was also the Duke of Lancaster. Lancaster or Yoke houses may also lead to the war of roses, so just a second. The doctors here at the side was he saw the death rate of the land and the death rate of the second, saw the death rate of the land and the death rate of the land. In case of custom official, different positions were done. In which, he had exposure to all walks of life. He had to complete all walks of life after all. He had to complete all walks of life in all walks of life. And he had to complete his class life of life. And Oost time period we had associated with our society, 3 estates, 3 estates, 3 estates Who knows what were the 3 estates, put it in the comment section What were the 3 estates, medieval estates, which we have memorized in Chaucer, or in your comment section. First we go to 3 phases of Chaucer's literary development. First we went to the French period. The French text was influenced by the influence of our work. So he knew French, he knew Italian, he knew English, he knew Latin, he knew Greek, very well-read man. Very well-read man. So the romance of the rose, which is the translation and adaptation of Roman de la rose. Now I hope that you know that the romance of the rose or Roman de la rose, which is the case. And I hope that you already know it anyway. So it was a French medieval poem, Jocchi, John De Mune, and Guliarm de l'Horis Kalikhaava. John De Mune, Jean De Mune, sorry. And Guliarm, Lee Devis, I think I don't want to spend my spell it. So Guliarm de l'Horis, I'll just check her case. Then we have the book of the Duchess, which is the energy for the branch of the branch of Lancaster. After she died, she had written John of Gond to pacify him. A devotional poem, a cross-stick poem, mannajata, complaint onto into pity is a quarterly lament. Lament, we again, sad, tonality. Now a cross-stick poem is the meaning of your first letters of the poem make a word. The first letters of the poem basically make a word. So when you write all your lines, when you write your first letters, then it makes a word. That is why you see a cross-stick poem. And then, complete on to pity, the complaint of Mars, which is an allegory of love vision. Then in Italian period, we see Dante, Petra, Bukasho, Yistari, Humane, Stratil, Italian Renaissance, Kiraitas, Manajata, Dante, Divine Comedy. Bukasho, D. Cameron, D. Cameron is also similar. So similar, in the same way, in the same way, in the same way, there was a letter written. Right? Now, N.I.L.E.D. and Arcite. Then we have a parliament of fouls, which is the first use of rhyme, roll and English literature. And it is a quote, love, and Richard the second and Anne of Bohemia. He had written a marriage for marriage. Then we have a choice and a choice of choice. Trollers in Cressity, Trojan, War, Conerative, Hema, Siddhu, Minor, Characters, and Trollers in Cressity. And he proper proper adapt here, from Bukasho's second, final of Stratil. Final Stratil is the source of Trollers in Cressity. Then we have the House of Fame, sorry. The House of Fame, which is a dream allegory. And you see Dante, which is a parody, which is a parody. And then the legend of good women, which shows us the first systematic use of the heroic couplet. And you see that, how many virtues women had written about women? How many virtues women did he write about? So what do you think? Then English, period of course, we have the Great, the Magnum Opus, Canterbury Tales. 387, say, 1400, he could not complete it, obviously. It was a very grand plan. Pilgrimage, frame narrative, which is very similar to Bukasho's de-camera run-by. And by the way, the pilgrims, who play the refugees, they are telling stories. So heroic couplet is also written. There is pro-species as well. And now imitation is not an inspiration, as I said. And there are 29 pilgrims, but 31, if you are a chaucer and Harry Bailey. The host, who count the host count the host. And each was supposed to say, 1400, 1200, 1200, 1200 and 1100, So, Chobis Tales was planned. It begins with Nightstale, which is in Rhymeroil. Hence, it begins with Parsons Tales, which you should tell us about. You should not do the wrong work. Because the pilgrims are pilgrims. These are 3-0 estates. Estates, I hope that you have already recalled the estates, the clergy, the nobility and the peasants. Allava, even the peasants, the lastval estates were very light. The estates were very light. The estates were very light. The estates were very light. The estates were very light. The estates were also satirized. In the clergy, there are very critical characters. It is very historical portrait and corruption. So, what is happening in that society? What is the problem? The political issues are not there. The monarchy is not there. But the character, the certificate, if you say so. So, Chaucer is a very big character. It is a certificate. Who is the best character? Who is the best character? Okay. Now, only 24 completed. Some partial. And two pro steels, millibios, and the Parsons Tales are pros. Chaucer's kudike style is Sir Thoppas. Topas, which is Mohak Shivalrik, Torn. And millibios. Okay. So, one pro steel and one Sir Thoppas. Or Topas, however you pronounce it. Now, Tabard in south work. Jave the pilgrims are going on a pilgrimage to the shrine of Saint Thomas Beckett, Canturbari. Jokey Edward II. The second name was killed when he was murdered. He was killed. So, he was killed. Anyway. Some key tales that you are supposed to remember. So, in his categories. And Chathu, in his some summaries. B-A-Barbar, insectites. Nightstales are romance. Paluman and Arkitty, this arcade, ar-side are the two characters. They're fighting for this ladies love. Based on book Essuous Test the Dada, So, he has a medieval romance. Medieval Shivalry is shot. Then, we have the Miller Steel, which is fabulous. It's very rob, OP. It's a low comedy. It's a very strong, very sexual, tonality of comedy. And you have a carpenter, Nicholas, Alison and Absalom are the two characters. Then we have the wife of bath steel, which is again an Arthurian setting. And in which you should have freedom of freedom. In marriage and wife of bath, we have a very interesting pilgrimage. Now the partner steel, morality, tail on averist, averist is basically excessive greed. Averist is excessive greed, which is one of the sins. But we have a great deal of greed, but we have a great deal of greed. Radhik's malarum, SQP, greed is the root of greed, is the root of all evil. This is what he tells us. Then the non-spree steel, which is the best phabelage, which is the faggot and what he wants. He was the rooster. And the fag, then the barchin steel, January, May, May, May, May, May, May, May, May. Then we have the frank list, which is the brethan labor. The brethan labor means that your medieval romance, the middle romance, the middle romance, the brethan labor. The middle romance is short romantic. Then the parcel steel is the root of the tharmand. The tharmand religious, where you can read religious, morals, you can read palpit, you can read priest, you can read him, you can read him, you can read him. Now, Chaucer zone is the tharmand, and Taylor has already told you about it. So this is basically the person, actually. This is the person, by the way. Now, let us talk about pilgrims, let us talk about it. The night has been described as noble, modest, gentle. So this is the first of the ideal characters. So in this character, the ideal character has been seen. The third or the fourth, depending on sources, because the confusion has also been seen. The third or the fourth character has been seen as an ideal man. It is the first and the first and the first and the first and the first and the first and the first. It has been seen as the first and the first and the first. Now, the very perfect gentle night. Right? Gentle in terms of manners, shivalry. The idea is medieval ideals. Then, Squire, who is training under training, he has seen a matured. Then, you man is the one who accompanies them. Robin Hood, Tariqashev, Dekaphev. Then, prioris, is medium-eglantine. One of the few people whose name is named. What kind of name is named? So, prioris, who is the head of a non-boy, head of a convent, sorry. She runs a convent. Right? It was French, Bhokhar, Tariqashev, Bolti, a pretentious. She is tender, hearted, soft hearted towards animals. But, humans don't like it. And they don't like it. And they don't like it. They call it a brooch. They call it a decorative jewelry. With that, it is called Love Conquerors. All. When both of them have a pretentious name, they don't have any other name. But, it is their name. Now, Mark is a hunter. Mark is a hunter. There is some hunter. How many are we finding here? The monks are not supposed to be hunters. The monks are supposed to be. What? They listen to this. They are trying to chase down the world. They have to wear it. They will not know anything about that. But, they are simple life. They are in love with their generation. Like, they should be just a little bit of life. Look, hunters. Far fans. Golden fans. Very versatile. Then, the friars. This is not a city, it is a clergy. All these people are their daughters. So, he is suppose to beg and live with life, but he begs for something else, corruption is He has seen, wife of bath is gaptooth, gaptooth and that shows that she is not really pleasant to look at, but she has had 5-5 hours. His 5-7 years ago, he said that red stockings are very bold. He has come from a very early age, he has come from a very early age, he has come from a very early age. Oxford Clarek was very close. You don't know what about that, you have to tell about it. He has come from Australia, she is not a beggar, he is a teacher in science, you have to ask knowledge. So, this one is also an ideal character and a question mark, we don't know. It's called confusion, but Oxford Clarek also has to say an ideal character. Gladly he would learn and gladly teach, so all that he cared about is learning and spreading knowledge. Then the partner, yellow green is here, yellow green is here, back is here, tell him, they say you will win, okay? Samanar is also has carbunkel's kin disease, so her appearance in his character is also also there. In that time, he tells me that, Manlud, my skin is full of mole. So, I am automatically unappealing my character in my character. Samaj, as a personality, you go very fast. So, again, corruption of church court, Manlud, Saman, people, whose kin disease is a sin commit, then the court, the religious court, was called the court. Religion has a different court. A political court was developed, which was called the king of the court. Now, the partner is the good priest, ideal clergy. So, he has also seen the ideal, Miller, he has also gone to Galini, Redbeard, Water, Noose, Thumb of Gold, Thick is very corruption, and Miller is basically Samanuranz, Franklin is again Saman, Saman is a pleasure seeking for seeking. Thick is a generous, generous, generous, generous, generous. Then we have another character, the plow man. Plow man is the fourth, plow man is the fourth ideal character, which is important as he is not, but he is also the fourth ideal character. Now, pro's works are treetimes on the Astrolay when translation of Boyetheya says, Consolation of Philosophy. Thick. The scientific man went for his son, Lewis, and Consolation of Philosophy are two of his pro's works. So, Drydenne Bola, here is God's Plenty. Spencer Nebola, he is the well of English and Defiled. As Spencer Nebola with him, is born our real poetry. Chester Ternne Bola, Chaucer's humor is humor in the grand style. Lewis Nebola, he found English a dialect and left a language. So, these are your practice questions. The first significant use of heroic couple, an English literature is found in which work. The first significant use of heroic couple, an English literature is found in which work. And the second one, Chaucer's, Stroilers in Cresity is primarily based on book-assures, Decamirant, Phyloast Rathu, Tessida, or Philocolo. Okay? Now, thank you everyone for being patient. If you like my Telegram channel, please join us. Please join us. And you can also follow me personally. Thank you so much. Take care all of you. Bye.",
+        "transcriptCharacters": 14365,
+        "sourceGrounded": true
+      },
+      "notes": {
+        "title": "Geoffrey Chaucer: Life, Works, and Literary Contributions",
+        "overview": "This session provides an overview of Geoffrey Chaucer, often referred to as the father of English poetry and the modern English language. It covers his historical context, literary development phases, major works, and the structure of his magnum opus, The Canterbury Tales, while highlighting his influence on English literature.",
+        "sections": [
+          {
+            "heading": "Historical Context",
+            "points": [
+              "Born approximately 1340 in the 14th century.",
+              "Buried at the Poets' Corner in Westminster.",
+              "Lived during the Black Death, which wiped out one-third of England's population.",
+              "Witnessed the Peasants' Revolt and the religious movement initiated by John Wycliffe, who began the translation of the Bible.",
+              "John of Gaunt, the Duke of Lancaster, was a significant figure during this period.",
+              "Society was organized into three estates: the clergy, the nobility, and the peasants.",
+              "Chaucer held various positions as a custom official, providing him exposure to all walks of life."
+            ]
+          },
+          {
+            "heading": "Phases of Literary Development",
+            "points": [
+              "French Period: Influenced by French texts; includes 'The Romance of the Rose' (translation/adaptation of 'Roman de la Rose'), 'The Book of the Duchess' (an elegy for the Duchess of Lancaster), 'Complaint unto Pity', and 'The Complaint of Mars'.",
+              "Italian Period: Influenced by Dante, Petrarch, and Boccaccio; includes 'Troilus and Criseyde' (based on Boccaccio's 'Filostrato'), 'The Parliament of Fowls' (first use of rhyme royal), 'The House of Fame' (a dream allegory), and 'The Legend of Good Women' (first systematic use of the heroic couplet).",
+              "English Period: Features his magnum opus, 'The Canterbury Tales'."
+            ]
+          },
+          {
+            "heading": "The Canterbury Tales",
+            "points": [
+              "A frame narrative involving 29 pilgrims (31 including Chaucer and the host, Harry Bailey) traveling to the shrine of Saint Thomas Becket in Canterbury.",
+              "Planned as a grand project of 120 tales, though only 24 were completed.",
+              "Includes two prose tales: 'The Tale of Melibee' and 'The Parson's Tale'.",
+              "Chaucer's own tale is 'Sir Thopas', a mock-chivalric romance.",
+              "Key tales include: 'The Knight's Tale' (medieval romance), 'The Miller's Tale' (fabliau/low comedy), 'The Wife of Bath's Tale' (Arthurian setting), 'The Pardoner's Tale' (morality tale on avarice), 'The Nun's Priest's Tale' (fable), 'The Merchant's Tale', and 'The Franklin's Tale' (Breton lay).",
+              "Satirizes the three estates, particularly focusing on corruption within the clergy."
+            ]
+          },
+          {
+            "heading": "Key Pilgrims and Characters",
+            "points": [
+              "The Knight: Described as noble, modest, and gentle; an ideal character.",
+              "The Prioress: Head of a convent, pretentious, and tender-hearted toward animals.",
+              "The Monk: A hunter, which contradicts the expected lifestyle of a monk.",
+              "The Wife of Bath: Gap-toothed, bold, and has had five husbands.",
+              "The Oxford Clerk: An ideal character dedicated to learning and teaching.",
+              "The Parson: An ideal clergy member.",
+              "The Plowman: An ideal character.",
+              "The Summoner: Characterized by skin disease, representing corruption in the religious court."
+            ]
+          },
+          {
+            "heading": "Prose Works and Critical Reception",
+            "points": [
+              "Prose works include 'Treatise on the Astrolabe' (written for his son, Lewis) and a translation of Boethius's 'Consolation of Philosophy'.",
+              "Dryden called him 'God's Plenty'.",
+              "Spenser called him the 'well of English undefiled'.",
+              "Chesterton described his humor as 'humor in the grand style'.",
+              "Lowell noted that he found English a dialect and left it a language."
+            ]
+          }
+        ],
+        "sourceGrounded": true,
+        "sourceVideoId": "yQQh6qkhXwY",
+        "sourceTitle": "UGC NET English Literature | Geoffrey Chaucer : All Works | UGC NET English PYQs 2025",
+        "sourceUrl": "https://www.youtube.com/watch?v=yQQh6qkhXwY",
+        "transcriptCharacters": 14365,
+        "model": "gemini-3.1-flash-lite"
+      },
+      "materials": {
+        "keyPoints": [
+          "Geoffrey Chaucer is known as the father of English poetry and the father of the modern English language for standardizing English poetry.",
+          "Chaucer is buried at the Poets' Corner in Westminster Abbey.",
+          "The 14th century in England was marked by the Black Death, which wiped out one-third of the population, and the Peasants' Revolt.",
+          "John Wycliffe initiated the translation of the Bible and led a religious movement.",
+          "Chaucer's literary career is divided into three phases: the French period, the Italian period, and the English period.",
+          "The Canterbury Tales is Chaucer's magnum opus, featuring a frame narrative of pilgrims traveling to the shrine of Saint Thomas Becket.",
+          "The Canterbury Tales was planned to include 120 tales, but only 24 were completed.",
+          "Chaucer's works include the use of the heroic couplet, dream allegories, and various forms of satire targeting the three medieval estates.",
+          "Key critical assessments include John Dryden calling Chaucer 'God's Plenty' and Edmund Spenser calling him the 'well of English undefiled'."
+        ],
+        "concepts": [
+          {
+            "name": "Three Estates",
+            "explanation": "The medieval social structure consisting of the clergy, the nobility, and the peasants."
+          },
+          {
+            "name": "Acrostic Poem",
+            "explanation": "A poem where the first letters of each line combine to form a word."
+          },
+          {
+            "name": "Heroic Couplet",
+            "explanation": "A rhyming pair of lines in iambic pentameter, first systematically used by Chaucer in The Legend of Good Women."
+          },
+          {
+            "name": "Fabliau",
+            "explanation": "A genre of short, humorous, and often ribald or sexual narrative poetry, such as The Miller's Tale or The Nun's Priest's Tale."
+          },
+          {
+            "name": "Breton Lay",
+            "explanation": "A form of short medieval romance, exemplified by The Franklin's Tale."
+          },
+          {
+            "name": "Radix Malorum est Cupiditas",
+            "explanation": "A Latin phrase meaning 'greed is the root of all evil,' which is the central theme of The Pardoner's Tale."
+          }
+        ],
+        "quiz": [
+          {
+            "question": "Which work contains the first systematic use of the heroic couplet in English literature?",
+            "options": [
+              "The Canterbury Tales",
+              "The Legend of Good Women",
+              "Troilus and Criseyde",
+              "The Book of the Duchess"
+            ],
+            "correctAnswer": 1,
+            "explanation": "The Legend of Good Women is identified as the work that shows the first systematic use of the heroic couplet."
+          },
+          {
+            "question": "Chaucer's Troilus and Criseyde is primarily based on which work by Boccaccio?",
+            "options": [
+              "Decameron",
+              "Filostrato",
+              "Teseida",
+              "Filocolo"
+            ],
+            "correctAnswer": 1,
+            "explanation": "Filostrato is the source material for Troilus and Criseyde."
+          },
+          {
+            "question": "Who is the host of the pilgrims in The Canterbury Tales?",
+            "options": [
+              "John of Gaunt",
+              "Saint Thomas Becket",
+              "Harry Bailey",
+              "The Knight"
+            ],
+            "correctAnswer": 2,
+            "explanation": "Harry Bailey is the host who counts the pilgrims and organizes the storytelling."
+          },
+          {
+            "question": "Which character in The Canterbury Tales is described as having a 'thumb of gold'?",
+            "options": [
+              "The Miller",
+              "The Pardoner",
+              "The Knight",
+              "The Franklin"
+            ],
+            "correctAnswer": 0,
+            "explanation": "The Miller is described as having a thumb of gold, indicating his corrupt nature."
+          },
+          {
+            "question": "Which of the following is considered an ideal character in The Canterbury Tales?",
+            "options": [
+              "The Miller",
+              "The Pardoner",
+              "The Knight",
+              "The Summoner"
+            ],
+            "correctAnswer": 2,
+            "explanation": "The Knight is described as noble, modest, and gentle, representing an ideal character."
+          }
+        ],
+        "sourceGrounded": true,
+        "sourceVideoId": "yQQh6qkhXwY",
+        "sourceTitle": "UGC NET English Literature | Geoffrey Chaucer : All Works | UGC NET English PYQs 2025",
+        "sourceUrl": "https://www.youtube.com/watch?v=yQQh6qkhXwY",
+        "transcriptCharacters": 14365,
+        "model": "gemini-3.1-flash-lite"
+      }
+    },
+    {
+      "id": "youtube-RUGGF6bIjrw",
+      "type": "YouTube Study Material",
+      "savedAt": "2026-10-02T10:57:21.002Z",
+      "updatedAt": "2026-10-02T11:26:46.643Z",
+      "source": {
+        "videoId": "RUGGF6bIjrw",
+        "title": "Jane Eyre by Charlotte Brontë | Summary | Vallath",
+        "channel": "Vallath by Dr. Kalyani Vallath",
+        "url": "https://www.youtube.com/watch?v=RUGGF6bIjrw",
+        "normalizedUrl": "https://www.youtube.com/watch?v=RUGGF6bIjrw",
+        "language": "en",
+        "durationSeconds": 178,
+        "acquisitionMethod": "yt-dlp manual captions",
+        "sourceType": "youtube_transcript",
+        "transcript": "Let's do Jane Eyre in few minutes. Charlotte Bronte published Jane Eyre in the year 1847 under the pseudonym of Currer Bell. Jane Eyre novel is a bildungsroman or a coming-of-age novel with very strong gothic and romantic elements also. At the heart of the novel is this young girl Jane and her search for love, freedom, independence, and dignity. Jane is an orphan who is raised cruelly by her aunt Mrs. Reed. After being punished for a fight which she did not initiate with her cousin John Reed, Jane is locked in the terrifying red room where her uncle Mr. Reed had died. And this red room is the gothic space connected with trauma and fear. She is then sent away to Lowood Institution, a harsh charity school that is run by the hypocritical Mr. Brocklehurst. At Lowood, Jane befriends Helen Burns whose Christian faith deeply influences Jane. An epidemic exposes Lowood's terrible conditions, after which the school improves and eventually Jane becomes a teacher there. But Jane wants independence and therefore at 18 she leaves Lowood and heads towards Thornfield Hall. At Thornfield Hall, Jane becomes a French teacher to Adele Varens and also falls in love with the mysterious master of Thornfield named Edward Rochester. But Thornfield holds a terrible secret. Jane hears strange laughters, Rochester's bedroom catches fire, Richard Mason is mysteriously attacked, and then when Rochester proposes marriage to Jane, at their wedding ceremony the lawyer reveals the truth. He says that Rochester is already married to a girl named Bertha Mason and Rochester has held Bertha Mason captive in the attic of Thornfield Hall. Is it the truth? Yes, it is. What does Jane do? She does not want to become a mistress, so she leaves Thornfield Hall and leaves Rochester. Now let's come to the next phase of the novel, where penniless Jane reaches Moor House. At Moor House stays St. John Rivers and his sisters Diana and Mary. They all take Jane in generously and do you know, luck has it, Jane discovers they all are cousins. Not just this, she has inherited 20,000 pounds from her uncle, from her late uncle. St. John Rivers wants Jane to marry him, but she finds no romantic love between them. And then Jane experiences one of the novel's most supernatural moments. She hears Rochester's voice calling her and she returns to Thornfield, but Thornfield has burned down. Rochester is brutally injured trying to save the servants. He's lost a hand and lost his eyesight. Jane eventually finds Rochester at Ferndean. And at the end of the novel, things have changed for Jane. She's no longer that dependent governess. She now has her own inheritance and independence. So, she returns to Rochester as his equal. The two marry and Jane becomes a mother.",
+        "transcriptCharacters": 2747,
+        "sourceGrounded": true
+      },
+      "notes": {
+        "title": "Jane Eyre by Charlotte Brontë",
+        "overview": "A summary of Charlotte Brontë's 1847 bildungsroman, Jane Eyre, which follows the protagonist's journey from an orphaned childhood to achieving independence and finding love.",
+        "sections": [
+          {
+            "heading": "Publication and Genre",
+            "points": [
+              "Published in 1847 by Charlotte Brontë under the pseudonym Currer Bell.",
+              "Classified as a bildungsroman (coming-of-age novel) with gothic and romantic elements.",
+              "Focuses on Jane's search for love, freedom, independence, and dignity."
+            ]
+          },
+          {
+            "heading": "Childhood and Lowood Institution",
+            "points": [
+              "Jane is an orphan raised cruelly by her aunt, Mrs. Reed.",
+              "After a conflict with her cousin John Reed, Jane is locked in the 'red room,' a gothic space associated with trauma and the death of her uncle, Mr. Reed.",
+              "She is sent to Lowood Institution, a harsh charity school managed by the hypocritical Mr. Brocklehurst.",
+              "Jane befriends Helen Burns, whose Christian faith influences her.",
+              "Following an epidemic that exposes the school's poor conditions, Lowood improves, and Jane eventually serves as a teacher there."
+            ]
+          },
+          {
+            "heading": "Thornfield Hall and the Secret",
+            "points": [
+              "At age 18, Jane leaves Lowood for Thornfield Hall to work as a French teacher for Adele Varens.",
+              "She falls in love with the master of the house, Edward Rochester.",
+              "Thornfield is marked by mysterious events, including strange laughter, a fire in Rochester's bedroom, and an attack on Richard Mason.",
+              "During their wedding ceremony, a lawyer reveals that Rochester is already married to Bertha Mason, whom he keeps captive in the attic.",
+              "Refusing to be a mistress, Jane leaves Thornfield."
+            ]
+          },
+          {
+            "heading": "Moor House and Inheritance",
+            "points": [
+              "Jane arrives at Moor House, where she is taken in by St. John Rivers and his sisters, Diana and Mary.",
+              "Jane discovers she is cousins with the Rivers family and has inherited 20,000 pounds from her late uncle.",
+              "St. John Rivers proposes marriage, but Jane declines due to a lack of romantic love."
+            ]
+          },
+          {
+            "heading": "Conclusion",
+            "points": [
+              "Jane hears a supernatural call from Rochester and returns to find Thornfield burned down.",
+              "Rochester, who lost a hand and his eyesight while trying to save servants, is located at Ferndean.",
+              "Jane returns to Rochester as an independent woman with her own inheritance.",
+              "The novel ends with their marriage and Jane becoming a mother."
+            ]
+          }
+        ],
+        "sourceGrounded": true,
+        "sourceVideoId": "RUGGF6bIjrw",
+        "sourceTitle": "Jane Eyre by Charlotte Brontë | Summary | Vallath",
+        "sourceUrl": "https://www.youtube.com/watch?v=RUGGF6bIjrw",
+        "transcriptCharacters": 2747,
+        "model": "gemini-3.1-flash-lite"
+      },
+      "materials": {
+        "keyPoints": [
+          "Charlotte Brontë published Jane Eyre in 1847 under the pseudonym Currer Bell.",
+          "The novel is a bildungsroman featuring gothic and romantic elements.",
+          "Jane is an orphan raised by her aunt, Mrs. Reed, and later sent to the harsh Lowood Institution.",
+          "At Lowood, Jane is influenced by her friend Helen Burns and eventually becomes a teacher.",
+          "Jane moves to Thornfield Hall to work as a governess for Adele Varens and falls in love with Edward Rochester.",
+          "Thornfield Hall hides the secret that Rochester is already married to Bertha Mason, whom he keeps captive in the attic.",
+          "Jane leaves Thornfield after discovering Rochester's marriage to avoid becoming a mistress.",
+          "Jane finds refuge at Moor House with St. John Rivers and his sisters, discovering they are her cousins and inheriting 20,000 pounds.",
+          "After hearing a supernatural call from Rochester, Jane returns to find Thornfield destroyed by fire and Rochester injured.",
+          "Jane and Rochester marry at Ferndean, with Jane now possessing her own independence and inheritance."
+        ],
+        "concepts": [
+          {
+            "name": "Bildungsroman",
+            "explanation": "A coming-of-age novel that follows the protagonist's development and search for love, freedom, independence, and dignity."
+          },
+          {
+            "name": "Gothic space",
+            "explanation": "A setting connected with trauma and fear, exemplified in the novel by the red room where Jane's uncle died."
+          }
+        ],
+        "quiz": [
+          {
+            "question": "Under what pseudonym did Charlotte Brontë publish Jane Eyre?",
+            "options": [
+              "Ellis Bell",
+              "Acton Bell",
+              "Currer Bell",
+              "Charlotte Bell"
+            ],
+            "correctAnswer": 2,
+            "explanation": "The novel was published in 1847 under the pseudonym of Currer Bell."
+          },
+          {
+            "question": "What is the significance of the red room in Jane's childhood?",
+            "options": [
+              "It is where she was taught by Helen Burns.",
+              "It is a gothic space connected with trauma and fear where her uncle died.",
+              "It is the room where she first met Edward Rochester.",
+              "It is the place where she inherited her fortune."
+            ],
+            "correctAnswer": 1,
+            "explanation": "The red room is described as a gothic space connected with trauma and fear, being the location where Jane's uncle Mr. Reed had died."
+          },
+          {
+            "question": "Why does Jane leave Thornfield Hall after Rochester proposes?",
+            "options": [
+              "She discovers he is already married to Bertha Mason.",
+              "She decides to marry St. John Rivers instead.",
+              "She wants to pursue a career as a teacher elsewhere.",
+              "She is frightened by the strange laughter in the house."
+            ],
+            "correctAnswer": 0,
+            "explanation": "A lawyer reveals at the wedding ceremony that Rochester is already married to Bertha Mason, and Jane leaves because she does not want to become a mistress."
+          },
+          {
+            "question": "What happens to Rochester by the end of the novel?",
+            "options": [
+              "He dies in the fire at Thornfield Hall.",
+              "He moves to France with Adele Varens.",
+              "He loses his eyesight and a hand after trying to save his servants from the fire.",
+              "He marries St. John Rivers' sister."
+            ],
+            "correctAnswer": 2,
+            "explanation": "Rochester is brutally injured while trying to save his servants from the fire at Thornfield, resulting in the loss of a hand and his eyesight."
+          }
+        ],
+        "sourceGrounded": true,
+        "sourceVideoId": "RUGGF6bIjrw",
+        "sourceTitle": "Jane Eyre by Charlotte Brontë | Summary | Vallath",
+        "sourceUrl": "https://www.youtube.com/watch?v=RUGGF6bIjrw",
+        "transcriptCharacters": 2747,
+        "model": "gemini-3.1-flash-lite"
+      }
+    }
+  ],
+  "updatedAt": "2026-10-08T11:07:44.749Z"
+}

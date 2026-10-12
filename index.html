@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>BAJEE JRF AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F5F9; --card:#fff; --ink:#0F1B33; --muted:#5E6A80; --line:#E1E6EF;
+  --navy:#0F1B33; --navy2:#1B3358; --gold:#C9A24B; --goldsoft:#F6EBCF; --ok:#2E8B57;
+  --shadow:0 1px 2px rgba(15,27,51,.06),0 8px 24px rgba(15,27,51,.06);
+}
+:root[data-theme="dark"]{
+  --bg:#0A1220; --card:#121D31; --ink:#EAF0FA; --muted:#9AA8C0; --line:#223250;
+  --navy:#C9A24B; --navy2:#1B3358; --goldsoft:#2A2616; --shadow:none;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Inter,system-ui,sans-serif;
+  padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;margin:0;line-height:1.2}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:8px}
+svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+.top{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line);
+  padding:env(safe-area-inset-top,0px) 16px 0}
+.top-in{max-width:960px;margin:auto;height:60px;display:flex;align-items:center;gap:12px}
+.brand{font:700 20px Fraunces,serif;flex:1}
+.brand small{display:block;font:400 12px Inter;color:var(--muted)}
+.seg{display:flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px}
+.seg button{border:0;background:none;color:var(--muted);font:500 14px Inter;padding:7px 16px;border-radius:999px;cursor:pointer}
+.seg button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+:root[data-theme="dark"] .seg button[aria-selected="true"]{background:var(--gold);color:#0A1220}
+.icon-btn{border:1px solid var(--line);background:var(--card);color:var(--ink);width:40px;height:40px;border-radius:50%;
+  display:grid;place-items:center;cursor:pointer}
+
+main{max-width:960px;margin:auto;padding:20px 16px}
+.view{display:none}.view.on{display:block}
+
+/* Today card: the one memorable element */
+.today{background:linear-gradient(135deg,var(--navy2),#0F1B33);color:#fff;border-radius:24px;padding:26px;
+  display:grid;gap:22px;grid-template-columns:1.4fr 1fr;box-shadow:var(--shadow)}
+.today h1{font-size:clamp(26px,5vw,36px);font-weight:700}
+.today p{margin:6px 0 0;color:#C5D0E6}
+.count{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px;text-align:center;cursor:pointer;
+  display:flex;flex-direction:column;justify-content:center;color:inherit;font:inherit}
+.count b{font:700 56px/1 Fraunces,serif;color:var(--gold)}
+.count span{font-size:14px;color:#C5D0E6}
+
+.search{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:8px 8px 8px 14px;margin-bottom:16px;box-shadow:var(--shadow)}
+.search input{flex:1;min-width:0;border:0;background:none;color:var(--ink);font:inherit;padding:8px 0;outline:0}
+.search:focus-within{border-color:var(--gold)}
+.search-scope{font-size:12px;color:var(--muted);margin:-8px 0 14px 4px}
+.motivation{margin-top:14px;background:var(--goldsoft);border:1px solid var(--line);border-radius:16px;padding:14px 18px}
+.motivation b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.motivation p{margin:4px 0 0;font-weight:600}
+.check-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,.8fr);align-items:center;gap:12px;padding:13px 0;border-top:1px solid var(--line)}
+.check-row:first-of-type{border-top:0}
+.check-row select{width:100%;padding:9px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
+.feature-note{font-size:12px;color:var(--muted);margin-top:10px}
+.modal-backdrop{position:fixed;inset:0;background:var(--bg);z-index:100;display:none;align-items:stretch;justify-content:stretch;padding:0}
+.modal-backdrop.open{display:flex}.assistant-modal{width:100%;height:100%;max-height:100%;overflow:hidden;background:var(--card);color:var(--ink);border-radius:0;padding:clamp(14px,2.5vw,32px);box-shadow:none;display:flex;flex-direction:column;gap:12px}
+.assistant-head{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:12px}.assistant-head h2{margin:0;font-size:clamp(21px,2.2vw,32px)}
+.chat-log{flex:1;min-height:160px;overflow:auto;border:1px solid var(--line);border-radius:14px;padding:clamp(12px,2vw,24px);margin:0;white-space:pre-wrap;font-size:clamp(15px,1.15vw,18px);line-height:1.6}
+.chat-line{padding:12px 14px;border-radius:12px;margin-bottom:10px;background:var(--bg);max-width:100%;overflow-wrap:anywhere}.chat-line.assistant-line{border-left:4px solid var(--gold)}
+.chat-controls{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}.chat-controls input{flex:1;min-width:220px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit;font-size:16px}.assistant-actions{display:flex;gap:8px;flex-wrap:wrap}.assistant-actions .btn{min-height:44px}
+@media(max-width:600px){.assistant-modal{padding:12px}.assistant-head{align-items:flex-start}.chat-controls input{min-width:100%;width:100%}.assistant-actions{width:100%}.assistant-actions button{flex:1}}
+@media(max-width:520px){.check-row{grid-template-columns:1fr}.seg button{padding:7px 10px}.brand{font-size:17px}}
+.grid.ask{grid-template-columns:repeat(2,1fr)}
+.tile.off{opacity:.55;pointer-events:none}
+.nextbtn{display:inline-block;background:var(--gold);color:#0F1B33;font:600 15px Inter;padding:10px 18px;border-radius:12px}
+.later{border:1px solid var(--line);background:none;color:var(--muted);border-radius:10px;padding:8px 12px;font:500 14px Inter;cursor:pointer}
+.task.moved{opacity:.55}
+.sec{margin:28px 0 12px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.sec h2{font-size:22px}.sec small{color:var(--muted)}
+
+.tasks{background:var(--card);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.task{display:flex;align-items:center;gap:14px;padding:16px 18px;border-top:1px solid var(--line)}
+.task:first-child{border-top:0}
+.task input{width:22px;height:22px;accent-color:var(--ok);flex:none;cursor:pointer}
+.task label{flex:1;cursor:pointer}
+.task label b{display:block;font-weight:600}
+.task label span{font-size:14px;color:var(--muted)}
+.task input:checked + label b{text-decoration:line-through;color:var(--muted)}
+.go{background:var(--ink);color:var(--bg);border-radius:10px;padding:8px 16px;font:600 14px Inter;white-space:nowrap}
+:root[data-theme="dark"] .go{background:var(--gold);color:#0A1220}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.stat{background:var(--card);border-radius:16px;padding:14px;box-shadow:var(--shadow);text-align:center}
+.stat b{font:700 28px Fraunces,serif;display:block}
+.stat span{font-size:13px;color:var(--muted)}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.tile{background:var(--card);border-radius:18px;padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px;
+  border:1px solid transparent;transition:border-color .15s}
+.tile:hover{border-color:var(--gold)}
+.tile .ic{width:42px;height:42px;border-radius:12px;background:var(--goldsoft);color:#8A6A1E;display:grid;place-items:center;margin-bottom:6px}
+:root[data-theme="dark"] .tile .ic{color:var(--gold)}
+.tile b{font:600 17px Inter}
+.tile span{font-size:14px;color:var(--muted)}
+
+.panel{background:var(--card);border-radius:20px;padding:20px;box-shadow:var(--shadow);margin-bottom:14px}
+.panel h3{font-size:19px;margin-bottom:6px}
+.panel p{margin:0 0 12px;color:var(--muted);font-size:15px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+input[type=url],input[type=date]{flex:1;min-width:200px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit}
+.btn{border:0;background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:12px;font:600 15px Inter;cursor:pointer}
+:root[data-theme="dark"] .btn{background:var(--gold);color:#0A1220}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
+.msg{font-size:14px;color:var(--muted);margin-top:10px;min-height:20px}
+.bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:10px 0 6px}
+.bar i{display:block;height:100%;width:100%;background:var(--gold)}
+
+nav.bottom{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);
+  padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-around;z-index:10}
+nav.bottom a,nav.bottom button{flex:1;max-width:120px;border:0;background:none;color:var(--muted);font:500 12px Inter;
+  display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;cursor:pointer}
+nav.bottom .on{color:var(--ink);font-weight:600}
+:root[data-theme="dark"] nav.bottom .on{color:var(--gold)}
+
+@media(max-width:640px){
+  .today{grid-template-columns:1fr;padding:20px}
+  .count b{font-size:44px}
+  .brand small{display:none}
+  .grid.ask{grid-template-columns:1fr}
+}
+@media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr)}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="top-in">
+  <div class="brand">BAJEE JRF AI<small>UGC NET English</small></div>
+  <div class="seg" role="tablist" aria-label="Mode">
+    <button role="tab" id="tabStudy" aria-selected="true">Study</button>
+    <button role="tab" id="tabWork" aria-selected="false">Workshop</button>
+  </div>
+  <button class="icon-btn" id="themeBtn" aria-label="Switch light or dark theme">
+    <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  </button>
+</div></header>
+
+<main>
+
+<!-- ================= STUDY ================= -->
+<section class="view on" id="viewStudy">
+
+  <form class="search" id="searchForm" role="search">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <input id="searchQ" type="search" placeholder="Search a word, author, work, theory or topic" aria-label="Search your library">
+    <button class="btn" type="submit">Search</button>
+  </form>
+  <div class="search-scope">JRF Dictionary · Master-storage-first search · source references where available</div>
+  <div class="msg" id="searchMsg" role="status" style="margin:-6px 0 12px"></div>
+
+  <div class="today">
+    <div>
+      <h1 id="greet">Welcome back, Bajee</h1>
+      <p id="dateLine"></p>
+      <p style="margin-top:14px"><a class="nextbtn" id="nextBtn" href="#">Next</a></p>
+    </div>
+    <button class="count" id="countBtn" aria-label="Set exam date">
+      <b id="daysLeft">--</b>
+      <span id="daysLabel">Tap to set exam date</span>
+    </button>
+  </div>
+
+  <div class="motivation"><b>Today's motivation</b><p id="quoteText">Small, consistent effort becomes extraordinary preparation.</p></div>
+
+  <div class="stats">
+    <div class="stat"><b id="sStreak">0</b><span>Day streak</span></div>
+    <div class="stat"><b id="sToday">0/6</b><span>Done today</span></div>
+    <div class="stat"><b id="sTotal">0</b><span>Days studied</span></div>
+  </div>
+
+  <div class="panel" style="margin-top:14px">
+    <div class="row" style="justify-content:space-between;align-items:center">
+      <b id="hrsTxt">0 of 3 hours today</b>
+      <small style="color:var(--muted)">Fills as you finish each task</small>
+    </div>
+    <div class="bar"><i id="hrsBar" style="width:0"></i></div>
+  </div>
+
+  <div class="sec"><h2>Today's plan</h2><small>3 hours + 10-minute previous-day quick revision</small></div>
+  <div class="tasks" id="tasks"></div>
+
+  <div class="sec"><h2>Ask</h2></div>
+  <div class="grid ask">
+    <a class="tile" data-page="assistant" href="#"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/><rect x="9" y="3" width="6" height="10" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v4"/></svg></div><b>AI Chat + Voice Mentor</b><span>Type or speak your question, then read and hear the answer</span></a>
+  </div>
+
+  <div class="sec"><h2>Study essentials</h2><small>Core learning and practice</small></div>
+  <div class="grid">
+    <a class="tile" href="syllabus.html"><div class="ic">📘</div><b>UGC NET syllabus</b><span>Paper I and Paper II units</span></a>
+    <a class="tile" href="knowledge-structure.html"><div class="ic">🧠</div><b>Paper II knowledge base</b><span>Authors, works, theories and concepts</span></a>
+    <a class="tile" href="test-engine.html"><div class="ic">📝</div><b>Practice tests</b><span>Mapped PYQs and test practice</span></a>
+    <a class="tile" href="nta-exam.html"><div class="ic">⏱️</div><b>NTA examination</b><span>Exam-mode practice and results</span></a>
+    <a class="tile" href="vertical-slice.html"><div class="ic">🔁</div><b>Quick revision & retest</b><span>Revise weak areas and retry questions</span></a>
+    <a class="tile" href="revision-intelligence.html"><div class="ic">🎯</div><b>Revision intelligence</b><span>Priority queue and next revision actions</span></a>
+  </div>
+
+  <div class="sec"><h2>Learning library</h2><small>Source materials and connected knowledge</small></div>
+  <div class="grid">
+    <a class="tile" href="resource-library.html"><div class="ic">📚</div><b>Resource library</b><span>Books, PDFs, PPTs, audio and videos</span></a>
+    <a class="tile" href="master-storage.html"><div class="ic">🗂️</div><b>Master storage</b><span>Master-storage tools and source inventory</span></a>
+    <a class="tile" href="jrf-master-dictionary.html"><div class="ic">🔎</div><b>JRF dictionary</b><span>Meanings, authors, works, theories and years</span></a>
+    <a class="tile" href="pyq-database.html"><div class="ic">📖</div><b>PYQ database</b><span>Previous-year questions</span></a>
+    <a class="tile" href="pyq-knowledge-mapping.html"><div class="ic">🔗</div><b>PYQ knowledge mapping</b><span>Connect questions to entities and concepts</span></a>
+    <a class="tile" href="knowledge-graph.html"><div class="ic">🕸️</div><b>Knowledge graph</b><span>Explore connected knowledge</span></a>
+    <a class="tile" href="knowledge-entity.html"><div class="ic">🧩</div><b>JRF Intelligence</b><span>Explore entity details and connections</span></a>
+    <a class="tile" href="jrf-visual-memory.html"><div class="ic">🗺️</div><b>Visual memory & mind maps</b><span>Open the existing visual learning tool</span></a>
+  </div>
+
+  <div class="sec"><h2>Progress</h2></div>
+  <div class="grid">
+    <a class="tile" href="adaptive-recommendations.html"><div class="ic">🧭</div><b>Adaptive recommendations</b><span>Evidence-based next steps</span></a>
+    <a class="tile" href="jrf-intelligence-core.html"><div class="ic">🧠</div><b>JRF Intelligence Core</b><span>Evidence-based next best action</span></a>
+    <a class="tile" href="jrf-readiness.html"><div class="ic">🏆</div><b>JRF readiness</b><span>Preparation readiness indicators</span></a>
+    <a class="tile" href="jrf-analytics.html"><div class="ic">📊</div><b>JRF analytics</b><span>Progress and performance trends</span></a>
+    <a class="tile" href="revision-retest.html"><div class="ic">✅</div><b>Revision retest</b><span>Reassess previously weak questions</span></a>
+  </div>
+</section>
+
+<!-- ================= WORKSHOP ================= -->
+<section class="view" id="viewWork">
+  <div class="sec" style="margin-top:4px"><h2>Workshop</h2><small>Creation, verification, planning and tools</small></div>
+
+  <div class="panel">
+    <h3>YouTube → JRF material generator</h3>
+    <p>The working generator is available in its dedicated page. Open it to acquire a transcript, verify the source and generate study materials.</p>
+    <div class="row"><input id="youtubeUrl" type="url" placeholder="Paste YouTube URL here (optional)" aria-label="YouTube URL"><button class="btn" id="generateMaterialBtn" type="button">Open generator →</button></div>
+    <div class="msg" id="youtubeMessage" role="status"></div>
+  </div>
+
+  <div class="grid">
+    <a class="tile" href="jrf-visual-memory.html"><div class="ic">🗺️</div><b>Mind maps & visual memory</b><span>Use the existing visualization tool</span></a>
+    <a class="tile" href="knowledge-graph.html"><div class="ic">🔗</div><b>Author connections & chronology</b><span>Explore knowledge graph relationships</span></a>
+    <a class="tile" href="master-storage.html"><div class="ic">🗂️</div><b>Master-storage management</b><span>Inspect the existing storage workspace</span></a>
+    <a class="tile" href="knowledge-resources.html"><div class="ic">🛡️</div><b>Source verification & resources</b><span>Inspect linked sources and study resources</span></a>
+    <a class="tile" href="adaptive-recommendations.html"><div class="ic">🧠</div><b>JRF intelligence tools</b><span>Evidence-based recommendations</span></a>
+    <a class="tile" href="jrf-analytics.html"><div class="ic">📈</div><b>Analytics workspace</b><span>Review preparation trends</span></a>
+  </div>
+
+  <div class="panel" style="margin-top:14px">
+    <h3>Backup your progress</h3>
+    <p>This exports browser localStorage only; it does not back up your complete Google Drive master storage. Keep a copy of the JSON backup in your master folder.</p>
+    <div class="row"><button class="btn" id="exportBtn">Save browser backup</button><button class="btn ghost" id="importBtn">Restore browser backup</button><input type="file" id="importFile" accept="application/json" hidden></div>
+    <div class="msg" id="backupMsg" role="status"></div>
+  </div>
+</section>
+
+<!-- Daily checklist is deliberately placed last, after Study and Workshop. -->
+<section class="panel" id="dailyChecklistPanel">
+  <div class="sec" style="margin-top:0"><h2>Today's task checklist</h2><small>Completed · tomorrow · within this week</small></div>
+  <p>Record what happened today. Unfinished tasks should be rescheduled, not forgotten.</p>
+  <div id="dailyChecklist"></div>
+  <div class="feature-note">The checklist is stored in this browser. Use Workshop → Save browser backup regularly.</div>
+</section>
+</main>
+
+<nav class="bottom" aria-label="Main">
+  <button class="on" id="nHome"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
+  <a href="test-engine.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>Practice</a>
+  <a href="vertical-slice.html"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Revise</a>
+  <a href="resource-library.html"><svg viewBox="0 0 24 24"><path d="M4 4h4v16H4zM10 4h4v16h-4z"/><path d="M16 6l4-1 3 14-4 1z"/></svg>Library</a>
+  <button id="nWork"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.2-.5-.5-2.2z"/></svg>Workshop</button>
+</nav>
+
+<div class="modal-backdrop" id="assistantModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="assistantTitle">
+  <div class="assistant-modal">
+    <div class="assistant-head"><div><h2 id="assistantTitle">BAJEE JRF AI — Chat & Voice Assistant</h2><div class="feature-note">Your UGC NET English JRF study companion · type or speak in the same conversation</div></div><button class="btn ghost" id="assistantClose" type="button">Close ✕</button></div>
+    <div class="msg" id="assistantStatus" role="status">Welcome. Type a question or select Speak to ask by voice.</div>
+    <div class="chat-log" id="chatLog" aria-live="polite"><div class="chat-line assistant-line">BAJEE JRF AI: Hello! I’m your BAJEE JRF AI study assistant for UGC NET English Paper I and Paper II. I can help you understand authors, works, literary periods, theories, PYQs, explanations, revision and exam practice. I’ll use your connected study sources when available and tell you when a source cannot verify an answer. How can I help you today?</div></div>
+    <div class="chat-controls"><input id="assistantInput" type="text" placeholder="Type your question here…" aria-label="Message for AI assistant"><div class="assistant-actions"><button class="btn" id="assistantSend" type="button">Send</button><button class="btn ghost" id="voiceBtn" type="button">🎙 Speak</button><button class="btn ghost" id="speakLoudBtn" type="button">🔊 Speak Loud</button><button class="btn ghost" id="stopSpeechBtn" type="button">⏹ Stop voice</button></div></div>
+    <div class="feature-note">Voice input depends on browser speech-recognition support. Replies are silent unless you click Speak Loud. The access token is held in page memory only and is not written to localStorage.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const store = {
+    get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+    set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  };
+  const key = d => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  const today = new Date();
+
+  /* ---- Existing page routes: keep these filenames in sync with frontend/ ---- */
+  const PAGES = { search:"jrf-master-dictionary.html", chat:"", mentor:"" };
+  $("searchForm").onsubmit = e => {
+    e.preventDefault();
+    const q = $("searchQ").value.trim();
+    if(!q){ $("searchMsg").textContent = "Type a word, author, work or concept first."; return; }
+    store.set("jrf_dictionary_pending_query", q);
+    location.href = PAGES.search + "?q=" + encodeURIComponent(q);
+  };
+
+  /* Ask cards open the integrated assistant dialog; token is requested per session and never embedded in this file. */
+  document.querySelector('[data-page="assistant"]').addEventListener("click", e => { e.preventDefault(); openAssistant(); });
+
+  /* ---- Theme ---- */
+  const root = document.documentElement;
+  const savedTheme = store.get("jrf_theme", window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  root.dataset.theme = savedTheme;
+  $("themeBtn").onclick = () => {
+    const t = root.dataset.theme === "dark" ? "light" : "dark";
+    root.dataset.theme = t; store.set("jrf_theme", t);
+  };
+
+  /* ---- Study / Workshop switch ---- */
+  function setMode(m){
+    const w = m === "work";
+    $("viewStudy").classList.toggle("on", !w);
+    $("viewWork").classList.toggle("on", w);
+    $("tabStudy").setAttribute("aria-selected", String(!w));
+    $("tabWork").setAttribute("aria-selected", String(w));
+    $("nHome").classList.toggle("on", !w);
+    $("nWork").classList.toggle("on", w);
+    store.set("jrf_mode", m);
+    window.scrollTo(0,0);
+  }
+  $("tabStudy").onclick = $("nHome").onclick = () => setMode("study");
+  $("tabWork").onclick = $("nWork").onclick = () => setMode("work");
+  setMode(store.get("jrf_mode","study"));
+
+  /* ---- Greeting ---- */
+  const h = today.getHours();
+  $("greet").textContent = (h<12 ? "Good morning" : h<17 ? "Good afternoon" : "Good evening") + ", Bajee";
+  $("dateLine").textContent = today.toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+
+  /* ---- Exam countdown ---- */
+  function renderCount(){
+    const d = store.get("jrf_exam_date", "2026-12-08");
+    if(!d){ $("daysLeft").textContent = "--"; $("daysLabel").textContent = "Tap to set exam date"; return; }
+    const diff = Math.ceil((new Date(d+"T00:00:00") - new Date(key(today)+"T00:00:00")) / 86400000);
+    if(diff > 0){ $("daysLeft").textContent = diff; $("daysLabel").textContent = diff === 1 ? "day to your exam" : "days to your exam"; }
+    else if(diff === 0){ $("daysLeft").textContent = "0"; $("daysLabel").textContent = "Exam day. Good luck!"; }
+    else { $("daysLeft").textContent = "--"; $("daysLabel").textContent = "Date has passed. Tap to set a new one"; }
+  }
+  $("countBtn").onclick = () => {
+    const v = prompt("Enter your exam date (YYYY-MM-DD), for example 2026-12-20", store.get("jrf_exam_date","2026-12-08"));
+    if(v === null) return;
+    if(v === "" || /^\d{4}-\d{2}-\d{2}$/.test(v.trim())){ store.set("jrf_exam_date", v.trim()); renderCount(); }
+    else alert("Please use the format YYYY-MM-DD.");
+  };
+  renderCount();
+
+  /* ---- Daily plan ---- */
+  const WEAK = ["Research Methods (Unit X)", "English in India (Unit VI)"];   // edit as your weak units change
+  // 90 + 30 + 30 + 15 + 15 = 180 minutes. Change the page names here if Paper I or Paper II have their own pages.
+  const base = [
+    {id:"prevrev",t:"Previous-day quick revision",m:10,s:"Quickly recall yesterday's key points before today's study",href:"revision-intelligence.html"},
+    {id:"p1",     t:"Paper I study",  m:90, s:"Teaching, research, reasoning and the other Paper I units", href:"syllabus.html"},
+    {id:"p2",     t:"Paper II study", m:30, s:"Focus today: "+WEAK[today.getDate() % WEAK.length], href:"knowledge-structure.html"},
+    {id:"test",   t:"Test both papers", m:30, s:"Paper I and Paper II questions", href:"test-engine.html"},
+    {id:"revise", t:"Revise weak and wrong answers", m:15, s:"Go through what you got wrong", href:"vertical-slice.html"},
+    {id:"retest", t:"Retest weak and wrong questions", m:15, s:"Check that the mistakes are fixed", href:"vertical-slice.html"}
+  ];
+  const minsOf = {}; base.forEach(p => minsOf[p.id] = p.m);
+  const D = store.get("jrf_days", {});      // { "2026-10-09": { done:{pyq:true}, later:{weak:true}, mins:90 } }
+  const pend = store.get("jrf_pending", {}); // postponed tasks stay here until done: { id: title }
+  const tk = key(today);
+  const day = D[tk] || (D[tk] = {done:{}, later:{}, mins:0});
+  const save = () => { store.set("jrf_days", D); store.set("jrf_pending", pend); };
+  const hrefOf = {}; base.forEach(p => hrefOf[p.id] = p.href);
+  const GOAL = 190;
+
+  function buildList(){
+    return Object.keys(pend).map(id => ({id, m:minsOf[id]||0, t:pend[id], s:"Postponed, still to do", href:hrefOf[id]||"#"}))
+      .concat(base.filter(p => !(p.id in pend)));
+  }
+  function stats(list){
+    const active = d => D[d] && Object.keys(D[d].done||{}).length;
+    let streak = 0, d = new Date(today);
+    if(!active(key(d))) d.setDate(d.getDate()-1);
+    while(active(key(d))){ streak++; d.setDate(d.getDate()-1); }
+    const doable = list.filter(p => !day.later[p.id]);
+    $("sStreak").textContent = streak;
+    $("sToday").textContent = doable.filter(p => day.done[p.id]).length + "/" + doable.length;
+    $("sTotal").textContent = Object.keys(D).filter(active).length;
+    const next = doable.find(p => !day.done[p.id]), nb = $("nextBtn");
+    if(next){ nb.textContent = "Next: " + next.t; nb.href = next.href; }
+    else { nb.textContent = "All tasks done for today. Well done."; nb.removeAttribute("href"); }
+    const m = Object.keys(day.done).reduce((t,id) => t + (minsOf[id]||0), 0);
+    $("hrsTxt").textContent = m + " of 190 minutes today (3h 10m)";
+    $("hrsBar").style.width = Math.min(100, m/GOAL*100) + "%";
+  }
+  function render(){
+    const list = buildList(), box = $("tasks"); box.innerHTML = "";
+    list.forEach(p => {
+      const moved = !!day.later[p.id], done = !!day.done[p.id];
+      const r = document.createElement("div"); r.className = "task" + (moved ? " moved" : "");
+      r.innerHTML = '<div style="flex:1;min-width:0"><b></b><div style="font-size:14px;color:var(--muted)"></div></div>'
+        + (done ? '<span style="color:var(--ok);font-size:13px;font-weight:600">Done</span>' : '')
+        + (moved ? '<span style="color:var(--muted);font-size:13px">Tomorrow</span>' : (done ? '' : '<button class="later" type="button">Later</button>') + '<a class="go" href="'+p.href+'">Start</a>');
+      r.querySelector("b").textContent = p.t + " · " + p.m + " min";
+      r.querySelector("div div").textContent = moved ? "Moved to tomorrow" : p.s;
+      const l = r.querySelector(".later");
+      if(l) l.onclick = () => { pend[p.id] = p.t; day.later[p.id] = true; save(); render(); renderChecklist(); };
+      box.appendChild(r);
+    });
+    stats(list);
+  }
+  render();
+
+  /* ---- Daily motivation ---- */
+  const quotes = [
+    "Small, consistent effort becomes extraordinary preparation.",
+    "Understand the connection, not just the fact.",
+    "Every mistake reviewed is one less mistake repeated.",
+    "Ten focused minutes today can protect yesterday's learning.",
+    "Study with evidence. Practise with purpose. Revise with patience."
+  ];
+  $("quoteText").textContent = quotes[Math.floor((today.getFullYear()*372+(today.getMonth()+1)*31+today.getDate())%quotes.length)];
+
+  /* ---- Persistent end-of-page checklist ---- */
+  function renderChecklist(){
+    const box=$("dailyChecklist"); if(!box) return; box.innerHTML="";
+    const all=base.concat(Object.keys(pend).filter(id=>!base.some(p=>p.id===id)).map(id=>({id,t:pend[id],m:minsOf[id]||0})));
+    day.checklist=day.checklist||{};
+    all.forEach(p=>{
+      const row=document.createElement("div"); row.className="check-row";
+      const label=document.createElement("div"); label.innerHTML="<b></b><div style='font-size:13px;color:var(--muted)'></div>";
+      label.querySelector("b").textContent=p.t+" · "+(p.m||0)+" min";
+      label.querySelector("div").textContent="Choose the final status for today's task.";
+      const select=document.createElement("select");
+      [["pending","Still pending"],["done","Completed"],["tomorrow","Compensate tomorrow"],["week","Reschedule within this week"]].forEach(([v,t])=>{const o=document.createElement("option");o.value=v;o.textContent=t;select.appendChild(o)});
+      select.value=day.checklist[p.id]||(day.done[p.id]?"done":day.later[p.id]?"tomorrow":"pending");
+      select.onchange=()=>{
+        day.checklist[p.id]=select.value;
+        if(select.value==="done"){day.done[p.id]=true;delete day.later[p.id];delete pend[p.id];}
+        else {delete day.done[p.id];if(select.value==="tomorrow"){day.later[p.id]=true;pend[p.id]=p.t}else if(select.value==="week"){day.later[p.id]=false;pend[p.id]=p.t+" (rescheduled this week)"}else{delete day.later[p.id];delete pend[p.id]}}
+        save();render();renderChecklist();
+      };
+      row.append(label,select);box.appendChild(row);
+    });
+  }
+  renderChecklist();
+
+  /* ---- Unified full-page AI chat + voice assistant ---- */
+  let assistantToken="", lastAssistantReply="", assistantIntroduced=false;
+  let activeRecognition=null, isListening=false, voiceFinalTranscript="";
+  function openAssistant(){
+    const modal=$("assistantModal"); modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
+    $("assistantStatus").textContent="Welcome! I'm BAJEE JRF AI, your UGC NET English JRF study companion. You can type a question or tap Speak once and talk naturally.";
+    if(!assistantIntroduced){
+      assistantIntroduced=true;
+      if(!$("chatLog").children.length) addChatLine("BAJEE JRF AI","Hello! I'm BAJEE JRF AI, your study companion for UGC NET English (Paper II) and Paper I. I can help explain authors, works, literary periods, theories, PYQs, and revision topics. Type your question or tap Speak, then send it when you're ready.");
+    }
+    $("assistantInput").focus();
+  }
+  function addChatLine(who,text){const d=document.createElement("div");d.className="chat-line"+(who==="BAJEE JRF AI"?" assistant-line":"");d.textContent=who+": "+text;$("chatLog").appendChild(d);$("chatLog").scrollTop=$("chatLog").scrollHeight;}
+  async function sendAssistantMessage(text){
+    const msg=(text!==undefined?text:$("assistantInput").value).trim();if(!msg)return;
+    if(isListening && activeRecognition){try{activeRecognition.stop();}catch(e){}}
+    $("assistantInput").value="";addChatLine("You",msg);$("assistantStatus").textContent="Waiting for the local AI gateway…";
+    if(!assistantToken)assistantToken=prompt("Enter your BAJEE_API_ACCESS_TOKEN for this browser session. Do not enter your Gemini API key.")||"";
+    if(!assistantToken){$("assistantStatus").textContent="Cancelled. No token was entered.";return;}
+    try{
+      const firstTurnInstruction="If this is your first answer in the conversation, briefly introduce yourself as BAJEE JRF AI, the user's UGC NET English JRF study companion, then answer the question. Be source-grounded and never invent source references.";
+      const r=await fetch("http://127.0.0.1:3000/api/ai/chat",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+assistantToken},body:JSON.stringify({message:msg,context:{source:"BAJEE JRF AI homepage assistant",conversationInstruction:firstTurnInstruction}})});
+      const data=await r.json();if(!r.ok)throw new Error(data.error||("Request failed ("+r.status+")"));
+      const reply=data.response?.reply||data.reply||data.response?.text||"The gateway returned no readable reply.";
+      lastAssistantReply=reply;addChatLine("BAJEE JRF AI",reply);$("assistantStatus").textContent="Reply ready. It will stay silent until you click Speak Loud.";
+    }catch(err){$("assistantStatus").textContent="Could not connect: "+err.message+". Check that the backend is running and token is correct.";}
+  }
+  $("assistantSend").onclick=()=>sendAssistantMessage();
+  $("assistantInput").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();sendAssistantMessage();}});
+  $("assistantClose").onclick=()=>{if(activeRecognition){try{activeRecognition.abort();}catch(e){}}activeRecognition=null;isListening=false;$("voiceBtn").textContent="🎙 Speak";$("assistantModal").classList.remove("open");$("assistantModal").setAttribute("aria-hidden","true");if("speechSynthesis" in window)window.speechSynthesis.cancel();};
+  $("assistantModal").addEventListener("click",e=>{if(e.target===$("assistantModal"))$("assistantClose").click();});
+  $("voiceBtn").onclick=()=>{
+    if(isListening&&activeRecognition){try{activeRecognition.stop();}catch(e){}return;}
+    const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!SR){$("assistantStatus").textContent="Voice typing isn't available in this browser. Try Chrome, allow microphone access, or type your question.";return;}
+    if(activeRecognition){try{activeRecognition.abort();}catch(e){}activeRecognition=null;}
+    const rec=new SR();activeRecognition=rec;voiceFinalTranscript="";isListening=true;rec.lang="en-IN";rec.interimResults=true;rec.continuous=false;rec.maxAlternatives=1;
+    $("voiceBtn").textContent="■ Stop listening";$("assistantInput").value="";$("assistantStatus").textContent="Listening… speak naturally. Tap Stop listening when you're finished.";
+    rec.onresult=e=>{let interim="",finalText="";for(let i=e.resultIndex;i<e.results.length;i++){const part=e.results[i][0].transcript;if(e.results[i].isFinal)finalText+=part;else interim+=part;}if(finalText)voiceFinalTranscript=(voiceFinalTranscript+" "+finalText).trim();$("assistantInput").value=(voiceFinalTranscript+" "+interim).trim();$("assistantStatus").textContent=interim?"Hearing: "+interim:"Voice captured. Continue speaking or tap Stop listening.";};
+    rec.onerror=e=>{isListening=false;activeRecognition=null;$("voiceBtn").textContent="🎙 Speak";const reason=e.error==="not-allowed"?"Microphone permission was blocked. Allow microphone access for this site in Chrome settings.":e.error==="no-speech"?"No speech detected. Tap Speak and try again.":"Voice input error: "+e.error+". You can type instead.";$("assistantStatus").textContent=reason;};
+    rec.onend=()=>{const captured=($("assistantInput").value||voiceFinalTranscript).trim();isListening=false;activeRecognition=null;$("voiceBtn").textContent="🎙 Speak";if(captured){$("assistantInput").value=captured;$("assistantStatus").textContent="Voice captured. Review the text, then click Send to ask the assistant.";}else $("assistantStatus").textContent="No speech captured. Tap Speak to try again, or type your question.";};
+    try{rec.start();}catch(e){isListening=false;activeRecognition=null;$("voiceBtn").textContent="🎙 Speak";$("assistantStatus").textContent="Couldn't start voice input. Check microphone permission and try again.";}
+  };
+  $("speakLoudBtn").onclick=()=>{if(!lastAssistantReply){$("assistantStatus").textContent="There is no assistant reply to speak yet. Ask a question first.";return;}if(!("speechSynthesis" in window)){$("assistantStatus").textContent="Speech output is not supported by this browser.";return;}window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(lastAssistantReply);utterance.lang="en-IN";utterance.volume=1;utterance.rate=0.95;utterance.onstart=()=>$("assistantStatus").textContent="Speaking the latest answer aloud…";utterance.onend=()=>$("assistantStatus").textContent="Finished speaking. Click Speak Loud again whenever you want.";window.speechSynthesis.speak(utterance);};
+  $("stopSpeechBtn").onclick=()=>{if("speechSynthesis" in window)window.speechSynthesis.cancel();$("assistantStatus").textContent="Speech stopped.";};
+  /* ---- YouTube generator: route to the working dedicated page ---- */
+  $("generateMaterialBtn").onclick = () => {
+    const v=$("youtubeUrl").value.trim();
+    if(v){try{const u=new URL(v);if(!["youtube.com","www.youtube.com","youtu.be","m.youtube.com"].includes(u.hostname)){throw new Error("invalid")};}catch(e){$("youtubeMessage").textContent="Please enter a valid YouTube URL.";return;}store.set("jrf_youtube_pending_url",v);}
+    location.href="youtube-generator.html";
+  };
+
+  /* ---- Backup / restore (all localStorage) ---- */
+  $("exportBtn").onclick = () => {
+    const data = {}; 
+    try{ for(let i=0;i<localStorage.length;i++){ const k = localStorage.key(i); data[k] = localStorage.getItem(k); } }catch(e){}
+    const blob = new Blob([JSON.stringify({app:"BAJEE_JRF_AI", saved:new Date().toISOString(), data}, null, 2)], {type:"application/json"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = "jrf-backup-"+key(today)+".json"; a.click();
+    URL.revokeObjectURL(a.href);
+    $("backupMsg").textContent = "Backup saved. Keep a copy in Google Drive.";
+  };
+  $("importBtn").onclick = () => $("importFile").click();
+  $("importFile").onchange = e => {
+    const f = e.target.files[0]; if(!f) return;
+    const rd = new FileReader();
+    rd.onload = () => {
+      try{
+        const o = JSON.parse(rd.result);
+        if(o.app !== "BAJEE_JRF_AI" || !o.data) throw 0;
+        if(!confirm("Restore this backup? It will replace your current progress.")) return;
+        Object.keys(o.data).forEach(k => localStorage.setItem(k, o.data[k]));
+        $("backupMsg").textContent = "Backup restored. Reloading...";
+        setTimeout(() => location.reload(), 600);
+      }catch(err){ $("backupMsg").textContent = "This file is not a valid BAJEE JRF AI backup."; }
+    };
+    rd.readAsText(f);
+  };
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,3183 @@
+{
+  "project": "BAJEE JRF AI",
+  "step": "2.6",
+  "title": "PYQ to Knowledge Mapping",
+  "zero_cost": true,
+  "version": "1.1",
+  "mappings": [
+    {
+      "pyq_id": "ENG-PYQ-DEMO-001",
+      "knowledge_entities": [
+        "John Dryden"
+      ],
+      "authors": [
+        "John Dryden"
+      ],
+      "works": [
+        "An Essay of Dramatic Poesy"
+      ],
+      "concepts": [
+        "dramatic criticism",
+        "ancients and moderns",
+        "French drama",
+        "English drama"
+      ],
+      "period": [
+        "Restoration"
+      ],
+      "units": [
+        "Unit I",
+        "Unit VIII"
+      ],
+      "topics": [
+        "Drama",
+        "Literary Criticism"
+      ],
+      "related_entities": [
+        "Samuel Johnson",
+        "Alexander Pope",
+        "William Shakespeare"
+      ],
+      "mapping_reason": "The question concerns John Dryden's major work on dramatic criticism and therefore connects to Drama and Literary Criticism.",
+      "verified": false
+    },
+    {
+      "pyq_id": "ENG-PYQ-DEMO-002",
+      "knowledge_entities": [
+        "Jacques Derrida"
+      ],
+      "authors": [
+        "Jacques Derrida"
+      ],
+      "works": [
+        "Of Grammatology"
+      ],
+      "concepts": [
+        "deconstruction",
+        "différance",
+        "logocentrism",
+        "binary opposition"
+      ],
+      "period": [
+        "Post-World War II Theory",
+        "Poststructuralism"
+      ],
+      "units": [
+        "Unit IX"
+      ],
+      "topics": [
+        "Literary Theory",
+        "Poststructuralism",
+        "Deconstruction"
+      ],
+      "related_entities": [
+        "Roland Barthes",
+        "Michel Foucault",
+        "Ferdinand de Saussure"
+      ],
+      "mapping_reason": "The question directly tests the association between Jacques Derrida and deconstruction.",
+      "verified": false
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q01",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Data Interpretation"
+      ],
+      "period": [],
+      "units": [
+        "Unit VII"
+      ],
+      "topics": [
+        "Data Interpretation"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q02",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Data Interpretation"
+      ],
+      "period": [],
+      "units": [
+        "Unit VII"
+      ],
+      "topics": [
+        "Data Interpretation"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q03",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Data Interpretation"
+      ],
+      "period": [],
+      "units": [
+        "Unit VII"
+      ],
+      "topics": [
+        "Data Interpretation"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q04",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Data Interpretation"
+      ],
+      "period": [],
+      "units": [
+        "Unit VII"
+      ],
+      "topics": [
+        "Data Interpretation"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q05",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Data Interpretation"
+      ],
+      "period": [],
+      "units": [
+        "Unit VII"
+      ],
+      "topics": [
+        "Data Interpretation"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q06",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Teaching Aptitude"
+      ],
+      "period": [],
+      "units": [
+        "Unit I"
+      ],
+      "topics": [
+        "Teaching Aptitude"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q07",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Teaching Aptitude"
+      ],
+      "period": [],
+      "units": [
+        "Unit I"
+      ],
+      "topics": [
+        "Teaching Aptitude"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q08",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Information and Communication Technology"
+      ],
+      "period": [],
+      "units": [
+        "Unit VIII"
+      ],
+      "topics": [
+        "Information and Communication Technology"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q09",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Teaching Aptitude"
+      ],
+      "period": [],
+      "units": [
+        "Unit I"
+      ],
+      "topics": [
+        "Teaching Aptitude"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q10",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Teaching Aptitude"
+      ],
+      "period": [],
+      "units": [
+        "Unit I"
+      ],
+      "topics": [
+        "Teaching Aptitude"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q11",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Research Aptitude"
+      ],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Research Aptitude"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q12",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Research Aptitude"
+      ],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Research Aptitude"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q13",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Research Aptitude"
+      ],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Research Aptitude"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q14",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Research Aptitude"
+      ],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Research Aptitude"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q15",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Research Aptitude"
+      ],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Research Aptitude"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q16",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Communication"
+      ],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Communication"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q17",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Communication"
+      ],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Communication"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q18",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Communication"
+      ],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Communication"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q19",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Communication"
+      ],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Communication"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q20",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Communication"
+      ],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Communication"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q21",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Mathematical Reasoning and Aptitude"
+      ],
+      "period": [],
+      "units": [
+        "Unit V"
+      ],
+      "topics": [
+        "Mathematical Reasoning and Aptitude"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q22",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Mathematical Reasoning and Aptitude"
+      ],
+      "period": [],
+      "units": [
+        "Unit V"
+      ],
+      "topics": [
+        "Mathematical Reasoning and Aptitude"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q23",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Mathematical Reasoning and Aptitude"
+      ],
+      "period": [],
+      "units": [
+        "Unit V"
+      ],
+      "topics": [
+        "Mathematical Reasoning and Aptitude"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q24",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Mathematical Reasoning and Aptitude"
+      ],
+      "period": [],
+      "units": [
+        "Unit V"
+      ],
+      "topics": [
+        "Mathematical Reasoning and Aptitude"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q25",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Logical Reasoning"
+      ],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Logical Reasoning"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q26",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Logical Reasoning"
+      ],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Logical Reasoning"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q27",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Logical Reasoning"
+      ],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Logical Reasoning"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q28",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Logical Reasoning"
+      ],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Logical Reasoning"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q29",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Logical Reasoning"
+      ],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Logical Reasoning"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q30",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Logical Reasoning"
+      ],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Logical Reasoning"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q31",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Information and Communication Technology"
+      ],
+      "period": [],
+      "units": [
+        "Unit VIII"
+      ],
+      "topics": [
+        "Information and Communication Technology"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q32",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Information and Communication Technology"
+      ],
+      "period": [],
+      "units": [
+        "Unit VIII"
+      ],
+      "topics": [
+        "Information and Communication Technology"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q33",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Information and Communication Technology"
+      ],
+      "period": [],
+      "units": [
+        "Unit VIII"
+      ],
+      "topics": [
+        "Information and Communication Technology"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q34",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Information and Communication Technology"
+      ],
+      "period": [],
+      "units": [
+        "Unit VIII"
+      ],
+      "topics": [
+        "Information and Communication Technology"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q35",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Mathematical Reasoning and Aptitude"
+      ],
+      "period": [],
+      "units": [
+        "Unit V"
+      ],
+      "topics": [
+        "Mathematical Reasoning and Aptitude"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q36",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "People, Development and Environment"
+      ],
+      "period": [],
+      "units": [
+        "Unit IX"
+      ],
+      "topics": [
+        "People, Development and Environment"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q37",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "People, Development and Environment"
+      ],
+      "period": [],
+      "units": [
+        "Unit IX"
+      ],
+      "topics": [
+        "People, Development and Environment"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q38",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "People, Development and Environment"
+      ],
+      "period": [],
+      "units": [
+        "Unit IX"
+      ],
+      "topics": [
+        "People, Development and Environment"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q39",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "People, Development and Environment"
+      ],
+      "period": [],
+      "units": [
+        "Unit IX"
+      ],
+      "topics": [
+        "People, Development and Environment"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q40",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "People, Development and Environment"
+      ],
+      "period": [],
+      "units": [
+        "Unit IX"
+      ],
+      "topics": [
+        "People, Development and Environment"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q41",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Higher Education System"
+      ],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Higher Education System"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q42",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Higher Education System"
+      ],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Higher Education System"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q43",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Higher Education System"
+      ],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Higher Education System"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q44",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "People, Development and Environment"
+      ],
+      "period": [],
+      "units": [
+        "Unit IX"
+      ],
+      "topics": [
+        "People, Development and Environment"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q45",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Higher Education System"
+      ],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Higher Education System"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q46",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Higher Education System"
+      ],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Higher Education System"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q47",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Higher Education System"
+      ],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Higher Education System"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q48",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Higher Education System"
+      ],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Higher Education System"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q49",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Higher Education System"
+      ],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Higher Education System"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-PAPER1-2025DEC-20260107-S2-Q50",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [
+        "Higher Education System"
+      ],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Higher Education System"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": true,
+      "exam_eligible": null
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-001",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Research methods and MLA"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-002",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Poetry"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-003",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unclassified"
+      ],
+      "topics": [
+        "Disputed source question"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": false
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-004",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Research methods"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-005",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Bibliography"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-006",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IX"
+      ],
+      "topics": [
+        "Feminist theory"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-007",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit I"
+      ],
+      "topics": [
+        "Drama"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-008",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit I"
+      ],
+      "topics": [
+        "Indian drama"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-009",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VIII"
+      ],
+      "topics": [
+        "Literary criticism"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-010",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit III"
+      ],
+      "topics": [
+        "Fiction"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-011",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit V"
+      ],
+      "topics": [
+        "Language pedagogy"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-012",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "English in India"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-013",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Poetry"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-014",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Indian writing"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-015",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VIII"
+      ],
+      "topics": [
+        "Literary criticism"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-016",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Poetry"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-017",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit I"
+      ],
+      "topics": [
+        "Literary history"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-018",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Modern prose"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-019",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Indian literature"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-020",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit I"
+      ],
+      "topics": [
+        "Shakespeare"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-021",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unclassified"
+      ],
+      "topics": [
+        "Disputed source question"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": false
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-022",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit I"
+      ],
+      "topics": [
+        "Indian drama"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-023",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IX"
+      ],
+      "topics": [
+        "Feminist theory"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-024",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit I"
+      ],
+      "topics": [
+        "Shakespeare"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-025",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Romantic poetry"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-026",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Indian writing"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-027",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit III"
+      ],
+      "topics": [
+        "Fiction"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-028",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit III"
+      ],
+      "topics": [
+        "Fiction"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-029",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit I"
+      ],
+      "topics": [
+        "Drama"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-030",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit V"
+      ],
+      "topics": [
+        "Language"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-031",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Indian writing"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-032",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unclassified"
+      ],
+      "topics": [
+        "Disputed source question"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": false
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-033",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Prosody"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-034",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unclassified"
+      ],
+      "topics": [
+        "Disputed source question"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": false
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-035",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit V"
+      ],
+      "topics": [
+        "Language"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-036",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Research methods"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-037",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VIII"
+      ],
+      "topics": [
+        "Literary criticism"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-038",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IX"
+      ],
+      "topics": [
+        "Literary theory"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-039",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VII"
+      ],
+      "topics": [
+        "Cultural studies"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-040",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IX"
+      ],
+      "topics": [
+        "Postcolonial theory"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-041",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit III"
+      ],
+      "topics": [
+        "Gothic fiction"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-042",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit III"
+      ],
+      "topics": [
+        "Modernism"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-043",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IX"
+      ],
+      "topics": [
+        "Feminist theory"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-044",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit V"
+      ],
+      "topics": [
+        "Language"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-045",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Non-fictional prose"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-046",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Non-fictional prose"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-047",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Indian writing"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-048",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Indian writing"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-049",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Prosody"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-050",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VII"
+      ],
+      "topics": [
+        "Cultural studies"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-051",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VIII"
+      ],
+      "topics": [
+        "Literary criticism"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-052",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Indian writing"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-053",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit I"
+      ],
+      "topics": [
+        "Drama"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-054",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit V"
+      ],
+      "topics": [
+        "Language"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-055",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit V"
+      ],
+      "topics": [
+        "Linguistics"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-056",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Indian writing and literary relations"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-057",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Poetry"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-058",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Indian writing"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-059",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit III"
+      ],
+      "topics": [
+        "Indian fiction"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-060",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Literary history"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-061",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit III"
+      ],
+      "topics": [
+        "Fiction"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-062",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VIII"
+      ],
+      "topics": [
+        "Literary criticism"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-063",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Indian writing"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-064",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Non-fictional prose"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-065",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Non-fictional prose"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-066",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Research methods"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-067",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Research methods"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-068",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit III"
+      ],
+      "topics": [
+        "Fiction"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-069",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Indian writing"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-070",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit V"
+      ],
+      "topics": [
+        "Phonetics"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-071",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IX"
+      ],
+      "topics": [
+        "Feminist theory"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-072",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VII"
+      ],
+      "topics": [
+        "Disability studies"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-073",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit V"
+      ],
+      "topics": [
+        "Phonetics"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-074",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Indian poetry"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-075",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Indian poetry"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-076",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Indian writing"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-077",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VIII"
+      ],
+      "topics": [
+        "Indian literary criticism"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-078",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Research methods"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-079",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit X"
+      ],
+      "topics": [
+        "Research methods"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-080",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Non-fictional prose"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-081",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit V"
+      ],
+      "topics": [
+        "Phonetics"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-082",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unclassified"
+      ],
+      "topics": [
+        "Disputed source question"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": false
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-083",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IX"
+      ],
+      "topics": [
+        "Foucault"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-084",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VII"
+      ],
+      "topics": [
+        "Disability studies"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-085",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IX"
+      ],
+      "topics": [
+        "Structuralism"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-086",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VIII"
+      ],
+      "topics": [
+        "Literary criticism"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-087",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VIII"
+      ],
+      "topics": [
+        "Literary criticism"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-088",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit III"
+      ],
+      "topics": [
+        "Science fiction"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-089",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit V"
+      ],
+      "topics": [
+        "Linguistics"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-090",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit VI"
+      ],
+      "topics": [
+        "Indian writing"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-091",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Poetry"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-092",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Poetry"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-093",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Poetry"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-094",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unclassified"
+      ],
+      "topics": [
+        "Disputed source question"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": false
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-095",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit II"
+      ],
+      "topics": [
+        "Poetry"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-096",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Non-fictional prose"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-097",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Non-fictional prose"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-098",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Non-fictional prose"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-099",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Non-fictional prose"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    },
+    {
+      "pyq_id": "ENG-PYQ-LIMITLESS-JUNE2026-100",
+      "knowledge_entities": [],
+      "authors": [],
+      "works": [],
+      "concepts": [],
+      "period": [],
+      "units": [
+        "Unit IV"
+      ],
+      "topics": [
+        "Non-fictional prose"
+      ],
+      "related_entities": [],
+      "mapping_reason": "Linked by exact question ID. Unit, topic, concepts, and knowledge entities are copied only from this question record; no additional literary relationships are inferred.",
+      "verified": false,
+      "mapping_basis": "question_record_metadata_only",
+      "source_question_verified": false,
+      "exam_eligible": true
+    }
+  ],
+  "mapping_note": "Real question IDs are linked exactly. Generated metadata-only mappings are unverified; empty author/work/period/related-entity arrays mean no relationship is asserted. Mapping does not verify answer keys or override exam_eligible."
+}

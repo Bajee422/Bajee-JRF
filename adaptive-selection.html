@@ -1,0 +1,2129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BAJEE JRF AI - Adaptive Question Selection</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+        :root {
+            --navy: #071a3d;
+            --navy-2: #0d2859;
+            --gold: #d4af37;
+            --gold-light: #f4df8a;
+            --cream: #fffaf0;
+            --text: #172033;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--navy), var(--navy-2));
+        }
+
+        .navbar-brand {
+            color: var(--gold-light) !important;
+            font-weight: 700;
+            letter-spacing: .5px;
+        }
+
+        .hero {
+            background:
+                radial-gradient(circle at top right, rgba(212,175,55,.18), transparent 35%),
+                linear-gradient(135deg, var(--navy), #102e63);
+            color: white;
+            padding: 45px 0;
+        }
+
+        .hero h1 {
+            font-weight: 800;
+            letter-spacing: .5px;
+        }
+
+        .gold {
+            color: var(--gold-light);
+        }
+
+        .card {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 5px 18px rgba(0,0,0,.05);
+        }
+
+        .stat-card {
+            height: 100%;
+            padding: 20px;
+            background: white;
+        }
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--navy);
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .section-title {
+            color: var(--navy);
+            font-weight: 800;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: #111827;
+            border: none;
+            font-weight: 700;
+        }
+
+        .btn-gold:hover {
+            background: #c49f2f;
+            color: #111827;
+        }
+
+        .priority-high {
+            border-left: 5px solid #dc3545;
+        }
+
+        .priority-medium {
+            border-left: 5px solid #fd7e14;
+        }
+
+        .priority-normal {
+            border-left: 5px solid #198754;
+        }
+
+        .priority-badge-high {
+            background: #dc3545;
+        }
+
+        .priority-badge-medium {
+            background: #fd7e14;
+        }
+
+        .priority-badge-normal {
+            background: #198754;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .question-number {
+            color: var(--gold);
+            font-weight: 800;
+        }
+
+        .reason {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 14px;
+        }
+
+        .empty-state {
+            padding: 45px 20px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .status-box {
+            border-radius: 12px;
+            padding: 14px 16px;
+            background: #eef4ff;
+            border: 1px solid #cddcff;
+        }
+
+        .footer {
+            background: var(--navy);
+            color: #dbe4f5;
+            padding: 25px 0;
+            margin-top: 50px;
+        }
+
+        code {
+            color: #9c2c77;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            🎓 BAJEE JRF AI
+        </a>
+
+        <span class="text-light small">
+            Step 8.1 • Adaptive Question Selection
+        </span>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <p class="text-uppercase small fw-bold gold mb-2">
+                    JRF Adaptive Learning Engine
+                </p>
+
+                <h1>
+                    Adaptive Question Selection
+                </h1>
+
+                <p class="lead mb-0">
+                    Select the next PYQs intelligently using your actual
+                    performance, weak knowledge areas, previous attempts,
+                    and question history.
+                </p>
+            </div>
+
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                <div class="badge bg-warning text-dark fs-6 p-3">
+                    Step 8.1
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main class="container py-4">
+
+    <!-- STATUS -->
+    <div id="statusBox" class="status-box mb-4">
+        Loading PYQ database and performance history...
+    </div>
+
+    <!-- STATS -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="stat-number" id="totalQuestions">0</div>
+                <div class="stat-label">PYQ Questions</div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="stat-number" id="attemptedQuestions">0</div>
+                <div class="stat-label">Questions Attempted</div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="stat-number" id="weakEntities">0</div>
+                <div class="stat-label">Weak Knowledge Areas</div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="stat-number" id="adaptiveQuestions">0</div>
+                <div class="stat-label">Adaptive Questions</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="card p-4 mb-4">
+
+        <div class="row g-3 align-items-end">
+
+            <div class="col-md-4">
+                <label class="form-label fw-bold">
+                    Number of Questions
+                </label>
+
+                <select id="questionCount" class="form-select">
+                    <option value="5">5 Questions</option>
+                    <option value="10" selected>10 Questions</option>
+                    <option value="15">15 Questions</option>
+                    <option value="20">20 Questions</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label fw-bold">
+                    Unit
+                </label>
+
+                <select id="unitFilter" class="form-select">
+                    <option value="all">All Paper II Units</option>
+                    <option value="Unit I">Unit I — Drama</option>
+                    <option value="Unit II">Unit II — Poetry</option>
+                    <option value="Unit III">Unit III — Fiction</option>
+                    <option value="Unit IV">Unit IV — Non-Fiction</option>
+                    <option value="Unit V">Unit V — Language</option>
+                    <option value="Unit VI">Unit VI — English in India</option>
+                    <option value="Unit VII">Unit VII — Cultural Studies</option>
+                    <option value="Unit VIII">Unit VIII — Literary Criticism</option>
+                    <option value="Unit IX">Unit IX — Literary Theory</option>
+                    <option value="Unit X">Unit X — Research Methods</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <button
+                    id="generateBtn"
+                    class="btn btn-gold w-100 py-2"
+                >
+                    ⚡ Generate Adaptive Queue
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="card p-4 mb-4">
+
+        <h3 class="section-title mb-3">
+            How Step 8.1 Selects Questions
+        </h3>
+
+        <div class="row g-3">
+
+            <div class="col-md-4">
+                <div class="p-3 bg-light rounded">
+                    <strong>1. Weakness</strong>
+                    <p class="small text-muted mb-0 mt-2">
+                        Questions connected to weak knowledge entities receive
+                        higher priority.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="p-3 bg-light rounded">
+                    <strong>2. Previous Errors</strong>
+                    <p class="small text-muted mb-0 mt-2">
+                        Previously incorrect questions receive additional
+                        revision priority.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="p-3 bg-light rounded">
+                    <strong>3. Unseen Questions</strong>
+                    <p class="small text-muted mb-0 mt-2">
+                        Questions not previously attempted are introduced to
+                        expand coverage.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ADAPTIVE QUEUE -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h3 class="section-title mb-0">
+            Adaptive Question Queue
+        </h3>
+
+        <span id="queueBadge" class="badge bg-secondary">
+            Not generated
+        </span>
+
+    </div>
+
+    <div id="queueContainer">
+
+        <div class="card empty-state">
+            <h5>Adaptive queue not generated yet</h5>
+
+            <p class="mb-0">
+                Click <strong>Generate Adaptive Queue</strong> to calculate
+                the next questions from your existing JRF performance.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- KNOWLEDGE PRIORITY -->
+    <div class="card p-4 mt-4">
+
+        <h3 class="section-title mb-3">
+            Knowledge Priority
+        </h3>
+
+        <div id="knowledgePriority">
+
+            <div class="empty-state py-3">
+                Performance data will appear here after the adaptive queue
+                is generated.
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- TECHNICAL STATUS -->
+    <div class="card p-4 mt-4">
+
+        <h3 class="section-title mb-3">
+            Step 8.1 Technical Status
+        </h3>
+
+        <div class="table-responsive">
+
+            <table class="table table-sm align-middle">
+
+                <tbody>
+
+                    <tr>
+                        <td><strong>PYQ Database</strong></td>
+                        <td id="pyqStatus">Checking...</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Knowledge Mapping</strong></td>
+                        <td id="mappingStatus">Checking...</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Test History</strong></td>
+                        <td id="historyStatus">Checking...</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>Adaptive Engine</strong></td>
+                        <td id="engineStatus">Checking...</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>AI API</strong></td>
+                        <td>
+                            <span class="badge bg-secondary">
+                                Not used in Step 8.1
+                            </span>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</main>
+
+<footer class="footer">
+    <div class="container text-center">
+        <strong>BAJEE JRF AI</strong>
+        <div class="small mt-1">
+            Step 8.1 — Adaptive Question Selection
+        </div>
+    </div>
+</footer>
+
+<script>
+
+    /*
+    ============================================================
+    BAJEE JRF AI
+    STEP 8.1 — ADAPTIVE QUESTION SELECTION
+    ============================================================
+
+    Existing data sources:
+
+    PYQ:
+    data/pyqs/pyq-database.json
+
+    PYQ Mapping:
+    data/pyqs/pyq-knowledge-map.json
+
+    Test History:
+    localStorage:
+    bajee_jrf_ai_test_history_v1
+
+    Output:
+    localStorage:
+    bajee_jrf_ai_adaptive_queue_v1
+
+    This step does NOT use an external AI API.
+    ============================================================
+    */
+
+    const PYQ_PATH =
+        "data/pyqs/pyq-database.json";
+
+    const MAPPING_PATH =
+        "data/pyqs/pyq-knowledge-map.json";
+
+    const TEST_HISTORY_KEY =
+        "bajee_jrf_ai_test_history_v1";
+
+    const ADAPTIVE_QUEUE_KEY =
+        "bajee_jrf_ai_adaptive_queue_v1";
+
+
+    let pyqQuestions = [];
+    let pyqMappings = [];
+    let testHistory = [];
+
+    let questionPerformance = {};
+    let entityPerformance = {};
+
+    let adaptiveQueue = [];
+
+
+    /*
+    ------------------------------------------------------------
+    DOM
+    ------------------------------------------------------------
+    */
+
+    const statusBox =
+        document.getElementById("statusBox");
+
+    const totalQuestions =
+        document.getElementById("totalQuestions");
+
+    const attemptedQuestions =
+        document.getElementById("attemptedQuestions");
+
+    const weakEntities =
+        document.getElementById("weakEntities");
+
+    const adaptiveQuestions =
+        document.getElementById("adaptiveQuestions");
+
+    const queueContainer =
+        document.getElementById("queueContainer");
+
+    const queueBadge =
+        document.getElementById("queueBadge");
+
+    const knowledgePriority =
+        document.getElementById("knowledgePriority");
+
+
+    /*
+    ------------------------------------------------------------
+    NORMALIZATION
+    ------------------------------------------------------------
+    */
+
+    function normalize(value) {
+
+        return String(value || "")
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, " ");
+
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    LOAD TEST HISTORY
+    ------------------------------------------------------------
+    */
+
+    function loadTestHistory() {
+
+        try {
+
+            const raw =
+                localStorage.getItem(TEST_HISTORY_KEY);
+
+            if (!raw) {
+
+                testHistory = [];
+
+                return;
+            }
+
+            const parsed =
+                JSON.parse(raw);
+
+            if (Array.isArray(parsed)) {
+
+                testHistory = parsed;
+
+            } else if (
+                parsed &&
+                Array.isArray(parsed.tests)
+            ) {
+
+                testHistory = parsed.tests;
+
+            } else {
+
+                testHistory = [];
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Unable to read test history:",
+                error
+            );
+
+            testHistory = [];
+        }
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    LOAD DATA
+    ------------------------------------------------------------
+    */
+
+    async function loadData() {
+
+        statusBox.innerHTML =
+            "Loading PYQ database, knowledge mapping and test history...";
+
+        try {
+
+            const [
+                pyqResponse,
+                mappingResponse
+            ] = await Promise.all([
+
+                fetch(PYQ_PATH),
+
+                fetch(MAPPING_PATH)
+
+            ]);
+
+
+            if (!pyqResponse.ok) {
+
+                throw new Error(
+                    "PYQ database could not be loaded."
+                );
+            }
+
+
+            if (!mappingResponse.ok) {
+
+                throw new Error(
+                    "PYQ knowledge mapping could not be loaded."
+                );
+            }
+
+
+            const pyqData =
+                await pyqResponse.json();
+
+            const mappingData =
+                await mappingResponse.json();
+
+
+            pyqQuestions =
+                Array.isArray(pyqData)
+                    ? pyqData
+                    : Array.isArray(pyqData.questions)
+                        ? pyqData.questions
+                        : [];
+
+
+            pyqMappings =
+                Array.isArray(mappingData)
+                    ? mappingData
+                    : Array.isArray(mappingData.mappings)
+                        ? mappingData.mappings
+                        : [];
+
+
+            loadTestHistory();
+
+
+            document.getElementById(
+                "pyqStatus"
+            ).innerHTML =
+                '<span class="badge bg-success">Loaded</span>';
+
+
+            document.getElementById(
+                "mappingStatus"
+            ).innerHTML =
+                '<span class="badge bg-success">Loaded</span>';
+
+
+            document.getElementById(
+                "historyStatus"
+            ).innerHTML =
+                '<span class="badge bg-success">' +
+                testHistory.length +
+                " test record(s)</span>";
+
+
+            document.getElementById(
+                "engineStatus"
+            ).innerHTML =
+                '<span class="badge bg-success">Ready</span>';
+
+
+            totalQuestions.textContent =
+                pyqQuestions.length;
+
+
+            statusBox.innerHTML =
+                '<strong>Adaptive engine ready.</strong> ' +
+                "Your existing PYQs and test history are available.";
+
+
+            buildPerformanceData();
+
+            renderKnowledgePriority();
+
+            updateStats();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            statusBox.className =
+                "status-box mb-4 bg-danger-subtle border-danger";
+
+            statusBox.innerHTML =
+                "<strong>Loading error:</strong> " +
+                error.message +
+                "<br><small>" +
+                "Make sure you opened this page through Live Server." +
+                "</small>";
+
+
+            document.getElementById(
+                "pyqStatus"
+            ).innerHTML =
+                '<span class="badge bg-danger">Failed</span>';
+
+
+            document.getElementById(
+                "mappingStatus"
+            ).innerHTML =
+                '<span class="badge bg-danger">Failed</span>';
+
+
+            document.getElementById(
+                "engineStatus"
+            ).innerHTML =
+                '<span class="badge bg-danger">Not ready</span>';
+        }
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    BUILD PERFORMANCE DATA
+    ------------------------------------------------------------
+    */
+
+    function buildPerformanceData() {
+
+        questionPerformance = {};
+        entityPerformance = {};
+
+
+        testHistory.forEach(test => {
+
+            const results =
+                Array.isArray(test.question_results)
+                    ? test.question_results
+                    : [];
+
+
+            results.forEach(result => {
+
+                const questionId =
+                    String(
+                        result.question_id ??
+                        result.id ??
+                        ""
+                    );
+
+
+                if (!questionId) {
+                    return;
+                }
+
+
+                if (!questionPerformance[questionId]) {
+
+                    questionPerformance[questionId] = {
+
+                        attempts: 0,
+
+                        correct: 0,
+
+                        wrong: 0,
+
+                        lastAnswered: null,
+
+                        recentResults: []
+
+                    };
+
+                }
+
+
+                const record =
+                    questionPerformance[questionId];
+
+
+                record.attempts++;
+
+
+                const isCorrect =
+                    result.is_correct === true ||
+                    result.isCorrect === true ||
+                    (
+                        result.correct_answer &&
+                        result.selected_answer &&
+                        normalize(
+                            result.correct_answer
+                        ) === normalize(
+                            result.selected_answer
+                        )
+                    );
+
+
+                if (isCorrect) {
+
+                    record.correct++;
+
+                } else {
+
+                    record.wrong++;
+                }
+
+
+                record.recentResults.push(
+                    isCorrect
+                );
+
+
+                if (
+                    test.completed_at ||
+                    test.date ||
+                    test.timestamp
+                ) {
+
+                    record.lastAnswered =
+                        test.completed_at ||
+                        test.date ||
+                        test.timestamp;
+                }
+
+            });
+
+        });
+
+
+        /*
+        --------------------------------------------------------
+        ENTITY PERFORMANCE
+        --------------------------------------------------------
+        */
+
+        Object.entries(
+            questionPerformance
+        ).forEach(
+            ([questionId, performance]) => {
+
+                const mappings =
+                    getMappingsForQuestion(
+                        questionId
+                    );
+
+
+                mappings.forEach(mapping => {
+
+                    const entities =
+                        getMappingEntities(
+                            mapping
+                        );
+
+
+                    entities.forEach(entity => {
+
+                        const key =
+                            normalize(entity);
+
+
+                        if (!key) {
+                            return;
+                        }
+
+
+                        if (!entityPerformance[key]) {
+
+                            entityPerformance[key] = {
+
+                                name: entity,
+
+                                attempts: 0,
+
+                                correct: 0,
+
+                                wrong: 0,
+
+                                questionIds: new Set()
+
+                            };
+
+                        }
+
+
+                        entityPerformance[key].attempts +=
+                            performance.attempts;
+
+
+                        entityPerformance[key].correct +=
+                            performance.correct;
+
+
+                        entityPerformance[key].wrong +=
+                            performance.wrong;
+
+
+                        entityPerformance[key]
+                            .questionIds
+                            .add(questionId);
+
+                    });
+
+                });
+
+            }
+        );
+
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    GET PYQ MAPPINGS
+    ------------------------------------------------------------
+    */
+
+    function getMappingsForQuestion(questionId) {
+
+        return pyqMappings.filter(mapping => {
+
+            return String(
+                mapping.pyq_id ??
+                mapping.question_id ??
+                mapping.id ??
+                ""
+            ) === String(questionId);
+
+        });
+
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    EXTRACT KNOWLEDGE ENTITIES
+    ------------------------------------------------------------
+    */
+
+    function getMappingEntities(mapping) {
+
+        const values = [];
+
+
+        if (Array.isArray(mapping.knowledge_entities)) {
+
+            mapping.knowledge_entities.forEach(item => {
+
+                if (typeof item === "string") {
+
+                    values.push(item);
+
+                } else if (
+                    item &&
+                    typeof item === "object"
+                ) {
+
+                    values.push(
+                        item.name ||
+                        item.title ||
+                        item.id ||
+                        ""
+                    );
+
+                }
+
+            });
+
+        }
+
+
+        if (Array.isArray(mapping.related_entities)) {
+
+            mapping.related_entities.forEach(item => {
+
+                if (typeof item === "string") {
+
+                    values.push(item);
+
+                } else if (
+                    item &&
+                    typeof item === "object"
+                ) {
+
+                    values.push(
+                        item.name ||
+                        item.title ||
+                        item.id ||
+                        ""
+                    );
+
+                }
+
+            });
+
+        }
+
+
+        return [
+            ...new Set(
+                values
+                    .filter(Boolean)
+                    .map(item => String(item).trim())
+            )
+        ];
+
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    GET UNIT
+    ------------------------------------------------------------
+    */
+
+    function getQuestionUnit(question) {
+
+        if (question.unit) {
+
+            if (
+                Array.isArray(question.unit)
+            ) {
+
+                return question.unit[0] || "";
+
+            }
+
+            return String(question.unit);
+        }
+
+
+        const mapping =
+            getMappingsForQuestion(
+                question.id
+            )[0];
+
+
+        if (
+            mapping &&
+            Array.isArray(mapping.units) &&
+            mapping.units.length
+        ) {
+
+            return String(
+                mapping.units[0]
+            );
+
+        }
+
+
+        return "";
+
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    QUESTION SCORE
+    ------------------------------------------------------------
+
+    Higher score = stronger reason to select.
+
+    Score components:
+
+    Weak entity       + 40
+    Repeated errors   + 25
+    Recent error      + 15
+    Unseen question   + 20
+    Partial mastery   + 10
+    Unit balance      + 5
+
+    This is deliberately transparent.
+    ------------------------------------------------------------
+    */
+
+    function calculateQuestionScore(question) {
+
+        const questionId =
+            String(question.id);
+
+
+        const performance =
+            questionPerformance[
+                questionId
+            ];
+
+
+        let score = 0;
+
+        const reasons = [];
+
+
+        /*
+        Unseen
+        */
+
+        if (!performance) {
+
+            score += 20;
+
+            reasons.push(
+                "Unseen question"
+            );
+
+        }
+
+
+        /*
+        Existing performance
+        */
+
+        if (performance) {
+
+            const accuracy =
+                performance.attempts > 0
+                    ? (
+                        performance.correct /
+                        performance.attempts
+                    ) * 100
+                    : 0;
+
+
+            if (accuracy < 50) {
+
+                score += 25;
+
+                reasons.push(
+                    "Low question accuracy"
+                );
+
+            } else if (accuracy < 75) {
+
+                score += 10;
+
+                reasons.push(
+                    "Partial mastery"
+                );
+
+            }
+
+
+            /*
+            Repeated wrong answers
+            */
+
+            if (performance.wrong >= 2) {
+
+                score += 25;
+
+                reasons.push(
+                    "Repeated incorrect attempts"
+                );
+
+            } else if (
+                performance.wrong === 1
+            ) {
+
+                score += 10;
+
+                reasons.push(
+                    "Previously answered incorrectly"
+                );
+
+            }
+
+
+            /*
+            Recent incorrect result
+            */
+
+            const recent =
+                performance.recentResults;
+
+            if (
+                recent.length &&
+                recent[recent.length - 1] === false
+            ) {
+
+                score += 15;
+
+                reasons.push(
+                    "Recent incorrect answer"
+                );
+
+            }
+
+        }
+
+
+        /*
+        Entity weakness
+        */
+
+        const mappings =
+            getMappingsForQuestion(
+                questionId
+            );
+
+
+        const entities = [];
+
+
+        mappings.forEach(mapping => {
+
+            getMappingEntities(mapping)
+                .forEach(entity => {
+                    entities.push(entity);
+                });
+
+        });
+
+
+        let weakestEntityAccuracy =
+            100;
+
+        let hasWeakEntity = false;
+
+
+        entities.forEach(entity => {
+
+            const key =
+                normalize(entity);
+
+
+            const data =
+                entityPerformance[key];
+
+
+            if (!data) {
+
+                return;
+            }
+
+
+            const accuracy =
+                data.attempts > 0
+                    ? (
+                        data.correct /
+                        data.attempts
+                    ) * 100
+                    : 0;
+
+
+            if (accuracy < weakestEntityAccuracy) {
+
+                weakestEntityAccuracy =
+                    accuracy;
+
+            }
+
+
+            if (accuracy < 50) {
+
+                hasWeakEntity = true;
+
+            }
+
+        });
+
+
+        if (hasWeakEntity) {
+
+            score += 40;
+
+            reasons.push(
+                "Connected to weak knowledge"
+            );
+
+        } else if (
+            weakestEntityAccuracy < 75
+        ) {
+
+            score += 15;
+
+            reasons.push(
+                "Connected to developing knowledge"
+            );
+
+        }
+
+
+        /*
+        Unit bonus
+        */
+
+        const unit =
+            getQuestionUnit(question);
+
+
+        if (unit) {
+
+            score += 5;
+
+            reasons.push(
+                unit
+            );
+
+        }
+
+
+        return {
+
+            score,
+
+            reasons,
+
+            entities
+
+        };
+
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    GENERATE ADAPTIVE QUEUE
+    ------------------------------------------------------------
+    */
+
+    function generateAdaptiveQueue() {
+
+        const count =
+            Number(
+                document.getElementById(
+                    "questionCount"
+                ).value
+            );
+
+
+        const selectedUnit =
+            document.getElementById(
+                "unitFilter"
+            ).value;
+
+
+        let candidates =
+            [...pyqQuestions];
+
+
+        /*
+        Unit filtering
+        */
+
+        if (selectedUnit !== "all") {
+
+            candidates =
+                candidates.filter(question => {
+
+                    const unit =
+                        getQuestionUnit(question);
+
+                    return normalize(unit)
+                        .includes(
+                            normalize(selectedUnit)
+                        );
+
+                });
+
+        }
+
+
+        /*
+        Score candidates
+        */
+
+        const scored =
+            candidates.map(question => {
+
+                const result =
+                    calculateQuestionScore(
+                        question
+                    );
+
+
+                return {
+
+                    question,
+
+                    score: result.score,
+
+                    reasons: result.reasons,
+
+                    entities: result.entities
+
+                };
+
+            });
+
+
+        /*
+        Sort:
+
+        1. score
+        2. unseen
+        3. fewer attempts
+        4. stable question ID
+        */
+
+        scored.sort((a, b) => {
+
+            if (b.score !== a.score) {
+
+                return b.score - a.score;
+            }
+
+
+            const aAttempts =
+                questionPerformance[
+                    String(a.question.id)
+                ]?.attempts || 0;
+
+
+            const bAttempts =
+                questionPerformance[
+                    String(b.question.id)
+                ]?.attempts || 0;
+
+
+            if (aAttempts !== bAttempts) {
+
+                return aAttempts - bAttempts;
+            }
+
+
+            return String(
+                a.question.id
+            ).localeCompare(
+                String(b.question.id)
+            );
+
+        });
+
+
+        /*
+        Diversity pass
+
+        Avoid selecting too many questions
+        from exactly the same knowledge entity.
+        */
+
+        const selected = [];
+
+        const entityCounts = {};
+
+
+        for (const item of scored) {
+
+            if (
+                selected.length >= count
+            ) {
+
+                break;
+            }
+
+
+            const mainEntity =
+                item.entities.length
+                    ? normalize(
+                        item.entities[0]
+                    )
+                    : "unmapped";
+
+
+            const existing =
+                entityCounts[
+                    mainEntity
+                ] || 0;
+
+
+            /*
+            Avoid more than 3 consecutive
+            questions dominated by the same
+            entity when alternatives exist.
+            */
+
+            if (
+                existing >= 3 &&
+                scored.length > count
+            ) {
+
+                continue;
+            }
+
+
+            selected.push(item);
+
+
+            entityCounts[
+                mainEntity
+            ] =
+                existing + 1;
+
+        }
+
+
+        /*
+        If diversity filtering left the queue
+        short, fill from the remaining scores.
+        */
+
+        if (
+            selected.length < count
+        ) {
+
+            for (const item of scored) {
+
+                if (
+                    selected.length >= count
+                ) {
+
+                    break;
+                }
+
+
+                const exists =
+                    selected.some(
+                        selectedItem =>
+                            String(
+                                selectedItem.question.id
+                            ) === String(
+                                item.question.id
+                            )
+                    );
+
+
+                if (!exists) {
+
+                    selected.push(item);
+
+                }
+
+            }
+
+        }
+
+
+        adaptiveQueue =
+            selected;
+
+
+        saveAdaptiveQueue();
+
+        renderAdaptiveQueue();
+
+        updateStats();
+
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    SAVE ADAPTIVE QUEUE
+    ------------------------------------------------------------
+    */
+
+    function saveAdaptiveQueue() {
+
+        const payload = {
+
+            version: 1,
+
+            generated_at:
+                new Date().toISOString(),
+
+            algorithm:
+                "Step 8.1 Adaptive Question Selection",
+
+            questions:
+                adaptiveQueue.map(item => ({
+
+                    question_id:
+                        item.question.id,
+
+                    score:
+                        item.score,
+
+                    reasons:
+                        item.reasons,
+
+                    entities:
+                        item.entities
+
+                }))
+
+        };
+
+
+        localStorage.setItem(
+            ADAPTIVE_QUEUE_KEY,
+            JSON.stringify(payload)
+        );
+
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    RENDER ADAPTIVE QUEUE
+    ------------------------------------------------------------
+    */
+
+    function renderAdaptiveQueue() {
+
+        if (!adaptiveQueue.length) {
+
+            queueBadge.textContent =
+                "0 Questions";
+
+
+            queueContainer.innerHTML = `
+
+                <div class="card empty-state">
+
+                    <h5>
+                        No adaptive questions found
+                    </h5>
+
+                    <p class="mb-0">
+                        Try changing the unit filter.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        queueBadge.textContent =
+            adaptiveQueue.length +
+            " Questions";
+
+
+        queueBadge.className =
+            "badge bg-success";
+
+
+        queueContainer.innerHTML =
+            adaptiveQueue
+                .map(
+                    (item, index) => {
+
+                        const question =
+                            item.question;
+
+
+                        const performance =
+                            questionPerformance[
+                                String(question.id)
+                            ];
+
+
+                        const attempts =
+                            performance
+                                ?.attempts || 0;
+
+
+                        const accuracy =
+                            performance &&
+                            performance.attempts
+                                ? Math.round(
+                                    (
+                                        performance.correct /
+                                        performance.attempts
+                                    ) * 100
+                                )
+                                : null;
+
+
+                        let priorityClass =
+                            "priority-normal";
+
+
+                        let priorityBadge =
+                            "priority-badge-normal";
+
+
+                        let priorityText =
+                            "NORMAL";
+
+
+                        if (
+                            item.score >= 60
+                        ) {
+
+                            priorityClass =
+                                "priority-high";
+
+                            priorityBadge =
+                                "priority-badge-high";
+
+                            priorityText =
+                                "HIGH";
+
+                        } else if (
+                            item.score >= 35
+                        ) {
+
+                            priorityClass =
+                                "priority-medium";
+
+                            priorityBadge =
+                                "priority-badge-medium";
+
+                            priorityText =
+                                "MEDIUM";
+
+                        }
+
+
+                        const unit =
+                            getQuestionUnit(
+                                question
+                            );
+
+
+                        const reasonText =
+                            item.reasons.length
+                                ? item.reasons.join(
+                                    " • "
+                                )
+                                : "General coverage";
+
+
+                        return `
+
+                            <div class="
+                                question-card
+                                ${priorityClass}
+                            ">
+
+                                <div class="
+                                    d-flex
+                                    justify-content-between
+                                    align-items-start
+                                    gap-3
+                                    mb-3
+                                ">
+
+                                    <div>
+
+                                        <span class="question-number">
+                                            #${index + 1}
+                                        </span>
+
+                                        <span class="
+                                            badge
+                                            ${priorityBadge}
+                                            ms-2
+                                        ">
+                                            ${priorityText}
+                                        </span>
+
+                                    </div>
+
+                                    <span class="
+                                        badge
+                                        bg-dark
+                                    ">
+                                        Adaptive Score:
+                                        ${item.score}
+                                    </span>
+
+                                </div>
+
+
+                                <h5 class="mb-3">
+                                    ${escapeHtml(
+                                        question.question ||
+                                        "Question text unavailable"
+                                    )}
+                                </h5>
+
+
+                                <div class="mb-3">
+
+                                    ${
+                                        Array.isArray(
+                                            question.options
+                                        )
+                                            ? question.options
+                                                .map(
+                                                    (option, optionIndex) =>
+                                                        `
+                                                        <div class="
+                                                            p-2
+                                                            mb-1
+                                                            bg-light
+                                                            rounded
+                                                            small
+                                                        ">
+                                                            <strong>
+                                                                ${String.fromCharCode(
+                                                                    65 +
+                                                                    optionIndex
+                                                                )}.
+                                                            </strong>
+                                                            ${escapeHtml(
+                                                                typeof option === "string"
+                                                                    ? option
+                                                                    : (
+                                                                        option?.text ||
+                                                                        option?.label ||
+                                                                        JSON.stringify(option)
+                                                                    )
+                                                            )}
+                                                        </div>
+                                                        `
+                                                )
+                                                .join("")
+                                            : ""
+                                    }
+
+                                </div>
+
+
+                                <div class="reason mb-2">
+
+                                    <strong>
+                                        Why selected:
+                                    </strong>
+
+                                    ${escapeHtml(
+                                        reasonText
+                                    )}
+
+                                </div>
+
+
+                                <div class="small text-muted">
+
+                                    <strong>PYQ ID:</strong>
+                                    ${escapeHtml(
+                                        question.id
+                                    )}
+
+                                    &nbsp; • &nbsp;
+
+                                    <strong>Unit:</strong>
+                                    ${escapeHtml(
+                                        unit || "Unmapped"
+                                    )}
+
+                                    &nbsp; • &nbsp;
+
+                                    <strong>Attempts:</strong>
+                                    ${attempts}
+
+                                    ${
+                                        accuracy !== null
+                                            ? `
+                                                &nbsp; • &nbsp;
+                                                <strong>Accuracy:</strong>
+                                                ${accuracy}%
+                                              `
+                                            : `
+                                                &nbsp; • &nbsp;
+                                                <strong>Accuracy:</strong>
+                                                Unseen
+                                              `
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                )
+                .join("");
+
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    KNOWLEDGE PRIORITY
+    ------------------------------------------------------------
+    */
+
+    function renderKnowledgePriority() {
+
+        const entries =
+            Object.values(
+                entityPerformance
+            );
+
+
+        if (!entries.length) {
+
+            knowledgePriority.innerHTML = `
+
+                <div class="empty-state py-3">
+
+                    No question-level performance
+                    data is available yet.
+
+                    <br>
+
+                    Complete new tests using the
+                    current Test Engine to generate
+                    knowledge-wise performance.
+
+                </div>
+
+            `;
+
+            weakEntities.textContent =
+                "0";
+
+            return;
+        }
+
+
+        entries.sort((a, b) => {
+
+            const aAccuracy =
+                a.attempts
+                    ? (
+                        a.correct /
+                        a.attempts
+                    ) * 100
+                    : 0;
+
+
+            const bAccuracy =
+                b.attempts
+                    ? (
+                        b.correct /
+                        b.attempts
+                    ) * 100
+                    : 0;
+
+
+            return aAccuracy - bAccuracy;
+
+        });
+
+
+        const weak =
+            entries.filter(
+                item =>
+                    item.attempts > 0 &&
+                    (
+                        item.correct /
+                        item.attempts
+                    ) < 0.5
+            );
+
+
+        weakEntities.textContent =
+            weak.length;
+
+
+        const topEntries =
+            entries.slice(0, 12);
+
+
+        knowledgePriority.innerHTML =
+            topEntries.map(
+                item => {
+
+                    const accuracy =
+                        item.attempts
+                            ? Math.round(
+                                (
+                                    item.correct /
+                                    item.attempts
+                                ) * 100
+                            )
+                            : 0;
+
+
+                    let badge =
+                        "bg-success";
+
+
+                    if (accuracy < 50) {
+
+                        badge =
+                            "bg-danger";
+
+                    } else if (
+                        accuracy < 75
+                    ) {
+
+                        badge =
+                            "bg-warning text-dark";
+
+                    }
+
+
+                    return `
+
+                        <div class="
+                            d-flex
+                            justify-content-between
+                            align-items-center
+                            border-bottom
+                            py-2
+                        ">
+
+                            <div>
+
+                                <strong>
+                                    ${escapeHtml(
+                                        item.name
+                                    )}
+                                </strong>
+
+                                <div class="
+                                    small
+                                    text-muted
+                                ">
+                                    ${item.attempts}
+                                    attempts
+                                    •
+                                    ${item.correct}
+                                    correct
+                                    •
+                                    ${item.wrong}
+                                    wrong
+                                </div>
+
+                            </div>
+
+                            <span class="
+                                badge
+                                ${badge}
+                            ">
+                                ${accuracy}%
+                            </span>
+
+                        </div>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    UPDATE STATS
+    ------------------------------------------------------------
+    */
+
+    function updateStats() {
+
+        attemptedQuestions.textContent =
+            Object.keys(
+                questionPerformance
+            ).length;
+
+
+        adaptiveQuestions.textContent =
+            adaptiveQueue.length;
+
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    ESCAPE HTML
+    ------------------------------------------------------------
+    */
+
+    function escapeHtml(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /*
+    ------------------------------------------------------------
+    BUTTON
+    ------------------------------------------------------------
+    */
+
+    document
+        .getElementById("generateBtn")
+        .addEventListener(
+            "click",
+            generateAdaptiveQueue
+        );
+
+
+    /*
+    ------------------------------------------------------------
+    START
+    ------------------------------------------------------------
+    */
+
+    loadData();
+
+</script>
+
+</body>
+</html>

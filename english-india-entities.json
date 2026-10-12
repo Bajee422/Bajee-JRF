@@ -1,0 +1,886 @@
+{
+  "project": "BAJEE JRF AI",
+  "step": "7.6",
+  "title": "English in India Knowledge Expansion",
+  "zero_cost": true,
+  "description": "JRF-oriented knowledge entities for UGC NET English Paper II Unit VI - English in India: history, evolution, and futures.",
+  "unit": "Unit VI",
+  "entities": [
+    {
+      "id": "english-in-india",
+      "name": "English in India",
+      "type": "Language / Historical Development",
+      "period": "18th Century - Present",
+      "works": [],
+      "years": [
+        "18th century - early English presence",
+        "1835 - Macaulay's Minute",
+        "1854 - Wood's Despatch",
+        "1947 - Indian Independence"
+      ],
+      "concepts": [
+        "English education",
+        "colonial education",
+        "Indian English",
+        "language contact",
+        "multilingualism",
+        "language policy",
+        "World Englishes",
+        "nativization",
+        "Indianization",
+        "global English"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit V",
+        "Unit VII"
+      ],
+      "relatedEntities": [
+        "Thomas Babington Macaulay",
+        "Charles Grant",
+        "Wood's Despatch",
+        "Srinivas Iyengar",
+        "Braj B. Kachru",
+        "David Crystal"
+      ],
+      "description": "The history of English in India involves colonial education, institutional expansion, Indianization, multilingual contact, post-independence language policy, and the emergence of Indian English as a recognized variety of English."
+    },
+    {
+      "id": "charles-grant",
+      "name": "Charles Grant",
+      "type": "Colonial Education Thinker",
+      "period": "Late Eighteenth - Early Nineteenth Century",
+      "works": [
+        "Observations on the State of Society among the Asiatic Subjects of Great Britain"
+      ],
+      "years": [
+        "1792 - Observations associated with Grant's educational argument"
+      ],
+      "concepts": [
+        "English education",
+        "Christian missionary education",
+        "colonial education",
+        "Western knowledge",
+        "education policy"
+      ],
+      "units": [
+        "Unit VI"
+      ],
+      "relatedEntities": [
+        "Thomas Babington Macaulay",
+        "East India Company",
+        "English education in India"
+      ],
+      "description": "Charles Grant advocated educational and social reform in British India and supported the spread of Western education and Christianity."
+    },
+    {
+      "id": "macaulay-minute",
+      "name": "Thomas Babington Macaulay",
+      "type": "Colonial Education Thinker",
+      "period": "Nineteenth Century",
+      "works": [
+        "Minute on Indian Education"
+      ],
+      "years": [
+        "1835 - Minute on Indian Education"
+      ],
+      "concepts": [
+        "English education",
+        "Macaulay's Minute",
+        "colonial education",
+        "Western knowledge",
+        "English medium education",
+        "Anglicist-Orientalist controversy"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "William Bentinck",
+        "Charles Trevelyan",
+        "Wood's Despatch",
+        "Orientalist-Anglicist controversy"
+      ],
+      "description": "Macaulay's 1835 Minute on Indian Education argued for promoting English and Western learning in colonial education policy."
+    },
+    {
+      "id": "macaulay-minute-1835",
+      "name": "Minute on Indian Education",
+      "type": "Education Policy Document",
+      "period": "British India",
+      "works": [
+        "Minute on Indian Education"
+      ],
+      "years": [
+        "1835"
+      ],
+      "concepts": [
+        "Anglicism",
+        "English education",
+        "colonial education",
+        "Western learning",
+        "education policy"
+      ],
+      "units": [
+        "Unit VI"
+      ],
+      "relatedEntities": [
+        "Thomas Babington Macaulay",
+        "William Bentinck",
+        "Wood's Despatch"
+      ],
+      "description": "The 1835 Minute became an important document in the development of British educational policy concerning English and Western learning in India."
+    },
+    {
+      "id": "wood-despatch",
+      "name": "Wood's Despatch",
+      "type": "Education Policy Document",
+      "period": "British India",
+      "works": [
+        "Wood's Despatch"
+      ],
+      "years": [
+        "1854"
+      ],
+      "concepts": [
+        "education system",
+        "universities",
+        "teacher training",
+        "vernacular education",
+        "English education",
+        "higher education"
+      ],
+      "units": [
+        "Unit VI",
+        "Higher Education"
+      ],
+      "relatedEntities": [
+        "Charles Wood",
+        "Macaulay's Minute",
+        "University of Calcutta",
+        "University of Bombay",
+        "University of Madras"
+      ],
+      "description": "Wood's Despatch of 1854 proposed a more systematic educational structure in India and is associated with the development of modern higher education and educational administration."
+    },
+    {
+      "id": "english-and-indian-education",
+      "name": "English and Indian Education",
+      "type": "Educational Development",
+      "period": "Nineteenth Century - Present",
+      "works": [],
+      "years": [
+        "1835",
+        "1854",
+        "1947",
+        "1968",
+        "1986",
+        "2020"
+      ],
+      "concepts": [
+        "English medium",
+        "higher education",
+        "colonial education",
+        "Indian education",
+        "language policy",
+        "multilingual education"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "Macaulay's Minute",
+        "Wood's Despatch",
+        "University education in India",
+        "Three Language Formula",
+        "National Education Policy 2020"
+      ],
+      "description": "English became deeply established in Indian education through colonial institutions and continued to play an important role in higher education, administration, professional communication, and global interaction after independence."
+    },
+    {
+      "id": "indian-english",
+      "name": "Indian English",
+      "type": "World English Variety",
+      "period": "Nineteenth Century - Present",
+      "works": [],
+      "years": [],
+      "concepts": [
+        "Indian English",
+        "World Englishes",
+        "nativization",
+        "Indianization",
+        "language contact",
+        "code-switching",
+        "multilingualism",
+        "regional variation"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Braj B. Kachru",
+        "Raja Rao",
+        "Mulk Raj Anand",
+        "R. K. Narayan",
+        "Salman Rushdie"
+      ],
+      "description": "Indian English refers to varieties of English used in India that have developed through contact with Indian languages, institutions, cultures, and communicative practices."
+    },
+    {
+      "id": "indianization-of-english",
+      "name": "Indianization of English",
+      "type": "Linguistic Process",
+      "period": "Nineteenth Century - Present",
+      "works": [],
+      "years": [],
+      "concepts": [
+        "Indianization",
+        "nativization",
+        "language contact",
+        "lexical borrowing",
+        "syntactic variation",
+        "cultural expression"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Indian English",
+        "Braj B. Kachru",
+        "Raja Rao",
+        "Salman Rushdie"
+      ],
+      "description": "Indianization describes the adaptation of English to Indian linguistic and cultural contexts through vocabulary, syntax, discourse patterns, literary expression, and communicative practices."
+    },
+    {
+      "id": "nativization",
+      "name": "Nativization",
+      "type": "World Englishes Concept",
+      "period": "Modern Linguistics",
+      "works": [],
+      "years": [],
+      "concepts": [
+        "language adaptation",
+        "Indian English",
+        "World Englishes",
+        "local linguistic influence",
+        "new varieties"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Braj B. Kachru",
+        "Indian English",
+        "World Englishes"
+      ],
+      "description": "Nativization refers to the process through which English becomes adapted to the linguistic, cultural, and communicative conditions of a new speech community."
+    },
+    {
+      "id": "braj-kachru",
+      "name": "Braj B. Kachru",
+      "type": "Linguist / World Englishes Scholar",
+      "period": "Twentieth - Twenty-First Century",
+      "works": [
+        "The Indianization of English",
+        "The Other Tongue",
+        "World Englishes: Critical Concepts"
+      ],
+      "years": [
+        "1983 - The Indianization of English",
+        "1985 - The Other Tongue"
+      ],
+      "concepts": [
+        "World Englishes",
+        "Three Circles",
+        "Inner Circle",
+        "Outer Circle",
+        "Expanding Circle",
+        "Indian English",
+        "nativization"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit V",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Indian English",
+        "Three Circles Model",
+        "David Crystal",
+        "Salikoko Mufwene"
+      ],
+      "description": "Braj B. Kachru is a major scholar of World Englishes and is especially associated with the Three Circles model and the study of Indian English."
+    },
+    {
+      "id": "three-circles-model",
+      "name": "Kachru's Three Circles Model",
+      "type": "World Englishes Model",
+      "period": "1980s - Present",
+      "works": [],
+      "years": [
+        "1985 - major formulation associated with The Other Tongue"
+      ],
+      "concepts": [
+        "Inner Circle",
+        "Outer Circle",
+        "Expanding Circle",
+        "World Englishes",
+        "English as a native language",
+        "English as a second language",
+        "English as a foreign language"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Braj B. Kachru",
+        "Indian English",
+        "World Englishes"
+      ],
+      "description": "Kachru's Three Circles model classifies contexts of English use into Inner Circle, Outer Circle, and Expanding Circle contexts."
+    },
+    {
+      "id": "inner-circle",
+      "name": "Inner Circle",
+      "type": "Kachru Model Category",
+      "period": "Modern World Englishes",
+      "works": [],
+      "years": [],
+      "concepts": [
+        "native English",
+        "first language",
+        "traditional English-speaking countries",
+        "Kachru's model"
+      ],
+      "units": [
+        "Unit VI"
+      ],
+      "relatedEntities": [
+        "Braj B. Kachru",
+        "Three Circles Model"
+      ],
+      "description": "In Kachru's model, the Inner Circle represents traditional contexts in which English historically functions as a primary native language."
+    },
+    {
+      "id": "outer-circle",
+      "name": "Outer Circle",
+      "type": "Kachru Model Category",
+      "period": "Modern World Englishes",
+      "works": [],
+      "years": [],
+      "concepts": [
+        "institutionalized second language",
+        "postcolonial English",
+        "World Englishes",
+        "Indian English"
+      ],
+      "units": [
+        "Unit VI"
+      ],
+      "relatedEntities": [
+        "India",
+        "Braj B. Kachru",
+        "Three Circles Model"
+      ],
+      "description": "In Kachru's model, the Outer Circle includes many postcolonial contexts where English has important institutional and second-language functions. India is commonly placed in this circle."
+    },
+    {
+      "id": "expanding-circle",
+      "name": "Expanding Circle",
+      "type": "Kachru Model Category",
+      "period": "Modern World Englishes",
+      "works": [],
+      "years": [],
+      "concepts": [
+        "English as a foreign language",
+        "international English",
+        "global communication",
+        "Kachru's model"
+      ],
+      "units": [
+        "Unit VI"
+      ],
+      "relatedEntities": [
+        "Braj B. Kachru",
+        "Three Circles Model"
+      ],
+      "description": "In Kachru's model, the Expanding Circle represents contexts where English is primarily learned and used internationally without a long-established institutional second-language role."
+    },
+    {
+      "id": "world-englishes",
+      "name": "World Englishes",
+      "type": "Linguistic Field",
+      "period": "Twentieth Century - Present",
+      "works": [],
+      "years": [
+        "1980s - major development of the field"
+      ],
+      "concepts": [
+        "plural Englishes",
+        "localized varieties",
+        "Indian English",
+        "nativization",
+        "global English",
+        "linguistic diversity"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Braj B. Kachru",
+        "Indian English",
+        "Three Circles Model"
+      ],
+      "description": "World Englishes studies the diverse varieties, functions, histories, and sociolinguistic identities associated with English around the world."
+    },
+    {
+      "id": "indian-english-literature",
+      "name": "Indian English Literature",
+      "type": "Literary Tradition",
+      "period": "Nineteenth Century - Present",
+      "works": [
+        "Rajmohan's Wife",
+        "Swami and Friends",
+        "Untouchable",
+        "Kanthapura",
+        "Midnight's Children"
+      ],
+      "years": [
+        "1864 - Rajmohan's Wife",
+        "1935 - Swami and Friends",
+        "1935 - Untouchable",
+        "1938 - Kanthapura",
+        "1981 - Midnight's Children"
+      ],
+      "concepts": [
+        "Indian English writing",
+        "postcolonial literature",
+        "Indian identity",
+        "multilingualism",
+        "nativization",
+        "colonial encounter"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit III",
+        "Unit VII"
+      ],
+      "relatedEntities": [
+        "Bankim Chandra Chatterjee",
+        "R. K. Narayan",
+        "Mulk Raj Anand",
+        "Raja Rao",
+        "Salman Rushdie"
+      ],
+      "description": "Indian English literature developed alongside the historical growth of English in India and frequently engages with colonialism, Indian society, identity, language, tradition, and modernity."
+    },
+    {
+      "id": "raja-rao",
+      "name": "Raja Rao",
+      "type": "Indian English Writer",
+      "period": "Twentieth Century",
+      "works": [
+        "Kanthapura",
+        "The Serpent and the Rope"
+      ],
+      "years": [
+        "1938 - Kanthapura",
+        "1960 - The Serpent and the Rope"
+      ],
+      "concepts": [
+        "Indian English",
+        "Indianization",
+        "nationalism",
+        "Gandhian movement",
+        "oral storytelling",
+        "Indian narrative structures"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit III",
+        "Unit VII"
+      ],
+      "relatedEntities": [
+        "R. K. Narayan",
+        "Mulk Raj Anand",
+        "Indian English Literature"
+      ],
+      "description": "Raja Rao's writing is important to the development of Indian English literature, particularly for adapting English narrative to Indian cultural and oral traditions."
+    },
+    {
+      "id": "rk-narayan",
+      "name": "R. K. Narayan",
+      "type": "Indian English Writer",
+      "period": "Twentieth Century",
+      "works": [
+        "Swami and Friends",
+        "The Guide",
+        "The English Teacher",
+        "Malgudi Days"
+      ],
+      "years": [
+        "1935 - Swami and Friends",
+        "1955 - The Guide",
+        "1945 - The English Teacher",
+        "1943 - Malgudi Days"
+      ],
+      "concepts": [
+        "Indian English fiction",
+        "Malgudi",
+        "ordinary life",
+        "Indian society",
+        "narrative style"
+      ],
+      "units": [
+        "Unit III",
+        "Unit VI"
+      ],
+      "relatedEntities": [
+        "Raja Rao",
+        "Mulk Raj Anand",
+        "Indian English Literature"
+      ],
+      "description": "R. K. Narayan is a major Indian English novelist known especially for his fictional South Indian town of Malgudi and his exploration of everyday Indian life."
+    },
+    {
+      "id": "mulk-raj-anand",
+      "name": "Mulk Raj Anand",
+      "type": "Indian English Writer",
+      "period": "Twentieth Century",
+      "works": [
+        "Untouchable",
+        "Coolie",
+        "Two Leaves and a Bud"
+      ],
+      "years": [
+        "1935 - Untouchable",
+        "1936 - Coolie",
+        "1937 - Two Leaves and a Bud"
+      ],
+      "concepts": [
+        "Indian English fiction",
+        "social inequality",
+        "caste",
+        "colonialism",
+        "social realism"
+      ],
+      "units": [
+        "Unit III",
+        "Unit VI",
+        "Unit VII"
+      ],
+      "relatedEntities": [
+        "Raja Rao",
+        "R. K. Narayan",
+        "Indian English Literature"
+      ],
+      "description": "Mulk Raj Anand's fiction frequently addresses social inequality, caste, poverty, colonialism, and marginalized communities."
+    },
+    {
+      "id": "salman-rushdie",
+      "name": "Salman Rushdie",
+      "type": "Indian / Postcolonial English Writer",
+      "period": "Late Twentieth Century - Present",
+      "works": [
+        "Midnight's Children",
+        "The Satanic Verses",
+        "Imaginary Homelands"
+      ],
+      "years": [
+        "1981 - Midnight's Children",
+        "1988 - The Satanic Verses",
+        "1991 - Imaginary Homelands"
+      ],
+      "concepts": [
+        "postcolonial literature",
+        "Indian English",
+        "hybridity",
+        "magical realism",
+        "national identity",
+        "history and fiction",
+        "language experimentation"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit III",
+        "Unit VII"
+      ],
+      "relatedEntities": [
+        "Homi K. Bhabha",
+        "Indian English Literature",
+        "Postcolonial Literature"
+      ],
+      "description": "Salman Rushdie's writing is associated with postcolonial literary experimentation, hybrid identity, multilingual cultural contexts, and innovative uses of English."
+    },
+    {
+      "id": "english-language-politics-india",
+      "name": "English and Language Politics in India",
+      "type": "Language Policy / Sociolinguistics",
+      "period": "1947 - Present",
+      "works": [],
+      "years": [
+        "1947 - Indian Independence",
+        "1950 - Constitution of India",
+        "1963 - Official Languages Act",
+        "1967 - Official Languages Act amendment"
+      ],
+      "concepts": [
+        "language policy",
+        "official language",
+        "Hindi-English relationship",
+        "multilingualism",
+        "language conflict",
+        "linguistic identity"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit V",
+        "Unit VII"
+      ],
+      "relatedEntities": [
+        "English in India",
+        "Indian multilingualism",
+        "Three Language Formula"
+      ],
+      "description": "English occupies an important position in India's multilingual language ecology and continues to function alongside Indian languages in administration, education, law, business, science, and higher education."
+    },
+    {
+      "id": "three-language-formula",
+      "name": "Three Language Formula",
+      "type": "Language Education Policy",
+      "period": "Post-Independence India",
+      "works": [],
+      "years": [
+        "1968 - National Policy on Education context",
+        "1986 - National Policy on Education"
+      ],
+      "concepts": [
+        "multilingual education",
+        "language policy",
+        "English education",
+        "Indian languages",
+        "Hindi",
+        "regional languages"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "English in India",
+        "Language Policy in India",
+        "National Education Policy"
+      ],
+      "description": "The Three Language Formula is associated with India's approach to multilingual education involving regional languages, Hindi, and English or another modern Indian language depending on context."
+    },
+    {
+      "id": "english-after-independence",
+      "name": "English after Indian Independence",
+      "type": "Language History",
+      "period": "1947 - Present",
+      "works": [],
+      "years": [
+        "1947 - Independence",
+        "1950 - Constitution",
+        "1963 - Official Languages Act",
+        "1967 - Amendment"
+      ],
+      "concepts": [
+        "postcolonial English",
+        "official language",
+        "associate official language",
+        "higher education",
+        "administration",
+        "global communication"
+      ],
+      "units": [
+        "Unit VI"
+      ],
+      "relatedEntities": [
+        "English in India",
+        "Indian English",
+        "Language Politics in India"
+      ],
+      "description": "After independence, English continued to have significant institutional functions in India, particularly in higher education, administration, law, science, technology, and international communication."
+    },
+    {
+      "id": "english-and-multilingualism",
+      "name": "English and Multilingualism in India",
+      "type": "Sociolinguistics",
+      "period": "Modern India",
+      "works": [],
+      "years": [],
+      "concepts": [
+        "multilingualism",
+        "code-switching",
+        "code-mixing",
+        "language contact",
+        "Indian English",
+        "linguistic diversity"
+      ],
+      "units": [
+        "Unit V",
+        "Unit VI",
+        "Unit VII"
+      ],
+      "relatedEntities": [
+        "Indian English",
+        "World Englishes",
+        "Language Politics in India"
+      ],
+      "description": "English functions within India's highly multilingual environment and interacts with regional and national languages in education, media, literature, administration, and everyday communication."
+    },
+    {
+      "id": "english-as-global-language",
+      "name": "English as a Global Language",
+      "type": "Sociolinguistic Concept",
+      "period": "Twentieth Century - Present",
+      "works": [
+        "English as a Global Language"
+      ],
+      "years": [
+        "1997 - English as a Global Language"
+      ],
+      "concepts": [
+        "global English",
+        "international communication",
+        "World Englishes",
+        "globalization",
+        "English as lingua franca"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "David Crystal",
+        "Braj B. Kachru",
+        "World Englishes"
+      ],
+      "description": "English has developed major international functions in education, science, technology, business, diplomacy, media, and global communication."
+    },
+    {
+      "id": "david-crystal",
+      "name": "David Crystal",
+      "type": "Linguist",
+      "period": "Twentieth - Twenty-First Century",
+      "works": [
+        "English as a Global Language",
+        "The Cambridge Encyclopedia of Language"
+      ],
+      "years": [
+        "1997 - English as a Global Language"
+      ],
+      "concepts": [
+        "global English",
+        "language change",
+        "World Englishes",
+        "English varieties",
+        "language and globalization"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Braj B. Kachru",
+        "World Englishes",
+        "English as a Global Language"
+      ],
+      "description": "David Crystal has written extensively on the history, development, diversity, and global role of English."
+    },
+    {
+      "id": "future-of-english-in-india",
+      "name": "Future of English in India",
+      "type": "Language Futures",
+      "period": "Twenty-First Century",
+      "works": [],
+      "years": [
+        "2020 - National Education Policy"
+      ],
+      "concepts": [
+        "English and technology",
+        "digital communication",
+        "multilingualism",
+        "globalization",
+        "English for employment",
+        "higher education",
+        "World Englishes"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit V",
+        "Unit VII"
+      ],
+      "relatedEntities": [
+        "Indian English",
+        "World Englishes",
+        "English as a Global Language",
+        "National Education Policy 2020"
+      ],
+      "description": "The future of English in India is connected with higher education, employment, technology, international communication, digital media, multilingualism, and the continuing development of Indian varieties of English."
+    },
+    {
+      "id": "english-in-higher-education-india",
+      "name": "English in Indian Higher Education",
+      "type": "Education / Language",
+      "period": "Post-Independence India - Present",
+      "works": [],
+      "years": [
+        "1947 - Present"
+      ],
+      "concepts": [
+        "higher education",
+        "academic English",
+        "research communication",
+        "English medium",
+        "professional education",
+        "international scholarship"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "English in India",
+        "Indian English",
+        "Research Methods"
+      ],
+      "description": "English remains important in Indian higher education, particularly in research, professional education, academic publishing, science, technology, and international scholarly communication."
+    },
+    {
+      "id": "english-and-employment-india",
+      "name": "English and Employment in India",
+      "type": "Sociolinguistic / Economic Role",
+      "period": "Post-Independence India - Present",
+      "works": [],
+      "years": [],
+      "concepts": [
+        "English proficiency",
+        "employment",
+        "professional communication",
+        "globalization",
+        "service sector",
+        "social mobility"
+      ],
+      "units": [
+        "Unit VI",
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "English in India",
+        "Indian English",
+        "Global English"
+      ],
+      "description": "English has significant roles in professional communication, higher education, technology, business, and international employment contexts in India."
+    }
+  ]
+}

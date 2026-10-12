@@ -1,0 +1,4161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <title>BAJEE JRF AI — Basic Test Engine</title>
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+  <style>
+
+    /* =====================================================
+       BAJEE JRF AI
+       STEP 3.0 — BASIC TEST ENGINE
+       ZERO COST
+    ===================================================== */
+
+    :root {
+
+      --navy:
+        #071a3d;
+
+      --navy-2:
+        #0d2d63;
+
+      --gold:
+        #d4af37;
+
+      --light:
+        #f4f6fa;
+
+      --green:
+        #198754;
+
+      --red:
+        #dc3545;
+
+      --yellow:
+        #ffc107;
+
+    }
+
+
+    body {
+
+      background:
+        var(--light);
+
+      color:
+        #071a3d;
+
+      min-height:
+        100vh;
+
+    }
+
+
+    .bg-navy {
+
+      background:
+        var(--navy) !important;
+
+    }
+
+
+    .text-gold {
+
+      color:
+        var(--gold) !important;
+
+    }
+
+
+    .btn-navy {
+
+      background:
+        var(--navy);
+
+      color:
+        white;
+
+      border:
+        1px solid var(--navy);
+
+    }
+
+
+    .btn-navy:hover {
+
+      background:
+        var(--navy-2);
+
+      color:
+        white;
+
+    }
+
+
+    .btn-gold {
+
+      background:
+        var(--gold);
+
+      color:
+        var(--navy);
+
+      border:
+        1px solid var(--gold);
+
+      font-weight:
+        700;
+
+    }
+
+
+    .btn-gold:hover {
+
+      background:
+        #c29d20;
+
+      color:
+        var(--navy);
+
+    }
+
+
+    .hero {
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--navy),
+          var(--navy-2)
+        );
+
+      color:
+        white;
+
+      border-radius:
+        18px;
+
+      padding:
+        35px;
+
+      box-shadow:
+        0 10px 30px
+        rgba(7, 26, 61, .15);
+
+    }
+
+
+    .eyebrow {
+
+      color:
+        var(--gold);
+
+      font-size:
+        12px;
+
+      font-weight:
+        800;
+
+      letter-spacing:
+        2px;
+
+      margin-bottom:
+        8px;
+
+    }
+
+
+    .section-card {
+
+      background:
+        white;
+
+      border-radius:
+        16px;
+
+      padding:
+        25px;
+
+      box-shadow:
+        0 4px 18px
+        rgba(0, 0, 0, .05);
+
+    }
+
+
+    .question-card {
+
+      background:
+        white;
+
+      border-radius:
+        16px;
+
+      padding:
+        25px;
+
+      margin-bottom:
+        20px;
+
+      border:
+        1px solid #dee2e6;
+
+      box-shadow:
+        0 3px 14px
+        rgba(0, 0, 0, .04);
+
+    }
+
+
+    .question-number {
+
+      display:
+        inline-flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      width:
+        34px;
+
+      height:
+        34px;
+
+      border-radius:
+        50%;
+
+      background:
+        var(--navy);
+
+      color:
+        white;
+
+      font-weight:
+        700;
+
+      margin-right:
+        8px;
+
+    }
+
+
+    .question-text {
+
+      font-size:
+        18px;
+
+      font-weight:
+        600;
+
+      line-height:
+        1.6;
+
+      margin-top:
+        15px;
+
+    }
+
+
+    .test-option {
+
+      width:
+        100%;
+
+      text-align:
+        left;
+
+      background:
+        white;
+
+      border:
+        1px solid #ced4da;
+
+      border-radius:
+        10px;
+
+      padding:
+        14px 16px;
+
+      margin-bottom:
+        10px;
+
+      transition:
+        .15s ease;
+
+      color:
+        #071a3d;
+
+    }
+
+
+    .test-option:hover:not(:disabled) {
+
+      border-color:
+        var(--navy);
+
+      background:
+        #f1f5fb;
+
+    }
+
+
+    .test-option.selected {
+
+      border-color:
+        var(--navy);
+
+      background:
+        #e8eef8;
+
+      font-weight:
+        600;
+
+    }
+
+
+    .test-option.correct {
+
+      border:
+        2px solid var(--green);
+
+      background:
+        #d1e7dd;
+
+      color:
+        #0f5132;
+
+    }
+
+
+    .test-option.wrong {
+
+      border:
+        2px solid var(--red);
+
+      background:
+        #f8d7da;
+
+      color:
+        #842029;
+
+    }
+
+
+    .test-option:disabled {
+
+      cursor:
+        default;
+
+      opacity:
+        1;
+
+    }
+
+
+    .feedback-box {
+
+      margin-top:
+        18px;
+
+      padding:
+        18px;
+
+      border-radius:
+        12px;
+
+    }
+
+
+    .feedback-correct {
+
+      background:
+        #d1e7dd;
+
+      border-left:
+        5px solid var(--green);
+
+      color:
+        #0f5132;
+
+    }
+
+
+    .feedback-wrong {
+
+      background:
+        #f8d7da;
+
+      border-left:
+        5px solid var(--red);
+
+      color:
+        #842029;
+
+    }
+
+
+    .explanation-box {
+
+      margin-top:
+        12px;
+
+      padding:
+        15px;
+
+      border-radius:
+        10px;
+
+      background:
+        #f8f9fa;
+
+      color:
+        #212529;
+
+    }
+
+
+    .knowledge-box {
+
+      margin-top:
+        15px;
+
+      padding:
+        15px;
+
+      border-radius:
+        10px;
+
+      background:
+        #f8f9fa;
+
+      border-left:
+        4px solid var(--gold);
+
+    }
+
+
+    .tag {
+
+      display:
+        inline-block;
+
+      padding:
+        5px 9px;
+
+      margin:
+        3px;
+
+      border-radius:
+        20px;
+
+      background:
+        #eef1f5;
+
+      font-size:
+        12px;
+
+    }
+
+
+    .entity-tag {
+
+      background:
+        #e8eef8;
+
+      color:
+        var(--navy);
+
+      font-weight:
+        600;
+
+    }
+
+
+    .unit-tag {
+
+      background:
+        #d1e7dd;
+
+      color:
+        #0f5132;
+
+    }
+
+
+    .concept-tag {
+
+      background:
+        #fff3cd;
+
+      color:
+        #664d03;
+
+    }
+
+
+    .status-badge {
+
+      display:
+        inline-block;
+
+      padding:
+        6px 10px;
+
+      border-radius:
+        20px;
+
+      font-size:
+        12px;
+
+      font-weight:
+        600;
+
+    }
+
+
+    .status-unanswered {
+
+      background:
+        #fff3cd;
+
+      color:
+        #664d03;
+
+    }
+
+
+    .status-answered {
+
+      background:
+        #d1e7dd;
+
+      color:
+        #0f5132;
+
+    }
+
+
+    .progress {
+
+      height:
+        9px;
+
+      background:
+        #e9ecef;
+
+    }
+
+
+    .result-card {
+
+      background:
+        white;
+
+      border-radius:
+        18px;
+
+      padding:
+        30px;
+
+      box-shadow:
+        0 5px 20px
+        rgba(0, 0, 0, .06);
+
+      text-align:
+        center;
+
+    }
+
+
+    .score-number {
+
+      font-size:
+        64px;
+
+      font-weight:
+        800;
+
+      color:
+        var(--navy);
+
+    }
+
+
+    .result-stat {
+
+      background:
+        #f8f9fa;
+
+      border-radius:
+        12px;
+
+      padding:
+        18px;
+
+    }
+
+
+    .result-stat-number {
+
+      font-size:
+        30px;
+
+      font-weight:
+        700;
+
+    }
+
+
+    .correct-result {
+
+      color:
+        var(--green);
+
+    }
+
+
+    .wrong-result {
+
+      color:
+        var(--red);
+
+    }
+
+
+    .unanswered-result {
+
+      color:
+        #856404;
+
+    }
+
+
+    .review-card {
+
+      background:
+        white;
+
+      border-radius:
+        14px;
+
+      padding:
+        20px;
+
+      margin-bottom:
+        15px;
+
+      border-left:
+        5px solid var(--gold);
+
+      box-shadow:
+        0 3px 12px
+        rgba(0, 0, 0, .04);
+
+    }
+
+
+    .review-card.correct {
+
+      border-left-color:
+        var(--green);
+
+    }
+
+
+    .review-card.wrong {
+
+      border-left-color:
+        var(--red);
+
+    }
+
+
+    .test-controls {
+
+      position:
+        sticky;
+
+      bottom:
+        0;
+
+      z-index:
+        100;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          .97
+        );
+
+      border-top:
+        1px solid #dee2e6;
+
+      padding:
+        15px 0;
+
+      backdrop-filter:
+        blur(8px);
+
+    }
+
+
+    .empty-state {
+
+      background:
+        #f8f9fa;
+
+      border-radius:
+        12px;
+
+      padding:
+        30px;
+
+      text-align:
+        center;
+
+      color:
+        #6c757d;
+
+    }
+
+
+    .database-dot {
+
+      display:
+        inline-block;
+
+      width:
+        9px;
+
+      height:
+        9px;
+
+      border-radius:
+        50%;
+
+      background:
+        var(--green);
+
+      margin-right:
+        6px;
+
+    }
+
+
+    .database-dot.error {
+
+      background:
+        var(--red);
+
+    }
+
+
+
+
+    /* Shared type-aware question presentation (test + review) */
+    .question-type-label {
+      display: inline-block;
+      margin: 14px 0 8px;
+      padding: 5px 9px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      background: #eef2f8;
+      color: #0d2d63;
+    }
+    .question-stem {
+      margin-top: 4px;
+      line-height: 1.65;
+      overflow-wrap: anywhere;
+    }
+    .question-type-match { border-left: 3px solid #d4af37; padding-left: 12px; }
+    .question-type-assertion { border-left: 3px solid #0d6efd; padding-left: 12px; }
+    .question-type-chronology { border-left: 3px solid #198754; padding-left: 12px; }
+    .structured-statement {
+      margin-top: 10px;
+      padding: 12px 14px;
+      background: #f4f6fa;
+      border-radius: 8px;
+      line-height: 1.6;
+    }
+    .structured-statement > strong { display: block; margin-bottom: 4px; }
+    .chronology-items, .statement-items { display: grid; gap: 7px; margin-top: 10px; }
+    .assertion-block { border-left: 4px solid #0d6efd; }
+    .reason-block { border-left: 4px solid #d4af37; }
+
+    .match-lists-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 12px 0;
+    }
+    .match-list-panel {
+      border: 1px solid #d7deea;
+      border-radius: 10px;
+      padding: 12px;
+      background: #f8faff;
+      min-width: 0;
+    }
+    .match-list-panel h6 {
+      font-weight: 800;
+      color: var(--navy);
+      border-bottom: 1px solid #d7deea;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+    }
+    .match-list-item { padding: 5px 0; overflow-wrap: anywhere; }
+    @media (max-width: 640px) {
+      .match-lists-grid { grid-template-columns: 1fr; }
+    }
+
+    .review-options { display: grid; gap: 7px; }
+    .review-option {
+      padding: 10px 12px;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      background: white;
+      line-height: 1.5;
+    }
+    .review-option-correct {
+      border-color: #198754;
+      background: #d1e7dd;
+    }
+    .review-option-wrong {
+      border-color: #dc3545;
+      background: #f8d7da;
+    }
+    .review-option-marker {
+      display: block;
+      margin-top: 3px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    @media (
+      max-width: 576px
+    ) {
+
+      .hero {
+
+        padding:
+          25px;
+
+      }
+
+      .section-card {
+
+        padding:
+          18px;
+
+      }
+
+      .question-card {
+
+        padding:
+          18px;
+
+      }
+
+      .score-number {
+
+        font-size:
+          50px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav
+  class="navbar navbar-dark bg-navy">
+
+  <div
+    class="container">
+
+    <a
+      class="navbar-brand fw-bold"
+      href="index.html">
+
+      🎓 BAJEE JRF AI
+
+    </a>
+
+    <div
+      class="d-flex align-items-center gap-3">
+
+      <a
+        href="diagnosis.html"
+        class="btn btn-sm btn-outline-light">
+
+        📊 Diagnosis
+
+      </a>
+
+      <span
+        class="navbar-text text-gold">
+
+        Basic Test Engine
+
+      </span>
+
+    </div>
+
+  </div>
+
+</nav>
+
+
+
+<main
+  class="container py-5">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section
+  class="hero mb-4">
+
+  <p
+    class="eyebrow">
+
+    STEP 3.0
+
+  </p>
+
+  <h1
+    class="display-6 fw-bold">
+
+    📝 Basic JRF Test Engine
+
+  </h1>
+
+  <p
+    class="mb-0">
+
+    Practice mapped UGC NET English PYQs,
+    answer questions, receive immediate feedback,
+    and build question-level performance data.
+
+  </p>
+
+</section>
+
+
+
+<!-- =====================================================
+     TEST SETUP
+===================================================== -->
+
+<section
+  id="setupSection"
+  class="section-card mb-4">
+
+  <div
+    class="row g-4 align-items-end">
+
+    <div
+      class="col-md-5">
+
+      <label
+        for="questionLimit"
+        class="form-label fw-bold">
+
+        Number of Questions
+
+      </label>
+
+      <select
+        id="questionLimit"
+        class="form-select">
+
+        <option value="2">
+
+          2 Questions — Vertical Slice
+
+        </option>
+
+        <option value="5">
+
+          5 Questions
+
+        </option>
+
+        <option value="10">
+
+          10 Questions
+
+        </option>
+
+        <option value="20">
+
+          20 Questions
+
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div
+      class="col-md-4">
+
+      <div
+        class="small text-secondary">
+
+        Available mapped PYQs
+
+      </div>
+
+      <div
+        id="availableQuestions"
+        class="h4 mb-0">
+
+        Loading...
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="col-md-3">
+
+      <button
+        id="startTestBtn"
+        type="button"
+        class="btn btn-navy w-100">
+
+        ▶ Start Test
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div
+    id="databaseStatus"
+    class="small text-secondary mt-3">
+
+    Connecting to PYQ database...
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ACTIVE TEST HEADER
+===================================================== -->
+
+<section
+  id="testHeader"
+  class="section-card mb-4 d-none">
+
+  <div
+    class="
+      d-flex
+      justify-content-between
+      align-items-center
+      flex-wrap
+      gap-3
+    ">
+
+    <div>
+
+      <p
+        class="eyebrow mb-1">
+
+        ACTIVE TEST
+
+      </p>
+
+      <h2
+        class="h4 mb-1">
+
+        UGC NET English PYQ Practice
+
+      </h2>
+
+      <div
+        class="text-secondary small">
+
+        Select one answer for each question.
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="text-end">
+
+      <div
+        id="testProgressText"
+        class="fw-bold">
+
+        0 / 0 answered
+
+      </div>
+
+      <div
+        class="progress mt-2"
+        style="width:180px;">
+
+        <div
+          id="testProgressBar"
+          class="progress-bar"
+          style="width:0%;">
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     QUESTIONS
+===================================================== -->
+
+<section
+  id="questionsSection"
+  class="d-none">
+
+  <div
+    id="questionsContainer">
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     TEST CONTROLS
+===================================================== -->
+
+<div
+  id="testControls"
+  class="test-controls d-none">
+
+  <div
+    class="container">
+
+    <div
+      class="
+        d-flex
+        justify-content-between
+        align-items-center
+        gap-3
+      ">
+
+      <div
+        id="answeredSummary"
+        class="small text-secondary">
+
+        0 of 0 answered
+
+      </div>
+
+      <button
+        id="submitTestBtn"
+        type="button"
+        class="btn btn-gold">
+
+        Submit Test
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     RESULT
+===================================================== -->
+
+<section
+  id="resultSection"
+  class="d-none">
+
+  <div
+    class="result-card mb-4">
+
+    <p
+      class="eyebrow">
+
+      TEST COMPLETED
+
+    </p>
+
+    <div
+      id="scoreNumber"
+      class="score-number">
+
+      0%
+
+    </div>
+
+    <p
+      id="resultMessage"
+      class="text-secondary">
+
+      Test completed.
+
+    </p>
+
+
+    <div
+      class="row g-3 mt-3">
+
+      <div
+        class="col-md-4">
+
+        <div
+          class="result-stat">
+
+          <div
+            id="resultCorrect"
+            class="
+              result-stat-number
+              correct-result
+            ">
+
+            0
+
+          </div>
+
+          <div
+            class="small text-secondary">
+
+            Correct
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="col-md-4">
+
+        <div
+          class="result-stat">
+
+          <div
+            id="resultWrong"
+            class="
+              result-stat-number
+              wrong-result
+            ">
+
+            0
+
+          </div>
+
+          <div
+            class="small text-secondary">
+
+            Wrong
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="col-md-4">
+
+        <div
+          class="result-stat">
+
+          <div
+            id="resultUnanswered"
+            class="
+              result-stat-number
+              unanswered-result
+            ">
+
+            0
+
+          </div>
+
+          <div
+            class="small text-secondary">
+
+            Unanswered
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="mt-4 d-flex justify-content-center gap-2 flex-wrap">
+
+      <button
+        id="newTestBtn"
+        type="button"
+        class="btn btn-navy">
+
+        🔄 Start New Test
+
+      </button>
+
+      <a
+        href="diagnosis.html"
+        class="btn btn-outline-primary">
+
+        📊 View Diagnosis
+
+      </a>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ===================================================
+       REVIEW
+  =================================================== -->
+
+  <div
+    class="section-card">
+
+    <h2
+      class="h4 mb-1">
+
+      📖 Test Review
+
+    </h2>
+
+    <p
+      class="text-secondary">
+
+      Review every answer, explanation,
+      and connected knowledge entity.
+
+    </p>
+
+    <div
+      id="reviewContainer">
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+</main>
+
+
+
+<footer
+  class="py-4 text-center">
+
+  <small
+    class="text-secondary">
+
+    BAJEE JRF AI • Step 3.0 • Basic Test Engine
+
+  </small>
+
+</footer>
+
+
+
+<script>
+
+/* =========================================================
+   BAJEE JRF AI
+   STEP 3.0 — BASIC TEST ENGINE
+========================================================= */
+
+"use strict";
+
+
+/* =========================================================
+   DATABASE
+========================================================= */
+
+let pyqDatabase = [];
+
+let mappings = [];
+
+let knowledgeDatabase = [];
+
+let mappedQuestions = [];
+
+
+/* =========================================================
+   TEST STATE
+========================================================= */
+
+let testQuestions = [];
+
+let answers = {};
+
+let answerFeedback = {};
+
+let testSubmitted = false;
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+const TEST_HISTORY_KEY =
+  "bajee_jrf_ai_test_history_v1";
+
+
+/* =========================================================
+   BASIC UTILITIES
+========================================================= */
+
+function escapeHTML(value) {
+
+  return String(
+    value ?? ""
+  )
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+function safeArray(value) {
+
+  return Array.isArray(value)
+    ? value
+    : [];
+
+}
+
+/* Convert supported source metadata into clean label arrays without inventing labels. */
+function metadataLabels(...values) {
+  for (const value of values) {
+    if (Array.isArray(value)) {
+      return [...new Set(value.map(item => String(item ?? "").trim()).filter(Boolean))];
+    }
+    if (typeof value === "string" && value.trim()) {
+      return [value.trim()];
+    }
+  }
+  return [];
+}
+
+
+function normaliseId(value) {
+
+  return String(
+    value ?? ""
+  )
+    .trim();
+
+}
+
+
+/* =========================================================
+   GET QUESTION CORRECT ANSWER
+========================================================= */
+
+function getCorrectAnswer(question) {
+
+  const possible =
+    question.correct_answer ??
+    question.correctAnswer ??
+    question.answer ??
+    question.correctOption ??
+    question.correct;
+
+  if (
+    possible === null ||
+    possible === undefined
+  ) {
+
+    return "";
+
+  }
+
+
+  return String(
+    possible
+  )
+    .trim()
+    .toUpperCase();
+
+}
+
+
+/* =========================================================
+   NORMALISE OPTION KEY
+========================================================= */
+
+function normaliseOptionKey(
+  key
+) {
+
+  const value =
+    String(
+      key ?? ""
+    )
+      .trim()
+      .toUpperCase();
+
+  if (
+    /^[A-D]$/.test(value)
+  ) {
+
+    return value;
+
+  }
+
+
+  if (
+    /^[0-3]$/.test(value)
+  ) {
+
+    return String.fromCharCode(
+      65 + Number(value)
+    );
+
+  }
+
+
+  return value;
+
+}
+
+
+/* =========================================================
+   NORMALISE OPTIONS
+========================================================= */
+
+function getOptions(question) {
+
+  const source =
+    question.options ??
+    question.choices ??
+    question.answers ??
+    {};
+
+
+  if (
+    Array.isArray(source)
+  ) {
+
+    const result = {};
+
+    source.forEach(
+      (
+        value,
+        index
+      ) => {
+
+        const key =
+          String.fromCharCode(
+            65 + index
+          );
+
+        if (
+          typeof value ===
+          "object"
+        ) {
+
+          result[key] =
+            value.text ??
+            value.label ??
+            value.value ??
+            "";
+
+        }
+
+        else {
+
+          result[key] =
+            value;
+
+        }
+
+      }
+    );
+
+    return result;
+
+  }
+
+
+  const result = {};
+
+  Object.entries(source)
+    .forEach(
+      (
+        [
+          key,
+          value
+        ]
+      ) => {
+
+        const normalKey =
+          normaliseOptionKey(
+            key
+          );
+
+
+        if (
+          typeof value ===
+          "object" &&
+          value !== null
+        ) {
+
+          result[normalKey] =
+            value.text ??
+            value.label ??
+            value.value ??
+            value.name ??
+            "";
+
+        }
+
+        else {
+
+          result[normalKey] =
+            value;
+
+        }
+
+      }
+    );
+
+
+  return result;
+
+}
+
+
+/* =========================================================
+   FIND MAPPING
+========================================================= */
+
+function getMapping(
+  questionId
+) {
+
+  const id =
+    normaliseId(
+      questionId
+    );
+
+
+  return mappings.find(
+    mapping =>
+      normaliseId(
+        mapping.pyq_id ??
+        mapping.question_id ??
+        mapping.id
+      ) === id
+  ) || null;
+
+}
+
+
+/* =========================================================
+   LOAD DATABASE
+========================================================= */
+
+async function loadDatabase() {
+
+  const status =
+    document.getElementById(
+      "databaseStatus"
+    );
+
+
+  try {
+
+    status.innerHTML = `
+      <span class="database-dot"></span>
+      Connecting to PYQ database...
+    `;
+
+
+    const [
+      pyqResponse,
+      mappingResponse,
+      knowledgeResponse
+    ] =
+      await Promise.all([
+
+        fetch(
+          "data/pyqs/pyq-database.json",
+          {
+            cache: "no-store"
+          }
+        ),
+
+        fetch(
+          "data/pyqs/pyq-knowledge-map.json",
+          {
+            cache: "no-store"
+          }
+        ),
+
+        fetch(
+          "data/knowledge/knowledge-entities.json",
+          {
+            cache: "no-store"
+          }
+        )
+
+      ]);
+
+
+    if (
+      !pyqResponse.ok
+    ) {
+
+      throw new Error(
+        "PYQ database could not be loaded. HTTP " +
+        pyqResponse.status
+      );
+
+    }
+
+
+    if (
+      !mappingResponse.ok
+    ) {
+
+      throw new Error(
+        "PYQ knowledge mapping could not be loaded. HTTP " +
+        mappingResponse.status
+      );
+
+    }
+
+
+    if (
+      !knowledgeResponse.ok
+    ) {
+
+      throw new Error(
+        "Knowledge database could not be loaded. HTTP " +
+        knowledgeResponse.status
+      );
+
+    }
+
+
+    const pyqData =
+      await pyqResponse.json();
+
+
+    const mappingData =
+      await mappingResponse.json();
+
+
+    const knowledgeData =
+      await knowledgeResponse.json();
+
+
+    /* -----------------------------------------------------
+       PYQ DATABASE
+    ----------------------------------------------------- */
+
+    if (
+      Array.isArray(
+        pyqData.questions
+      )
+    ) {
+
+      pyqDatabase =
+        pyqData.questions;
+
+    }
+
+    else if (
+      Array.isArray(
+        pyqData
+      )
+    ) {
+
+      pyqDatabase =
+        pyqData;
+
+    }
+
+    else {
+
+      pyqDatabase =
+        [];
+
+    }
+
+
+    /* -----------------------------------------------------
+       MAPPING DATABASE
+    ----------------------------------------------------- */
+
+    if (
+      Array.isArray(
+        mappingData.mappings
+      )
+    ) {
+
+      mappings =
+        mappingData.mappings;
+
+    }
+
+    else if (
+      Array.isArray(
+        mappingData
+      )
+    ) {
+
+      mappings =
+        mappingData;
+
+    }
+
+    else {
+
+      mappings =
+        [];
+
+    }
+
+
+    /* -----------------------------------------------------
+       KNOWLEDGE DATABASE
+    ----------------------------------------------------- */
+
+    if (
+      Array.isArray(
+        knowledgeData.entities
+      )
+    ) {
+
+      knowledgeDatabase =
+        knowledgeData.entities;
+
+    }
+
+    else if (
+      Array.isArray(
+        knowledgeData
+      )
+    ) {
+
+      knowledgeDatabase =
+        knowledgeData;
+
+    }
+
+    else {
+
+      knowledgeDatabase =
+        [];
+
+    }
+
+
+    /* -----------------------------------------------------
+       ONLY MAPPED PYQs
+    ----------------------------------------------------- */
+
+    const mappedIds =
+      new Set(
+        mappings
+          .map(
+            mapping =>
+              normaliseId(
+                mapping.pyq_id ??
+                mapping.question_id ??
+                mapping.id
+              )
+          )
+          .filter(
+            Boolean
+          )
+      );
+
+
+    mappedQuestions =
+      pyqDatabase.filter(
+        question => {
+
+          const questionId =
+            normaliseId(
+              question.id
+            );
+
+          // A mapping ID alone does not make a question exam-ready.
+          if (
+            !mappedIds.has(questionId)
+          ) {
+            return false;
+          }
+
+          // Respect explicit exclusions in the source database.
+          if (
+            question.exam_eligible === false
+          ) {
+            return false;
+          }
+
+          // Never score a question without a usable A-D answer key.
+          const correctAnswer =
+            normaliseOptionKey(
+              getCorrectAnswer(question)
+            );
+
+          if (
+            !/^[A-D]$/.test(correctAnswer)
+          ) {
+            return false;
+          }
+
+          // Require all four non-empty answer options.
+          const options =
+            getOptions(question);
+
+          const hasFourOptions =
+            ["A", "B", "C", "D"].every(
+              key =>
+                String(
+                  options[key] ?? ""
+                ).trim().length > 0
+            );
+
+          return hasFourOptions;
+
+        }
+      );
+
+
+    document.getElementById(
+      "availableQuestions"
+    ).textContent =
+      mappedQuestions.length;
+
+
+    if (
+      mappedQuestions.length
+    ) {
+
+      status.innerHTML = `
+        <span class="database-dot"></span>
+        <span class="text-success fw-bold">
+          Database connected
+        </span>
+        • ${mappedQuestions.length}
+        mapped PYQs available.
+      `;
+
+    }
+
+    else {
+
+      status.innerHTML = `
+        <span class="database-dot error"></span>
+        <span class="text-danger fw-bold">
+          No mapped PYQs found.
+        </span>
+        Check the PYQ database and knowledge mapping files.
+      `;
+
+    }
+
+
+    console.log(
+      "====================================="
+    );
+
+    console.log(
+      "BAJEE JRF AI — STEP 3.0"
+    );
+
+    console.log(
+      "Database loaded successfully."
+    );
+
+    console.log(
+      "PYQs:",
+      pyqDatabase.length
+    );
+
+    console.log(
+      "Mappings:",
+      mappings.length
+    );
+
+    console.log(
+      "Knowledge entities:",
+      knowledgeDatabase.length
+    );
+
+    console.log(
+      "Mapped PYQs:",
+      mappedQuestions.length
+    );
+
+    console.log(
+      "====================================="
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "BAJEE JRF AI database loading error:",
+      error
+    );
+
+
+    document.getElementById(
+      "availableQuestions"
+    ).textContent =
+      "0";
+
+
+    status.innerHTML = `
+      <span class="database-dot error"></span>
+      <span class="text-danger fw-bold">
+        Database connection failed
+      </span>
+      <br>
+      <span>
+        ${escapeHTML(
+          error.message
+        )}
+      </span>
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   START TEST
+========================================================= */
+
+document
+  .getElementById(
+    "startTestBtn"
+  )
+  .addEventListener(
+    "click",
+    startTest
+  );
+
+
+function startTest() {
+
+  if (
+    !mappedQuestions.length
+  ) {
+
+    alert(
+      "No mapped PYQs are available."
+    );
+
+    return;
+
+  }
+
+
+  let requested =
+    Number(
+      document.getElementById(
+        "questionLimit"
+      ).value
+    );
+
+
+  if (
+    !Number.isFinite(
+      requested
+    ) ||
+    requested < 1
+  ) {
+
+    requested =
+      2;
+
+  }
+
+
+  requested =
+    Math.min(
+      requested,
+      mappedQuestions.length
+    );
+
+
+  /*
+     Shuffle for Step 3.0.
+
+     Adaptive selection will come later.
+  */
+
+  const shuffled =
+    [...mappedQuestions]
+      .sort(
+        () =>
+          Math.random() - 0.5
+      );
+
+
+  testQuestions =
+    shuffled.slice(
+      0,
+      requested
+    );
+
+
+  answers =
+    {};
+
+  answerFeedback =
+    {};
+
+  testSubmitted =
+    false;
+
+
+  document
+    .getElementById(
+      "setupSection"
+    )
+    .classList.add(
+      "d-none"
+    );
+
+
+  document
+    .getElementById(
+      "testHeader"
+    )
+    .classList.remove(
+      "d-none"
+    );
+
+
+  document
+    .getElementById(
+      "questionsSection"
+    )
+    .classList.remove(
+      "d-none"
+    );
+
+
+  document
+    .getElementById(
+      "testControls"
+    )
+    .classList.remove(
+      "d-none"
+    );
+
+
+  document
+    .getElementById(
+      "resultSection"
+    )
+    .classList.add(
+      "d-none"
+    );
+
+
+  renderQuestions();
+
+  updateProgress();
+
+
+  window.scrollTo(
+    {
+      top:
+        0,
+      behavior:
+        "smooth"
+    }
+  );
+
+}
+
+
+
+/* =========================================================
+   SHARED QUESTION-TYPE RENDERER
+   Used in the live test, immediate feedback and review.
+   It formats source text only; it never invents or changes
+   question wording, options, answer keys or relationships.
+========================================================= */
+function getSourceExplanation(question) {
+  const value = question?.explanation ?? question?.explanation_text ?? "";
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function renderExplanationBlock(question) {
+  const explanation = getSourceExplanation(question);
+  // A bare source/key citation is not an explanation. Do not display it as one.
+  if (!explanation) return "";
+  const citationOnly = /^(?:official\s+)?(?:NTA\s+)?(?:final\s+)?answer\s+key\b/i.test(explanation)
+    || /lists?\s+option\s+[1-4A-D]\b/i.test(explanation)
+    || /answer\s+key\s+(?:for|of)\s+(?:exam|question|paper)\b/i.test(explanation)
+    || /https?:\/\/\S+/i.test(explanation) && explanation.length < 180;
+  if (citationOnly) return "";
+  return `<div class="explanation-box"><strong>Explanation</strong><div class="mt-2">${escapeHTML(explanation)}</div></div>`;
+}
+
+function detectQuestionType(question) {
+  const text = String(question.question ?? question.text ?? "");
+  const topic = String(question.topic ?? "");
+  const combined = `${text} ${topic}`.toLowerCase();
+
+  if (/\bassertion\s*\(?\s*a\s*\)?\s*[:\-]/i.test(text) &&
+      /\breason\s*\(?\s*r\s*\)?\s*[:\-]/i.test(text)) return "assertion-reason";
+  if (/\bmatch\b/i.test(text) && /\blist\s*[- ]?i\b/i.test(text) && /\blist\s*[- ]?ii\b/i.test(text)) return "match-following";
+  if (/\bmatch\s+(the\s+)?following\b/i.test(text)) return "match-following";
+  if (/\bchronolog(?:y|ical)\b|\bpublication\s+of\s+the\s+works\b|\bsequence\b|\barrange\b.*\b(order|sequence)\b|\bcorrect order\b/i.test(combined)) return "chronology";
+  // Statement-based questions commonly introduce labelled A./B./C. statements.
+  if (/\bstatements?\b/i.test(text) && /(?:^|[\s;])A\s*[.)]\s+/i.test(text) && /(?:^|[\s;])B\s*[.)]\s+/i.test(text)) return "statement-based";
+  return "standard";
+}
+
+function formatQuestionStem(question) {
+  const raw = String(question.question ?? question.text ?? "");
+  const type = detectQuestionType(question);
+  const typeLabels = {
+    "match-following": "Match the Following",
+    "assertion-reason": "Assertion–Reason",
+    chronology: "Chronology",
+    "statement-based": "Statement-based Question",
+    standard: "Question"
+  };
+  const label = typeLabels[type] || "Question";
+  const safe = value => escapeHTML(String(value ?? "").trim());
+  const readable = value => safe(value).replace(/\r\n?/g, "\n").replace(/\n/g, "<br>");
+  const itemPattern = /(?:^|[\s;])([A-E])\s*[.)]\s+/g;
+  const romanPattern = /(?:^|[\s;])((?:IV|III|II|I))\s*[.)]\s+/g;
+  const parseItems = (value, pattern) => {
+    const matches = [...value.matchAll(pattern)];
+    if (!matches.length) return [];
+    return matches.map((m, i) => {
+      const start = m.index + m[0].length;
+      const end = i + 1 < matches.length ? matches[i + 1].index : value.length;
+      return { label: m[1].toUpperCase(), text: value.slice(start, end).replace(/^[\s.:—-]+|[\s;,]+$/g, "").trim() };
+    }).filter(item => item.text);
+  };
+  const renderItems = items => items.map(item =>
+    `<div class="structured-statement"><strong>${safe(item.label)}.</strong> ${safe(item.text)}</div>`
+  ).join("");
+  const header = `<div class="question-type-label">${label}</div>`;
+
+  if (type === "match-following") {
+    const listIHeading = raw.search(/\bLIST\s*[- ]?I\b/i);
+    const listIIHeading = raw.search(/\bLIST\s*[- ]?II\b/i);
+    // Source questions occur in both forms: headings before both lists, or
+    // headings embedded in the instruction followed by A./B. and I./II. items.
+    const searchFrom = Math.max(listIHeading, listIIHeading, 0);
+    const listOneStartMatch = /(?:^|[\s;])A\s*[.)]\s+/.exec(raw.slice(searchFrom));
+    if (listOneStartMatch) {
+      const startOne = searchFrom + listOneStartMatch.index;
+      const romanOneMatch = /(?:^|[\s;])I\s*[.)]\s+/.exec(raw.slice(startOne + listOneStartMatch[0].length));
+      const explicitListTwo = listIIHeading > startOne ? listIIHeading : -1;
+      let boundary = -1;
+      let startTwo = -1;
+      if (explicitListTwo >= 0 && romanOneMatch) {
+        boundary = explicitListTwo;
+        const romanAfterHeading = /(?:^|[\s;])I\s*[.)]\s+/.exec(raw.slice(explicitListTwo));
+        if (romanAfterHeading) startTwo = explicitListTwo + romanAfterHeading.index;
+      } else if (romanOneMatch) {
+        boundary = startOne + listOneStartMatch[0].length + romanOneMatch.index;
+        startTwo = boundary;
+      }
+      if (boundary > startOne && startTwo >= 0) {
+        const prompt = raw.slice(0, startOne).replace(/[\s:;,—-]+$/g, "").trim();
+        const itemsI = parseItems(raw.slice(startOne, boundary), itemPattern);
+        const itemsII = parseItems(raw.slice(startTwo), romanPattern);
+        if (itemsI.length && itemsII.length) {
+          return `${header}<div class="question-stem question-type-match">${readable(prompt || "Match the following items.")}</div>
+            <div class="match-lists-grid">
+              <section class="match-list-panel" aria-label="List I"><h6>LIST I</h6>${itemsI.map(item => `<div class="match-list-item"><strong>${safe(item.label)}.</strong> ${safe(item.text)}</div>`).join("")}</section>
+              <section class="match-list-panel" aria-label="List II"><h6>LIST II</h6>${itemsII.map(item => `<div class="match-list-item"><strong>${safe(item.label)}.</strong> ${safe(item.text)}</div>`).join("")}</section>
+            </div>`;
+        }
+      }
+    }
+  }
+
+  if (type === "assertion-reason") {
+    const assertionMatch = /\bAssertion\s*\(?\s*A\s*\)?\s*[:\-]\s*/i.exec(raw);
+    const reasonMatch = /\bReason\s*\(?\s*R\s*\)?\s*[:\-]\s*/i.exec(raw);
+    if (assertionMatch && reasonMatch && reasonMatch.index > assertionMatch.index) {
+      const intro = raw.slice(0, assertionMatch.index).trim();
+      const assertion = raw.slice(assertionMatch.index + assertionMatch[0].length, reasonMatch.index).trim();
+      const reason = raw.slice(reasonMatch.index + reasonMatch[0].length).trim();
+      return `${header}${intro ? `<div class="question-stem">${readable(intro)}</div>` : ""}
+        <div class="structured-statement assertion-block"><strong>Assertion (A)</strong>${readable(assertion)}</div>
+        <div class="structured-statement reason-block"><strong>Reason (R)</strong>${readable(reason)}</div>`;
+    }
+  }
+
+  if (type === "chronology" || type === "statement-based") {
+    const items = parseItems(raw, itemPattern);
+    // Only structure when at least three labelled source items were actually found.
+    if (items.length >= 3) {
+      const first = raw.search(/(?:^|[\s;])A\s*[.)]\s+/);
+      const intro = first > 0 ? raw.slice(0, first).replace(/[\s:;,—-]+$/g, "").trim() : "";
+      return `${header}${intro ? `<div class="question-stem">${readable(intro)}</div>` : ""}
+        <div class="${type === "chronology" ? "chronology-items" : "statement-items"}">${renderItems(items)}</div>`;
+    }
+  }
+
+  return `${header}<div class="question-stem question-type-standard" style="white-space:pre-line">${readable(raw)}</div>`;
+}
+
+function renderReviewOptions(question, selectedKey, correctKey) {
+  const options = getOptions(question);
+  return `<div class="review-options mt-3"><strong>Options</strong>${
+    Object.entries(options).map(([key, value]) => {
+      const isCorrect = normaliseOptionKey(key) === normaliseOptionKey(correctKey);
+      const isSelected = selectedKey && normaliseOptionKey(key) === normaliseOptionKey(selectedKey);
+      const classes = ["review-option", isCorrect ? "review-option-correct" : "", isSelected && !isCorrect ? "review-option-wrong" : ""].filter(Boolean).join(" ");
+      const marker = isCorrect ? " ✓ Correct answer" : (isSelected ? " ✕ Your answer" : "");
+      return `<div class="${classes}"><strong>${escapeHTML(key)}.</strong> ${escapeHTML(value)}${marker ? `<span class="review-option-marker">${escapeHTML(marker)}</span>` : ""}</div>`;
+    }).join("")
+  }</div>`;
+}
+
+/* =========================================================
+   RENDER QUESTIONS
+========================================================= */
+
+function renderQuestions() {
+
+  const container =
+    document.getElementById(
+      "questionsContainer"
+    );
+
+
+  container.innerHTML =
+    "";
+
+
+  testQuestions.forEach(
+    (
+      question,
+      index
+    ) => {
+
+      container.insertAdjacentHTML(
+        "beforeend",
+        createQuestionHTML(
+          question,
+          index
+        )
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   CREATE QUESTION HTML
+========================================================= */
+
+function createQuestionHTML(
+  question,
+  index
+) {
+
+  const questionId =
+    normaliseId(
+      question.id
+    );
+
+
+  const mapping =
+    getMapping(
+      questionId
+    );
+
+
+  const entities =
+    safeArray(
+      mapping &&
+      mapping.knowledge_entities
+    );
+
+
+  const units =
+    safeArray(
+      mapping &&
+      mapping.units
+    );
+
+
+  const concepts =
+    safeArray(
+      mapping &&
+      mapping.concepts
+    );
+
+
+  const options =
+    getOptions(
+      question
+    );
+
+
+  const optionHTML =
+    Object.entries(
+      options
+    )
+      .map(
+        (
+          [
+            key,
+            value
+          ]
+        ) => `
+
+          <button
+            type="button"
+            class="test-option"
+            data-question-id="${escapeHTML(questionId)}"
+            data-option="${escapeHTML(key)}">
+
+            <strong>
+              ${escapeHTML(key)}.
+            </strong>
+
+            ${escapeHTML(value)}
+
+          </button>
+
+        `
+      )
+      .join("");
+
+
+  const questionNumber =
+    index + 1;
+
+
+  const sourceText =
+    [
+      question.year,
+      question.month,
+      question.unit
+    ]
+      .filter(
+        value =>
+          value !==
+          undefined &&
+          value !==
+          null &&
+          String(value).trim() !== ""
+      )
+      .join(
+        " • "
+      );
+
+
+  return `
+
+    <article
+      class="question-card"
+      id="question-${escapeHTML(questionId)}">
+
+      <div
+        class="
+          d-flex
+          justify-content-between
+          align-items-start
+          gap-3
+          flex-wrap
+        ">
+
+        <div>
+
+          <span
+            class="question-number">
+
+            ${questionNumber}
+
+          </span>
+
+          <strong>
+            PYQ ${questionNumber}
+          </strong>
+
+        </div>
+
+
+        <span
+          class="
+            status-badge
+            status-unanswered
+          "
+          id="status-${escapeHTML(questionId)}">
+
+          Not answered
+
+        </span>
+
+      </div>
+
+
+      ${
+        sourceText
+          ? `
+            <div
+              class="small text-secondary mt-3">
+
+              ${escapeHTML(sourceText)}
+
+            </div>
+          `
+          : ""
+      }
+
+
+      ${
+        entities.length
+          ? `
+            <div class="mt-3">
+
+              <span
+                class="tag entity-tag">
+
+                🧠
+                ${escapeHTML(
+                  entities[0]
+                )}
+
+              </span>
+
+            </div>
+          `
+          : ""
+      }
+
+
+      <div class="question-presentation">
+        ${formatQuestionStem(question)}
+      </div>
+
+
+      <div
+        class="options-container mt-4">
+
+        ${optionHTML}
+
+      </div>
+
+
+      <div
+        id="feedback-${escapeHTML(questionId)}">
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+/* =========================================================
+   ANSWER CLICK HANDLER
+========================================================= */
+
+document
+  .getElementById(
+    "questionsContainer"
+  )
+  .addEventListener(
+    "click",
+    function(event) {
+
+      const button =
+        event.target.closest(
+          ".test-option"
+        );
+
+
+      if (
+        !button
+      ) {
+
+        return;
+
+      }
+
+
+      const questionId =
+        button.dataset.questionId;
+
+
+      const selected =
+        button.dataset.option;
+
+
+      selectAnswer(
+        questionId,
+        selected
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   SELECT ANSWER
+========================================================= */
+
+function selectAnswer(
+  questionId,
+  selected
+) {
+
+  if (
+    testSubmitted
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+    Object.prototype.hasOwnProperty.call(
+      answers,
+      questionId
+    )
+  ) {
+
+    return;
+
+  }
+
+
+  const question =
+    testQuestions.find(
+      item =>
+        normaliseId(
+          item.id
+        ) ===
+        normaliseId(
+          questionId
+        )
+    );
+
+
+  if (
+    !question
+  ) {
+
+    console.error(
+      "Question not found:",
+      questionId
+    );
+
+    return;
+
+  }
+
+
+  const correct =
+    getCorrectAnswer(
+      question
+    );
+
+  if (
+    !/^[A-D]$/.test(
+      normaliseOptionKey(correct)
+    )
+  ) {
+
+    console.error(
+      "Question excluded from scoring because its answer key is invalid:",
+      questionId
+    );
+
+    alert(
+      "This question has no usable answer key and cannot be scored."
+    );
+
+    return;
+
+  }
+
+
+  const selectedKey =
+    normaliseOptionKey(
+      selected
+    );
+
+
+  answers[
+    questionId
+  ] =
+    selectedKey;
+
+
+  const isCorrect =
+    selectedKey ===
+    normaliseOptionKey(
+      correct
+    );
+
+
+  answerFeedback[
+    questionId
+  ] =
+    {
+      selected:
+        selectedKey,
+
+      correct:
+        normaliseOptionKey(
+          correct
+        ),
+
+      isCorrect:
+        isCorrect,
+
+      answered:
+        true
+    };
+
+
+  /* -------------------------------------------------------
+     Highlight selected option
+  ------------------------------------------------------- */
+
+  const card =
+    document.getElementById(
+      `question-${questionId}`
+    );
+
+
+  if (
+    card
+  ) {
+
+    card
+      .querySelectorAll(
+        ".test-option"
+      )
+      .forEach(
+        optionButton => {
+
+          optionButton.disabled =
+            true;
+
+
+          if (
+            optionButton.dataset.option ===
+            selectedKey
+          ) {
+
+            optionButton.classList.add(
+              "selected"
+            );
+
+          }
+
+        }
+      );
+
+  }
+
+
+  /* -------------------------------------------------------
+     Show correct / wrong immediately
+  ------------------------------------------------------- */
+
+  if (
+    card
+  ) {
+
+    const correctButton =
+      card.querySelector(
+        `[data-option="${CSS.escape(
+          normaliseOptionKey(
+            correct
+          )
+        )}"]`
+      );
+
+
+    if (
+      correctButton
+    ) {
+
+      correctButton.classList.add(
+        "correct"
+      );
+
+    }
+
+
+    if (
+      !isCorrect
+    ) {
+
+      const wrongButton =
+        card.querySelector(
+          `[data-option="${CSS.escape(
+            selectedKey
+          )}"]`
+        );
+
+
+      if (
+        wrongButton
+      ) {
+
+        wrongButton.classList.add(
+          "wrong"
+        );
+
+      }
+
+    }
+
+  }
+
+
+  /* -------------------------------------------------------
+     Update status
+  ------------------------------------------------------- */
+
+  const status =
+    document.getElementById(
+      `status-${questionId}`
+    );
+
+
+  if (
+    status
+  ) {
+
+    status.textContent =
+      isCorrect
+        ? "Correct"
+        : "Wrong";
+
+
+    status.className =
+      isCorrect
+        ? "status-badge status-answered"
+        : "status-badge status-answered";
+
+  }
+
+
+  /* -------------------------------------------------------
+     Feedback
+  ------------------------------------------------------- */
+
+  renderAnswerFeedback(
+    question,
+    questionId,
+    selectedKey,
+    isCorrect
+  );
+
+
+  updateProgress();
+
+}
+
+
+/* =========================================================
+   RENDER ANSWER FEEDBACK
+========================================================= */
+
+function renderAnswerFeedback(
+  question,
+  questionId,
+  selected,
+  isCorrect
+) {
+
+  const container =
+    document.getElementById(
+      `feedback-${questionId}`
+    );
+
+
+  if (
+    !container
+  ) {
+
+    return;
+
+  }
+
+
+  const options =
+    getOptions(
+      question
+    );
+
+
+  const correct =
+    normaliseOptionKey(
+      getCorrectAnswer(
+        question
+      )
+    );
+
+
+  const selectedText =
+    options[
+      selected
+    ] ??
+    selected;
+
+
+  const correctText =
+    options[
+      correct
+    ] ??
+    correct;
+
+
+
+
+  container.innerHTML = `
+
+    <div
+      class="
+        feedback-box
+        ${
+          isCorrect
+            ? "feedback-correct"
+            : "feedback-wrong"
+        }
+      ">
+
+      <div
+        class="fw-bold">
+
+        ${
+          isCorrect
+            ? "✅ Correct Answer!"
+            : "❌ Wrong Answer"
+        }
+
+      </div>
+
+
+      <div
+        class="small mt-2">
+
+        <strong>
+          Your answer:
+        </strong>
+
+        ${escapeHTML(
+          selected
+        )}.
+        ${escapeHTML(
+          selectedText
+        )}
+
+      </div>
+
+
+      ${
+        !isCorrect
+          ? `
+            <div
+              class="small mt-1">
+
+              <strong>
+                Correct answer:
+              </strong>
+
+              ${escapeHTML(
+                correct
+              )}.
+              ${escapeHTML(
+                correctText
+              )}
+
+            </div>
+          `
+          : ""
+      }
+
+
+      ${renderExplanationBlock(question)}
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   UPDATE PROGRESS
+========================================================= */
+
+function updateProgress() {
+
+  const total =
+    testQuestions.length;
+
+
+  const answered =
+    Object.keys(
+      answers
+    ).length;
+
+
+  const percentage =
+    total > 0
+      ? Math.round(
+          (
+            answered /
+            total
+          ) * 100
+        )
+      : 0;
+
+
+  document.getElementById(
+    "testProgressText"
+  ).textContent =
+    `${answered} / ${total} answered`;
+
+
+  document.getElementById(
+    "testProgressBar"
+  ).style.width =
+    `${percentage}%`;
+
+
+  document.getElementById(
+    "answeredSummary"
+  ).textContent =
+    `${answered} of ${total} answered`;
+
+}
+
+
+/* =========================================================
+   SUBMIT TEST
+========================================================= */
+
+document
+  .getElementById(
+    "submitTestBtn"
+  )
+  .addEventListener(
+    "click",
+    submitTest
+  );
+
+
+function submitTest() {
+
+  if (
+    !testQuestions.length
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+    testSubmitted
+  ) {
+
+    return;
+
+  }
+
+
+  const total =
+    testQuestions.length;
+
+
+  const answered =
+    Object.keys(
+      answers
+    ).length;
+
+
+  const unanswered =
+    total -
+    answered;
+
+
+  if (
+    unanswered > 0
+  ) {
+
+    const proceed =
+      window.confirm(
+        `${unanswered} question(s) are unanswered.\n\nSubmit the test anyway?`
+      );
+
+
+    if (
+      !proceed
+    ) {
+
+      return;
+
+    }
+
+  }
+
+
+  testSubmitted =
+    true;
+
+
+  let correct =
+    0;
+
+
+  let wrong =
+    0;
+
+
+  const questionResults =
+    testQuestions.map(
+      question => {
+
+        const questionId =
+          normaliseId(
+            question.id
+          );
+
+
+        const selected =
+          answers[
+            questionId
+          ] ??
+          null;
+
+
+        const correctAnswer =
+          normaliseOptionKey(
+            getCorrectAnswer(
+              question
+            )
+          );
+
+
+        const answered =
+          Boolean(
+            selected
+          );
+
+
+        const isCorrect =
+          answered &&
+          normaliseOptionKey(
+            selected
+          ) ===
+          correctAnswer;
+
+
+        if (
+          isCorrect
+        ) {
+
+          correct++;
+
+        }
+
+        else if (
+          answered
+        ) {
+
+          wrong++;
+
+        }
+
+
+        const mapping =
+          getMapping(
+            questionId
+          );
+
+        /*
+         * Snapshot only explicit metadata from the question record or its
+         * mapping. This makes each saved attempt self-contained for Diagnosis
+         * and prevents later mapping edits from silently changing old results.
+         * Metadata is never inferred from the question wording.
+         */
+        const sourceUnits = metadataLabels(question.units, question.unit);
+        const sourceTopics = metadataLabels(question.topics, question.topic);
+        const sourceConcepts = metadataLabels(question.concepts, question.concept);
+        const sourceEntities = metadataLabels(
+          question.knowledge_entities,
+          question.knowledgeEntities
+        );
+
+        const mappedUnits = metadataLabels(mapping?.units, mapping?.unit);
+        const mappedTopics = metadataLabels(mapping?.topics, mapping?.topic);
+        const mappedConcepts = metadataLabels(mapping?.concepts, mapping?.concept);
+        const mappedEntities = metadataLabels(
+          mapping?.knowledge_entities,
+          mapping?.knowledgeEntities
+        );
+
+        const mergeLabels = (primary, fallback) =>
+          [...new Set([...primary, ...fallback])];
+
+        return {
+
+          question_id:
+            questionId,
+
+          selected_answer:
+            selected,
+
+          correct_answer:
+            correctAnswer,
+
+          is_correct:
+            isCorrect,
+
+          answered:
+            answered,
+
+          knowledge_entities:
+            mergeLabels(mappedEntities, sourceEntities),
+
+          units:
+            mergeLabels(mappedUnits, sourceUnits),
+
+          topics:
+            mergeLabels(mappedTopics, sourceTopics),
+
+          concepts:
+            mergeLabels(mappedConcepts, sourceConcepts)
+
+        };
+
+      }
+    );
+
+
+  const score =
+    total > 0
+      ? Math.round(
+          (
+            correct /
+            total
+          ) * 100
+        )
+      : 0;
+
+
+  const result = {
+
+    id:
+      `TEST-${Date.now()}`,
+
+    date:
+      new Date().toISOString(),
+
+    total:
+      total,
+
+    correct:
+      correct,
+
+    wrong:
+      wrong,
+
+    unanswered:
+      unanswered,
+
+    score:
+      score,
+
+    question_ids:
+      testQuestions.map(
+        question =>
+          normaliseId(
+            question.id
+          )
+      ),
+
+    question_results:
+      questionResults
+
+  };
+
+
+  saveTestResult(
+    result
+  );
+
+
+  renderReview();
+
+
+  showResult(
+    correct,
+    wrong,
+    unanswered,
+    score
+  );
+
+
+  window.scrollTo(
+    {
+      top:
+        0,
+      behavior:
+        "smooth"
+    }
+  );
+
+
+  console.log(
+    "====================================="
+  );
+
+  console.log(
+    "BAJEE JRF AI — TEST RESULT"
+  );
+
+  console.log(
+    result
+  );
+
+  console.log(
+    "====================================="
+  );
+
+}
+
+
+/* =========================================================
+   SHOW RESULT
+========================================================= */
+
+function showResult(
+  correct,
+  wrong,
+  unanswered,
+  score
+) {
+
+  document
+    .getElementById(
+      "questionsSection"
+    )
+    .classList.add(
+      "d-none"
+    );
+
+
+  document
+    .getElementById(
+      "testControls"
+    )
+    .classList.add(
+      "d-none"
+    );
+
+
+  document
+    .getElementById(
+      "testHeader"
+    )
+    .classList.add(
+      "d-none"
+    );
+
+
+  document
+    .getElementById(
+      "resultSection"
+    )
+    .classList.remove(
+      "d-none"
+    );
+
+
+  document.getElementById(
+    "scoreNumber"
+  ).textContent =
+    `${score}%`;
+
+
+  document.getElementById(
+    "resultCorrect"
+  ).textContent =
+    correct;
+
+
+  document.getElementById(
+    "resultWrong"
+  ).textContent =
+    wrong;
+
+
+  document.getElementById(
+    "resultUnanswered"
+  ).textContent =
+    unanswered;
+
+
+  let message;
+
+
+  if (
+    score ===
+    100
+  ) {
+
+    message =
+      "Excellent. Every question was answered correctly.";
+
+  }
+
+  else if (
+    score >=
+    75
+  ) {
+
+    message =
+      "Strong performance. Continue practising and reviewing.";
+
+  }
+
+  else if (
+    score >=
+    50
+  ) {
+
+    message =
+      "Good start. Review the questions you missed.";
+
+  }
+
+  else {
+
+    message =
+      "Use the review section carefully and revise the connected knowledge.";
+
+  }
+
+
+  document.getElementById(
+    "resultMessage"
+  ).textContent =
+    message;
+
+}
+
+
+/* =========================================================
+   RENDER REVIEW
+========================================================= */
+
+function renderReview() {
+
+  const container =
+    document.getElementById(
+      "reviewContainer"
+    );
+
+
+  container.innerHTML =
+    "";
+
+
+  testQuestions.forEach(
+    (
+      question,
+      index
+    ) => {
+
+      container.insertAdjacentHTML(
+        "beforeend",
+        createReviewHTML(
+          question,
+          index
+        )
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   CREATE REVIEW HTML
+========================================================= */
+
+function createReviewHTML(
+  question,
+  index
+) {
+
+  const questionId =
+    normaliseId(
+      question.id
+    );
+
+
+  const selected =
+    answers[
+      questionId
+    ] ??
+    null;
+
+
+  const correct =
+    normaliseOptionKey(
+      getCorrectAnswer(
+        question
+      )
+    );
+
+
+  const isCorrect =
+    Boolean(
+      selected
+    ) &&
+    normaliseOptionKey(
+      selected
+    ) ===
+    correct;
+
+
+  const mapping =
+    getMapping(
+      questionId
+    );
+
+
+  const entities =
+    safeArray(
+      mapping &&
+      mapping.knowledge_entities
+    );
+
+
+  const units =
+    safeArray(
+      mapping &&
+      mapping.units
+    );
+
+
+  const concepts =
+    safeArray(
+      mapping &&
+      mapping.concepts
+    );
+
+
+  const options =
+    getOptions(
+      question
+    );
+
+
+  const selectedText =
+    selected
+      ? (
+          options[
+            selected
+          ] ??
+          selected
+        )
+      : "Not answered";
+
+
+  const correctText =
+    options[
+      correct
+    ] ??
+    correct;
+
+
+  return `
+
+    <div
+      class="
+        review-card
+        ${
+          isCorrect
+            ? "correct"
+            : "wrong"
+        }
+      ">
+
+      <div
+        class="
+          d-flex
+          justify-content-between
+          align-items-start
+          gap-3
+        ">
+
+        <div>
+
+          <div
+            class="small text-secondary">
+
+            Question ${index + 1}
+
+          </div>
+
+          <div class="review-question-presentation mt-2">
+            ${formatQuestionStem(question)}
+          </div>
+
+        </div>
+
+
+        <span
+          class="
+            tag
+            ${
+              isCorrect
+                ? "unit-tag"
+                : "priority-high"
+            }">
+
+          ${
+            isCorrect
+              ? "Correct"
+              : "Review"
+          }
+
+        </span>
+
+      </div>
+
+
+      ${renderReviewOptions(question, selected, correct)}
+
+      <div
+        class="mt-3">
+
+        <strong>
+          Your answer:
+        </strong>
+
+        ${escapeHTML(
+          selectedText
+        )}
+
+      </div>
+
+
+      <div
+        class="mt-2">
+
+        <strong>
+          Correct answer:
+        </strong>
+
+        ${escapeHTML(
+          correctText
+        )}
+
+      </div>
+
+
+      ${renderExplanationBlock(question)}
+
+
+      ${
+        entities.length ||
+        units.length ||
+        concepts.length
+          ? `
+
+            <div
+              class="knowledge-box">
+
+              <strong>
+                🧠 Knowledge Connection
+              </strong>
+
+
+              ${
+                entities.length
+                  ? `
+                    <div
+                      class="mt-2">
+
+                      <strong
+                        class="small">
+
+                        Knowledge:
+
+                      </strong>
+
+                      ${entities
+                        .map(
+                          entity => `
+
+                            <span
+                              class="
+                                tag
+                                entity-tag
+                              ">
+
+                              ${escapeHTML(
+                                entity
+                              )}
+
+                            </span>
+
+                          `
+                        )
+                        .join("")}
+
+                    </div>
+                  `
+                  : ""
+              }
+
+
+              ${
+                units.length
+                  ? `
+                    <div
+                      class="mt-2">
+
+                      <strong
+                        class="small">
+
+                        Units:
+
+                      </strong>
+
+                      ${units
+                        .map(
+                          unit => `
+
+                            <span
+                              class="
+                                tag
+                                unit-tag
+                              ">
+
+                              ${escapeHTML(
+                                unit
+                              )}
+
+                            </span>
+
+                          `
+                        )
+                        .join("")}
+
+                    </div>
+                  `
+                  : ""
+              }
+
+
+              ${
+                concepts.length
+                  ? `
+                    <div
+                      class="mt-2">
+
+                      <strong
+                        class="small">
+
+                        Concepts:
+
+                      </strong>
+
+                      ${concepts
+                        .map(
+                          concept => `
+
+                            <span
+                              class="
+                                tag
+                                concept-tag
+                              ">
+
+                              ${escapeHTML(
+                                concept
+                              )}
+
+                            </span>
+
+                          `
+                        )
+                        .join("")}
+
+                    </div>
+                  `
+                  : ""
+              }
+
+            </div>
+
+          `
+          : ""
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   START NEW TEST
+========================================================= */
+
+document
+  .getElementById(
+    "newTestBtn"
+  )
+  .addEventListener(
+    "click",
+    startNewTest
+  );
+
+
+function startNewTest() {
+
+  testQuestions =
+    [];
+
+  answers =
+    {};
+
+  answerFeedback =
+    {};
+
+  testSubmitted =
+    false;
+
+
+  document
+    .getElementById(
+      "resultSection"
+    )
+    .classList.add(
+      "d-none"
+    );
+
+
+  document
+    .getElementById(
+      "questionsSection"
+    )
+    .classList.add(
+      "d-none"
+    );
+
+
+  document
+    .getElementById(
+      "testHeader"
+    )
+    .classList.add(
+      "d-none"
+    );
+
+
+  document
+    .getElementById(
+      "testControls"
+    )
+    .classList.add(
+      "d-none"
+    );
+
+
+  document
+    .getElementById(
+      "setupSection"
+    )
+    .classList.remove(
+      "d-none"
+    );
+
+
+  document.getElementById(
+    "questionsContainer"
+  ).innerHTML =
+    "";
+
+
+  document.getElementById(
+    "reviewContainer"
+  ).innerHTML =
+    "";
+
+
+  document.getElementById(
+    "testProgressText"
+  ).textContent =
+    "0 / 0 answered";
+
+
+  document.getElementById(
+    "testProgressBar"
+  ).style.width =
+    "0%";
+
+
+  document.getElementById(
+    "answeredSummary"
+  ).textContent =
+    "0 of 0 answered";
+
+
+  window.scrollTo(
+    {
+      top:
+        0,
+      behavior:
+        "smooth"
+    }
+  );
+
+}
+
+
+/* =========================================================
+   SAVE TEST RESULT
+========================================================= */
+
+function saveTestResult(
+  result
+) {
+
+  let history =
+    [];
+
+
+  try {
+
+    const stored =
+      localStorage.getItem(
+        TEST_HISTORY_KEY
+      );
+
+
+    if (
+      stored
+    ) {
+
+      const parsed =
+        JSON.parse(
+          stored
+        );
+
+
+      if (
+        Array.isArray(
+          parsed
+        )
+      ) {
+
+        history =
+          parsed;
+
+      }
+
+    }
+
+  }
+
+  catch (error) {
+
+    console.warn(
+      "Could not read existing test history:",
+      error
+    );
+
+    history =
+      [];
+
+  }
+
+
+  /*
+     Add newest result.
+  */
+
+  history.push(
+    result
+  );
+
+
+  /*
+     Keep maximum 50 tests.
+  */
+
+  if (
+    history.length >
+    50
+  ) {
+
+    history =
+      history.slice(
+        -50
+      );
+
+  }
+
+
+  try {
+
+    localStorage.setItem(
+      TEST_HISTORY_KEY,
+      JSON.stringify(
+        history
+      )
+    );
+
+
+    console.log(
+      "Test result saved successfully."
+    );
+
+    console.log(
+      "Question-level records:",
+      result.question_results
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Could not save test result:",
+      error
+    );
+
+    alert(
+      "The test was completed, but the browser could not save the result."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   INITIALISE
+========================================================= */
+
+loadDatabase();
+
+</script>
+
+
+</body>
+
+</html>

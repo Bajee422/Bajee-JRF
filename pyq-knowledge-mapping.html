@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BAJEE JRF AI — PYQ Knowledge Mapping</title>
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --navy: #08204d;
+      --navy-dark: #061735;
+      --gold: #d4af37;
+      --bg: #f4f6fa;
+      --text: #10213f;
+      --muted: #6c7890;
+      --border: #dbe1ea;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .navbar {
+      background: var(--navy-dark);
+    }
+
+    .navbar-brand {
+      color: white !important;
+      font-weight: 700;
+    }
+
+    .navbar-text {
+      color: var(--gold) !important;
+      font-size: 13px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #08204d, #173d78);
+      color: white;
+      border-radius: 18px;
+      padding: 34px;
+      margin-top: 34px;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 {
+      font-size: 31px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #edf2ff;
+    }
+
+    .card-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(8, 32, 77, 0.05);
+    }
+
+    .stat-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      height: 100%;
+    }
+
+    .stat-number {
+      color: var(--navy);
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .status {
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .status.success {
+      color: #198754;
+    }
+
+    .status.error {
+      color: #dc3545;
+    }
+
+    .mapping-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+
+    .mapping-card.complete {
+      border-left: 4px solid #198754;
+    }
+
+    .mapping-card.partial {
+      border-left: 4px solid var(--gold);
+    }
+
+    .mapping-card.unmapped {
+      border-left: 4px solid #dc3545;
+    }
+
+    .question-text {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-top: 12px;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .badge-soft {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      background: #eef3fb;
+      color: var(--navy);
+      font-size: 11px;
+      margin: 3px 3px 0 0;
+    }
+
+    .section-label {
+      color: var(--navy);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+
+    .mapping-arrow {
+      text-align: center;
+      color: var(--gold);
+      font-size: 20px;
+      margin: 8px 0;
+    }
+
+    .knowledge-panel {
+      background: #eef4ff;
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .reason-panel {
+      background: #faf8ef;
+      border-left: 3px solid var(--gold);
+      border-radius: 7px;
+      padding: 12px;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+
+    .search-box {
+      min-height: 44px;
+    }
+
+    .empty-state {
+      background: white;
+      border: 1px dashed var(--border);
+      border-radius: 15px;
+      padding: 55px 20px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .empty-icon {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .btn-navy {
+      background: var(--navy);
+      color: white;
+      border: none;
+    }
+
+    .btn-navy:hover {
+      background: var(--navy-dark);
+      color: white;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar navbar-dark">
+
+    <div class="container">
+
+      <a
+        class="navbar-brand"
+        href="index.html"
+      >
+        🎓 BAJEE JRF AI
+      </a>
+
+      <span class="navbar-text">
+        PYQ → Knowledge Mapping
+      </span>
+
+    </div>
+
+  </nav>
+
+
+  <main class="container pb-5">
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div class="eyebrow">
+        STEP 2.6 — KNOWLEDGE MAPPING
+      </div>
+
+      <h1>
+        🔗 PYQ → Knowledge Mapping
+      </h1>
+
+      <p>
+        Inspect how each previous-year question connects to
+        authors, works, concepts, units, topics, and knowledge entities.
+      </p>
+
+    </section>
+
+
+    <!-- DATABASE STATUS -->
+
+    <section class="card-box mb-4">
+
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+        <div>
+
+          <h2 class="h5 mb-1">
+            Mapping Database
+          </h2>
+
+          <div class="meta">
+            Source:
+            <code>data/pyqs/pyq-knowledge-map.json</code>
+          </div>
+
+        </div>
+
+        <span
+          id="databaseBadge"
+          class="badge rounded-pill text-bg-secondary"
+        >
+          Connecting...
+        </span>
+
+      </div>
+
+      <div
+        id="databaseStatus"
+        class="status"
+      >
+        Connecting to mapping database...
+      </div>
+
+    </section>
+
+
+    <!-- STATISTICS -->
+
+    <section class="row g-3 mb-4">
+
+      <div class="col-6 col-md-3">
+
+        <div class="stat-card">
+
+          <div
+            id="totalPYQs"
+            class="stat-number"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            Total PYQs
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-6 col-md-3">
+
+        <div class="stat-card">
+
+          <div
+            id="mappedPYQs"
+            class="stat-number"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            PYQs with mapping records
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-6 col-md-3">
+
+        <div class="stat-card">
+
+          <div
+            id="knowledgeEntities"
+            class="stat-number"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            Verified mappings
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-6 col-md-3">
+
+        <div class="stat-card">
+
+          <div
+            id="unmappedPYQs"
+            class="stat-number"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            Unmapped PYQs
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section class="card-box mb-4">
+
+      <h2 class="h5 mb-3">
+        🔎 Inspect Mappings
+      </h2>
+
+
+      <div class="row g-3">
+
+        <div class="col-lg-7">
+
+          <label class="form-label small fw-bold">
+            Search PYQ / Author / Work / Concept / Knowledge
+          </label>
+
+          <input
+            id="searchInput"
+            type="search"
+            class="form-control search-box"
+            placeholder="e.g. Derrida, Dryden, deconstruction..."
+          >
+
+        </div>
+
+
+        <div class="col-lg-3">
+
+          <label class="form-label small fw-bold">
+            Mapping Status
+          </label>
+
+          <select
+            id="statusFilter"
+            class="form-select search-box"
+          >
+
+            <option value="">
+              All
+            </option>
+
+            <option value="verified">Verified mapping</option>
+            <option value="metadata">Metadata only</option>
+            <option value="unverified">Entities present — unverified</option>
+            <option value="incomplete">Incomplete mapping</option>
+            <option value="unmapped">No mapping record</option>
+            <option value="stale">Mapping without matching PYQ</option>
+
+          </select>
+
+        </div>
+
+
+        <div class="col-lg-2 d-flex align-items-end">
+
+          <button
+            id="clearBtn"
+            type="button"
+            class="btn btn-outline-secondary w-100"
+          >
+            Clear
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- RESULTS -->
+
+    <section class="d-flex justify-content-between align-items-center mb-3">
+
+      <div>
+
+        <h2 class="h5 mb-1">
+          Mapping Inspector
+        </h2>
+
+        <div
+          id="resultSummary"
+          class="meta"
+        >
+          Loading...
+        </div>
+
+      </div>
+
+      <span
+        id="resultCount"
+        class="badge rounded-pill text-bg-dark"
+      >
+        0
+      </span>
+
+    </section>
+
+
+    <section id="resultsContainer">
+
+      <div class="empty-state">
+
+        <div class="empty-icon">
+          🔗
+        </div>
+
+        <h3 class="h5">
+          Loading mappings...
+        </h3>
+
+        <p class="mb-0">
+          Reading PYQ and knowledge-map databases.
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer class="py-4 text-center">
+
+    BAJEE JRF AI • Step 2.6 — PYQ → Knowledge Mapping
+
+  </footer>
+
+
+  <script>
+    "use strict";
+
+    const PYQ_PATH = "data/pyqs/pyq-database.json";
+    const MAP_PATH = "data/pyqs/pyq-knowledge-map.json";
+
+    let pyqs = [];
+    let mappings = [];
+    let mappingById = new Map();
+    let duplicateMappingIds = new Set();
+    let staleMappings = [];
+
+    const searchInput = document.getElementById("searchInput");
+    const statusFilter = document.getElementById("statusFilter");
+    const clearBtn = document.getElementById("clearBtn");
+    const resultsContainer = document.getElementById("resultsContainer");
+    const resultSummary = document.getElementById("resultSummary");
+    const resultCount = document.getElementById("resultCount");
+    const databaseBadge = document.getElementById("databaseBadge");
+    const databaseStatus = document.getElementById("databaseStatus");
+
+    function escapeHTML(value) {
+      if (value === null || value === undefined) return "";
+      return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    function arrayValue(value) {
+      if (Array.isArray(value)) return value;
+      if (value === null || value === undefined || value === "") return [];
+      return [value];
+    }
+
+    function getQuestionId(question) {
+      return String(question.id || question.pyq_id || question.pyqId || "").trim();
+    }
+
+    function getMappingId(mapping) {
+      return String(mapping.pyq_id || mapping.pyqId || mapping.question_id ||
+        mapping.questionId || mapping.id || "").trim();
+    }
+
+    function getQuestionText(question) {
+      return question.question || question.question_text || question.text || question.prompt || "";
+    }
+
+    function getYear(question) {
+      return question.year || question.exam_year || question.session_year || "";
+    }
+
+    function getSession(question) {
+      return question.session || question.exam_session || question.month || "";
+    }
+
+    function getUnit(question, mapping) {
+      const questionUnit = question.unit || question.paper2_unit || question.paperII_unit || "";
+      const mappedUnits = arrayValue(mapping && mapping.units);
+      return questionUnit || mappedUnits.join(", ");
+    }
+
+    function normalise(value) {
+      return String(value || "").trim().toLowerCase();
+    }
+
+    function mappingEntities(mapping) {
+      if (!mapping) return [];
+      return [...arrayValue(mapping.knowledge_entities), ...arrayValue(mapping.knowledgeEntities)]
+        .map(value => String(value).trim()).filter(Boolean);
+    }
+
+    function mappingStatus(mapping) {
+      if (!mapping) return "unmapped";
+      const entities = mappingEntities(mapping);
+      // "verified" is reserved for an explicitly verified relationship, not merely a source question.
+      if (mapping.verified === true && entities.length > 0) return "verified";
+      if (mapping.mapping_basis === "question_record_metadata_only" && entities.length === 0) return "metadata";
+      if (entities.length > 0) return "unverified";
+      return "incomplete";
+    }
+
+    const STATUS_LABELS = {
+      verified: "Verified mapping",
+      metadata: "Metadata only",
+      unverified: "Entities present — unverified",
+      incomplete: "Incomplete mapping",
+      unmapped: "No mapping record",
+      stale: "Mapping without matching PYQ"
+    };
+
+    async function loadJSON(path) {
+      const response = await fetch(path, { cache: "no-store" });
+      if (!response.ok) throw new Error(`Could not load ${path} (${response.status})`);
+      return response.json();
+    }
+
+    async function loadDatabases() {
+      try {
+        const [pyqData, mapData] = await Promise.all([
+          loadJSON(PYQ_PATH), loadJSON(MAP_PATH)
+        ]);
+
+        pyqs = Array.isArray(pyqData) ? pyqData :
+          (pyqData.questions || pyqData.pyqs || pyqData.data || []);
+        mappings = Array.isArray(mapData) ? mapData :
+          (mapData.mappings || mapData.data || []);
+
+        if (!Array.isArray(pyqs) || !Array.isArray(mappings)) {
+          throw new Error("The JSON files do not contain valid question/mapping arrays.");
+        }
+
+        const pyqIds = new Set(pyqs.map(q => normalise(getQuestionId(q))).filter(Boolean));
+        const grouped = new Map();
+        mappings.forEach(mapping => {
+          const id = normalise(getMappingId(mapping));
+          if (!id) return;
+          if (!grouped.has(id)) grouped.set(id, []);
+          grouped.get(id).push(mapping);
+        });
+
+        duplicateMappingIds = new Set([...grouped.entries()].filter(([, rows]) => rows.length > 1).map(([id]) => id));
+        mappingById = new Map();
+        grouped.forEach((rows, id) => {
+          // Do not silently choose between conflicting duplicate mappings.
+          if (rows.length === 1) mappingById.set(id, rows[0]);
+        });
+        staleMappings = mappings.filter(mapping => {
+          const id = normalise(getMappingId(mapping));
+          return id && !pyqIds.has(id);
+        });
+
+        updateStats();
+
+        databaseBadge.textContent = "Connected";
+        databaseBadge.className = "badge rounded-pill text-bg-success";
+        databaseStatus.textContent =
+          `✓ Loaded ${pyqs.length} questions and ${mappings.length} mapping records. ` +
+          `${staleMappings.length} mapping record(s) have no matching PYQ; ` +
+          `${duplicateMappingIds.size} duplicate ID(s) require review.`;
+        databaseStatus.className = "status " +
+          ((staleMappings.length || duplicateMappingIds.size) ? "error" : "success");
+
+        renderResults();
+      } catch (error) {
+        console.error(error);
+        databaseBadge.textContent = "Connection Error";
+        databaseBadge.className = "badge rounded-pill text-bg-danger";
+        databaseStatus.textContent = `Could not load the JSON files: ${error.message}`;
+        databaseStatus.className = "status error";
+        resultsContainer.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div>
+          <h3 class="h5">Mapping Database Not Available</h3>
+          <p>Check <code>data/pyqs/pyq-database.json</code> and
+          <code>data/pyqs/pyq-knowledge-map.json</code>, then open the app through its local server.</p></div>`;
+      }
+    }
+
+    function getMappingForPYQ(question) {
+      const id = normalise(getQuestionId(question));
+      if (!id || duplicateMappingIds.has(id)) return null;
+      return mappingById.get(id) || null;
+    }
+
+    function updateStats() {
+      const mappedIds = new Set();
+      const entitySet = new Set();
+      mappings.forEach(mapping => {
+        const id = normalise(getMappingId(mapping));
+        if (id) mappedIds.add(id);
+        mappingEntities(mapping).forEach(entity => entitySet.add(entity));
+      });
+      const matchedCount = pyqs.filter(q => mappedIds.has(normalise(getQuestionId(q)))).length;
+      const verifiedCount = pyqs.filter(q => mappingStatus(getMappingForPYQ(q)) === "verified").length;
+      const unmappedCount = pyqs.filter(q => !mappedIds.has(normalise(getQuestionId(q)))).length;
+
+      document.getElementById("totalPYQs").textContent = pyqs.length;
+      document.getElementById("mappedPYQs").textContent = matchedCount;
+      document.getElementById("knowledgeEntities").textContent = verifiedCount;
+      document.getElementById("unmappedPYQs").textContent = unmappedCount;
+
+      // Keep entity count available as text without mislabelling it as verified mappings.
+      const entityCardLabel = document.querySelector("#knowledgeEntities")?.parentElement?.querySelector(".stat-label");
+      if (entityCardLabel) entityCardLabel.textContent = "Verified mappings";
+      document.getElementById("resultSummary").textContent =
+        `${entitySet.size} distinct entity labels occur in mapping records; this does not establish entity-registry validity.`;
+    }
+
+    function searchMatches(question, mapping, term) {
+      if (!term) return true;
+      const searchable = [
+        getQuestionId(question), getQuestionText(question), getYear(question),
+        getSession(question), getUnit(question, mapping),
+        ...(mappingEntities(mapping)),
+        ...arrayValue(mapping && mapping.authors),
+        ...arrayValue(mapping && mapping.works),
+        ...arrayValue(mapping && mapping.concepts),
+        ...arrayValue(mapping && mapping.topics),
+        ...arrayValue(mapping && mapping.related_entities),
+        ...arrayValue(mapping && mapping.relatedEntities),
+        mapping && mapping.mapping_reason
+      ].join(" ").toLowerCase();
+      return searchable.includes(term.toLowerCase());
+    }
+
+    function getResults() {
+      const term = searchInput.value.trim();
+      const selectedStatus = statusFilter.value;
+      const results = [];
+
+      pyqs.forEach(question => {
+        const id = normalise(getQuestionId(question));
+        const mapping = getMappingForPYQ(question);
+        const status = duplicateMappingIds.has(id) ? "incomplete" : mappingStatus(mapping);
+        if (selectedStatus && selectedStatus !== status) return;
+        if (!searchMatches(question, mapping, term)) return;
+        results.push({ question, mapping, status });
+      });
+
+      if (selectedStatus === "stale") {
+        return staleMappings.filter(mapping => searchMatches(
+          { id: getMappingId(mapping), question: "" }, mapping, term
+        )).map(mapping => ({ question: { id: getMappingId(mapping), question: "" }, mapping, status: "stale" }));
+      }
+      return results;
+    }
+
+    function renderTags(values) {
+      const unique = [...new Set(arrayValue(values).map(String).filter(Boolean))];
+      if (!unique.length) return `<span class="meta">Not asserted in this mapping</span>`;
+      return unique.map(value => `<span class="badge-soft">${escapeHTML(value)}</span>`).join("");
+    }
+
+    function renderMappingCard(item, index) {
+      const question = item.question || item;
+      const mapping = item.mapping || getMappingForPYQ(question);
+      const status = item.status || mappingStatus(mapping);
+      const statusClass = status === "verified" ? "complete" :
+        (status === "unmapped" || status === "stale" ? "unmapped" : "partial");
+      const entities = mappingEntities(mapping);
+      const reason = mapping && (mapping.mapping_reason || mapping.mappingReason) || "";
+      const labelClass = status === "verified" ? "text-bg-success" :
+        (status === "unmapped" || status === "stale" ? "text-bg-danger" : "text-bg-warning");
+      const unit = getUnit(question, mapping);
+
+      return `<article class="mapping-card ${statusClass}">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+          <div>
+            <span class="badge rounded-pill text-bg-dark">PYQ ${index + 1}</span>
+            ${getYear(question) ? `<span class="badge-soft">${escapeHTML(getYear(question))}</span>` : ""}
+            ${getSession(question) ? `<span class="badge-soft">${escapeHTML(getSession(question))}</span>` : ""}
+            ${unit ? `<span class="badge-soft">${escapeHTML(unit)}</span>` : ""}
+            <div class="meta mt-2">ID: <code>${escapeHTML(getQuestionId(question))}</code></div>
+          </div>
+          <span class="badge rounded-pill ${labelClass}">${escapeHTML(STATUS_LABELS[status] || status)}</span>
+        </div>
+        <div class="question-text">${escapeHTML(getQuestionText(question) || "(No question text in source record.)")}</div>
+        <div class="mapping-arrow">↓</div>
+        <div class="knowledge-panel">
+          <div class="section-label mt-0">🧠 KNOWLEDGE ENTITIES</div>${renderTags(entities)}
+          <div class="section-label">👤 AUTHORS / FIGURES</div>${renderTags(mapping && mapping.authors)}
+          <div class="section-label">📚 WORKS</div>${renderTags(mapping && mapping.works)}
+          <div class="section-label">💡 CONCEPTS</div>${renderTags(mapping && mapping.concepts)}
+          <div class="section-label">📖 TOPICS</div>${renderTags(mapping && mapping.topics)}
+          <div class="section-label">🔗 RELATED ENTITIES</div>${renderTags(mapping && (mapping.related_entities || mapping.relatedEntities))}
+        </div>
+        ${reason ? `<div class="reason-panel"><strong>Mapping Reason / Basis</strong><div class="mt-1">${escapeHTML(reason)}</div>
+          ${mapping.mapping_basis ? `<div class="meta mt-1">Basis: ${escapeHTML(mapping.mapping_basis)}</div>` : ""}
+          ${mapping.verified === true ? "" : `<div class="meta mt-1">Relationship verification: not verified</div>`}
+        </div>` : ""}
+        ${status === "stale" ? `<div class="reason-panel">This mapping ID has no matching question in the loaded PYQ database. Review it; the record has not been deleted.</div>` : ""}
+      </article>`;
+    }
+
+    function renderResults() {
+      const results = getResults();
+      resultCount.textContent = results.length;
+      resultSummary.textContent = `Showing ${results.length} result(s) from ${pyqs.length} PYQs` +
+        (staleMappings.length ? ` • ${staleMappings.length} stale mapping record(s) available under their filter` : "") + ".";
+      if (!results.length) {
+        resultsContainer.innerHTML = `<div class="empty-state"><div class="empty-icon">🔎</div>
+          <h3 class="h5">No matching records</h3><p class="mb-0">Try another search or clear the filter.</p></div>`;
+        return;
+      }
+      resultsContainer.innerHTML = results.map((item, index) => renderMappingCard(item, index)).join("");
+    }
+
+    searchInput.addEventListener("input", renderResults);
+    statusFilter.addEventListener("change", renderResults);
+    clearBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      statusFilter.value = "";
+      renderResults();
+    });
+
+    loadDatabases();
+  </script>
+
+</body>
+</html>

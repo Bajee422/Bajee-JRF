@@ -1,0 +1,4261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <title>BAJEE JRF AI — Revision Queue</title>
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+  <style>
+
+    body {
+      background: #f5f7fb;
+      color: #172033;
+    }
+
+    .bg-navy {
+      background: #071a3d;
+    }
+
+    .text-gold {
+      color: #d4af37 !important;
+    }
+
+    .btn-navy {
+      background: #071a3d;
+      color: #ffffff;
+      border: 1px solid #071a3d;
+    }
+
+    .btn-navy:hover {
+      background: #102d61;
+      color: #ffffff;
+    }
+
+    .btn-gold {
+      background: #d4af37;
+      color: #071a3d;
+      border: 1px solid #d4af37;
+      font-weight: 700;
+    }
+
+    .btn-gold:hover {
+      background: #c29f2f;
+      color: #071a3d;
+    }
+
+    .hero {
+
+      background:
+        linear-gradient(
+          135deg,
+          #071a3d,
+          #102d61
+        );
+
+      color: #ffffff;
+
+      border-radius: 18px;
+
+      padding: 35px;
+
+    }
+
+    .section-card {
+
+      background: #ffffff;
+
+      border-radius: 16px;
+
+      padding: 25px;
+
+      box-shadow:
+        0 5px 20px rgba(
+          0,
+          0,
+          0,
+          .06
+        );
+
+    }
+
+    .eyebrow {
+
+      letter-spacing: 2px;
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+      color: #d4af37;
+
+    }
+
+    .stat-card {
+
+      background: #f8f9fa;
+
+      border-radius: 12px;
+
+      padding: 20px;
+
+      text-align: center;
+
+      height: 100%;
+
+    }
+
+    .stat-number {
+
+      font-size: 30px;
+
+      font-weight: 800;
+
+      color: #071a3d;
+
+    }
+
+    .empty-state {
+
+      background: #f8f9fa;
+
+      border-radius: 12px;
+
+      padding: 40px;
+
+      text-align: center;
+
+      color: #6c757d;
+
+    }
+
+    .knowledge-card {
+
+      background: #ffffff;
+
+      border-radius: 14px;
+
+      padding: 20px;
+
+      margin-bottom: 15px;
+
+      box-shadow:
+        0 3px 12px rgba(
+          0,
+          0,
+          0,
+          .04
+        );
+
+    }
+
+    .knowledge-card.high {
+      border-left: 5px solid #dc3545;
+    }
+
+    .knowledge-card.medium {
+      border-left: 5px solid #d4af37;
+    }
+
+    .knowledge-card.low {
+      border-left: 5px solid #198754;
+    }
+
+    .knowledge-name {
+
+      font-size: 18px;
+
+      font-weight: 700;
+
+      color: #071a3d;
+
+    }
+
+    .knowledge-score {
+
+      font-size: 28px;
+
+      font-weight: 800;
+
+    }
+
+    .score-high {
+      color: #dc3545;
+    }
+
+    .score-medium {
+      color: #856404;
+    }
+
+    .score-low {
+      color: #198754;
+    }
+
+    .progress {
+
+      height: 10px;
+
+      background: #e9ecef;
+
+    }
+
+    .tag {
+
+      display: inline-block;
+
+      padding: 5px 9px;
+
+      margin: 3px;
+
+      border-radius: 20px;
+
+      background: #e9ecef;
+
+      font-size: 12px;
+
+    }
+
+    .entity-tag {
+
+      background: #e8eef8;
+
+      color: #071a3d;
+
+      font-weight: 600;
+
+    }
+
+    .unit-tag {
+
+      background: #d1e7dd;
+
+      color: #0f5132;
+
+    }
+
+    .priority-high {
+
+      background: #f8d7da;
+
+      color: #842029;
+
+    }
+
+    .priority-medium {
+
+      background: #fff3cd;
+
+      color: #664d03;
+
+    }
+
+    .priority-low {
+
+      background: #d1e7dd;
+
+      color: #0f5132;
+
+    }
+
+    .pyq-card {
+
+      border: 1px solid #dee2e6;
+
+      border-radius: 14px;
+
+      padding: 20px;
+
+      margin-bottom: 15px;
+
+      background: #ffffff;
+
+    }
+
+    .pyq-card.retest-active {
+
+      border: 2px solid #0d6efd;
+
+      box-shadow:
+        0 4px 15px rgba(
+          13,
+          110,
+          253,
+          .12
+        );
+
+    }
+
+    .option-btn {
+
+      display: block;
+
+      width: 100%;
+
+      text-align: left;
+
+      background: #ffffff;
+
+      border: 1px solid #ced4da;
+
+      border-radius: 9px;
+
+      padding: 12px 15px;
+
+      margin-bottom: 8px;
+
+      color: #172033;
+
+      transition: .15s ease;
+
+    }
+
+    .option-btn:hover {
+
+      background: #f1f5fb;
+
+      border-color: #071a3d;
+
+    }
+
+    .option-btn.correct {
+
+      background: #d1e7dd;
+
+      border-color: #198754;
+
+      color: #0f5132;
+
+      font-weight: 700;
+
+    }
+
+    .option-btn.wrong {
+
+      background: #f8d7da;
+
+      border-color: #dc3545;
+
+      color: #842029;
+
+      font-weight: 700;
+
+    }
+
+    .option-btn:disabled {
+
+      cursor: default;
+
+      opacity: 1;
+
+    }
+
+    .result-box {
+
+      border-radius: 10px;
+
+      padding: 15px;
+
+      background: #f8f9fa;
+
+      margin-top: 15px;
+
+    }
+
+    .history-card {
+
+      background: #f8f9fa;
+
+      border-radius: 12px;
+
+      padding: 15px;
+
+      margin-bottom: 10px;
+
+    }
+
+    .alert-info-custom {
+
+      background: #eef5ff;
+
+      border-left: 4px solid #0d6efd;
+
+      border-radius: 10px;
+
+      padding: 15px;
+
+    }
+
+    .connection-flow {
+
+      border: 1px solid #dee2e6;
+
+      border-radius: 10px;
+
+      padding: 12px;
+
+      font-size: 13px;
+
+      background: #fbfcfe;
+
+    }
+
+    .small-muted {
+
+      font-size: 12px;
+
+      color: #6c757d;
+
+    }
+
+    .hidden {
+
+      display: none !important;
+
+    }
+
+  
+
+    /* Shared source-preserving question formatting (Revision Retest) */
+    .question-type-label {
+      display: inline-block; margin: 5px 0 8px; padding: 5px 9px;
+      border-radius: 6px; font-size: 10px; font-weight: 800;
+      letter-spacing: .08em; background: #eef2f8; color: #0d2d63;
+    }
+    .question-stem { margin-top: 4px; line-height: 1.65; overflow-wrap: anywhere; }
+    .question-type-match { border-left: 3px solid #d4af37; padding-left: 12px; }
+    .question-type-assertion { border-left: 3px solid #0d6efd; padding-left: 12px; }
+    .question-type-chronology { border-left: 3px solid #198754; padding-left: 12px; }
+    .structured-statement { margin-top: 10px; padding: 12px 14px; background: #f4f6fa; border-radius: 8px; line-height: 1.6; }
+    .structured-statement > strong { display: block; margin-bottom: 4px; }
+    .chronology-items, .statement-items { display: grid; gap: 7px; margin-top: 10px; }
+    .assertion-block { border-left: 4px solid #0d6efd; }
+    .reason-block { border-left: 4px solid #d4af37; }
+    .match-lists-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 12px 0; }
+    .match-list-panel { border: 1px solid #d7deea; border-radius: 10px; padding: 12px; background: #f8faff; min-width: 0; }
+    .match-list-panel h6 { font-weight: 800; color: #071a3d; border-bottom: 1px solid #d7deea; padding-bottom: 8px; margin-bottom: 8px; }
+    .match-list-item { padding: 5px 0; overflow-wrap: anywhere; }
+    @media (max-width: 640px) { .match-lists-grid { grid-template-columns: 1fr; } }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar navbar-dark bg-navy">
+
+  <div class="container">
+
+    <a
+      class="navbar-brand fw-bold"
+      href="index.html">
+
+      🎓 BAJEE JRF AI
+
+    </a>
+
+
+    <div class="d-flex align-items-center gap-2">
+
+      <a
+        href="diagnosis.html"
+        class="btn btn-sm btn-outline-light">
+
+        📊 Diagnosis
+
+      </a>
+
+
+      <span class="navbar-text text-gold">
+
+        Revision Queue
+
+      </span>
+
+    </div>
+
+  </div>
+
+</nav>
+
+
+
+<main class="container py-5">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero mb-4">
+
+  <p class="eyebrow">
+
+    STEP 5.0 — REVISION ENGINE
+
+  </p>
+
+
+  <h1 class="display-6 fw-bold">
+
+    🔄 Revision Queue
+
+  </h1>
+
+
+  <p class="mb-0">
+
+    Identify weak knowledge entities from your
+    actual test performance and turn them into
+    a focused revision cycle.
+
+  </p>
+
+</section>
+
+
+
+<!-- =====================================================
+     ENGINE STATUS
+===================================================== -->
+
+<section class="section-card mb-4">
+
+  <div
+    class="d-flex justify-content-between
+           align-items-center flex-wrap gap-2">
+
+    <div>
+
+      <p class="eyebrow mb-1">
+
+        REVISION ENGINE STATUS
+
+      </p>
+
+
+      <h2 class="h5 mb-1">
+
+        Revision Engine
+
+      </h2>
+
+
+      <p class="text-secondary mb-0">
+
+        The queue is calculated directly from
+        your question-level performance.
+
+      </p>
+
+    </div>
+
+
+    <span
+      id="engineStatus"
+      class="badge rounded-pill bg-secondary">
+
+      Loading...
+
+    </span>
+
+  </div>
+
+
+  <hr>
+
+
+  <div class="connection-flow">
+
+    🧠 Knowledge Base
+    <strong>→</strong>
+
+    📜 PYQ Database
+    <strong>→</strong>
+
+    🔗 Knowledge Mapping
+    <strong>→</strong>
+
+    📊 Performance
+    <strong>→</strong>
+
+    🔄 Revision Queue
+
+  </div>
+
+
+  <div
+    id="engineMessage"
+    class="alert-info-custom mt-3">
+
+    Loading revision data...
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STATISTICS
+===================================================== -->
+
+<section class="mb-4">
+
+  <div class="row g-3">
+
+    <div class="col-md-3">
+
+      <div class="stat-card">
+
+        <div
+          id="totalAttempts"
+          class="stat-number">
+
+          0
+
+        </div>
+
+        <div class="small text-secondary">
+
+          Total Question Attempts
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+      <div class="stat-card">
+
+        <div
+          id="weakEntities"
+          class="stat-number">
+
+          0
+
+        </div>
+
+        <div class="small text-secondary">
+
+          Weak Entities
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+      <div class="stat-card">
+
+        <div
+          id="revisionItems"
+          class="stat-number">
+
+          0
+
+        </div>
+
+        <div class="small text-secondary">
+
+          Revision Items
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+      <div class="stat-card">
+
+        <div
+          id="mappedPyqs"
+          class="stat-number">
+
+          0
+
+        </div>
+
+        <div class="small text-secondary">
+
+          Mapped PYQs
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PRIORITY QUEUE
+===================================================== -->
+
+<section class="section-card mb-4">
+
+  <div
+    class="d-flex justify-content-between
+           align-items-center flex-wrap gap-2">
+
+    <div>
+
+      <p class="eyebrow mb-1">
+
+        REVISION SIGNAL
+
+      </p>
+
+
+      <h2 class="h4 mb-1">
+
+        🔄 Priority Revision Queue
+
+      </h2>
+
+
+      <p class="text-secondary mb-0">
+
+        Source-backed entity, unit and topic priorities requiring revision.
+
+      </p>
+
+    </div>
+
+
+    <span
+      id="priorityCount"
+      class="badge rounded-pill bg-secondary">
+
+      0 items
+
+    </span>
+
+  </div>
+
+
+  <hr>
+
+
+  <div id="priorityContainer">
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     RETEST AREA
+===================================================== -->
+
+<section
+  id="retestSection"
+  class="section-card mb-4 hidden">
+
+  <div
+    class="d-flex justify-content-between
+           align-items-center flex-wrap gap-2">
+
+    <div>
+
+      <p class="eyebrow mb-1">
+
+        FOCUSED RETEST
+
+      </p>
+
+
+      <h2 class="h4 mb-1">
+
+        📝 Retest Connected PYQs
+
+      </h2>
+
+
+      <p class="text-secondary mb-0">
+
+        Answer the connected PYQs again after
+        reviewing the weak knowledge area.
+
+      </p>
+
+    </div>
+
+
+    <button
+      id="closeRetestBtn"
+      class="btn btn-outline-secondary btn-sm"
+      type="button">
+
+      ✕ Close Retest
+
+    </button>
+
+  </div>
+
+
+  <hr>
+
+
+  <div id="retestContainer">
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     KNOWLEDGE PERFORMANCE
+===================================================== -->
+
+<section class="section-card mb-4">
+
+  <div
+    class="d-flex justify-content-between
+           align-items-center flex-wrap gap-2">
+
+    <div>
+
+      <p class="eyebrow mb-1">
+
+        KNOWLEDGE PERFORMANCE
+
+      </p>
+
+
+      <h2 class="h4 mb-1">
+
+        🧠 Knowledge Entity Performance
+
+      </h2>
+
+
+      <p class="text-secondary mb-0">
+
+        Accuracy for explicitly mapped knowledge entities only; unit/topic performance appears in the priority queue.
+
+      </p>
+
+    </div>
+
+
+    <span
+      id="performanceCount"
+      class="badge rounded-pill bg-secondary">
+
+      0 entities
+
+    </span>
+
+  </div>
+
+
+  <hr>
+
+
+  <div id="performanceContainer">
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     RECENT HISTORY
+===================================================== -->
+
+<section class="section-card mb-4">
+
+  <h2 class="h4 mb-1">
+
+    📈 Recent Test & Retest History
+
+  </h2>
+
+
+  <p class="text-secondary">
+
+    Your latest recorded attempts.
+
+  </p>
+
+
+  <div id="historyContainer">
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     HOW IT WORKS
+===================================================== -->
+
+<section class="section-card mb-4">
+
+  <p class="eyebrow mb-1">
+
+    HOW THE QUEUE WORKS
+
+  </p>
+
+
+  <h2 class="h4">
+
+    🎯 Revision Priority Logic
+
+  </h2>
+
+
+  <p class="text-secondary">
+
+    The system uses actual question-level
+    performance rather than guessing your weaknesses.
+
+  </p>
+
+
+  <div class="row g-3 mt-2">
+
+
+    <div class="col-md-4">
+
+      <div class="border rounded p-3 h-100">
+
+        <div class="fw-bold text-danger">
+
+          🔴 High Priority
+
+        </div>
+
+
+        <div class="small text-secondary mt-2">
+
+          Accuracy below 50% or repeated
+          incorrect attempts.
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+      <div class="border rounded p-3 h-100">
+
+        <div class="fw-bold text-warning">
+
+          🟡 Medium Priority
+
+        </div>
+
+
+        <div class="small text-secondary mt-2">
+
+          Accuracy from 50% to below 75%.
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+      <div class="border rounded p-3 h-100">
+
+        <div class="fw-bold text-success">
+
+          🟢 Low Priority
+
+        </div>
+
+
+        <div class="small text-secondary mt-2">
+
+          Accuracy from 75% to below 85%,
+          requiring light reinforcement.
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ACTIONS
+===================================================== -->
+
+<section class="section-card">
+
+  <div
+    class="d-flex justify-content-between
+           align-items-center flex-wrap gap-3">
+
+    <div>
+
+      <h2 class="h5 mb-1">
+
+        🎯 Next Action
+
+      </h2>
+
+
+      <p class="text-secondary mb-0">
+
+        Revise weak entities first, then retest
+        the connected PYQs.
+
+      </p>
+
+    </div>
+
+
+    <div class="d-flex gap-2 flex-wrap">
+
+
+      <a
+        href="diagnosis.html"
+        class="btn btn-navy">
+
+        📊 View Diagnosis
+
+      </a>
+
+
+      <a
+        href="test-engine.html"
+        class="btn btn-gold">
+
+        📝 Take Another Test
+
+      </a>
+
+
+      <button
+        id="refreshBtn"
+        type="button"
+        class="btn btn-outline-primary">
+
+        🔄 Refresh Queue
+
+      </button>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+
+<footer class="py-4 text-center">
+
+  <small class="text-secondary">
+
+    BAJEE JRF AI • Step 5.0 • Revision Queue
+
+  </small>
+
+</footer>
+
+
+
+<script>
+
+/* =========================================================
+   BAJEE JRF AI
+   STEP 5.0 — REVISION QUEUE
+
+   IMPORTANT:
+   This file deliberately uses the SAME data flow
+   used by diagnosis.html.
+
+   Storage:
+   bajee_jrf_ai_test_history_v1
+
+   Data:
+   pyq-database.json
+   pyq-knowledge-map.json
+   knowledge-entities.json
+========================================================= */
+
+
+const STORAGE_KEY =
+  "bajee_jrf_ai_test_history_v1";
+
+
+let pyqDatabase = [];
+
+let mappings = [];
+
+let knowledgeDatabase = [];
+
+let testHistory = [];
+
+let currentRetestQuestions = [];
+
+let currentRetestEntity = null;
+let currentRetestCategory = "topic";
+
+let retestResults = [];
+
+
+
+/* =========================================================
+   LOAD DATABASE
+========================================================= */
+
+async function loadDatabase() {
+
+  try {
+
+    setEngineStatus(
+      "Loading...",
+      "bg-secondary"
+    );
+
+
+    const responses =
+      await Promise.all([
+
+        fetch("data/pyqs/pyq-database.json"),
+
+        fetch("data/pyqs/pyq-knowledge-map.json"),
+
+        fetch("data/knowledge/knowledge-entities.json").catch(() => null)
+
+      ]);
+
+
+    if (
+      !responses[0].ok ||
+      !responses[1].ok
+    ) {
+
+      throw new Error(
+        "Could not load one or more revision databases."
+      );
+
+    }
+
+
+    const pyqData =
+      await responses[0].json();
+
+
+    const mappingData =
+      await responses[1].json();
+
+
+    let knowledgeData = { entities: [] };
+    if (responses[2] && responses[2].ok) {
+      try { knowledgeData = await responses[2].json(); }
+      catch (error) { console.warn("Optional knowledge catalogue could not be parsed:", error); }
+    }
+
+
+    /* -----------------------------------------------------
+       PYQ DATABASE
+    ----------------------------------------------------- */
+
+    if (
+      Array.isArray(
+        pyqData.questions
+      )
+    ) {
+
+      pyqDatabase =
+        pyqData.questions;
+
+    }
+
+    else if (
+      Array.isArray(
+        pyqData
+      )
+    ) {
+
+      pyqDatabase =
+        pyqData;
+
+    }
+
+
+    /* -----------------------------------------------------
+       MAPPINGS
+    ----------------------------------------------------- */
+
+    if (
+      Array.isArray(
+        mappingData.mappings
+      )
+    ) {
+
+      mappings =
+        mappingData.mappings;
+
+    }
+
+    else if (
+      Array.isArray(
+        mappingData
+      )
+    ) {
+
+      mappings =
+        mappingData;
+
+    }
+
+
+    /* -----------------------------------------------------
+       KNOWLEDGE
+    ----------------------------------------------------- */
+
+    if (
+      Array.isArray(
+        knowledgeData.entities
+      )
+    ) {
+
+      knowledgeDatabase =
+        knowledgeData.entities;
+
+    }
+
+    else if (
+      Array.isArray(
+        knowledgeData
+      )
+    ) {
+
+      knowledgeDatabase =
+        knowledgeData;
+
+    }
+
+
+    loadHistory();
+
+
+    renderRevisionPage();
+
+
+    setEngineStatus(
+      "Connected",
+      "bg-success"
+    );
+
+
+    document.getElementById(
+      "engineMessage"
+    ).innerHTML = `
+
+      Revision engine connected •
+      ${knowledgeDatabase.length} knowledge entities •
+      ${mappings.length} mapped records •
+      ${testHistory.length} test records
+
+    `;
+
+
+    console.log(
+      "BAJEE JRF AI Revision Engine loaded successfully.",
+      {
+        pyqs:
+          pyqDatabase.length,
+
+        mappings:
+          mappings.length,
+
+        knowledge:
+          knowledgeDatabase.length,
+
+        tests:
+          testHistory.length
+      }
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Revision loading error:",
+      error
+    );
+
+
+    setEngineStatus(
+      "Error",
+      "bg-danger"
+    );
+
+
+    document.getElementById(
+      "engineMessage"
+    ).innerHTML = `
+
+      <strong>
+        Revision database error
+      </strong>
+
+      <div class="small mt-1">
+
+        ${escapeHTML(
+          error.message
+        )}
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+
+/* =========================================================
+   ENGINE STATUS
+========================================================= */
+
+function setEngineStatus(
+  text,
+  className
+) {
+
+  const element =
+    document.getElementById(
+      "engineStatus"
+    );
+
+
+  element.textContent =
+    text;
+
+
+  element.className =
+    `badge rounded-pill ${className}`;
+
+}
+
+
+
+/* =========================================================
+   LOAD HISTORY
+========================================================= */
+
+function loadHistory() {
+
+  testHistory = [];
+
+
+  try {
+
+    const stored =
+      localStorage.getItem(
+        STORAGE_KEY
+      );
+
+
+    if (!stored) {
+
+      return;
+
+    }
+
+
+    const parsed =
+      JSON.parse(
+        stored
+      );
+
+
+    if (
+      Array.isArray(
+        parsed
+      )
+    ) {
+
+      testHistory =
+        parsed;
+
+    }
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Could not read test history:",
+      error
+    );
+
+  }
+
+}
+
+
+
+/* =========================================================
+   SAVE HISTORY
+========================================================= */
+
+function saveHistory() {
+
+  try {
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(
+        testHistory
+      )
+    );
+
+
+    return true;
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Could not save test history:",
+      error
+    );
+
+
+    alert(
+      "Could not save the retest result."
+    );
+
+
+    return false;
+
+  }
+
+}
+
+
+
+/* =========================================================
+   MAIN RENDER
+========================================================= */
+
+function renderRevisionPage() {
+
+  const stats =
+    buildKnowledgeStats();
+
+
+  renderStatistics(
+    stats
+  );
+
+
+  renderPriorityQueue(
+    stats
+  );
+
+
+  renderPerformance(
+    stats
+  );
+
+
+  renderHistory();
+
+}
+
+
+
+/* =========================================================
+   BUILD KNOWLEDGE STATS
+
+   THIS IS INTENTIONALLY THE SAME CORE LOGIC
+   USED BY diagnosis.html.
+========================================================= */
+
+function buildKnowledgeStats() {
+  const stats = {};
+  const normalizeId = value => String(value ?? "").trim().toLowerCase();
+  const firstId = (...values) => values.find(value => value !== undefined && value !== null && String(value).trim() !== "");
+  const normalizeLabels = values => {
+    if (values === undefined || values === null) return [];
+    const list = Array.isArray(values) ? values : [values];
+    return [...new Set(list.map(value => {
+      if (typeof value === "string" || typeof value === "number") return String(value).trim();
+      if (value && typeof value === "object") return String(value.name ?? value.label ?? value.title ?? value.entity_name ?? value.id ?? "").trim();
+      return "";
+    }).filter(Boolean))];
+  };
+
+  // Index every explicit source mapping ID and every known alias for each PYQ.
+  const mappingById = new Map();
+  mappings.forEach(mapping => {
+    const ids = [mapping.pyq_id, mapping.question_id, mapping.questionId, mapping.id]
+      .filter(value => value !== undefined && value !== null && String(value).trim());
+    ids.forEach(id => mappingById.set(normalizeId(id), mapping));
+  });
+  const questionByAlias = new Map();
+  pyqDatabase.forEach(question => {
+    const ids = [question.pyq_id, question.question_id, question.questionId, question.id]
+      .filter(value => value !== undefined && value !== null && String(value).trim());
+    ids.forEach(id => questionByAlias.set(normalizeId(id), question));
+  });
+
+  const addStat = (key, label, category, result, questionId, units, concepts) => {
+    if (!stats[key]) stats[key] = {
+      name: label, category, attempted: 0, correct: 0, wrong: 0, unanswered: 0,
+      units: new Set(), concepts: new Set(), questionIds: new Set()
+    };
+    const item = stats[key];
+    item.attempted++;
+    if (result.is_correct === true || result.is_correct === 1 || result.is_correct === "true") item.correct++;
+    else if (result.answered === true ||
+      (result.selected_answer !== undefined && result.selected_answer !== null && result.selected_answer !== "") ||
+      (result.selected !== undefined && result.selected !== null && result.selected !== "")) item.wrong++;
+    else item.unanswered++;
+    if (questionId) item.questionIds.add(String(questionId));
+    [...units, ...concepts].forEach(value => {
+      if (units.includes(value)) item.units.add(value);
+      if (concepts.includes(value)) item.concepts.add(value);
+    });
+  };
+
+  testHistory.forEach(test => {
+    if (!Array.isArray(test.question_results)) return;
+    test.question_results.forEach(result => {
+      const rawId = firstId(result.question_id, result.questionId, result.pyq_id, result.id);
+      const id = normalizeId(rawId);
+      const question = questionByAlias.get(id);
+      const canonicalId = normalizeId(firstId(question?.pyq_id, question?.question_id, question?.questionId, question?.id));
+      const mapping = mappingById.get(id) || mappingById.get(canonicalId) || {};
+      const entities = normalizeLabels(result.knowledge_entities ?? result.knowledgeEntities ?? result.knowledge_entity ?? result.knowledgeEntity)
+        .concat(normalizeLabels(mapping.knowledge_entities ?? mapping.knowledgeEntities));
+      const units = [...new Set([
+        ...normalizeLabels(result.units ?? result.unit).filter(label => normalizeId(label) !== "unclassified"),
+        ...normalizeLabels(mapping.units ?? mapping.unit).filter(label => normalizeId(label) !== "unclassified")
+      ])];
+      const concepts = [...new Set([
+        ...normalizeLabels(result.concepts ?? result.topics ?? result.topic).filter(label => normalizeId(label) !== "unclassified"),
+        ...normalizeLabels(mapping.concepts ?? mapping.topics ?? mapping.topic).filter(label => normalizeId(label) !== "unclassified")
+      ])];
+      // A unit/topic label must never be counted as an author/work/critic/etc.
+      // This also safely corrects older retest records that stored the focus label
+      // in `knowledge_entity`, without rewriting the saved source/history records.
+      const nonEntityLabels = new Set([...units, ...concepts].map(normalizeId));
+      const uniqueEntities = [...new Set(entities)].filter(label => {
+        const key = normalizeId(label);
+        return key && !nonEntityLabels.has(key) && !/^unit\s+(?:[ivxlcdm]+|\d+)$/i.test(key);
+      });
+
+      // Entity performance is calculated only from explicit, non-unit/topic metadata.
+      if (uniqueEntities.length) {
+        uniqueEntities.forEach(entity => addStat(`entity:${entity.toLowerCase()}`, entity, "entity", result, rawId, units, concepts));
+      } else {
+        // If no entity is explicitly linked, retain source-backed unit/topic diagnosis.
+        // This is a fallback, not a fabricated author/work/knowledge-entity link.
+        units.forEach(unit => addStat(`unit:${unit.toLowerCase()}`, unit, "unit", result, rawId, units, concepts));
+        concepts.forEach(topic => addStat(`topic:${topic.toLowerCase()}`, topic, "topic", result, rawId, units, concepts));
+      }
+    });
+  });
+
+  return Object.values(stats).map(item => {
+    // Accuracy must use answered questions only. Unanswered questions are practice needs,
+    // not evidence of an incorrect answer or a measured 0% accuracy.
+    const answeredCount = item.correct + item.wrong;
+    const accuracy = answeredCount > 0 ? Math.round((item.correct / answeredCount) * 100) : null;
+    return {
+      ...item, answeredCount, accuracy,
+      level: answeredCount === 0 ? "unmeasured" : accuracy >= 75 ? "strong" : accuracy >= 50 ? "medium" : "weak",
+      units: [...item.units], concepts: [...item.concepts], questionIds: [...item.questionIds]
+    };
+  }).sort((a, b) => (a.accuracy ?? 101) - (b.accuracy ?? 101) || b.attempted - a.attempted);
+}
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+function renderStatistics(stats) {
+
+  // Count every saved question result, even when its knowledge mapping is absent.
+  // Entity metrics remain based only on supported, explicit mappings.
+  const totalAttempts = testHistory.reduce((sum, test) =>
+    sum + (Array.isArray(test.question_results) ? test.question_results.length : 0), 0);
+
+  const weakEntities = stats.filter(item => item.category === "entity" && item.answeredCount > 0 && item.accuracy < 50).length;
+  const revisionItems = stats.filter(item => item.answeredCount === 0 || item.accuracy < 75).length;
+  const mappedQuestionIds = new Set();
+  const hasEmbeddedEntities = values => Array.isArray(values) && values.some(value => {
+    if (typeof value === "string" || typeof value === "number") return String(value).trim() !== "";
+    return !!(value && typeof value === "object" && String(value.name ?? value.label ?? value.title ?? value.entity_name ?? value.id ?? "").trim());
+  });
+  const mappingIds = new Set(mappings.flatMap(mapping =>
+    [mapping.pyq_id, mapping.question_id, mapping.questionId, mapping.id]
+      .filter(value => value !== undefined && value !== null && String(value).trim())
+      .map(value => String(value).trim().toLowerCase())
+  ));
+  const aliases = new Map();
+  pyqDatabase.forEach(question => {
+    const ids = [question.pyq_id, question.question_id, question.questionId, question.id]
+      .filter(value => value !== undefined && value !== null && String(value).trim())
+      .map(value => String(value).trim().toLowerCase());
+    if (ids.some(id => mappingIds.has(id))) ids.forEach(id => aliases.set(id, true));
+  });
+
+  testHistory.forEach(test => {
+    if (!Array.isArray(test.question_results)) return;
+    test.question_results.forEach(result => {
+      const id = String(result.question_id ?? result.questionId ?? result.pyq_id ?? result.id ?? "").trim().toLowerCase();
+      if (id && (mappingIds.has(id) || aliases.has(id) ||
+          hasEmbeddedEntities(result.knowledge_entities ?? result.knowledgeEntities ?? result.knowledge_entity ?? result.knowledgeEntity))) {
+        mappedQuestionIds.add(id);
+      }
+    });
+  });
+
+  document.getElementById("totalAttempts").textContent = totalAttempts;
+  document.getElementById("weakEntities").textContent = weakEntities;
+  document.getElementById("revisionItems").textContent = revisionItems;
+  document.getElementById("mappedPyqs").textContent = mappedQuestionIds.size;
+}
+
+/* =========================================================
+   PRIORITY QUEUE
+========================================================= */
+
+function renderPriorityQueue(stats) {
+  const container = document.getElementById("priorityContainer");
+  const revisionItems = stats
+    .filter(item => (item.answeredCount === 0 || item.accuracy < 75) && item.category !== "unclassified")
+    .sort((a, b) => (a.accuracy ?? 101) - (b.accuracy ?? 101) || b.attempted - a.attempted);
+
+  document.getElementById("priorityCount").textContent =
+    `${revisionItems.length} ${revisionItems.length === 1 ? "item" : "items"}`;
+
+  if (!revisionItems.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div style="font-size:42px;">🎉</div>
+        <strong>No supported revision priorities detected yet.</strong>
+        <div class="small mt-2">
+          Saved question attempts are counted above. Entity priorities require explicit entity links; unit/topic priorities require source-backed unit or topic labels.
+        </div>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="small text-secondary mb-3">
+      Entity, unit and topic priorities are separated by source type. Placeholder labels such as “Unclassified” are not treated as revision topics.
+    </div>
+    ${revisionItems.map(item => createPriorityCard(item)).join("")}`;
+}
+
+
+/* =========================================================
+   PRIORITY CARD
+========================================================= */
+
+function createPriorityCard(
+  item
+) {
+
+  const priority =
+    getPriority(
+      item.accuracy,
+      item.answeredCount
+    );
+
+
+  const priorityClass =
+    priority === "HIGH"
+
+      ? "priority-high"
+
+      : priority === "MEDIUM" || priority === "PRACTICE"
+
+        ? "priority-medium"
+
+        : "priority-low";
+
+
+  const cardClass =
+    priority === "HIGH"
+
+      ? "high"
+
+      : priority === "MEDIUM" || priority === "PRACTICE"
+
+        ? "medium"
+
+        : "low";
+
+
+  return `
+
+    <div class="
+      knowledge-card
+      ${cardClass}
+    ">
+
+      <div class="
+        d-flex
+        justify-content-between
+        align-items-start
+        flex-wrap
+        gap-3
+      ">
+
+
+        <div>
+
+          <div class="knowledge-name">
+
+            ${item.category === "entity" ? "🧠" : item.category === "unit" ? "📘" : "🧩"} ${escapeHTML(item.name)}
+
+          </div>
+
+
+          <div class="small text-secondary">
+
+            ${item.attempted} question records •
+            ${item.correct} correct •
+            ${item.wrong} wrong •
+            ${item.unanswered} unanswered
+
+          </div>
+
+        </div>
+
+
+        <span class="
+          tag
+          ${priorityClass}
+        ">
+
+          ${priority === "PRACTICE" ? "PRACTICE NEEDED" : `${priority} PRIORITY`} · ${item.category === "entity" ? "ENTITY" : item.category === "unit" ? "UNIT" : "TOPIC"}
+
+        </span>
+
+      </div>
+
+
+      <div class="row align-items-center mt-3">
+
+
+        <div class="col-md-2">
+
+          <div class="
+            knowledge-score
+            ${
+              priority === "HIGH"
+
+                ? "score-high"
+
+                : priority === "MEDIUM" || priority === "PRACTICE"
+
+                  ? "score-medium"
+
+                  : "score-low"
+            }
+          ">
+
+            ${item.accuracy === null ? "—" : `${item.accuracy}%`}
+
+          </div>
+
+
+          <div class="small text-secondary">
+
+            ${item.accuracy === null ? "Accuracy not measured" : "Accuracy of answered questions"}
+
+          </div>
+
+        </div>
+
+
+        <div class="col-md-10">
+
+          <div class="progress">
+
+            <div
+              class="progress-bar"
+              style="width:${item.accuracy ?? 0}%">
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      ${
+        item.units.length
+
+          ? `
+
+            <div class="mt-3">
+
+              <strong class="small">
+
+                Units:
+
+              </strong>
+
+
+              ${item.units
+                .map(
+                  unit => `
+
+                    <span class="
+                      tag
+                      unit-tag
+                    ">
+
+                      ${escapeHTML(
+                        unit
+                      )}
+
+                    </span>
+
+                  `
+                )
+                .join("")
+              }
+
+            </div>
+
+          `
+
+          : ""
+      }
+
+
+      ${
+        item.concepts.length
+
+          ? `
+
+            <div class="mt-2">
+
+              <strong class="small">
+
+                Concepts:
+
+              </strong>
+
+
+              ${item.concepts
+                .map(
+                  concept => `
+
+                    <span class="tag">
+
+                      ${escapeHTML(
+                        concept
+                      )}
+
+                    </span>
+
+                  `
+                )
+                .join("")
+              }
+
+            </div>
+
+          `
+
+          : ""
+      }
+
+
+      <div class="d-flex gap-2 flex-wrap mt-4">
+
+
+        <button
+          type="button"
+          class="btn btn-navy btn-sm"
+          data-revision-action="retest"
+          data-revision-name="${escapeHTML(item.name)}"
+          data-revision-ids="${escapeHTML(JSON.stringify(item.questionIds))}"
+          data-revision-category="${escapeHTML(item.category)}">
+
+          🔄 Retry Connected ${escapeHTML(item.category === "entity" ? "PYQs" : "Questions")}
+
+        </button>
+
+
+        <button
+          type="button"
+          class="btn btn-outline-secondary btn-sm"
+          data-revision-action="source"
+          data-revision-name="${escapeHTML(item.name)}"
+          data-revision-category="${escapeHTML(item.category)}">
+
+          📚 ${item.category === "entity" ? "View Knowledge" : "View Source Context"}
+
+        </button>
+
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   PRIORITY CALCULATION
+========================================================= */
+
+function getPriority(
+  accuracy,
+  answeredCount = 1
+) {
+
+  if (answeredCount === 0 || accuracy === null || accuracy === undefined) {
+    return "PRACTICE";
+  }
+
+  if (
+    accuracy < 50
+  ) {
+
+    return "HIGH";
+
+  }
+
+
+  if (
+    accuracy < 75
+  ) {
+
+    return "MEDIUM";
+
+  }
+
+
+  return "LOW";
+
+}
+
+
+
+/* =========================================================
+   KNOWLEDGE PERFORMANCE
+========================================================= */
+
+function renderPerformance(stats) {
+  const container = document.getElementById("performanceContainer");
+  const entityStats = stats.filter(item => item.category === "entity");
+
+  document.getElementById("performanceCount").textContent =
+    `${entityStats.length} ${entityStats.length === 1 ? "entity" : "entities"}`;
+
+  if (!entityStats.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div style="font-size:42px;">🧠</div>
+        <strong>No question-level knowledge-entity performance available yet.</strong>
+        <div class="small mt-2">
+          Unit/topic revision is shown separately above. Entity performance appears only when a saved result or source mapping explicitly identifies a knowledge entity.
+        </div>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = entityStats.map(item => createPerformanceCard(item)).join("");
+}
+
+
+/* =========================================================
+   PERFORMANCE CARD
+========================================================= */
+
+function createPerformanceCard(
+  item
+) {
+
+  const priority =
+    getPriority(
+      item.accuracy,
+      item.answeredCount
+    );
+
+
+  let borderClass =
+    "low";
+
+
+  if (
+    priority === "HIGH"
+  ) {
+
+    borderClass =
+      "high";
+
+  }
+
+  else if (
+    priority === "MEDIUM"
+  ) {
+
+    borderClass =
+      "medium";
+
+  }
+
+
+  return `
+
+    <div class="
+      knowledge-card
+      ${borderClass}
+    ">
+
+      <div class="
+        d-flex
+        justify-content-between
+        align-items-start
+        flex-wrap
+        gap-3
+      ">
+
+        <div>
+
+          <div class="knowledge-name">
+
+            ${escapeHTML(
+              item.name
+            )}
+
+          </div>
+
+
+          <div class="small text-secondary">
+
+            Explicitly mapped knowledge entity
+
+          </div>
+
+        </div>
+
+
+        <div class="
+          knowledge-score
+          ${
+            item.accuracy === null
+              ? ""
+              : item.accuracy < 50
+                ? "score-high"
+                : item.accuracy < 75
+                  ? "score-medium"
+                  : "score-low"
+          }
+        ">
+
+          ${item.accuracy === null ? "—" : `${item.accuracy}%`}
+
+        </div>
+
+      </div>
+
+
+      <div class="progress mt-3">
+
+        <div
+          class="progress-bar"
+          style="width:${item.accuracy ?? 0}%">
+
+        </div>
+
+      </div>
+
+
+      <div class="row g-3 mt-2">
+
+
+        <div class="col-4">
+
+          <div class="text-center">
+
+            <strong>
+
+              ${item.attempted}
+
+            </strong>
+
+
+            <div class="small text-secondary">
+
+              Attempted
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="col-4">
+
+          <div class="text-center">
+
+            <strong class="text-success">
+
+              ${item.correct}
+
+            </strong>
+
+
+            <div class="small text-secondary">
+
+              Correct
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="col-4">
+
+          <div class="text-center">
+
+            <strong class="text-danger">
+
+              ${item.wrong}
+
+            </strong>
+
+
+            <div class="small text-secondary">
+
+              Wrong
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      ${
+        item.units.length
+
+          ? `
+
+            <div class="mt-3">
+
+              ${item.units
+                .map(
+                  unit => `
+
+                    <span class="
+                      tag
+                      unit-tag
+                    ">
+
+                      ${escapeHTML(
+                        unit
+                      )}
+
+                    </span>
+
+                  `
+                )
+                .join("")
+              }
+
+            </div>
+
+          `
+
+          : ""
+      }
+
+
+      ${
+        item.concepts.length
+
+          ? `
+
+            <div class="mt-2">
+
+              ${item.concepts
+                .map(
+                  concept => `
+
+                    <span class="tag">
+
+                      ${escapeHTML(
+                        concept
+                      )}
+
+                    </span>
+
+                  `
+                )
+                .join("")
+              }
+
+            </div>
+
+          `
+
+          : ""
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   FIND PYQ BY ID
+
+   Handles common ID field variations.
+========================================================= */
+
+function findPyqById(questionId) {
+  const target = String(questionId ?? "").trim().toLowerCase();
+  if (!target) return null;
+
+  return pyqDatabase.find(question => {
+    const candidates = [
+      question.id,
+      question.pyq_id,
+      question.question_id,
+      question.questionId
+    ];
+    return candidates.some(value =>
+      String(value ?? "").trim().toLowerCase() === target
+    );
+  }) || null;
+}
+
+
+
+/* =========================================================
+   GET CONNECTED PYQS
+========================================================= */
+
+function getConnectedPyqs(entityName, candidateIds = []) {
+  const target = normalize(entityName);
+  const ids = Array.isArray(candidateIds) ? [...candidateIds] : [];
+
+  // Use exact question IDs already captured from saved question-level history.
+  // This does not infer or create knowledge-entity relationships.
+  if (ids.length) {
+    return [...new Set(ids.map(id => String(id ?? "").trim().toLowerCase()).filter(Boolean))]
+      .map(id => findPyqById(id))
+      .filter(Boolean)
+      .filter(question => {
+        const options = getOptions(question);
+        const answer = getCorrectAnswer(question, options);
+        return options.length >= 2 && String(answer ?? "").trim() !== "";
+      });
+  }
+
+  // If no saved IDs were supplied, use only explicit source mapping connections.
+  const directIds = mappings.filter(mapping => {
+    const entities = Array.isArray(mapping.knowledge_entities) ? mapping.knowledge_entities : [];
+    return entities.some(entity => normalize(
+      typeof entity === "object"
+        ? (entity.name ?? entity.label ?? entity.title ?? entity.id ?? "")
+        : entity
+    ) === target);
+  }).map(mapping => mapping.pyq_id ?? mapping.question_id ?? mapping.questionId ?? mapping.id);
+
+  const fallbackIds = directIds.length ? [] : mappings.filter(mapping => {
+    const labels = [
+      ...normalizeLabelsForRetest(mapping.units ?? mapping.unit),
+      ...normalizeLabelsForRetest(mapping.topics ?? mapping.topic),
+      ...normalizeLabelsForRetest(mapping.concepts)
+    ];
+    return labels.some(label => normalize(label) === target);
+  }).map(mapping => mapping.pyq_id ?? mapping.question_id ?? mapping.questionId ?? mapping.id);
+
+  return [...new Set([...directIds, ...fallbackIds]
+    .map(id => String(id ?? "").trim().toLowerCase())
+    .filter(Boolean))]
+    .map(id => findPyqById(id))
+    .filter(Boolean)
+    .filter(question => {
+      const options = getOptions(question);
+      const answer = getCorrectAnswer(question, options);
+      return options.length >= 2 && String(answer ?? "").trim() !== "";
+    });
+}
+
+
+
+function normalizeLabelsForRetest(values) {
+  if (values === undefined || values === null) return [];
+  const list = Array.isArray(values) ? values : [values];
+  return list.map(value => {
+    if (typeof value === "string" || typeof value === "number") return String(value).trim();
+    if (value && typeof value === "object") return String(value.name ?? value.label ?? value.title ?? value.id ?? "").trim();
+    return "";
+  }).filter(Boolean);
+}
+
+/* =========================================================
+   START RETEST
+========================================================= */
+
+function startRetestForEntity(entityName, questionIds = [], category = "topic") {
+  const questions = getConnectedPyqs(entityName, questionIds);
+
+  if (!questions.length) {
+    alert(
+      `No eligible source questions could be matched to "${entityName}".\n\n` +
+      "This revision item remains available, but a retest needs a matching question ID, " +
+      "at least two options, and a usable answer key. No connection has been guessed."
+    );
+    return;
+  }
+
+  currentRetestEntity = entityName;
+  currentRetestCategory = ["entity", "unit", "topic"].includes(category) ? category : "topic";
+  currentRetestQuestions = questions;
+  retestResults = [];
+
+  const retestSection = document.getElementById("retestSection");
+  if (!retestSection) {
+    alert("The retest section is missing from revision.html.");
+    return;
+  }
+
+  retestSection.classList.remove("hidden");
+  renderRetestQuestions();
+  retestSection.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+
+
+/* =========================================================
+   SHARED QUESTION-TYPE RENDERER
+   Used in the live test, immediate feedback and review.
+   It formats source text only; it never invents or changes
+   question wording, options, answer keys or relationships.
+========================================================= */
+function getSourceExplanation(question) {
+  const value = question?.explanation ?? question?.explanation_text ?? "";
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function renderExplanationBlock(question) {
+  const explanation = getSourceExplanation(question);
+  // A bare source/key citation is not an explanation. Do not display it as one.
+  if (!explanation) return "";
+  const citationOnly = /^(?:official\s+)?(?:NTA\s+)?(?:final\s+)?answer\s+key\b/i.test(explanation)
+    || /lists?\s+option\s+[1-4A-D]\b/i.test(explanation)
+    || /answer\s+key\s+(?:for|of)\s+(?:exam|question|paper)\b/i.test(explanation)
+    || /https?:\/\/\S+/i.test(explanation) && explanation.length < 180;
+  if (citationOnly) return "";
+  return `<div class="explanation-box"><strong>Explanation</strong><div class="mt-2">${escapeHTML(explanation)}</div></div>`;
+}
+
+function detectQuestionType(question) {
+  const text = String(question.question ?? question.text ?? "");
+  const topic = String(question.topic ?? "");
+  const combined = `${text} ${topic}`.toLowerCase();
+
+  if (/\bassertion\s*\(?\s*a\s*\)?\s*[:\-]/i.test(text) &&
+      /\breason\s*\(?\s*r\s*\)?\s*[:\-]/i.test(text)) return "assertion-reason";
+  if (/\bmatch\b/i.test(text) && /\blist\s*[- ]?i\b/i.test(text) && /\blist\s*[- ]?ii\b/i.test(text)) return "match-following";
+  if (/\bmatch\s+(the\s+)?following\b/i.test(text)) return "match-following";
+  if (/\bchronolog(?:y|ical)\b|\bpublication\s+of\s+the\s+works\b|\bsequence\b|\barrange\b.*\b(order|sequence)\b|\bcorrect order\b/i.test(combined)) return "chronology";
+  // Statement-based questions commonly introduce labelled A./B./C. statements.
+  if (/\bstatements?\b/i.test(text) && /(?:^|[\s;])A\s*[.)]\s+/i.test(text) && /(?:^|[\s;])B\s*[.)]\s+/i.test(text)) return "statement-based";
+  return "standard";
+}
+
+function formatQuestionStem(question) {
+  const raw = String(question.question ?? question.text ?? "");
+  const type = detectQuestionType(question);
+  const typeLabels = {
+    "match-following": "Match the Following",
+    "assertion-reason": "Assertion–Reason",
+    chronology: "Chronology",
+    "statement-based": "Statement-based Question",
+    standard: "Question"
+  };
+  const label = typeLabels[type] || "Question";
+  const safe = value => escapeHTML(String(value ?? "").trim());
+  const readable = value => safe(value).replace(/\r\n?/g, "\n").replace(/\n/g, "<br>");
+  const itemPattern = /(?:^|[\s;])([A-E])\s*[.)]\s+/g;
+  const romanPattern = /(?:^|[\s;])((?:IV|III|II|I))\s*[.)]\s+/g;
+  const parseItems = (value, pattern) => {
+    const matches = [...value.matchAll(pattern)];
+    if (!matches.length) return [];
+    return matches.map((m, i) => {
+      const start = m.index + m[0].length;
+      const end = i + 1 < matches.length ? matches[i + 1].index : value.length;
+      return { label: m[1].toUpperCase(), text: value.slice(start, end).replace(/^[\s.:—-]+|[\s;,]+$/g, "").trim() };
+    }).filter(item => item.text);
+  };
+  const renderItems = items => items.map(item =>
+    `<div class="structured-statement"><strong>${safe(item.label)}.</strong> ${safe(item.text)}</div>`
+  ).join("");
+  const header = `<div class="question-type-label">${label}</div>`;
+
+  if (type === "match-following") {
+    const listIHeading = raw.search(/\bLIST\s*[- ]?I\b/i);
+    const listIIHeading = raw.search(/\bLIST\s*[- ]?II\b/i);
+    // Source questions occur in both forms: headings before both lists, or
+    // headings embedded in the instruction followed by A./B. and I./II. items.
+    const searchFrom = Math.max(listIHeading, listIIHeading, 0);
+    const listOneStartMatch = /(?:^|[\s;])A\s*[.)]\s+/.exec(raw.slice(searchFrom));
+    if (listOneStartMatch) {
+      const startOne = searchFrom + listOneStartMatch.index;
+      const romanOneMatch = /(?:^|[\s;])I\s*[.)]\s+/.exec(raw.slice(startOne + listOneStartMatch[0].length));
+      const explicitListTwo = listIIHeading > startOne ? listIIHeading : -1;
+      let boundary = -1;
+      let startTwo = -1;
+      if (explicitListTwo >= 0 && romanOneMatch) {
+        boundary = explicitListTwo;
+        const romanAfterHeading = /(?:^|[\s;])I\s*[.)]\s+/.exec(raw.slice(explicitListTwo));
+        if (romanAfterHeading) startTwo = explicitListTwo + romanAfterHeading.index;
+      } else if (romanOneMatch) {
+        boundary = startOne + listOneStartMatch[0].length + romanOneMatch.index;
+        startTwo = boundary;
+      }
+      if (boundary > startOne && startTwo >= 0) {
+        const prompt = raw.slice(0, startOne).replace(/[\s:;,—-]+$/g, "").trim();
+        const itemsI = parseItems(raw.slice(startOne, boundary), itemPattern);
+        const itemsII = parseItems(raw.slice(startTwo), romanPattern);
+        if (itemsI.length && itemsII.length) {
+          return `${header}<div class="question-stem question-type-match">${readable(prompt || "Match the following items.")}</div>
+            <div class="match-lists-grid">
+              <section class="match-list-panel" aria-label="List I"><h6>LIST I</h6>${itemsI.map(item => `<div class="match-list-item"><strong>${safe(item.label)}.</strong> ${safe(item.text)}</div>`).join("")}</section>
+              <section class="match-list-panel" aria-label="List II"><h6>LIST II</h6>${itemsII.map(item => `<div class="match-list-item"><strong>${safe(item.label)}.</strong> ${safe(item.text)}</div>`).join("")}</section>
+            </div>`;
+        }
+      }
+    }
+  }
+
+  if (type === "assertion-reason") {
+    const assertionMatch = /\bAssertion\s*\(?\s*A\s*\)?\s*[:\-]\s*/i.exec(raw);
+    const reasonMatch = /\bReason\s*\(?\s*R\s*\)?\s*[:\-]\s*/i.exec(raw);
+    if (assertionMatch && reasonMatch && reasonMatch.index > assertionMatch.index) {
+      const intro = raw.slice(0, assertionMatch.index).trim();
+      const assertion = raw.slice(assertionMatch.index + assertionMatch[0].length, reasonMatch.index).trim();
+      const reason = raw.slice(reasonMatch.index + reasonMatch[0].length).trim();
+      return `${header}${intro ? `<div class="question-stem">${readable(intro)}</div>` : ""}
+        <div class="structured-statement assertion-block"><strong>Assertion (A)</strong>${readable(assertion)}</div>
+        <div class="structured-statement reason-block"><strong>Reason (R)</strong>${readable(reason)}</div>`;
+    }
+  }
+
+  if (type === "chronology" || type === "statement-based") {
+    const items = parseItems(raw, itemPattern);
+    // Only structure when at least three labelled source items were actually found.
+    if (items.length >= 3) {
+      const first = raw.search(/(?:^|[\s;])A\s*[.)]\s+/);
+      const intro = first > 0 ? raw.slice(0, first).replace(/[\s:;,—-]+$/g, "").trim() : "";
+      return `${header}${intro ? `<div class="question-stem">${readable(intro)}</div>` : ""}
+        <div class="${type === "chronology" ? "chronology-items" : "statement-items"}">${renderItems(items)}</div>`;
+    }
+  }
+
+  return `${header}<div class="question-stem question-type-standard" style="white-space:pre-line">${readable(raw)}</div>`;
+}
+
+function renderReviewOptions(question, selectedKey, correctKey) {
+  const options = getOptions(question);
+  return `<div class="review-options mt-3"><strong>Options</strong>${
+    Object.entries(options).map(([key, value]) => {
+      const isCorrect = normaliseOptionKey(key) === normaliseOptionKey(correctKey);
+      const isSelected = selectedKey && normaliseOptionKey(key) === normaliseOptionKey(selectedKey);
+      const classes = ["review-option", isCorrect ? "review-option-correct" : "", isSelected && !isCorrect ? "review-option-wrong" : ""].filter(Boolean).join(" ");
+      const marker = isCorrect ? " ✓ Correct answer" : (isSelected ? " ✕ Your answer" : "");
+      return `<div class="${classes}"><strong>${escapeHTML(key)}.</strong> ${escapeHTML(value)}${marker ? `<span class="review-option-marker">${escapeHTML(marker)}</span>` : ""}</div>`;
+    }).join("")
+  }</div>`;
+}
+
+/* =========================================================
+   RENDER RETEST QUESTIONS
+========================================================= */
+
+function renderRetestQuestions() {
+
+  const container =
+    document.getElementById(
+      "retestContainer"
+    );
+
+
+  if (
+    !currentRetestQuestions.length
+  ) {
+
+    container.innerHTML = `
+
+      <div class="empty-state">
+
+        No connected PYQs available.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = `
+
+    <div class="alert-info-custom mb-4">
+
+      <strong>
+
+        🔄 Retest Mode Active
+
+      </strong>
+
+
+      <div class="small mt-1">
+
+        Revision focus:
+        ${escapeHTML(
+          currentRetestEntity
+        )}
+
+        <br>
+
+        ${currentRetestQuestions.length}
+        connected PYQ(s) selected.
+
+      </div>
+
+    </div>
+
+
+    ${currentRetestQuestions
+      .map(
+        (
+          question,
+          index
+        ) =>
+          createRetestQuestion(
+            question,
+            index
+          )
+      )
+      .join("")
+    }
+
+
+    <div
+      id="retestSummary"
+      class="mt-3">
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   CREATE RETEST QUESTION
+========================================================= */
+
+function createRetestQuestion(
+  question,
+  index
+) {
+
+  const id =
+    getQuestionId(
+      question
+    );
+
+
+  const questionText =
+    getQuestionText(
+      question
+    );
+
+
+  const options =
+    getOptions(
+      question
+    );
+
+
+  const correctAnswer =
+    getCorrectAnswer(
+      question,
+      options
+    );
+
+
+  return `
+
+    <div
+      id="retest-question-${safeDomId(id)}"
+      class="pyq-card retest-active">
+
+      <div class="small text-secondary mb-2">
+
+        PYQ ${index + 1}
+
+        ${
+          question.year
+            ? ` • ${escapeHTML(
+                question.year
+              )}`
+            : ""
+        }
+
+        ${
+          question.session
+            ? ` • ${escapeHTML(
+                question.session
+              )}`
+            : ""
+        }
+
+      </div>
+
+
+      <div class="mb-3">
+
+        <span class="tag entity-tag">
+
+          📘 Revision focus:
+          ${escapeHTML(
+            currentRetestEntity
+          )}
+
+        </span>
+
+      </div>
+
+
+      <div class="question-prompt mb-3">
+
+        <div class="question-number h5">${index + 1}.</div>
+
+        ${formatQuestionStem(question)}
+
+      </div>
+
+
+      <div class="mt-3">
+
+        ${options
+          .map(
+            (
+              option,
+              optionIndex
+            ) =>
+              createOptionButton(
+                id,
+                option,
+                optionIndex,
+                correctAnswer
+              )
+          )
+          .join("")
+        }
+
+      </div>
+
+
+      <div
+        id="result-${safeDomId(id)}"
+        class="result-box hidden">
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   CREATE OPTION
+========================================================= */
+
+function createOptionButton(
+  questionId,
+  option,
+  optionIndex,
+  correctAnswer
+) {
+
+  const letter =
+    String.fromCharCode(
+      65 +
+      optionIndex
+    );
+
+
+  const optionText =
+    getOptionText(
+      option
+    );
+
+
+  const optionValue =
+    getOptionValue(
+      option,
+      letter
+    );
+
+
+  const buttonId =
+    `option-${safeDomId(
+      questionId
+    )}-${letter}`;
+
+
+  return `
+
+    <button
+      id="${buttonId}"
+      type="button"
+      class="option-btn"
+      onclick='answerRetestQuestion(
+        ${JSON.stringify(questionId)},
+        ${JSON.stringify(optionValue)},
+        ${JSON.stringify(letter)},
+        ${JSON.stringify(correctAnswer)}
+      )'>
+
+      <strong>
+
+        ${letter}.
+
+      </strong>
+
+      ${escapeHTML(
+        optionText
+      )}
+
+    </button>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   ANSWER RETEST QUESTION
+========================================================= */
+
+function answerRetestQuestion(
+  questionId,
+  selectedValue,
+  selectedLetter,
+  correctAnswer
+) {
+
+  const resultElement =
+    document.getElementById(
+      `result-${safeDomId(
+        questionId
+      )}`
+    );
+
+
+  if (!resultElement) {
+
+    return;
+
+  }
+
+
+  const previous =
+    retestResults.find(
+      item =>
+        String(
+          item.question_id
+        ) ===
+        String(
+          questionId
+        )
+    );
+
+
+  if (previous) {
+
+    return;
+
+  }
+
+
+  const isCorrect =
+    answersMatch(
+      selectedValue,
+      selectedLetter,
+      correctAnswer
+    );
+
+
+  const question =
+    findPyqById(
+      questionId
+    );
+
+
+  const options =
+    question
+      ? getOptions(
+          question
+        )
+      : [];
+
+
+  options.forEach(
+    (
+      option,
+      index
+    ) => {
+
+      const letter =
+        String.fromCharCode(
+          65 +
+          index
+        );
+
+
+      const button =
+        document.getElementById(
+          `option-${safeDomId(
+            questionId
+          )}-${letter}`
+        );
+
+
+      if (!button) {
+
+        return;
+
+      }
+
+
+      button.disabled =
+        true;
+
+
+      const optionValue =
+        getOptionValue(
+          option,
+          letter
+        );
+
+
+      if (
+        answersMatch(
+          optionValue,
+          letter,
+          correctAnswer
+        )
+      ) {
+
+        button.classList.add(
+          "correct"
+        );
+
+      }
+
+
+      if (
+        (
+          letter ===
+          selectedLetter
+        ) &&
+        !isCorrect
+      ) {
+
+        button.classList.add(
+          "wrong"
+        );
+
+      }
+
+    }
+  );
+
+
+  retestResults.push({
+
+    question_id:
+      questionId,
+
+    selected:
+      selectedValue,
+
+    selected_letter:
+      selectedLetter,
+
+    correct_answer:
+      correctAnswer,
+
+    is_correct:
+      isCorrect,
+
+    answered:
+      true
+
+  });
+
+
+  const correctText =
+    getCorrectAnswerDisplay(
+      correctAnswer,
+      options
+    );
+
+
+  resultElement.classList.remove(
+    "hidden"
+  );
+
+
+  resultElement.innerHTML =
+    isCorrect
+
+      ? `
+
+        <div class="text-success fw-bold">
+
+          ✅ Correct Answer!
+
+        </div>
+
+
+        <div class="small mt-2">
+
+          Your answer:
+          <strong>
+            ${escapeHTML(
+              selectedLetter
+            )}
+
+          </strong>
+
+        </div>
+
+
+        <div class="small mt-1">
+
+          Correct answer:
+          <strong>
+            ${escapeHTML(
+              correctText
+            )}
+          </strong>
+
+        </div>
+
+      `
+
+      : `
+
+        <div class="text-danger fw-bold">
+
+          ❌ Incorrect Answer
+
+        </div>
+
+
+        <div class="small mt-2">
+
+          Your answer:
+          <strong>
+            ${escapeHTML(
+              selectedLetter
+            )}
+          </strong>
+
+        </div>
+
+
+        <div class="small mt-1">
+
+          Correct answer:
+          <strong>
+            ${escapeHTML(
+              correctText
+            )}
+          </strong>
+
+        </div>
+
+      `;
+
+
+  renderRetestSummary();
+
+}
+
+
+
+/* =========================================================
+   RETEST SUMMARY
+========================================================= */
+
+function renderRetestSummary() {
+
+  const summary =
+    document.getElementById(
+      "retestSummary"
+    );
+
+
+  if (!summary) {
+
+    return;
+
+  }
+
+
+  const answered =
+    retestResults.length;
+
+
+  const correct =
+    retestResults.filter(
+      result =>
+        result.is_correct
+    ).length;
+
+
+  const total =
+    currentRetestQuestions.length;
+
+
+  if (
+    answered <
+    total
+  ) {
+
+    summary.innerHTML = `
+
+      <div class="alert-info-custom">
+
+        <strong>
+
+          Retest Progress:
+          ${answered}/${total}
+
+        </strong>
+
+
+        <div class="small mt-1">
+
+          Answer all connected PYQs to save
+          this retest round.
+
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const score =
+    total > 0
+
+      ? Math.round(
+          (
+            correct /
+            total
+          ) * 100
+        )
+
+      : 0;
+
+
+  summary.innerHTML = `
+
+    <div class="section-card border">
+
+      <div class="d-flex
+                  justify-content-between
+                  align-items-center
+                  flex-wrap gap-3">
+
+        <div>
+
+          <div class="eyebrow">
+
+            RETEST COMPLETE
+
+          </div>
+
+
+          <h3 class="h5 mb-1">
+
+            ${score}% — ${correct}/${total}
+
+          </h3>
+
+
+          <div class="small text-secondary">
+
+            Knowledge:
+            ${escapeHTML(
+              currentRetestEntity
+            )}
+
+          </div>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="btn btn-gold"
+          onclick="saveRetest()">
+
+          💾 Save Retest Result
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   SAVE RETEST
+========================================================= */
+
+function saveRetest() {
+
+  if (
+    !currentRetestQuestions.length
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+    retestResults.length !==
+    currentRetestQuestions.length
+  ) {
+
+    alert(
+      "Please answer all retest questions first."
+    );
+
+
+    return;
+
+  }
+
+
+  const correct =
+    retestResults.filter(
+      result =>
+        result.is_correct
+    ).length;
+
+
+  const total =
+    currentRetestQuestions.length;
+
+
+  const wrong =
+    retestResults.filter(
+      result =>
+        result.answered &&
+        !result.is_correct
+    ).length;
+
+
+  const score =
+    total > 0
+
+      ? Math.round(
+          (
+            correct /
+            total
+          ) * 100
+        )
+
+      : 0;
+
+
+  const now =
+    new Date().toISOString();
+
+
+  const retestRecord = {
+
+    id:
+      `retest-${Date.now()}`,
+
+    type:
+      "retest",
+
+    title:
+      `Retest — ${currentRetestEntity}`,
+
+    date:
+      now,
+
+    total:
+      total,
+
+    correct:
+      correct,
+
+    wrong:
+      wrong,
+
+    unanswered:
+      0,
+
+    score:
+      score,
+
+    question_results:
+      retestResults.map(
+        result => ({
+
+          question_id:
+            result.question_id,
+
+          // Keep the saved result compatible with the main Test Engine schema.
+          // Retain legacy retest fields as well so older readers remain compatible.
+          selected_answer:
+            result.selected_letter ?? result.selected,
+
+          selected:
+            result.selected,
+
+          selected_letter:
+            result.selected_letter,
+
+          correct_answer:
+            result.correct_answer,
+
+          is_correct:
+            result.is_correct === true,
+
+          answered:
+            true,
+
+          mode:
+            "retest",
+
+          revision_category:
+            currentRetestCategory,
+
+          revision_label:
+            currentRetestEntity,
+
+          // Persist the exact revision focus in its matching metadata field.
+          // Do not turn a unit or topic into a knowledge entity.
+          ...(currentRetestCategory === "entity"
+            ? {
+                knowledge_entity: currentRetestEntity,
+                knowledge_entities: [currentRetestEntity]
+              }
+            : currentRetestCategory === "unit"
+              ? { units: [currentRetestEntity] }
+              : { topics: [currentRetestEntity] })
+
+        })
+      )
+
+  };
+
+
+  testHistory.push(
+    retestRecord
+  );
+
+
+  if (
+    !saveHistory()
+  ) {
+
+    return;
+
+  }
+
+
+  alert(
+    `Retest saved successfully: ${score}%`
+  );
+
+
+  loadHistory();
+
+
+  renderRevisionPage();
+
+
+  closeRetest();
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+
+/* =========================================================
+   CLOSE RETEST
+========================================================= */
+
+function closeRetest() {
+
+  currentRetestQuestions =
+    [];
+
+  currentRetestEntity =
+    null;
+  currentRetestCategory = "topic";
+
+  retestResults =
+    [];
+
+
+  document.getElementById(
+    "retestSection"
+  ).classList.add(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "retestContainer"
+  ).innerHTML =
+    "";
+
+}
+
+
+
+/* =========================================================
+   VIEW KNOWLEDGE
+========================================================= */
+
+function viewSourceContext(label) {
+  const encoded = encodeURIComponent(label);
+  window.location.href = `diagnosis.html?topic=${encoded}`;
+}
+
+function viewKnowledge(
+  entityName
+) {
+
+  const encoded =
+    encodeURIComponent(
+      entityName
+    );
+
+
+  /*
+     knowledge-structure.html is the current
+     knowledge-base page in the project.
+
+     Pass the entity through the URL so that
+     future versions can open the exact record.
+  */
+
+  window.location.href =
+    `knowledge-structure.html?entity=${encoded}`;
+
+}
+
+
+
+/* =========================================================
+   QUESTION HELPERS
+========================================================= */
+
+function getQuestionId(
+  question
+) {
+
+  return String(
+
+    question.id ??
+    question.pyq_id ??
+    question.question_id ??
+    question.questionId ??
+    ""
+
+  );
+
+}
+
+
+
+/* ---------------------------------------------------------
+   QUESTION TEXT
+--------------------------------------------------------- */
+
+function getQuestionText(
+  question
+) {
+
+  return (
+
+    question.question ??
+    question.question_text ??
+    question.text ??
+    question.prompt ??
+    "Question text unavailable."
+
+  );
+
+}
+
+
+
+/* ---------------------------------------------------------
+   OPTIONS
+--------------------------------------------------------- */
+
+function getOptions(
+  question
+) {
+
+  if (
+    Array.isArray(
+      question.options
+    )
+  ) {
+
+    return question.options;
+
+  }
+
+
+  if (
+    question.options &&
+    typeof question.options ===
+      "object"
+  ) {
+
+    return Object.entries(
+      question.options
+    ).map(
+      (
+        [
+          key,
+          value
+        ]
+      ) => ({
+
+        letter:
+          key,
+
+        text:
+          value
+
+      })
+    );
+
+  }
+
+
+  const candidates = [
+
+    "A",
+    "B",
+    "C",
+    "D"
+
+  ];
+
+
+  return candidates
+    .filter(
+      letter =>
+        question[letter] !==
+        undefined
+    )
+    .map(
+      letter => ({
+
+        letter:
+          letter,
+
+        text:
+          question[letter]
+
+      })
+    );
+
+}
+
+
+
+/* ---------------------------------------------------------
+   OPTION TEXT
+--------------------------------------------------------- */
+
+function getOptionText(
+  option
+) {
+
+  if (
+    typeof option ===
+    "string"
+  ) {
+
+    return option;
+
+  }
+
+
+  if (
+    option === null ||
+    option === undefined
+  ) {
+
+    return "";
+
+  }
+
+
+  return (
+
+    option.text ??
+    option.label ??
+    option.value ??
+    option.answer ??
+    ""
+
+  );
+
+}
+
+
+
+/* ---------------------------------------------------------
+   OPTION VALUE
+--------------------------------------------------------- */
+
+function getOptionValue(
+  option,
+  letter
+) {
+
+  if (
+    typeof option ===
+    "string"
+  ) {
+
+    return option;
+
+  }
+
+
+  if (
+    option === null ||
+    option === undefined
+  ) {
+
+    return letter;
+
+  }
+
+
+  return (
+
+    option.value ??
+    option.text ??
+    option.label ??
+    option.answer ??
+    letter
+
+  );
+
+}
+
+
+
+/* ---------------------------------------------------------
+   CORRECT ANSWER
+--------------------------------------------------------- */
+
+function getCorrectAnswer(
+  question,
+  options
+) {
+
+  const candidates = [
+
+    question.correct_answer,
+
+    question.correctAnswer,
+
+    question.answer,
+
+    question.correct,
+
+    question.correct_option,
+
+    question.correctOption
+
+  ];
+
+
+  for (
+    const value
+    of candidates
+  ) {
+
+    if (
+      value !==
+      undefined &&
+      value !==
+      null &&
+      String(value).trim() !==
+      ""
+    ) {
+
+      return value;
+
+    }
+
+  }
+
+
+  return "";
+
+}
+
+
+
+/* ---------------------------------------------------------
+   ANSWER MATCHING
+--------------------------------------------------------- */
+
+function answersMatch(
+  selectedValue,
+  selectedLetter,
+  correctAnswer
+) {
+
+  const selected =
+    normalizeAnswer(
+      selectedValue
+    );
+
+
+  const selectedLetterNorm =
+    normalizeAnswer(
+      selectedLetter
+    );
+
+
+  const correct =
+    normalizeAnswer(
+      correctAnswer
+    );
+
+
+  if (
+    selected ===
+    correct
+  ) {
+
+    return true;
+
+  }
+
+
+  if (
+    selectedLetterNorm ===
+    correct
+  ) {
+
+    return true;
+
+  }
+
+
+  /*
+     Support answers such as:
+     "A"
+     "A. John Dryden"
+     "John Dryden"
+  */
+
+  if (
+    correct.length === 1 &&
+    selectedLetterNorm ===
+      correct
+  ) {
+
+    return true;
+
+  }
+
+
+  const correctLetter =
+    extractAnswerLetter(
+      correctAnswer
+    );
+
+
+  if (
+    correctLetter &&
+    selectedLetterNorm ===
+      correctLetter
+  ) {
+
+    return true;
+
+  }
+
+
+  return false;
+
+}
+
+
+
+/* ---------------------------------------------------------
+   ANSWER DISPLAY
+--------------------------------------------------------- */
+
+function getCorrectAnswerDisplay(
+  correctAnswer,
+  options
+) {
+
+  if (
+    correctAnswer ===
+    undefined ||
+    correctAnswer ===
+    null
+  ) {
+
+    return "Not available";
+
+  }
+
+
+  const letter =
+    extractAnswerLetter(
+      correctAnswer
+    );
+
+
+  if (letter) {
+
+    const index =
+      letter.charCodeAt(0) -
+      65;
+
+
+    if (
+      options[index] !==
+      undefined
+    ) {
+
+      return `${letter}. ${getOptionText(
+        options[index]
+      )}`;
+
+    }
+
+  }
+
+
+  return String(
+    correctAnswer
+  );
+
+}
+
+
+
+/* ---------------------------------------------------------
+   EXTRACT ANSWER LETTER
+--------------------------------------------------------- */
+
+function extractAnswerLetter(
+  value
+) {
+
+  const text =
+    String(
+      value ??
+      ""
+    )
+      .trim()
+      .toUpperCase();
+
+
+  const match =
+    text.match(
+      /^([A-D])(?:[\.\)\:\-\s]|$)/
+    );
+
+
+  return match
+    ? match[1]
+    : "";
+
+}
+
+
+
+/* =========================================================
+   NORMALIZE
+========================================================= */
+
+function normalize(
+  value
+) {
+
+  return String(
+    value ??
+    ""
+  )
+    .trim()
+    .toLowerCase();
+
+}
+
+
+
+/* =========================================================
+   NORMALIZE ANSWER
+========================================================= */
+
+function normalizeAnswer(
+  value
+) {
+
+  return String(
+    value ??
+    ""
+  )
+    .trim()
+    .toLowerCase()
+    .replace(
+      /\s+/g,
+      " "
+    );
+
+}
+
+
+
+/* =========================================================
+   SAFE DOM ID
+========================================================= */
+
+function safeDomId(
+  value
+) {
+
+  return String(
+    value
+  )
+    .replace(
+      /[^a-zA-Z0-9_-]/g,
+      "_"
+    );
+
+}
+
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(
+  value
+) {
+
+  return String(
+    value ??
+    ""
+  )
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function renderHistory() {
+
+  const container =
+    document.getElementById(
+      "historyContainer"
+    );
+
+
+  if (
+    !testHistory.length
+  ) {
+
+    container.innerHTML = `
+
+      <div class="empty-state">
+
+        No completed tests yet.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const recent =
+    [...testHistory]
+      .reverse()
+      .slice(
+        0,
+        10
+      );
+
+
+  container.innerHTML =
+    recent.map(
+      (
+        test,
+        index
+      ) => {
+
+        const date =
+          test.date
+
+            ? new Date(
+                test.date
+              ).toLocaleString()
+
+            : "Unknown date";
+
+
+        const tracked =
+          Array.isArray(
+            test.question_results
+          );
+
+
+        const typeLabel =
+          test.type ===
+          "retest"
+
+            ? "🔄 Retest"
+
+            : "📝 Test";
+
+
+        return `
+
+          <div class="history-card">
+
+            <div class="
+              d-flex
+              justify-content-between
+              align-items-center
+              gap-3
+              flex-wrap
+            ">
+
+
+              <div>
+
+                <strong>
+
+                  ${typeLabel}
+                  ${
+                    test.title
+                      ? ` — ${escapeHTML(
+                          test.title
+                        )}`
+                      : ""
+                  }
+
+                </strong>
+
+
+                <div class="small text-secondary">
+
+                  ${escapeHTML(
+                    date
+                  )}
+
+                </div>
+
+              </div>
+
+
+              <div class="text-end">
+
+                <strong>
+
+                  ${Number(
+                    test.score || 0
+                  )}%
+
+                </strong>
+
+
+                <div class="small text-secondary">
+
+                  ${Number(
+                    test.correct || 0
+                  )}
+                  correct /
+                  ${Number(
+                    test.total || 0
+                  )}
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            ${
+              tracked
+
+                ? `
+
+                  <div class="
+                    small
+                    text-success
+                    mt-2
+                  ">
+
+                    ✓ Question-level
+                    performance recorded
+
+                  </div>
+
+                `
+
+                : `
+
+                  <div class="
+                    small
+                    text-secondary
+                    mt-2
+                  ">
+
+                    Older record —
+                    question-level diagnosis unavailable
+
+                  </div>
+
+                `
+            }
+
+          </div>
+
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+
+/* =========================================================
+   PRIORITY QUEUE ACTIONS
+   Delegated events avoid fragile inline JavaScript attributes.
+========================================================= */
+
+document.getElementById("priorityContainer").addEventListener("click", event => {
+  const button = event.target.closest("button[data-revision-action]");
+  if (!button) return;
+
+  const name = button.dataset.revisionName || "";
+  const category = button.dataset.revisionCategory || "topic";
+
+  if (button.dataset.revisionAction === "retest") {
+    let questionIds = [];
+    try {
+      const parsed = JSON.parse(button.dataset.revisionIds || "[]");
+      questionIds = Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      console.error("Revision question IDs could not be read:", error);
+      alert("The connected question IDs could not be read. Refresh the Revision Queue and try again.");
+      return;
+    }
+
+    startRetestForEntity(name, questionIds, category);
+    return;
+  }
+
+  if (button.dataset.revisionAction === "source") {
+    if (category === "entity") viewKnowledge(name);
+    else viewSourceContext(name);
+  }
+});
+
+
+/* =========================================================
+   BUTTON EVENTS
+========================================================= */
+
+document
+  .getElementById(
+    "refreshBtn"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      loadDatabase();
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "closeRetestBtn"
+  )
+  .addEventListener(
+    "click",
+    closeRetest
+  );
+
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+loadDatabase();
+
+
+</script>
+
+</body>
+
+</html>

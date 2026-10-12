@@ -1,0 +1,613 @@
+{
+  "project": "BAJEE JRF AI",
+  "step": "7.7",
+  "title": "Cultural Studies Knowledge Expansion",
+  "zero_cost": true,
+  "description": "JRF-oriented knowledge entities for UGC NET English Paper II Unit VII - Cultural Studies.",
+  "unit": "Unit VII",
+  "entities": [
+    {
+      "id": "raymond-williams",
+      "name": "Raymond Williams",
+      "type": "Cultural Theorist",
+      "period": "Twentieth Century",
+      "works": [
+        "Culture and Society",
+        "The Long Revolution",
+        "Keywords"
+      ],
+      "years": [
+        "Culture and Society: 1958",
+        "The Long Revolution: 1961",
+        "Keywords: 1976"
+      ],
+      "concepts": [
+        "culture",
+        "structure of feeling",
+        "culture and society",
+        "keywords",
+        "lived culture",
+        "material culture"
+      ],
+      "units": [
+        "Unit VII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Richard Hoggart",
+        "Stuart Hall",
+        "E. P. Thompson"
+      ],
+      "description": "Williams developed a materialist approach to culture and examined the relationship between culture, society, history, language, and everyday life."
+    },
+    {
+      "id": "richard-hoggart",
+      "name": "Richard Hoggart",
+      "type": "Cultural Studies Scholar",
+      "period": "Twentieth Century",
+      "works": [
+        "The Uses of Literacy"
+      ],
+      "years": [
+        "The Uses of Literacy: 1957"
+      ],
+      "concepts": [
+        "working-class culture",
+        "popular culture",
+        "mass culture",
+        "literacy",
+        "everyday life"
+      ],
+      "units": [
+        "Unit VII"
+      ],
+      "relatedEntities": [
+        "Raymond Williams",
+        "Stuart Hall",
+        "Birmingham Centre for Contemporary Cultural Studies"
+      ],
+      "description": "Hoggart examined working-class culture, literacy, everyday life, and the effects of mass culture, contributing to the foundations of British Cultural Studies."
+    },
+    {
+      "id": "stuart-hall",
+      "name": "Stuart Hall",
+      "type": "Cultural Theorist",
+      "period": "Twentieth Century",
+      "works": [
+        "Encoding/Decoding",
+        "Representation: Cultural Representations and Signifying Practices"
+      ],
+      "years": [
+        "Encoding/Decoding: 1973",
+        "Representation: 1997"
+      ],
+      "concepts": [
+        "encoding",
+        "decoding",
+        "representation",
+        "cultural identity",
+        "popular culture",
+        "diaspora",
+        "dominant reading",
+        "negotiated reading",
+        "oppositional reading"
+      ],
+      "units": [
+        "Unit VII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Raymond Williams",
+        "Richard Hoggart",
+        "Antonio Gramsci"
+      ],
+      "description": "Hall examined culture, media, representation, identity, ideology, and audience interpretation. His encoding and decoding model distinguishes dominant, negotiated, and oppositional readings."
+    },
+    {
+      "id": "e-p-thompson",
+      "name": "E. P. Thompson",
+      "type": "Historian and Cultural Scholar",
+      "period": "Twentieth Century",
+      "works": [
+        "The Making of the English Working Class"
+      ],
+      "years": [
+        "The Making of the English Working Class: 1963"
+      ],
+      "concepts": [
+        "working-class history",
+        "class formation",
+        "experience",
+        "social history",
+        "culture"
+      ],
+      "units": [
+        "Unit VII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Raymond Williams",
+        "Richard Hoggart",
+        "Antonio Gramsci"
+      ],
+      "description": "Thompson approached class as a historical and lived formation, emphasizing experience, social relationships, culture, and the making of working-class identity."
+    },
+    {
+      "id": "antonio-gramsci",
+      "name": "Antonio Gramsci",
+      "type": "Marxist Thinker",
+      "period": "Twentieth Century",
+      "works": [
+        "Selections from the Prison Notebooks"
+      ],
+      "years": [
+        "Prison Notebooks: written 1929-1935",
+        "English selection: 1971"
+      ],
+      "concepts": [
+        "hegemony",
+        "cultural hegemony",
+        "consent",
+        "coercion",
+        "organic intellectual",
+        "civil society",
+        "common sense"
+      ],
+      "units": [
+        "Unit VII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Stuart Hall",
+        "Louis Althusser",
+        "Raymond Williams"
+      ],
+      "description": "Gramsci's concept of hegemony explains how social groups maintain cultural and ideological leadership through consent as well as institutional power."
+    },
+    {
+      "id": "louis-althusser",
+      "name": "Louis Althusser",
+      "type": "Marxist Theorist",
+      "period": "Twentieth Century",
+      "works": [
+        "For Marx",
+        "Reading Capital",
+        "Ideology and Ideological State Apparatuses"
+      ],
+      "years": [
+        "For Marx: 1965",
+        "Reading Capital: 1965",
+        "Ideology and Ideological State Apparatuses: 1970"
+      ],
+      "concepts": [
+        "ideology",
+        "ideological state apparatus",
+        "repressive state apparatus",
+        "interpellation",
+        "subject"
+      ],
+      "units": [
+        "Unit VII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Antonio Gramsci",
+        "Stuart Hall",
+        "Karl Marx"
+      ],
+      "description": "Althusser examined how ideology and institutions contribute to the reproduction of social relations and described the process through which individuals are constituted as subjects."
+    },
+    {
+      "id": "roland-barthes",
+      "name": "Roland Barthes",
+      "type": "Semiotician and Cultural Theorist",
+      "period": "Twentieth Century",
+      "works": [
+        "Mythologies",
+        "The Death of the Author",
+        "S/Z"
+      ],
+      "years": [
+        "Mythologies: 1957",
+        "The Death of the Author: 1967",
+        "S/Z: 1970"
+      ],
+      "concepts": [
+        "myth",
+        "semiotics",
+        "sign",
+        "denotation",
+        "connotation",
+        "death of the author",
+        "readerly text",
+        "writerly text"
+      ],
+      "units": [
+        "Unit VII",
+        "Unit VIII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Ferdinand de Saussure",
+        "Umberto Eco",
+        "Michel Foucault"
+      ],
+      "description": "Barthes applied semiotic analysis to everyday cultural objects and explored how signs, myths, texts, and cultural representations produce meanings."
+    },
+    {
+      "id": "edward-said",
+      "name": "Edward Said",
+      "type": "Postcolonial and Cultural Theorist",
+      "period": "Twentieth Century",
+      "works": [
+        "Orientalism",
+        "Culture and Imperialism"
+      ],
+      "years": [
+        "Orientalism: 1978",
+        "Culture and Imperialism: 1993"
+      ],
+      "concepts": [
+        "Orientalism",
+        "representation",
+        "othering",
+        "discourse",
+        "colonial knowledge",
+        "imperialism"
+      ],
+      "units": [
+        "Unit VII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Michel Foucault",
+        "Gayatri Chakravorty Spivak",
+        "Homi K. Bhabha"
+      ],
+      "description": "Said examined how Western representations of the East are connected with systems of knowledge, discourse, power, and imperialism."
+    },
+    {
+      "id": "gayatri-spivak",
+      "name": "Gayatri Chakravorty Spivak",
+      "type": "Postcolonial and Cultural Theorist",
+      "period": "Twentieth and Twenty-First Century",
+      "works": [
+        "Can the Subaltern Speak?",
+        "A Critique of Postcolonial Reason"
+      ],
+      "years": [
+        "Can the Subaltern Speak?: 1988",
+        "A Critique of Postcolonial Reason: 1999"
+      ],
+      "concepts": [
+        "subaltern",
+        "representation",
+        "epistemic violence",
+        "postcolonialism",
+        "gender",
+        "voice"
+      ],
+      "units": [
+        "Unit VII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Edward Said",
+        "Homi K. Bhabha",
+        "Antonio Gramsci"
+      ],
+      "description": "Spivak investigates representation, power, colonial knowledge, gender, and the difficulties involved in recovering the voice of marginalized subjects."
+    },
+    {
+      "id": "homi-bhabha",
+      "name": "Homi K. Bhabha",
+      "type": "Postcolonial and Cultural Theorist",
+      "period": "Twentieth and Twenty-First Century",
+      "works": [
+        "The Location of Culture"
+      ],
+      "years": [
+        "The Location of Culture: 1994"
+      ],
+      "concepts": [
+        "hybridity",
+        "mimicry",
+        "ambivalence",
+        "third space",
+        "cultural difference",
+        "colonial discourse"
+      ],
+      "units": [
+        "Unit VII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Edward Said",
+        "Gayatri Chakravorty Spivak",
+        "Frantz Fanon"
+      ],
+      "description": "Bhabha explores cultural interaction under colonial and postcolonial conditions through concepts such as hybridity, mimicry, ambivalence, and the Third Space."
+    },
+    {
+      "id": "judith-butler",
+      "name": "Judith Butler",
+      "type": "Gender and Cultural Theorist",
+      "period": "Twentieth and Twenty-First Century",
+      "works": [
+        "Gender Trouble",
+        "Bodies That Matter"
+      ],
+      "years": [
+        "Gender Trouble: 1990",
+        "Bodies That Matter: 1993"
+      ],
+      "concepts": [
+        "gender performativity",
+        "gender identity",
+        "heteronormativity",
+        "sex and gender",
+        "performativity"
+      ],
+      "units": [
+        "Unit VII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Michel Foucault",
+        "Elaine Showalter",
+        "Simone de Beauvoir"
+      ],
+      "description": "Butler's work examines gender as a socially constituted and repeatedly performed identity rather than treating gender as a fixed cultural essence."
+    },
+    {
+      "id": "elaine-showalter",
+      "name": "Elaine Showalter",
+      "type": "Feminist Literary and Cultural Critic",
+      "period": "Twentieth and Twenty-First Century",
+      "works": [
+        "A Literature of Their Own",
+        "Towards a Feminist Poetics"
+      ],
+      "years": [
+        "A Literature of Their Own: 1977",
+        "Towards a Feminist Poetics: 1979"
+      ],
+      "concepts": [
+        "gynocriticism",
+        "feminist criticism",
+        "women's writing",
+        "female literary tradition",
+        "gender"
+      ],
+      "units": [
+        "Unit VII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Judith Butler",
+        "Sandra Gilbert",
+        "Susan Gubar"
+      ],
+      "description": "Showalter contributed to feminist literary criticism through the study of women's writing, female literary traditions, and the development of gynocriticism."
+    },
+    {
+      "id": "michel-foucault",
+      "name": "Michel Foucault",
+      "type": "Cultural and Social Theorist",
+      "period": "Twentieth Century",
+      "works": [
+        "The Archaeology of Knowledge",
+        "Discipline and Punish",
+        "The History of Sexuality"
+      ],
+      "years": [
+        "The Archaeology of Knowledge: 1969",
+        "Discipline and Punish: 1975",
+        "The History of Sexuality, Volume 1: 1976"
+      ],
+      "concepts": [
+        "discourse",
+        "power/knowledge",
+        "discipline",
+        "panopticism",
+        "surveillance",
+        "subjectivity",
+        "governmentality"
+      ],
+      "units": [
+        "Unit VII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Roland Barthes",
+        "Edward Said",
+        "Judith Butler"
+      ],
+      "description": "Foucault examined the relationships among discourse, knowledge, power, institutions, discipline, surveillance, and the production of subjects."
+    },
+    {
+      "id": "representation",
+      "name": "Representation",
+      "type": "Cultural Studies Concept",
+      "period": "Modern Cultural Studies",
+      "works": [
+        "Representation: Cultural Representations and Signifying Practices"
+      ],
+      "years": [
+        "Representation: 1997"
+      ],
+      "concepts": [
+        "meaning",
+        "language",
+        "signification",
+        "identity",
+        "media",
+        "culture",
+        "stereotype"
+      ],
+      "units": [
+        "Unit VII"
+      ],
+      "relatedEntities": [
+        "Stuart Hall",
+        "Roland Barthes",
+        "Edward Said"
+      ],
+      "description": "Representation concerns the processes through which language, images, signs, and media produce and communicate cultural meanings."
+    },
+    {
+      "id": "popular-culture",
+      "name": "Popular Culture",
+      "type": "Cultural Studies Concept",
+      "period": "Modern Cultural Studies",
+      "works": [
+        "The Uses of Literacy",
+        "Culture and Society"
+      ],
+      "years": [
+        "The Uses of Literacy: 1957",
+        "Culture and Society: 1958"
+      ],
+      "concepts": [
+        "mass culture",
+        "media",
+        "everyday life",
+        "popular media",
+        "consumer culture",
+        "audience"
+      ],
+      "units": [
+        "Unit VII"
+      ],
+      "relatedEntities": [
+        "Richard Hoggart",
+        "Raymond Williams",
+        "Stuart Hall"
+      ],
+      "description": "Popular culture refers to cultural forms and practices widely produced, circulated, consumed, and interpreted within everyday social life."
+    },
+    {
+      "id": "cultural-identity",
+      "name": "Cultural Identity",
+      "type": "Cultural Studies Concept",
+      "period": "Modern Cultural Studies",
+      "works": [
+        "Cultural Identity and Diaspora"
+      ],
+      "years": [
+        "Cultural Identity and Diaspora: 1990"
+      ],
+      "concepts": [
+        "identity",
+        "difference",
+        "diaspora",
+        "history",
+        "representation",
+        "belonging",
+        "cultural positioning"
+      ],
+      "units": [
+        "Unit VII"
+      ],
+      "relatedEntities": [
+        "Stuart Hall",
+        "Homi K. Bhabha",
+        "Paul Gilroy"
+      ],
+      "description": "Cultural identity examines how identities are shaped through history, culture, representation, difference, memory, migration, and social positioning."
+    },
+    {
+      "id": "diaspora",
+      "name": "Diaspora",
+      "type": "Cultural Studies Concept",
+      "period": "Modern Cultural Studies",
+      "works": [
+        "Cultural Identity and Diaspora",
+        "The Black Atlantic"
+      ],
+      "years": [
+        "Cultural Identity and Diaspora: 1990",
+        "The Black Atlantic: 1993"
+      ],
+      "concepts": [
+        "migration",
+        "displacement",
+        "identity",
+        "hybridity",
+        "belonging",
+        "transnational culture"
+      ],
+      "units": [
+        "Unit VII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Stuart Hall",
+        "Homi K. Bhabha",
+        "Paul Gilroy"
+      ],
+      "description": "Diaspora studies examine cultural identities and communities shaped by migration, displacement, transnational movement, memory, and connections across locations."
+    },
+    {
+      "id": "hegemony",
+      "name": "Cultural Hegemony",
+      "type": "Cultural Studies Concept",
+      "period": "Twentieth Century",
+      "works": [
+        "Selections from the Prison Notebooks"
+      ],
+      "years": [
+        "Prison Notebooks: written 1929-1935",
+        "English selection: 1971"
+      ],
+      "concepts": [
+        "consent",
+        "ideology",
+        "power",
+        "dominant culture",
+        "civil society",
+        "common sense"
+      ],
+      "units": [
+        "Unit VII",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Antonio Gramsci",
+        "Stuart Hall",
+        "Louis Althusser"
+      ],
+      "description": "Cultural hegemony describes the process through which dominant groups establish cultural and ideological leadership and secure consent to existing social arrangements."
+    },
+    {
+      "id": "consumer-culture",
+      "name": "Consumer Culture",
+      "type": "Cultural Studies Concept",
+      "period": "Modern Cultural Studies",
+      "works": [
+        "Mythologies"
+      ],
+      "years": [
+        "Mythologies: 1957"
+      ],
+      "concepts": [
+        "commodification",
+        "advertising",
+        "consumption",
+        "commodity",
+        "identity",
+        "popular culture",
+        "media"
+      ],
+      "units": [
+        "Unit VII"
+      ],
+      "relatedEntities": [
+        "Roland Barthes",
+        "Stuart Hall",
+        "Raymond Williams"
+      ],
+      "description": "Consumer culture examines how commodities, advertising, consumption, media, and commercial practices participate in the production of cultural meanings and identities."
+    }
+  ]
+}

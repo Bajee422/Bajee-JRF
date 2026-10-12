@@ -1,0 +1,7062 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    BAJEE JRF AI — Revision & Retest
+  </title>
+
+
+  <!-- =====================================================
+       BOOTSTRAP
+  ====================================================== -->
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+
+  <!-- =====================================================
+       PAGE STYLES
+  ====================================================== -->
+
+  <style>
+
+    body {
+
+      background: #f4f6fa;
+
+      color: #071a3d;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    }
+
+
+    /* =====================================================
+       BRAND
+    ====================================================== */
+
+    .bg-navy {
+
+      background: #071a3d !important;
+
+    }
+
+
+    .text-gold {
+
+      color: #d4af37 !important;
+
+    }
+
+
+    .btn-navy {
+
+      background: #071a3d;
+
+      border-color: #071a3d;
+
+      color: #fff;
+
+    }
+
+
+    .btn-navy:hover {
+
+      background: #0b285b;
+
+      border-color: #0b285b;
+
+      color: #fff;
+
+    }
+
+
+    /* =====================================================
+       HERO
+    ====================================================== */
+
+    .hero {
+
+      background:
+        linear-gradient(
+          135deg,
+          #071a3d,
+          #12376b
+        );
+
+      color: #fff;
+
+      border-radius: 16px;
+
+      padding: 30px;
+
+      box-shadow:
+        0 8px 25px
+        rgba(7, 26, 61, 0.12);
+
+    }
+
+
+    .eyebrow {
+
+      letter-spacing: 2px;
+
+      font-size: 11px;
+
+      font-weight: 700;
+
+      color: #d4af37;
+
+      margin-bottom: 8px;
+
+    }
+
+
+    /* =====================================================
+       SECTION CARDS
+    ====================================================== */
+
+    .section-card {
+
+      background: #fff;
+
+      border-radius: 14px;
+
+      padding: 22px;
+
+      margin-bottom: 22px;
+
+      box-shadow:
+        0 3px 15px
+        rgba(7, 26, 61, 0.06);
+
+      border:
+        1px solid #e5e9f0;
+
+    }
+
+
+    /* =====================================================
+       STATISTICS
+    ====================================================== */
+
+    .stat-card {
+
+      background: #fff;
+
+      border-radius: 12px;
+
+      padding: 20px;
+
+      text-align: center;
+
+      border:
+        1px solid #e5e9f0;
+
+      min-height: 105px;
+
+    }
+
+
+    .score-number {
+
+      font-size: 38px;
+
+      line-height: 1;
+
+      font-weight: 700;
+
+      color: #071a3d;
+
+    }
+
+
+    .performance-number {
+
+      font-size: 28px;
+
+      font-weight: 700;
+
+      color: #071a3d;
+
+    }
+
+
+    /* =====================================================
+       CONNECTION
+    ====================================================== */
+
+    .connection-box {
+
+      border:
+        1px solid #dce2eb;
+
+      border-radius: 10px;
+
+      padding: 13px 15px;
+
+      background: #fff;
+
+      font-size: 13px;
+
+    }
+
+
+    .arrow {
+
+      color: #d4af37;
+
+      font-weight: 700;
+
+      margin:
+        0 5px;
+
+    }
+
+
+    /* =====================================================
+       TAGS
+    ====================================================== */
+
+    .tag {
+
+      display: inline-block;
+
+      padding:
+        5px 9px;
+
+      margin:
+        3px 2px;
+
+      border-radius: 20px;
+
+      background: #e9ecef;
+
+      font-size: 11px;
+
+      color: #333;
+
+    }
+
+
+    .entity-tag {
+
+      background: #e8eef8;
+
+      color: #071a3d;
+
+      font-weight: 600;
+
+    }
+
+
+    .concept {
+
+      background: #fff3cd;
+
+      color: #664d03;
+
+    }
+
+
+    .unit {
+
+      background: #d1e7dd;
+
+      color: #0f5132;
+
+    }
+
+
+    .priority-high {
+
+      background: #f8d7da;
+
+      color: #842029;
+
+    }
+
+
+    .priority-medium {
+
+      background: #fff3cd;
+
+      color: #664d03;
+
+    }
+
+
+    .priority-low {
+
+      background: #d1e7dd;
+
+      color: #0f5132;
+
+    }
+
+
+    .retry-badge {
+
+      background: #cfe2ff;
+
+      color: #084298;
+
+    }
+
+
+    /* =====================================================
+       REVISION CARDS
+    ====================================================== */
+
+    .revision-card {
+
+      background: #fff;
+
+      border-radius: 13px;
+
+      padding: 20px;
+
+      border-left:
+        4px solid #dc3545;
+
+      box-shadow:
+        0 3px 12px
+        rgba(0, 0, 0, 0.05);
+
+    }
+
+
+    .revision-card.medium {
+
+      border-left-color:
+        #d4af37;
+
+    }
+
+
+    .revision-card.low {
+
+      border-left-color:
+        #198754;
+
+    }
+
+
+    /* =====================================================
+       PERFORMANCE CARDS
+    ====================================================== */
+
+    .performance-card {
+
+      background: #fff;
+
+      border-radius: 12px;
+
+      padding: 18px;
+
+      border:
+        1px solid #e5e9f0;
+
+      height: 100%;
+
+    }
+
+
+    .performance-card.good {
+
+      border-left:
+        4px solid #198754;
+
+    }
+
+
+    .performance-card.weak {
+
+      border-left:
+        4px solid #dc3545;
+
+    }
+
+
+    .performance-card.neutral {
+
+      border-left:
+        4px solid #d4af37;
+
+    }
+
+
+    .accuracy-good {
+
+      color: #198754;
+
+      font-weight: 700;
+
+    }
+
+
+    .accuracy-weak {
+
+      color: #dc3545;
+
+      font-weight: 700;
+
+    }
+
+
+    .accuracy-neutral {
+
+      color: #856404;
+
+      font-weight: 700;
+
+    }
+
+
+    .progress {
+
+      height: 8px;
+
+      background: #e9ecef;
+
+    }
+
+
+    /* =====================================================
+       KNOWLEDGE
+    ====================================================== */
+
+    .knowledge-card {
+
+      background: #fff;
+
+      border:
+        1px solid #e5e9f0;
+
+      border-radius: 12px;
+
+      padding: 18px;
+
+      margin-bottom: 12px;
+
+    }
+
+
+    .knowledge-prompt {
+
+      background: #f8f9fa;
+
+      border-radius: 10px;
+
+      padding: 15px;
+
+    }
+
+
+    /* =====================================================
+       QUESTIONS
+    ====================================================== */
+
+    .question-card {
+
+      background: #fff;
+
+      border-radius: 13px;
+
+      padding: 22px;
+
+      margin-bottom: 18px;
+
+      border:
+        1px solid #e1e6ee;
+
+      box-shadow:
+        0 3px 12px
+        rgba(7, 26, 61, 0.04);
+
+      transition:
+        0.2s ease;
+
+    }
+
+
+    .question-card.retesting {
+
+      border:
+        2px solid #0d6efd;
+
+      box-shadow:
+        0 5px 18px
+        rgba(13, 110, 253, 0.10);
+
+    }
+
+
+    .option-btn {
+
+      display: block;
+
+      width: 100%;
+
+      text-align: left;
+
+      background: #fff;
+
+      border:
+        1px solid #d9dee7;
+
+      border-radius: 9px;
+
+      padding: 13px 15px;
+
+      margin-bottom: 9px;
+
+      color: #071a3d;
+
+      cursor: pointer;
+
+      transition:
+        0.15s ease;
+
+    }
+
+
+    .option-btn:hover:not(:disabled) {
+
+      background: #f3f6fb;
+
+      border-color: #071a3d;
+
+    }
+
+
+    .option-btn:disabled {
+
+      cursor: default;
+
+      opacity: 1;
+
+    }
+
+
+    .option-btn.correct {
+
+      background: #d1e7dd;
+
+      border-color: #198754;
+
+      color: #0f5132;
+
+      font-weight: 600;
+
+    }
+
+
+    .option-btn.wrong {
+
+      background: #f8d7da;
+
+      border-color: #dc3545;
+
+      color: #842029;
+
+      font-weight: 600;
+
+    }
+
+
+    /* =====================================================
+       RETEST MESSAGE
+    ====================================================== */
+
+    .retest-message {
+
+      background: #e7f1ff;
+
+      border-left:
+        5px solid #0d6efd;
+
+      padding:
+        12px 15px;
+
+      border-radius: 8px;
+
+      margin-bottom: 15px;
+
+    }
+
+
+    /* =====================================================
+       FEEDBACK
+    ====================================================== */
+
+    .answer-feedback {
+
+      margin-top: 15px;
+
+      padding: 16px;
+
+      background: #f8f9fa;
+
+      border-radius: 10px;
+
+    }
+
+
+    /* =====================================================
+       EMPTY STATE
+    ====================================================== */
+
+    .empty-state {
+
+      background: #f8f9fa;
+
+      border:
+        1px dashed #ccd3df;
+
+      border-radius: 12px;
+
+      padding: 35px 20px;
+
+      text-align: center;
+
+      color: #6c757d;
+
+    }
+
+
+    /* =====================================================
+       HISTORY
+    ====================================================== */
+
+    .history-card {
+
+      background: #f8f9fa;
+
+      border-radius: 10px;
+
+      padding: 13px 15px;
+
+      margin-bottom: 8px;
+
+    }
+
+
+    .history-item {
+
+      font-size: 12px;
+
+      padding: 4px 0;
+
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ====================================================== */
+
+    footer {
+
+      color: #6c757d;
+
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ====================================================== */
+
+    @media (
+      max-width: 768px
+    ) {
+
+      .hero {
+
+        padding: 22px;
+
+      }
+
+
+      .section-card {
+
+        padding: 17px;
+
+      }
+
+
+      .score-number {
+
+        font-size: 30px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     NAVBAR
+======================================================== -->
+
+<nav
+  class="navbar navbar-dark bg-navy"
+>
+
+  <div class="container">
+
+    <a
+      class="navbar-brand fw-bold"
+      href="index.html"
+    >
+
+      🎓 BAJEE JRF AI
+
+    </a>
+
+
+    <div
+      class="d-flex
+             align-items-center
+             gap-2"
+    >
+
+      <a
+        href="diagnosis.html"
+        class="btn
+               btn-sm
+               btn-outline-light"
+      >
+
+        📊 Diagnosis
+
+      </a>
+
+
+      <span
+        class="navbar-text
+               text-gold"
+      >
+
+        Revision & Retest
+
+      </span>
+
+    </div>
+
+  </div>
+
+</nav>
+
+
+
+<!-- =======================================================
+     MAIN
+======================================================== -->
+
+<main
+  class="container py-5"
+>
+
+
+  <!-- =====================================================
+       HERO
+  ====================================================== -->
+
+  <section
+    class="hero mb-4"
+  >
+
+    <p class="eyebrow">
+
+      STEP 2.7.6 — RETEST ENGINE
+
+    </p>
+
+
+    <h1
+      class="display-6 fw-bold"
+    >
+
+      🔄 Revision & Retest
+
+    </h1>
+
+
+    <p class="mb-0">
+
+      Review weak knowledge entities,
+      retry connected PYQs,
+      and measure improvement.
+
+    </p>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       ENGINE STATUS
+  ====================================================== -->
+
+  <section
+    class="section-card mb-4"
+  >
+
+    <div
+      class="d-flex
+             justify-content-between
+             align-items-center
+             flex-wrap
+             gap-2"
+    >
+
+      <div>
+
+        <p
+          class="eyebrow mb-1"
+        >
+
+          REVISION ENGINE STATUS
+
+        </p>
+
+
+        <h2
+          class="h5 mb-1"
+        >
+
+          Revision Engine
+
+        </h2>
+
+
+        <p
+          class="small
+                 text-secondary
+                 mb-0"
+        >
+
+          The queue is calculated from
+          your question-level performance.
+
+        </p>
+
+      </div>
+
+
+      <span
+        id="connectionStatus"
+        class="badge bg-warning text-dark"
+      >
+
+        Connecting...
+
+      </span>
+
+    </div>
+
+
+    <hr>
+
+
+    <div
+      id="connectionDetails"
+    >
+
+      Loading revision engine...
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       STATISTICS
+  ====================================================== -->
+
+  <section
+    class="mb-4"
+  >
+
+    <div
+      class="row g-3"
+    >
+
+      <div
+        class="col-6 col-lg-3"
+      >
+
+        <div
+          class="stat-card"
+        >
+
+          <div
+            id="totalAttempts"
+            class="score-number"
+          >
+
+            0
+
+          </div>
+
+
+          <div
+            class="small
+                   text-secondary
+                   mt-2"
+          >
+
+            Total Attempts
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="col-6 col-lg-3"
+      >
+
+        <div
+          class="stat-card"
+        >
+
+          <div
+            id="weakEntities"
+            class="score-number"
+          >
+
+            0
+
+          </div>
+
+
+          <div
+            class="small
+                   text-secondary
+                   mt-2"
+          >
+
+            Weak Entities
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="col-6 col-lg-3"
+      >
+
+        <div
+          class="stat-card"
+        >
+
+          <div
+            id="revisionItems"
+            class="score-number"
+          >
+
+            0
+
+          </div>
+
+
+          <div
+            class="small
+                   text-secondary
+                   mt-2"
+          >
+
+            Revision Items
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="col-6 col-lg-3"
+      >
+
+        <div
+          class="stat-card"
+        >
+
+          <div
+            id="mappedPyqs"
+            class="score-number"
+          >
+
+            0
+
+          </div>
+
+
+          <div
+            class="small
+                   text-secondary
+                   mt-2"
+          >
+
+            Mapped PYQs
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       REVISION QUEUE
+  ====================================================== -->
+
+  <section
+    class="section-card mb-4"
+  >
+
+    <div
+      class="d-flex
+             justify-content-between
+             align-items-center
+             flex-wrap
+             gap-2"
+    >
+
+      <div>
+
+        <p
+          class="eyebrow mb-1"
+        >
+
+          REVISION SIGNAL
+
+        </p>
+
+
+        <h2
+          class="h4 mb-1"
+        >
+
+          🔄 Priority Revision Queue
+
+        </h2>
+
+
+        <p
+          class="text-secondary
+                 mb-0"
+        >
+
+          Knowledge entities requiring
+          another round of study.
+
+        </p>
+
+      </div>
+
+
+      <span
+        id="revisionBadge"
+        class="badge
+               rounded-pill
+               bg-success"
+      >
+
+        0 items
+
+      </span>
+
+    </div>
+
+
+    <hr>
+
+
+    <div
+      id="revisionContainer"
+      class="row g-3"
+    >
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       KNOWLEDGE PERFORMANCE
+  ====================================================== -->
+
+  <section
+    class="section-card mb-4"
+  >
+
+    <div
+      class="d-flex
+             justify-content-between
+             align-items-center
+             flex-wrap
+             gap-2"
+    >
+
+      <div>
+
+        <p
+          class="eyebrow mb-1"
+        >
+
+          KNOWLEDGE PERFORMANCE
+
+        </p>
+
+
+        <h2
+          class="h4 mb-1"
+        >
+
+          🧠 Knowledge Entity Performance
+
+        </h2>
+
+
+        <p
+          class="text-secondary
+                 mb-0"
+        >
+
+          Accuracy calculated from
+          question-level attempts.
+
+        </p>
+
+      </div>
+
+
+      <span
+        id="performanceBadge"
+        class="badge
+               rounded-pill
+               bg-secondary"
+      >
+
+        0 entities
+
+      </span>
+
+    </div>
+
+
+    <hr>
+
+
+    <div
+      id="performanceContainer"
+      class="row g-3"
+    >
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       REVISION PYQ PRACTICE
+  ====================================================== -->
+
+  <section
+    class="section-card mb-4"
+  >
+
+    <div
+      class="d-flex
+             justify-content-between
+             align-items-center
+             flex-wrap
+             gap-2"
+    >
+
+      <div>
+
+        <p
+          class="eyebrow mb-1"
+        >
+
+          FOCUSED PRACTICE
+
+        </p>
+
+
+        <h2
+          class="h4 mb-1"
+        >
+
+          📝 Revision PYQ Practice
+
+        </h2>
+
+
+        <p
+          class="text-secondary
+                 mb-0"
+        >
+
+          Questions connected to your
+          weak knowledge areas.
+
+        </p>
+
+      </div>
+
+
+      <span
+        id="revisionQuestionBadge"
+        class="badge
+               rounded-pill
+               bg-secondary"
+      >
+
+        0 questions
+
+      </span>
+
+    </div>
+
+
+    <hr>
+
+
+    <div
+      id="questionContainer"
+    >
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       RECENT HISTORY
+  ====================================================== -->
+
+  <section
+    class="section-card mb-4"
+  >
+
+    <div
+      class="d-flex
+             justify-content-between
+             align-items-center
+             flex-wrap
+             gap-2"
+    >
+
+      <div>
+
+        <p
+          class="eyebrow mb-1"
+        >
+
+          HISTORY
+
+        </p>
+
+
+        <h2
+          class="h4 mb-1"
+        >
+
+          📈 Recent Test & Retest History
+
+        </h2>
+
+
+        <p
+          class="text-secondary
+                 mb-0"
+        >
+
+          Your latest recorded attempts.
+
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <hr>
+
+
+    <div
+      id="historyContainer"
+    >
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       CONTINUE
+  ====================================================== -->
+
+  <section
+    class="section-card"
+  >
+
+    <div
+      class="d-flex
+             justify-content-between
+             align-items-center
+             flex-wrap
+             gap-3"
+    >
+
+      <div>
+
+        <h2
+          class="h5 mb-1"
+        >
+
+          🎯 Continue Your Preparation
+
+        </h2>
+
+
+        <p
+          class="text-secondary
+                 mb-0"
+        >
+
+          Revise weak entities first,
+          then retry the connected PYQs.
+
+        </p>
+
+      </div>
+
+
+      <div
+        class="d-flex
+               gap-2
+               flex-wrap"
+      >
+
+        <button
+          id="refreshBtn"
+          type="button"
+          class="btn
+                 btn-outline-primary"
+        >
+
+          🔄 Refresh Revision Queue
+
+        </button>
+
+
+        <a
+          href="diagnosis.html"
+          class="btn btn-navy"
+        >
+
+          📊 View Diagnosis
+
+        </a>
+
+
+        <a
+          href="test-engine.html"
+          class="btn btn-warning"
+        >
+
+          📝 Take Another Test
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+</main>
+
+
+
+<!-- =======================================================
+     FOOTER
+======================================================== -->
+
+<footer
+  class="py-4 text-center"
+>
+
+  <small>
+
+    BAJEE JRF AI • Step 2.7.6 • Revision → Retest
+
+  </small>
+
+</footer>
+
+
+
+<script>
+
+/* =========================================================
+   BAJEE JRF AI
+   STEP 2.7.6 — REVISION → RETEST ENGINE
+   ZERO COST
+   LOCAL JSON + LOCAL STORAGE
+========================================================= */
+
+"use strict";
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+const PERFORMANCE_STORAGE_KEY =
+  "bajee_jrf_ai_vertical_slice_performance_v2";
+
+
+const OLD_PERFORMANCE_STORAGE_KEY =
+  "bajee_jrf_ai_vertical_slice_performance_v1";
+
+
+const TEST_HISTORY_STORAGE_KEY =
+  "bajee_jrf_ai_test_history_v1";
+
+
+/* =========================================================
+   DATABASE STATE
+========================================================= */
+
+let knowledgeDatabase = [];
+
+let pyqDatabase = [];
+
+let mappings = [];
+
+let selectedQuestions = [];
+
+
+/* =========================================================
+   CURRENT PAGE STATE
+========================================================= */
+
+let answered = {};
+
+let retryMode = {};
+
+let correctCount = 0;
+
+
+/*
+   questionId -> latest result
+
+   This is only the visible/current
+   question state.
+
+   Historical attempts remain in
+   localStorage.
+*/
+
+
+/* =========================================================
+   BASIC HELPERS
+========================================================= */
+
+function normalizeId(
+  value
+) {
+
+  return String(
+    value ?? ""
+  )
+    .trim();
+
+}
+
+
+function normalizeText(
+  value
+) {
+
+  return String(
+    value ?? ""
+  )
+    .trim();
+
+}
+
+
+function safeNumber(
+  value
+) {
+
+  const number =
+    Number(value);
+
+  return Number.isFinite(
+    number
+  )
+    ? number
+    : 0;
+
+}
+
+
+function safeArray(
+  value
+) {
+
+  return Array.isArray(
+    value
+  )
+    ? value
+    : [];
+
+}
+
+
+function escapeHTML(
+  value
+) {
+
+  return String(
+    value ?? ""
+  )
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+function safeDomId(
+  value
+) {
+
+  return normalizeId(
+    value
+  )
+    .replace(
+      /[^a-zA-Z0-9_-]/g,
+      "_"
+    );
+
+}
+
+
+/* =========================================================
+   DATABASE LOADING
+========================================================= */
+
+async function loadDatabases() {
+
+  try {
+
+    console.log(
+      "=========================================="
+    );
+
+
+    console.log(
+      "BAJEE JRF AI — STEP 2.7.6"
+    );
+
+
+    console.log(
+      "Loading Revision & Retest Engine..."
+    );
+
+
+    console.log(
+      "=========================================="
+    );
+
+
+    const [
+      knowledgeResponse,
+      pyqResponse,
+      mappingResponse
+    ] =
+      await Promise.all([
+
+        fetch(
+          "data/knowledge/knowledge-entities.json"
+        ),
+
+        fetch(
+          "data/pyqs/pyq-database.json"
+        ),
+
+        fetch(
+          "data/pyqs/pyq-knowledge-map.json"
+        )
+
+      ]);
+
+
+    if (
+      !knowledgeResponse.ok
+    ) {
+
+      throw new Error(
+        "Knowledge database could not be loaded."
+      );
+
+    }
+
+
+    if (
+      !pyqResponse.ok
+    ) {
+
+      throw new Error(
+        "PYQ database could not be loaded."
+      );
+
+    }
+
+
+    if (
+      !mappingResponse.ok
+    ) {
+
+      throw new Error(
+        "PYQ knowledge mapping could not be loaded."
+      );
+
+    }
+
+
+    const knowledgeData =
+      await knowledgeResponse.json();
+
+
+    const pyqData =
+      await pyqResponse.json();
+
+
+    const mappingData =
+      await mappingResponse.json();
+
+
+    /*
+       Knowledge database.
+    */
+
+    knowledgeDatabase =
+      Array.isArray(
+        knowledgeData.entities
+      )
+        ? knowledgeData.entities
+        : Array.isArray(
+            knowledgeData
+          )
+            ? knowledgeData
+            : [];
+
+
+    /*
+       PYQ database.
+    */
+
+    pyqDatabase =
+      Array.isArray(
+        pyqData.questions
+      )
+        ? pyqData.questions
+        : Array.isArray(
+            pyqData
+          )
+            ? pyqData
+            : [];
+
+
+    /*
+       Mapping database.
+    */
+
+    mappings =
+      Array.isArray(
+        mappingData.mappings
+      )
+        ? mappingData.mappings
+        : Array.isArray(
+            mappingData
+          )
+            ? mappingData
+            : [];
+
+
+    /*
+       Normalize mapping IDs.
+
+       This prevents accidental spaces
+       in JSON data from breaking matching.
+    */
+
+    mappings =
+      mappings.map(
+        mapping => ({
+
+          ...mapping,
+
+          pyq_id:
+            normalizeId(
+              mapping.pyq_id
+            ),
+
+          knowledge_entities:
+            safeArray(
+              mapping.knowledge_entities
+            )
+              .map(
+                normalizeText
+              )
+              .filter(Boolean)
+
+        })
+      );
+
+
+    /*
+       Normalize question IDs.
+
+       IMPORTANT:
+       This is the permanent protection
+       against the newline/space problem
+       seen in the previous version.
+    */
+
+    pyqDatabase =
+      pyqDatabase.map(
+        question => ({
+
+          ...question,
+
+          id:
+            normalizeId(
+              question.id
+            ),
+
+          correct_answer:
+            normalizeText(
+              question.correct_answer
+            )
+
+        })
+      );
+
+
+    /*
+       Vertical Slice = mapped PYQs.
+    */
+
+    const mappedQuestionIds =
+      new Set(
+
+        mappings
+
+          .map(
+            mapping =>
+              normalizeId(
+                mapping.pyq_id
+              )
+          )
+
+          .filter(Boolean)
+
+      );
+
+
+    selectedQuestions =
+      pyqDatabase.filter(
+        question =>
+          mappedQuestionIds.has(
+            normalizeId(
+              question.id
+            )
+          )
+      );
+
+
+    /*
+       Restore current visible
+       performance.
+    */
+
+    restorePerformance();
+
+
+    /*
+       Connection status.
+    */
+
+    setConnectionStatus(
+      "Connected",
+      "bg-success"
+    );
+
+
+    showConnectionDetails();
+
+
+    /*
+       Render page.
+    */
+
+    updateStatistics();
+
+    renderRevisionQueue();
+
+    renderPerformance();
+
+    renderQuestions();
+
+    renderHistory();
+
+
+    /*
+       Attach all event handlers
+       AFTER rendering.
+    */
+
+    attachEventListeners();
+
+
+    console.log(
+      "BAJEE JRF AI Revision Engine loaded successfully."
+    );
+
+
+    console.log(
+      "Knowledge entities:",
+      knowledgeDatabase.length
+    );
+
+
+    console.log(
+      "Mapped PYQs:",
+      selectedQuestions.length
+    );
+
+
+    console.log(
+      "Mappings:",
+      mappings.length
+    );
+
+
+    console.log(
+      "Performance:",
+      loadPerformance()
+    );
+
+  }
+
+
+  catch (
+    error
+  ) {
+
+    console.error(
+      "Revision Engine loading error:",
+      error
+    );
+
+
+    setConnectionStatus(
+      "Connection Error",
+      "bg-danger"
+    );
+
+
+    document.getElementById(
+      "connectionDetails"
+    ).innerHTML = `
+
+      <div
+        class="alert
+               alert-danger
+               mb-0"
+      >
+
+        <strong>
+          Revision engine could not load.
+        </strong>
+
+        <br><br>
+
+        ${escapeHTML(
+          error.message
+        )}
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   CONNECTION STATUS
+========================================================= */
+
+function setConnectionStatus(
+  text,
+  className
+) {
+
+  const status =
+    document.getElementById(
+      "connectionStatus"
+    );
+
+
+  if (!status) {
+
+    return;
+
+  }
+
+
+  status.textContent =
+    text;
+
+
+  status.className =
+    "badge " +
+    className;
+
+}
+
+
+/* =========================================================
+   CONNECTION DETAILS
+========================================================= */
+
+function showConnectionDetails() {
+
+  const box =
+    document.getElementById(
+      "connectionDetails"
+    );
+
+
+  if (!box) {
+
+    return;
+
+  }
+
+
+  box.innerHTML = `
+
+    <div
+      class="connection-box"
+    >
+
+      🧠 Knowledge Base
+
+      <span class="arrow">
+        →
+      </span>
+
+      📝 PYQ Database
+
+      <span class="arrow">
+        →
+      </span>
+
+      🔗 Knowledge Mapping
+
+      <span class="arrow">
+        →
+      </span>
+
+      📊 Performance
+
+      <span class="arrow">
+        →
+      </span>
+
+      🔄 Revision Queue
+
+      <span class="arrow">
+        →
+      </span>
+
+      🔁 Retest
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   MAPPED ENTITY NAMES
+========================================================= */
+
+function getMappedEntityNames() {
+
+  const names =
+    new Set();
+
+
+  mappings.forEach(
+    mapping => {
+
+      const pyqId =
+        normalizeId(
+          mapping.pyq_id
+        );
+
+
+      const questionExists =
+        selectedQuestions.some(
+          question =>
+            normalizeId(
+              question.id
+            ) === pyqId
+        );
+
+
+      if (
+        !questionExists
+      ) {
+
+        return;
+
+      }
+
+
+      safeArray(
+        mapping.knowledge_entities
+      )
+        .map(
+          normalizeText
+        )
+        .filter(Boolean)
+        .forEach(
+          name =>
+            names.add(
+              name
+            )
+        );
+
+    }
+  );
+
+
+  return [
+    ...names
+  ];
+
+}
+
+
+/* =========================================================
+   MAPPING FOR QUESTION
+========================================================= */
+
+function getMappingForQuestion(
+  questionId
+) {
+
+  const normalizedId =
+    normalizeId(
+      questionId
+    );
+
+
+  return (
+    mappings.find(
+      mapping =>
+        normalizeId(
+          mapping.pyq_id
+        ) === normalizedId
+    )
+    ||
+    null
+  );
+
+}
+
+
+/* =========================================================
+   MAPPING FOR ENTITY
+========================================================= */
+
+function getQuestionsForEntity(
+  entityName
+) {
+
+  const normalizedEntity =
+    normalizeText(
+      entityName
+    );
+
+
+  const ids =
+    new Set();
+
+
+  mappings.forEach(
+    mapping => {
+
+      const entities =
+        safeArray(
+          mapping.knowledge_entities
+        );
+
+
+      const matched =
+        entities.some(
+          entity =>
+            normalizeText(
+              entity
+            ) ===
+            normalizedEntity
+        );
+
+
+      if (
+        matched
+      ) {
+
+        ids.add(
+          normalizeId(
+            mapping.pyq_id
+          )
+        );
+
+      }
+
+    }
+  );
+
+
+  return selectedQuestions.filter(
+    question =>
+      ids.has(
+        normalizeId(
+          question.id
+        )
+      )
+  );
+
+}
+
+
+/* =========================================================
+   PERFORMANCE LOAD
+========================================================= */
+
+function loadPerformance() {
+
+  try {
+
+    const current =
+      localStorage.getItem(
+        PERFORMANCE_STORAGE_KEY
+      );
+
+
+    if (
+      current
+    ) {
+
+      const parsed =
+        JSON.parse(
+          current
+        );
+
+
+      if (
+        parsed &&
+        typeof parsed ===
+          "object"
+      ) {
+
+        return parsed;
+
+      }
+
+    }
+
+
+    /*
+       If v2 does not exist,
+       check old v1 storage.
+    */
+
+    const old =
+      localStorage.getItem(
+        OLD_PERFORMANCE_STORAGE_KEY
+      );
+
+
+    if (
+      old
+    ) {
+
+      const parsedOld =
+        JSON.parse(
+          old
+        );
+
+
+      if (
+        parsedOld &&
+        typeof parsedOld ===
+          "object"
+      ) {
+
+        return parsedOld;
+
+      }
+
+    }
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+      "Performance load failed:",
+      error
+    );
+
+  }
+
+
+  return {};
+
+}
+
+
+/* =========================================================
+   PERFORMANCE SAVE
+========================================================= */
+
+function savePerformance(
+  performance
+) {
+
+  try {
+
+    localStorage.setItem(
+      PERFORMANCE_STORAGE_KEY,
+      JSON.stringify(
+        performance
+      )
+    );
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+      "Performance save failed:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   NORMALIZE PERFORMANCE
+========================================================= */
+
+function normalizePerformanceRecord(
+  record
+) {
+
+  if (
+    !record ||
+    typeof record !==
+      "object"
+  ) {
+
+    return {
+
+      attempted: 0,
+
+      correct: 0,
+
+      wrong: 0,
+
+      questions: {},
+
+      history: []
+
+    };
+
+  }
+
+
+  return {
+
+    attempted:
+      safeNumber(
+        record.attempted
+      ),
+
+    correct:
+      safeNumber(
+        record.correct
+      ),
+
+    wrong:
+      safeNumber(
+        record.wrong
+      ),
+
+    questions:
+      record.questions &&
+      typeof record.questions ===
+        "object"
+        ? record.questions
+        : {},
+
+    history:
+      safeArray(
+        record.history
+      )
+
+  };
+
+}
+
+
+/* =========================================================
+   RESTORE CURRENT PERFORMANCE
+========================================================= */
+
+function restorePerformance() {
+
+  const performance =
+    loadPerformance();
+
+
+  answered = {};
+
+  correctCount = 0;
+
+
+  selectedQuestions.forEach(
+    question => {
+
+      const questionId =
+        normalizeId(
+          question.id
+        );
+
+
+      const mapping =
+        getMappingForQuestion(
+          questionId
+        );
+
+
+      const entities =
+        mapping
+          ? safeArray(
+              mapping.knowledge_entities
+            )
+          : [];
+
+
+      for (
+        const entityName
+        of entities
+      ) {
+
+        const record =
+          normalizePerformanceRecord(
+            performance[
+              entityName
+            ]
+          );
+
+
+        const questionRecord =
+          record.questions[
+            questionId
+          ];
+
+
+        if (
+          questionRecord
+        ) {
+
+          const selected =
+            normalizeText(
+              questionRecord.selected
+            );
+
+
+          answered[
+            questionId
+          ] =
+            selected;
+
+
+          if (
+            normalizeText(
+              questionRecord.result
+            ) ===
+            "correct"
+          ) {
+
+            correctCount++;
+
+          }
+
+
+          break;
+
+        }
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   LATEST QUESTION RESULT
+========================================================= */
+
+function getLatestQuestionResult(
+  questionId
+) {
+
+  const normalizedId =
+    normalizeId(
+      questionId
+    );
+
+
+  const performance =
+    loadPerformance();
+
+
+  const entityNames =
+    getMappedEntityNames();
+
+
+  for (
+    const entityName
+    of entityNames
+  ) {
+
+    const record =
+      normalizePerformanceRecord(
+        performance[
+          entityName
+        ]
+      );
+
+
+    const questions =
+      record.questions;
+
+
+    /*
+       First try exact normalized ID.
+    */
+
+    if (
+      questions[
+        normalizedId
+      ]
+    ) {
+
+      return questions[
+        normalizedId
+      ];
+
+    }
+
+
+    /*
+       Fallback for older data
+       that may contain whitespace.
+    */
+
+    const key =
+      Object.keys(
+        questions
+      )
+      .find(
+        storedId =>
+          normalizeId(
+            storedId
+          ) ===
+          normalizedId
+      );
+
+
+    if (
+      key
+    ) {
+
+      return questions[
+        key
+      ];
+
+    }
+
+  }
+
+
+  return null;
+
+}
+
+
+/* =========================================================
+   REVISION PRIORITY
+========================================================= */
+
+function getPriority(
+  accuracy,
+  wrong
+) {
+
+  /*
+     HIGH:
+     below 50%
+     OR 2+ wrong
+  */
+
+  if (
+    accuracy < 50 ||
+    wrong >= 2
+  ) {
+
+    return {
+
+      level: "high",
+
+      label:
+        "HIGH PRIORITY",
+
+      score: 3
+
+    };
+
+  }
+
+
+  /*
+     EXACTLY 50%
+  */
+
+  if (
+    accuracy === 50
+  ) {
+
+    return {
+
+      level: "medium",
+
+      label:
+        "MEDIUM PRIORITY",
+
+      score: 2
+
+    };
+
+  }
+
+
+  /*
+     51–74%
+  */
+
+  if (
+    accuracy < 75
+  ) {
+
+    return {
+
+      level: "low",
+
+      label:
+        "LOW PRIORITY",
+
+      score: 1
+
+    };
+
+  }
+
+
+  return {
+
+    level: "stable",
+
+    label:
+      "STABLE",
+
+    score: 0
+
+  };
+
+}
+
+
+/* =========================================================
+   BUILD REVISION QUEUE
+========================================================= */
+
+function buildRevisionQueue() {
+
+  const performance =
+    loadPerformance();
+
+
+  const queue = [];
+
+
+  getMappedEntityNames()
+    .forEach(
+      entityName => {
+
+        const record =
+          normalizePerformanceRecord(
+            performance[
+              entityName
+            ]
+          );
+
+
+        const attempted =
+          record.attempted;
+
+
+        const correct =
+          record.correct;
+
+
+        const wrong =
+          record.wrong;
+
+
+        if (
+          attempted <= 0
+        ) {
+
+          return;
+
+        }
+
+
+        const accuracy =
+          Math.round(
+            (
+              correct /
+              attempted
+            ) * 100
+          );
+
+
+        const priority =
+          getPriority(
+            accuracy,
+            wrong
+          );
+
+
+        /*
+           Only weak areas enter
+           revision queue.
+        */
+
+        if (
+          priority.level ===
+          "stable"
+        ) {
+
+          return;
+
+        }
+
+
+        const questions =
+          getQuestionsForEntity(
+            entityName
+          );
+
+
+        queue.push({
+
+          entityName,
+
+          attempted,
+
+          correct,
+
+          wrong,
+
+          accuracy,
+
+          priority,
+
+          questions,
+
+          question:
+            questions.length
+              ? questions[0]
+              : null
+
+        });
+
+      }
+    );
+
+
+  queue.sort(
+    (
+      a,
+      b
+    ) => {
+
+      if (
+        b.priority.score !==
+        a.priority.score
+      ) {
+
+        return (
+          b.priority.score -
+          a.priority.score
+        );
+
+      }
+
+
+      if (
+        a.accuracy !==
+        b.accuracy
+      ) {
+
+        return (
+          a.accuracy -
+          b.accuracy
+        );
+
+      }
+
+
+      return (
+        b.wrong -
+        a.wrong
+      );
+
+    }
+  );
+
+
+  return queue;
+
+}
+
+
+/* =========================================================
+   UPDATE STATISTICS
+========================================================= */
+
+function updateStatistics() {
+
+  const performance =
+    loadPerformance();
+
+
+  const entityNames =
+    getMappedEntityNames();
+
+
+  const queue =
+    buildRevisionQueue();
+
+
+  let totalAttempts =
+    0;
+
+
+  entityNames.forEach(
+    name => {
+
+      const record =
+        normalizePerformanceRecord(
+          performance[
+            name
+          ]
+        );
+
+
+      totalAttempts +=
+        record.attempted;
+
+    }
+  );
+
+
+  setText(
+    "totalAttempts",
+    totalAttempts
+  );
+
+
+  setText(
+    "weakEntities",
+    queue.length
+  );
+
+
+  setText(
+    "revisionItems",
+    queue.length
+  );
+
+
+  setText(
+    "mappedPyqs",
+    selectedQuestions.length
+  );
+
+
+  setText(
+    "performanceBadge",
+    `${entityNames.length} ${
+      entityNames.length === 1
+        ? "entity"
+        : "entities"
+    }`
+  );
+
+
+  const revisionBadge =
+    document.getElementById(
+      "revisionBadge"
+    );
+
+
+  if (
+    revisionBadge
+  ) {
+
+    revisionBadge.textContent =
+      `${queue.length} ${
+        queue.length === 1
+          ? "item"
+          : "items"
+      }`;
+
+
+    revisionBadge.className =
+      queue.length
+        ? "badge rounded-pill bg-danger"
+        : "badge rounded-pill bg-success";
+
+  }
+
+}
+
+
+/* =========================================================
+   SET TEXT
+========================================================= */
+
+function setText(
+  id,
+  value
+) {
+
+  const element =
+    document.getElementById(
+      id
+    );
+
+
+  if (
+    element
+  ) {
+
+    element.textContent =
+      value;
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDER REVISION QUEUE
+========================================================= */
+
+function renderRevisionQueue() {
+
+  const container =
+    document.getElementById(
+      "revisionContainer"
+    );
+
+
+  if (!container) {
+
+    return;
+
+  }
+
+
+  const queue =
+    buildRevisionQueue();
+
+
+  if (
+    !queue.length
+  ) {
+
+    container.innerHTML = `
+
+      <div
+        class="col-12"
+      >
+
+        <div
+          class="empty-state"
+        >
+
+          <div
+            style="font-size: 30px;"
+          >
+
+            🎉
+
+          </div>
+
+
+          <h5
+            class="mt-2"
+          >
+
+            No weak knowledge entity detected.
+
+          </h5>
+
+
+          <p
+            class="small mb-0"
+          >
+
+            Complete more mapped PYQs
+            to build a stronger diagnosis
+            and revision queue.
+
+          </p>
+
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    queue
+      .map(
+        item =>
+          createRevisionCard(
+            item
+          )
+      )
+      .join("");
+
+
+}
+
+
+/* =========================================================
+   CREATE REVISION CARD
+========================================================= */
+
+function createRevisionCard(
+  item
+) {
+
+  const entity =
+    escapeHTML(
+      item.entityName
+    );
+
+
+  const question =
+    item.question;
+
+
+  const questionId =
+    question
+      ? normalizeId(
+          question.id
+        )
+      : "";
+
+
+  const mapping =
+    question
+      ? getMappingForQuestion(
+          questionId
+        )
+      : null;
+
+
+  const units =
+    mapping
+      ? safeArray(
+          mapping.units
+        )
+      : [];
+
+
+  const concepts =
+    getEntityConcepts(
+      item.entityName
+    );
+
+
+  const questionButton =
+    question
+      ? `
+
+        <button
+          type="button"
+          class="
+            btn
+            btn-sm
+            btn-navy
+            revision-retry-btn
+          "
+          data-question-id="${escapeHTML(
+            questionId
+          )}"
+        >
+
+          🔁 Retry Connected PYQ
+
+        </button>
+
+      `
+      : `
+
+        <span
+          class="
+            small
+            text-secondary
+          "
+        >
+
+          No mapped PYQ available.
+
+        </span>
+
+      `;
+
+
+  return `
+
+    <div
+      class="col-12"
+    >
+
+      <div
+        class="
+          revision-card
+          ${item.priority.level}
+        "
+      >
+
+        <div
+          class="
+            d-flex
+            justify-content-between
+            align-items-start
+            flex-wrap
+            gap-2
+          "
+        >
+
+          <div>
+
+            <h3
+              class="h5 mb-1"
+            >
+
+              🧠 ${entity}
+
+            </h3>
+
+
+            <div
+              class="
+                small
+                text-secondary
+              "
+            >
+
+              Knowledge Entity
+
+            </div>
+
+          </div>
+
+
+          <span
+            class="
+              tag
+              priority-${item.priority.level}
+            "
+          >
+
+            ${escapeHTML(
+              item.priority.label
+            )}
+
+          </span>
+
+        </div>
+
+
+        <div
+          class="
+            row
+            text-center
+            mt-4
+          "
+        >
+
+          <div
+            class="col-4"
+          >
+
+            <div
+              class="performance-number"
+            >
+
+              ${item.accuracy}%
+
+            </div>
+
+
+            <div
+              class="
+                small
+                text-secondary
+              "
+            >
+
+              Accuracy
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="col-4"
+          >
+
+            <div
+              class="performance-number"
+            >
+
+              ${item.attempted}
+
+            </div>
+
+
+            <div
+              class="
+                small
+                text-secondary
+              "
+            >
+
+              Attempted
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="col-4"
+          >
+
+            <div
+              class="
+                performance-number
+                text-danger
+              "
+            >
+
+              ${item.wrong}
+
+            </div>
+
+
+            <div
+              class="
+                small
+                text-secondary
+              "
+            >
+
+              Wrong
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="progress mt-3"
+        >
+
+          <div
+            class="
+              progress-bar
+              ${
+                item.accuracy >= 75
+                  ? "bg-success"
+                  : item.accuracy >= 50
+                    ? "bg-warning"
+                    : "bg-danger"
+              }
+            "
+            style="
+              width: ${Math.min(
+                item.accuracy,
+                100
+              )}%
+            "
+          ></div>
+
+        </div>
+
+
+        ${
+          units.length
+            ? `
+
+              <div
+                class="mt-3"
+              >
+
+                <strong
+                  class="small"
+                >
+
+                  Units:
+
+                </strong>
+
+
+                <div>
+
+                  ${units
+                    .map(
+                      unit =>
+                        `
+                          <span
+                            class="tag unit"
+                          >
+                            ${escapeHTML(
+                              unit
+                            )}
+                          </span>
+                        `
+                    )
+                    .join("")}
+
+                </div>
+
+              </div>
+
+            `
+            : ""
+        }
+
+
+        ${
+          concepts.length
+            ? `
+
+              <div
+                class="mt-2"
+              >
+
+                <strong
+                  class="small"
+                >
+
+                  Concepts:
+
+                </strong>
+
+
+                <div>
+
+                  ${concepts
+                    .slice(
+                      0,
+                      12
+                    )
+                    .map(
+                      concept =>
+                        `
+                          <span
+                            class="tag concept"
+                          >
+                            ${escapeHTML(
+                              concept
+                            )}
+                          </span>
+                        `
+                    )
+                    .join("")}
+
+                </div>
+
+              </div>
+
+            `
+            : ""
+        }
+
+
+        <div
+          class="mt-3"
+        >
+
+          <p
+            class="
+              small
+              text-secondary
+              mb-3
+            "
+          >
+
+            Your current performance for
+            <strong>
+              ${entity}
+            </strong>
+            indicates that another focused
+            revision round is required.
+
+          </p>
+
+        </div>
+
+
+        <div
+          class="
+            d-flex
+            gap-2
+            flex-wrap
+          "
+        >
+
+          ${questionButton}
+
+
+          <button
+            type="button"
+            class="
+              btn
+              btn-sm
+              btn-outline-secondary
+              revision-knowledge-btn
+            "
+            data-entity="${escapeHTML(
+              item.entityName
+            )}"
+          >
+
+            📚 View Knowledge
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   ENTITY CONCEPTS
+========================================================= */
+
+function getEntityConcepts(
+  entityName
+) {
+
+  const entity =
+    knowledgeDatabase.find(
+      item => {
+
+        const name =
+          item.name ||
+          item.entity ||
+          item.title ||
+          "";
+
+
+        return (
+          normalizeText(
+            name
+          ) ===
+          normalizeText(
+            entityName
+          )
+        );
+
+      }
+    );
+
+
+  if (!entity) {
+
+    return [];
+
+  }
+
+
+  return safeArray(
+    entity.concepts ||
+    entity.core_concepts ||
+    []
+  );
+
+}
+
+
+/* =========================================================
+   RENDER PERFORMANCE
+========================================================= */
+
+function renderPerformance() {
+
+  const container =
+    document.getElementById(
+      "performanceContainer"
+    );
+
+
+  if (!container) {
+
+    return;
+
+  }
+
+
+  const performance =
+    loadPerformance();
+
+
+  const names =
+    getMappedEntityNames();
+
+
+  if (!names.length) {
+
+    container.innerHTML = `
+
+      <div
+        class="col-12"
+      >
+
+        <div
+          class="empty-state"
+        >
+
+          No mapped knowledge performance
+          is available yet.
+
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    names
+      .map(
+        name => {
+
+          const record =
+            normalizePerformanceRecord(
+              performance[
+                name
+              ]
+            );
+
+
+          const attempted =
+            record.attempted;
+
+
+          const correct =
+            record.correct;
+
+
+          const wrong =
+            record.wrong;
+
+
+          const accuracy =
+            attempted
+              ? Math.round(
+                  (
+                    correct /
+                    attempted
+                  ) * 100
+                )
+              : 0;
+
+
+          let cardClass =
+            "neutral";
+
+
+          let accuracyClass =
+            "accuracy-neutral";
+
+
+          let status =
+            "Not attempted yet";
+
+
+          if (
+            attempted > 0
+          ) {
+
+            if (
+              accuracy < 50
+            ) {
+
+              cardClass =
+                "weak";
+
+              accuracyClass =
+                "accuracy-weak";
+
+              status =
+                "Needs revision";
+
+            }
+
+            else if (
+              accuracy >= 75
+            ) {
+
+              cardClass =
+                "good";
+
+              accuracyClass =
+                "accuracy-good";
+
+              status =
+                "Strong performance";
+
+            }
+
+            else {
+
+              status =
+                "Needs more practice";
+
+            }
+
+          }
+
+
+          const history =
+            safeArray(
+              record.history
+            );
+
+
+          const recentHistory =
+            history
+              .slice(
+                -5
+              )
+              .reverse();
+
+
+          const concepts =
+            getEntityConcepts(
+              name
+            );
+
+
+          return `
+
+            <div
+              class="col-md-6"
+            >
+
+              <div
+                class="
+                  performance-card
+                  ${cardClass}
+                "
+              >
+
+                <div
+                  class="
+                    d-flex
+                    justify-content-between
+                    align-items-start
+                  "
+                >
+
+                  <div>
+
+                    <h3
+                      class="h5 mb-1"
+                    >
+
+                      ${escapeHTML(
+                        name
+                      )}
+
+                    </h3>
+
+
+                    <div
+                      class="
+                        small
+                        text-secondary
+                      "
+                    >
+
+                      Knowledge Entity
+
+                    </div>
+
+                  </div>
+
+
+                  <div
+                    class="${accuracyClass}"
+                  >
+
+                    ${accuracy}%
+
+                  </div>
+
+                </div>
+
+
+                <div
+                  class="progress mt-3"
+                >
+
+                  <div
+                    class="
+                      progress-bar
+                      ${
+                        accuracy >= 75
+                          ? "bg-success"
+                          : accuracy >= 50
+                            ? "bg-warning"
+                            : "bg-danger"
+                      }
+                    "
+                    style="
+                      width: ${accuracy}%
+                    "
+                  ></div>
+
+                </div>
+
+
+                <div
+                  class="
+                    row
+                    text-center
+                    mt-3
+                  "
+                >
+
+                  <div
+                    class="col-4"
+                  >
+
+                    <div
+                      class="performance-number"
+                    >
+
+                      ${attempted}
+
+                    </div>
+
+
+                    <div
+                      class="
+                        small
+                        text-secondary
+                      "
+                    >
+
+                      Attempted
+
+                    </div>
+
+                  </div>
+
+
+                  <div
+                    class="col-4"
+                  >
+
+                    <div
+                      class="
+                        performance-number
+                        text-success
+                      "
+                    >
+
+                      ${correct}
+
+                    </div>
+
+
+                    <div
+                      class="
+                        small
+                        text-secondary
+                      "
+                    >
+
+                      Correct
+
+                    </div>
+
+                  </div>
+
+
+                  <div
+                    class="col-4"
+                  >
+
+                    <div
+                      class="
+                        performance-number
+                        text-danger
+                      "
+                    >
+
+                      ${wrong}
+
+                    </div>
+
+
+                    <div
+                      class="
+                        small
+                        text-secondary
+                      "
+                    >
+
+                      Wrong
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <div
+                  class="mt-3"
+                >
+
+                  <strong>
+                    Status:
+                  </strong>
+
+                  <span
+                    class="${accuracyClass}"
+                  >
+
+                    ${status}
+
+                  </span>
+
+                </div>
+
+
+                ${
+                  concepts.length
+                    ? `
+
+                      <div
+                        class="mt-2"
+                      >
+
+                        ${concepts
+                          .slice(
+                            0,
+                            8
+                          )
+                          .map(
+                            concept =>
+                              `
+                                <span
+                                  class="
+                                    tag
+                                    concept
+                                  "
+                                >
+                                  ${escapeHTML(
+                                    concept
+                                  )}
+                                </span>
+                              `
+                          )
+                          .join("")}
+
+                      </div>
+
+                    `
+                    : ""
+                }
+
+
+                ${
+                  recentHistory.length
+                    ? `
+
+                      <div
+                        class="mt-3"
+                      >
+
+                        <strong>
+                          Recent attempts
+                        </strong>
+
+
+                        <div
+                          class="mt-2"
+                        >
+
+                          ${recentHistory
+                            .map(
+                              attempt =>
+                                `
+
+                                  <div
+                                    class="history-item"
+                                  >
+
+                                    ${
+                                      normalizeText(
+                                        attempt.result
+                                      ) ===
+                                      "correct"
+                                        ? "✅ Correct"
+                                        : "❌ Wrong"
+                                    }
+
+                                    ${
+                                      normalizeText(
+                                        attempt.mode
+                                      ) ===
+                                      "retest"
+                                        ? " • Retest"
+                                        : " • Initial"
+                                    }
+
+                                    ${
+                                      attempt.recorded_at
+                                        ? `
+                                          •
+                                          ${formatDate(
+                                            attempt.recorded_at
+                                          )}
+                                        `
+                                        : ""
+                                    }
+
+                                  </div>
+
+                                `
+                            )
+                            .join("")}
+
+                        </div>
+
+                      </div>
+
+                    `
+                    : ""
+                }
+
+              </div>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+/* =========================================================
+   RENDER QUESTIONS
+========================================================= */
+
+function renderQuestions() {
+
+  const container =
+    document.getElementById(
+      "questionContainer"
+    );
+
+
+  if (!container) {
+
+    return;
+
+  }
+
+
+  const queue =
+    buildRevisionQueue();
+
+
+  /*
+     Get unique weak questions.
+  */
+
+  const weakQuestionIds =
+    new Set();
+
+
+  queue.forEach(
+    item => {
+
+      item.questions.forEach(
+        question => {
+
+          weakQuestionIds.add(
+            normalizeId(
+              question.id
+            )
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+  const questions =
+    selectedQuestions.filter(
+      question =>
+        weakQuestionIds.has(
+          normalizeId(
+            question.id
+          )
+        )
+    );
+
+
+  const badge =
+    document.getElementById(
+      "revisionQuestionBadge"
+    );
+
+
+  if (
+    badge
+  ) {
+
+    badge.textContent =
+      `${questions.length} ${
+        questions.length === 1
+          ? "question"
+          : "questions"
+      }`;
+
+  }
+
+
+  if (!questions.length) {
+
+    container.innerHTML = `
+
+      <div
+        class="empty-state"
+      >
+
+        📝
+
+        <h5
+          class="mt-2"
+        >
+
+          No revision PYQs available yet.
+
+        </h5>
+
+
+        <p
+          class="small mb-0"
+        >
+
+          Once a weak knowledge entity is
+          detected, its mapped PYQs will
+          appear here.
+
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    questions
+      .map(
+        (
+          question,
+          index
+        ) =>
+          createQuestion(
+            question,
+            index
+          )
+      )
+      .join("");
+
+
+  /*
+     Restore previously answered
+     visual states.
+  */
+
+  questions.forEach(
+    question => {
+
+      const questionId =
+        normalizeId(
+          question.id
+        );
+
+
+      if (
+        Object.prototype.hasOwnProperty.call(
+          answered,
+          questionId
+        )
+      ) {
+
+        restoreQuestionVisualState(
+          questionId,
+          answered[
+            questionId
+          ]
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   CREATE QUESTION
+========================================================= */
+
+function createQuestion(
+  question,
+  index
+) {
+
+  /*
+     ALWAYS normalize ID.
+  */
+
+  const questionId =
+    normalizeId(
+      question.id
+    );
+
+
+  const mapping =
+    getMappingForQuestion(
+      questionId
+    );
+
+
+  const entities =
+    mapping
+      ? safeArray(
+          mapping.knowledge_entities
+        )
+      : [];
+
+
+  const unitText =
+    mapping &&
+    safeArray(
+      mapping.units
+    ).length
+      ? safeArray(
+          mapping.units
+        ).join(
+          ", "
+        )
+      : normalizeText(
+          question.unit
+        ) ||
+        "Mapped PYQ";
+
+
+  const knowledgeText =
+    entities.length
+      ? entities.join(
+          ", "
+        )
+      : "Not mapped";
+
+
+  const cardId =
+    "question-card-" +
+    safeDomId(
+      questionId
+    );
+
+
+  const options =
+    Object.entries(
+      question.options || {}
+    )
+    .map(
+      (
+        [
+          key,
+          value
+        ]
+      ) => {
+
+        const cleanKey =
+          normalizeText(
+            key
+          );
+
+
+        return `
+
+          <button
+
+            type="button"
+
+            class="option-btn"
+
+            data-action="answer"
+
+            data-question-id="${escapeHTML(
+              questionId
+            )}"
+
+            data-answer="${escapeHTML(
+              cleanKey
+            )}"
+
+          >
+
+            <strong>
+              ${escapeHTML(
+                cleanKey
+              )}.
+            </strong>
+
+            ${escapeHTML(
+              value
+            )}
+
+          </button>
+
+        `;
+
+      }
+    )
+    .join("");
+
+
+  const isRetesting =
+    retryMode[
+      questionId
+    ] === true;
+
+
+  return `
+
+    <div
+
+      class="question-card ${
+        isRetesting
+          ? "retesting"
+          : ""
+      }"
+
+      id="${cardId}"
+
+      data-question-card="true"
+
+      data-question-id="${escapeHTML(
+        questionId
+      )}"
+
+    >
+
+
+      <!-- QUESTION META -->
+
+      <div
+        class="
+          small
+          text-secondary
+          mb-3
+        "
+      >
+
+        PYQ ${index + 1}
+
+        •
+
+        ${escapeHTML(
+          question.year || ""
+        )}
+
+        ${
+          question.session
+            ? `
+              •
+              ${escapeHTML(
+                question.session
+              )}
+            `
+            : ""
+        }
+
+        •
+
+        ${escapeHTML(
+          unitText
+        )}
+
+      </div>
+
+
+      <!-- RETEST MESSAGE -->
+
+      ${
+        isRetesting
+          ? `
+
+            <div
+              class="retest-message"
+            >
+
+              <strong>
+
+                🔁 Retest Mode Active
+
+              </strong>
+
+
+              <div
+                class="small mt-1"
+              >
+
+                Answer this question again
+                after your revision round.
+
+              </div>
+
+            </div>
+
+          `
+          : ""
+      }
+
+
+      <!-- KNOWLEDGE -->
+
+      <div
+        class="mb-3"
+      >
+
+        <span
+          class="tag entity-tag"
+        >
+
+          🧠 Knowledge:
+
+          ${escapeHTML(
+            knowledgeText
+          )}
+
+        </span>
+
+      </div>
+
+
+      <!-- QUESTION -->
+
+      <h3
+        class="h5 mb-3"
+      >
+
+        ${index + 1}.
+
+        ${escapeHTML(
+          question.question
+        )}
+
+      </h3>
+
+
+      <!-- OPTIONS -->
+
+      <div
+        class="mt-3"
+      >
+
+        ${options}
+
+      </div>
+
+
+      <!-- FEEDBACK -->
+
+      <div
+        id="feedback-${safeDomId(
+          questionId
+        )}"
+      >
+
+      </div>
+
+
+      <!-- KNOWLEDGE DETAILS -->
+
+      <div
+        id="knowledge-${safeDomId(
+          questionId
+        )}"
+      >
+
+      </div>
+
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   ANSWER QUESTION
+========================================================= */
+
+function answerQuestion(
+  questionId,
+  selected
+) {
+
+  /*
+     PERMANENT NORMALIZATION.
+
+     Even if an old button somehow
+     sends whitespace/newlines,
+     the values are cleaned here.
+  */
+
+  questionId =
+    normalizeId(
+      questionId
+    );
+
+
+  selected =
+    normalizeText(
+      selected
+    );
+
+
+  console.log(
+    "=========================================="
+  );
+
+
+  console.log(
+    "Question answer clicked:",
+    {
+      questionId,
+      selected
+    }
+  );
+
+
+  /*
+     Find question using normalized ID.
+  */
+
+  const question =
+    selectedQuestions.find(
+      item =>
+        normalizeId(
+          item.id
+        ) ===
+        questionId
+    );
+
+
+  if (!question) {
+
+    console.error(
+      "Question not found:",
+      questionId
+    );
+
+
+    console.log(
+      "Available question IDs:",
+      selectedQuestions.map(
+        item =>
+          normalizeId(
+            item.id
+          )
+      )
+    );
+
+
+    return;
+
+  }
+
+
+  const isRetest =
+    retryMode[
+      questionId
+    ] === true;
+
+
+  /*
+     Prevent double answering unless
+     this is an active retest.
+  */
+
+  if (
+    Object.prototype.hasOwnProperty.call(
+      answered,
+      questionId
+    ) &&
+    !isRetest
+  ) {
+
+    console.log(
+      "Question already answered:",
+      questionId
+    );
+
+
+    return;
+
+  }
+
+
+  const mapping =
+    getMappingForQuestion(
+      questionId
+    );
+
+
+  const correctAnswer =
+    normalizeText(
+      question.correct_answer
+    );
+
+
+  const isCorrect =
+    selected ===
+    correctAnswer;
+
+
+  /*
+     Retest mode:
+     remove previous visible result
+     before adding new result.
+  */
+
+  if (
+    isRetest
+  ) {
+
+    const previous =
+      getLatestQuestionResult(
+        questionId
+      );
+
+
+    if (
+      previous &&
+      normalizeText(
+        previous.result
+      ) ===
+      "correct"
+    ) {
+
+      correctCount =
+        Math.max(
+          0,
+          correctCount - 1
+        );
+
+    }
+
+  }
+
+
+  /*
+     Save current visible answer.
+  */
+
+  answered[
+    questionId
+  ] =
+    selected;
+
+
+  if (
+    isCorrect
+  ) {
+
+    correctCount++;
+
+  }
+
+
+  /*
+     Find card.
+  */
+
+  const card =
+    document.querySelector(
+      `[data-question-card="true"][data-question-id="${CSS.escape(
+        questionId
+      )}"]`
+    );
+
+
+  if (!card) {
+
+    console.error(
+      "Question card not found:",
+      questionId
+    );
+
+
+    return;
+
+  }
+
+
+  /*
+     Disable all options.
+  */
+
+  card
+    .querySelectorAll(
+      ".option-btn"
+    )
+    .forEach(
+      button => {
+
+        button.disabled =
+          true;
+
+      }
+    );
+
+
+  /*
+     Highlight selected option.
+
+     We DO NOT construct an ID from
+     the question ID anymore.
+     This avoids selector problems.
+  */
+
+  card
+    .querySelectorAll(
+      ".option-btn"
+    )
+    .forEach(
+      button => {
+
+        const buttonAnswer =
+          normalizeText(
+            button.dataset.answer
+          );
+
+
+        if (
+          buttonAnswer ===
+          selected
+        ) {
+
+          button.classList.add(
+            isCorrect
+              ? "correct"
+              : "wrong"
+          );
+
+        }
+
+      }
+    );
+
+
+  /*
+     If wrong, show correct option.
+  */
+
+  if (
+    !isCorrect
+  ) {
+
+    card
+      .querySelectorAll(
+        ".option-btn"
+      )
+      .forEach(
+        button => {
+
+          const buttonAnswer =
+            normalizeText(
+              button.dataset.answer
+            );
+
+
+          if (
+            buttonAnswer ===
+            correctAnswer
+          ) {
+
+            button.classList.add(
+              "correct"
+            );
+
+          }
+
+        }
+      );
+
+  }
+
+
+  /*
+     Feedback.
+  */
+
+  const feedback =
+    card.querySelector(
+      "[id^='feedback-']"
+    );
+
+
+  if (
+    feedback
+  ) {
+
+    feedback.innerHTML =
+      createAnswerFeedback(
+        question,
+        questionId,
+        selected,
+        isCorrect,
+        isRetest
+      );
+
+  }
+
+
+  /*
+     Record attempt.
+  */
+
+  recordPerformance(
+    question,
+    mapping,
+    isCorrect,
+    selected,
+    isRetest
+  );
+
+
+  /*
+     Retest round complete.
+  */
+
+  retryMode[
+    questionId
+  ] =
+    false;
+
+
+  /*
+     Update page statistics.
+
+     Do NOT renderQuestions() here.
+     Otherwise feedback would disappear.
+  */
+
+  updateStatistics();
+
+  renderRevisionQueue();
+
+  renderPerformance();
+
+  renderHistory();
+
+
+  /*
+     Re-attach actions because the
+     revision queue may have changed.
+  */
+
+  attachEventListeners();
+
+
+  console.log(
+    "Question result:",
+    {
+      questionId,
+      selected,
+      correctAnswer,
+      isCorrect,
+      isRetest
+    }
+  );
+
+}
+
+
+/* =========================================================
+   ANSWER FEEDBACK
+========================================================= */
+
+function createAnswerFeedback(
+  question,
+  questionId,
+  selected,
+  isCorrect,
+  isRetest
+) {
+
+  const selectedText =
+    question.options &&
+    question.options[
+      selected
+    ]
+      ? question.options[
+          selected
+        ]
+      : "";
+
+
+  const correctAnswer =
+    normalizeText(
+      question.correct_answer
+    );
+
+
+  const correctText =
+    question.options &&
+    question.options[
+      correctAnswer
+    ]
+      ? question.options[
+          correctAnswer
+        ]
+      : "";
+
+
+  return `
+
+    <div
+      class="answer-feedback"
+    >
+
+      <h5
+        class="${
+          isCorrect
+            ? "text-success"
+            : "text-danger"
+        }"
+      >
+
+        ${
+          isCorrect
+            ? "✅ Correct Answer!"
+            : "❌ Wrong Answer"
+        }
+
+      </h5>
+
+
+      ${
+        isRetest
+          ? `
+
+            <span
+              class="tag retry-badge"
+            >
+
+              🔁 Retest Attempt
+
+            </span>
+
+          `
+          : ""
+      }
+
+
+      <p
+        class="mb-2"
+      >
+
+        <strong>
+          Your answer:
+        </strong>
+
+        ${escapeHTML(
+          selected
+        )}.
+
+        ${escapeHTML(
+          selectedText
+        )}
+
+      </p>
+
+
+      ${
+        !isCorrect
+          ? `
+
+            <p
+              class="mb-2"
+            >
+
+              <strong>
+                Correct answer:
+              </strong>
+
+              ${escapeHTML(
+                correctAnswer
+              )}.
+
+              ${escapeHTML(
+                correctText
+              )}
+
+            </p>
+
+          `
+          : ""
+      }
+
+
+      <hr>
+
+
+      <h6>
+
+        Explanation
+
+      </h6>
+
+
+      <p
+        class="mb-3"
+      >
+
+        ${escapeHTML(
+          question.explanation ||
+          "Explanation not available yet."
+        )}
+
+      </p>
+
+
+      <div
+        class="knowledge-prompt"
+      >
+
+        <div
+          class="
+            d-flex
+            justify-content-between
+            align-items-center
+            flex-wrap
+            gap-3
+          "
+        >
+
+          <div>
+
+            <strong>
+
+              📚 Understand the knowledge
+
+            </strong>
+
+
+            <div
+              class="
+                small
+                text-secondary
+              "
+            >
+
+              Explore the knowledge entity
+              connected to this PYQ.
+
+            </div>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="
+              btn
+              btn-sm
+              btn-navy
+              knowledge-question-btn
+            "
+            data-question-id="${escapeHTML(
+              questionId
+            )}"
+          >
+
+            View Knowledge
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RECORD PERFORMANCE
+========================================================= */
+
+function recordPerformance(
+  question,
+  mapping,
+  isCorrect,
+  selected,
+  isRetest
+) {
+
+  const performance =
+    loadPerformance();
+
+
+  const entities =
+    mapping
+      ? safeArray(
+          mapping.knowledge_entities
+        )
+      : [];
+
+
+  entities.forEach(
+    entityName => {
+
+      const cleanEntity =
+        normalizeText(
+          entityName
+        );
+
+
+      if (
+        !cleanEntity
+      ) {
+
+        return;
+
+      }
+
+
+      if (
+        !performance[
+          cleanEntity
+        ]
+      ) {
+
+        performance[
+          cleanEntity
+        ] = {
+
+          attempted: 0,
+
+          correct: 0,
+
+          wrong: 0,
+
+          questions: {},
+
+          history: []
+
+        };
+
+      }
+
+
+      const record =
+        normalizePerformanceRecord(
+          performance[
+            cleanEntity
+          ]
+        );
+
+
+      /*
+         Every answer is a new attempt.
+      */
+
+      record.attempted++;
+
+
+      if (
+        isCorrect
+      ) {
+
+        record.correct++;
+
+      }
+
+      else {
+
+        record.wrong++;
+
+      }
+
+
+      const attemptNumber =
+        record.attempted;
+
+
+      const recordedAt =
+        new Date()
+          .toISOString();
+
+
+      const attempt = {
+
+        attempt:
+          attemptNumber,
+
+        question_id:
+          normalizeId(
+            question.id
+          ),
+
+        selected:
+          normalizeText(
+            selected
+          ),
+
+        correct_answer:
+          normalizeText(
+            question.correct_answer
+          ),
+
+        result:
+          isCorrect
+            ? "correct"
+            : "wrong",
+
+        mode:
+          isRetest
+            ? "retest"
+            : "initial",
+
+        recorded_at:
+          recordedAt
+
+      };
+
+
+      record.history.push(
+        attempt
+      );
+
+
+      /*
+         Latest question result.
+      */
+
+      record.questions[
+        normalizeId(
+          question.id
+        )
+      ] = {
+
+        selected:
+          normalizeText(
+            selected
+          ),
+
+        correct_answer:
+          normalizeText(
+            question.correct_answer
+          ),
+
+        result:
+          isCorrect
+            ? "correct"
+            : "wrong",
+
+        mode:
+          isRetest
+            ? "retest"
+            : "initial",
+
+        recorded_at:
+          recordedAt
+
+      };
+
+
+      performance[
+        cleanEntity
+      ] =
+        record;
+
+    }
+  );
+
+
+  savePerformance(
+    performance
+  );
+
+}
+
+
+/* =========================================================
+   RETRY QUESTION
+========================================================= */
+
+function retryQuestion(
+  questionId
+) {
+
+  /*
+     Normalize here too.
+  */
+
+  questionId =
+    normalizeId(
+      questionId
+    );
+
+
+  console.log(
+    "Retry requested:",
+    questionId
+  );
+
+
+  const question =
+    selectedQuestions.find(
+      item =>
+        normalizeId(
+          item.id
+        ) ===
+        questionId
+    );
+
+
+  if (!question) {
+
+    console.error(
+      "Retry question not found:",
+      questionId
+    );
+
+
+    return;
+
+  }
+
+
+  /*
+     Activate retest mode.
+  */
+
+  retryMode[
+    questionId
+  ] =
+    true;
+
+
+  /*
+     Remove current visible answer.
+  */
+
+  delete answered[
+    questionId
+  ];
+
+
+  /*
+     Recalculate current visible
+     score from all remaining
+     answered questions.
+  */
+
+  recalculateVisibleScore();
+
+
+  /*
+     Find current card.
+  */
+
+  const card =
+    document.querySelector(
+      `[data-question-card="true"][data-question-id="${CSS.escape(
+        questionId
+      )}"]`
+    );
+
+
+  if (!card) {
+
+    console.error(
+      "Retry card not found:",
+      questionId
+    );
+
+
+    return;
+
+  }
+
+
+  const index =
+    selectedQuestions.findIndex(
+      item =>
+        normalizeId(
+          item.id
+        ) ===
+        questionId
+    );
+
+
+  const wrapper =
+    document.createElement(
+      "div"
+    );
+
+
+  wrapper.innerHTML =
+    createQuestion(
+      question,
+      Math.max(
+        0,
+        index
+      )
+    );
+
+
+  const newCard =
+    wrapper.firstElementChild;
+
+
+  if (!newCard) {
+
+    return;
+
+  }
+
+
+  card.replaceWith(
+    newCard
+  );
+
+
+  newCard.classList.add(
+    "retesting"
+  );
+
+
+  newCard.scrollIntoView({
+
+    behavior:
+      "smooth",
+
+    block:
+      "center"
+
+  });
+
+
+  updateStatistics();
+
+
+  console.log(
+    "Retest mode activated:",
+    questionId
+  );
+
+}
+
+
+/* =========================================================
+   RECALCULATE VISIBLE SCORE
+========================================================= */
+
+function recalculateVisibleScore() {
+
+  correctCount = 0;
+
+
+  Object.entries(
+    answered
+  )
+  .forEach(
+    (
+      [
+        questionId,
+        selected
+      ]
+    ) => {
+
+      const question =
+        selectedQuestions.find(
+          item =>
+            normalizeId(
+              item.id
+            ) ===
+            normalizeId(
+              questionId
+            )
+        );
+
+
+      if (
+        question &&
+        normalizeText(
+          selected
+        ) ===
+        normalizeText(
+          question.correct_answer
+        )
+      ) {
+
+        correctCount++;
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   SHOW ENTITY KNOWLEDGE
+========================================================= */
+
+function showEntityKnowledge(
+  entityName
+) {
+
+  entityName =
+    normalizeText(
+      entityName
+    );
+
+
+  const questions =
+    getQuestionsForEntity(
+      entityName
+    );
+
+
+  if (
+    !questions.length
+  ) {
+
+    alert(
+      "No mapped PYQ knowledge connection was found for this entity."
+    );
+
+
+    return;
+
+  }
+
+
+  showKnowledgeDetails(
+    normalizeId(
+      questions[0].id
+    )
+  );
+
+}
+
+
+/* =========================================================
+   SHOW KNOWLEDGE DETAILS
+========================================================= */
+
+function showKnowledgeDetails(
+  questionId
+) {
+
+  questionId =
+    normalizeId(
+      questionId
+    );
+
+
+  const question =
+    selectedQuestions.find(
+      item =>
+        normalizeId(
+          item.id
+        ) ===
+        questionId
+    );
+
+
+  if (!question) {
+
+    return;
+
+  }
+
+
+  const mapping =
+    getMappingForQuestion(
+      questionId
+    );
+
+
+  if (!mapping) {
+
+    return;
+
+  }
+
+
+  const entities =
+    safeArray(
+      mapping.knowledge_entities
+    );
+
+
+  const units =
+    safeArray(
+      mapping.units
+    );
+
+
+  const knowledgeEntities =
+    entities
+      .map(
+        entityName =>
+          knowledgeDatabase.find(
+            entity => {
+
+              const name =
+                entity.name ||
+                entity.entity ||
+                entity.title ||
+                "";
+
+
+              return (
+                normalizeText(
+                  name
+                ) ===
+                normalizeText(
+                  entityName
+                )
+              );
+
+            }
+          )
+      )
+      .filter(Boolean);
+
+
+  const periods =
+    knowledgeEntities
+      .map(
+        entity =>
+          entity.period ||
+          entity.theory ||
+          ""
+      )
+      .filter(Boolean);
+
+
+  const concepts = [
+    ...new Set(
+      knowledgeEntities.flatMap(
+        entity =>
+          safeArray(
+            entity.concepts ||
+            entity.core_concepts ||
+            []
+          )
+      )
+    )
+  ];
+
+
+  const works = [
+    ...new Set(
+      knowledgeEntities.flatMap(
+        entity =>
+          safeArray(
+            entity.works ||
+            entity.important_works ||
+            []
+          )
+      )
+    )
+  ];
+
+
+  const related = [
+    ...new Set(
+      knowledgeEntities.flatMap(
+        entity =>
+          safeArray(
+            entity.related_entities ||
+            entity.related ||
+            []
+          )
+      )
+    )
+  ];
+
+
+  const conceptsHTML =
+    concepts.length
+      ? concepts
+          .map(
+            concept =>
+              `
+                <span
+                  class="tag concept"
+                >
+                  ${escapeHTML(
+                    concept
+                  )}
+                </span>
+              `
+          )
+          .join("")
+      : "—";
+
+
+  const worksHTML =
+    works.length
+      ? works
+          .map(
+            work =>
+              `
+                <span
+                  class="tag"
+                >
+                  ${escapeHTML(
+                    work
+                  )}
+                </span>
+              `
+          )
+          .join("")
+      : "—";
+
+
+  const unitsHTML =
+    units.length
+      ? units
+          .map(
+            unit =>
+              `
+                <span
+                  class="tag unit"
+                >
+                  ${escapeHTML(
+                    unit
+                  )}
+                </span>
+              `
+          )
+          .join("")
+      : "—";
+
+
+  const periodsHTML =
+    periods.length
+      ? periods
+          .map(
+            period =>
+              `
+                <span
+                  class="tag"
+                >
+                  ${escapeHTML(
+                    period
+                  )}
+                </span>
+              `
+          )
+          .join("")
+      : "—";
+
+
+  const relatedHTML =
+    related.length
+      ? related
+          .map(
+            item =>
+              `
+                <span
+                  class="tag"
+                >
+                  ${escapeHTML(
+                    item
+                  )}
+                </span>
+              `
+          )
+          .join("")
+      : "—";
+
+
+  const box =
+    document.getElementById(
+      "knowledge-" +
+      safeDomId(
+        questionId
+      )
+    );
+
+
+  if (!box) {
+
+    return;
+
+  }
+
+
+  box.innerHTML = `
+
+    <div
+      class="
+        knowledge-prompt
+        mt-3
+      "
+    >
+
+      <div
+        class="
+          d-flex
+          justify-content-between
+          align-items-center
+          flex-wrap
+          gap-2
+          mb-3
+        "
+      >
+
+        <h5
+          class="mb-0"
+        >
+
+          🧠 Knowledge Connection
+
+        </h5>
+
+
+        <button
+          type="button"
+          class="
+            btn
+            btn-sm
+            btn-outline-secondary
+            close-knowledge-btn
+          "
+        >
+
+          Close
+
+        </button>
+
+      </div>
+
+
+      <div
+        class="mb-3"
+      >
+
+        <strong>
+          Connected Entity
+        </strong>
+
+
+        <div
+          class="mt-1"
+        >
+
+          ${entities
+            .map(
+              entity =>
+                `
+                  <span
+                    class="tag entity-tag"
+                  >
+                    ${escapeHTML(
+                      entity
+                    )}
+                  </span>
+                `
+            )
+            .join("")}
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="mb-3"
+      >
+
+        <strong>
+          Period / Theory
+        </strong>
+
+
+        <div
+          class="mt-2"
+        >
+
+          ${periodsHTML}
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="mb-3"
+      >
+
+        <strong>
+          Core Concepts
+        </strong>
+
+
+        <div
+          class="mt-2"
+        >
+
+          ${conceptsHTML}
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="mb-3"
+      >
+
+        <strong>
+          Important Works
+        </strong>
+
+
+        <div
+          class="mt-2"
+        >
+
+          ${worksHTML}
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="mb-3"
+      >
+
+        <strong>
+          Syllabus Connection
+        </strong>
+
+
+        <div
+          class="mt-2"
+        >
+
+          ${unitsHTML}
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="mb-3"
+      >
+
+        <strong>
+          Related Thinkers / Entities
+        </strong>
+
+
+        <div
+          class="mt-2"
+        >
+
+          ${relatedHTML}
+
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <strong>
+          Why this connection?
+        </strong>
+
+
+        <p
+          class="
+            text-secondary
+            mt-1
+            mb-0
+          "
+        >
+
+          ${escapeHTML(
+            mapping.mapping_reason ||
+            "Knowledge connection established through PYQ mapping."
+          )}
+
+        </p>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  box.scrollIntoView({
+
+    behavior:
+      "smooth",
+
+    block:
+      "nearest"
+
+  });
+
+}
+
+
+/* =========================================================
+   RESTORE QUESTION VISUAL STATE
+========================================================= */
+
+function restoreQuestionVisualState(
+  questionId,
+  selected
+) {
+
+  questionId =
+    normalizeId(
+      questionId
+    );
+
+
+  selected =
+    normalizeText(
+      selected
+    );
+
+
+  const question =
+    selectedQuestions.find(
+      item =>
+        normalizeId(
+          item.id
+        ) ===
+        questionId
+    );
+
+
+  if (!question) {
+
+    return;
+
+  }
+
+
+  const latest =
+    getLatestQuestionResult(
+      questionId
+    );
+
+
+  if (!latest) {
+
+    return;
+
+  }
+
+
+  const card =
+    document.querySelector(
+      `[data-question-card="true"][data-question-id="${CSS.escape(
+        questionId
+      )}"]`
+    );
+
+
+  if (!card) {
+
+    return;
+
+  }
+
+
+  card
+    .querySelectorAll(
+      ".option-btn"
+    )
+    .forEach(
+      button => {
+
+        button.disabled =
+          true;
+
+
+        const answer =
+          normalizeText(
+            button.dataset.answer
+          );
+
+
+        if (
+          answer ===
+          selected
+        ) {
+
+          button.classList.add(
+            normalizeText(
+              latest.result
+            ) ===
+            "correct"
+              ? "correct"
+              : "wrong"
+          );
+
+        }
+
+
+        if (
+          normalizeText(
+            latest.result
+          ) !==
+          "correct" &&
+          answer ===
+          normalizeText(
+            question.correct_answer
+          )
+        ) {
+
+          button.classList.add(
+            "correct"
+          );
+
+        }
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function renderHistory() {
+
+  const container =
+    document.getElementById(
+      "historyContainer"
+    );
+
+
+  if (!container) {
+
+    return;
+
+  }
+
+
+  const history =
+    loadTestHistory();
+
+
+  if (
+    history.length
+  ) {
+
+    container.innerHTML =
+      history
+        .slice(
+          0,
+          12
+        )
+        .map(
+          (test, index) =>
+            createHistoryCard(
+              test,
+              index
+            )
+        )
+        .join("");
+
+
+    return;
+
+  }
+
+
+  /*
+     If the test-history storage
+     is unavailable, derive a useful
+     history from performance records.
+  */
+
+  const performance =
+    loadPerformance();
+
+
+  const derived =
+    [];
+
+
+  getMappedEntityNames()
+    .forEach(
+      entityName => {
+
+        const record =
+          normalizePerformanceRecord(
+            performance[
+              entityName
+            ]
+          );
+
+
+        safeArray(
+          record.history
+        )
+        .forEach(
+          attempt => {
+
+            derived.push({
+
+              date:
+                attempt.recorded_at,
+
+              total:
+                1,
+
+              correct:
+                attempt.result ===
+                "correct"
+                  ? 1
+                  : 0,
+
+              wrong:
+                attempt.result ===
+                "wrong"
+                  ? 1
+                  : 0,
+
+              unanswered:
+                0,
+
+              mode:
+                attempt.mode ||
+                "initial",
+
+              entity:
+                entityName,
+
+              question_id:
+                attempt.question_id
+
+            });
+
+          }
+        );
+
+      }
+    );
+
+
+  derived.sort(
+    (
+      a,
+      b
+    ) =>
+      new Date(
+        b.date || 0
+      ) -
+      new Date(
+        a.date || 0
+      )
+  );
+
+
+  if (
+    !derived.length
+  ) {
+
+    container.innerHTML = `
+
+      <div
+        class="empty-state"
+      >
+
+        📈
+
+        <h5
+          class="mt-2"
+        >
+
+          No test history available yet.
+
+        </h5>
+
+
+        <p
+          class="small mb-0"
+        >
+
+          Complete a mapped PYQ test
+          to create your performance history.
+
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    derived
+      .slice(
+        0,
+        12
+      )
+      .map(
+        (item, index) =>
+          createHistoryCard(
+            item,
+            index
+          )
+      )
+      .join("");
+
+}
+
+
+/* =========================================================
+   LOAD TEST HISTORY
+========================================================= */
+
+function loadTestHistory() {
+
+  try {
+
+    const raw =
+      localStorage.getItem(
+        TEST_HISTORY_STORAGE_KEY
+      );
+
+
+    if (!raw) {
+
+      return [];
+
+    }
+
+
+    const parsed =
+      JSON.parse(
+        raw
+      );
+
+
+    if (
+      Array.isArray(
+        parsed
+      )
+    ) {
+
+      return parsed
+        .slice()
+        .reverse();
+
+    }
+
+
+    return [];
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.warn(
+      "Could not load test history:",
+      error
+    );
+
+
+    return [];
+
+  }
+
+}
+
+
+/* =========================================================
+   HISTORY CARD
+========================================================= */
+
+function createHistoryCard(
+  test,
+  index
+) {
+
+  const total =
+    safeNumber(
+      test.total ||
+      test.total_questions ||
+      test.questions
+    );
+
+
+  const correct =
+    safeNumber(
+      test.correct ||
+      test.correct_answers
+    );
+
+
+  const wrong =
+    safeNumber(
+      test.wrong ||
+      test.wrong_answers
+    );
+
+
+  const unanswered =
+    safeNumber(
+      test.unanswered
+    );
+
+
+  const score =
+    total
+      ? Math.round(
+          (
+            correct /
+            total
+          ) * 100
+        )
+      : safeNumber(
+          test.score
+        );
+
+
+  const date =
+    test.date ||
+    test.created_at ||
+    test.timestamp ||
+    test.recorded_at ||
+    "";
+
+
+  const mode =
+    normalizeText(
+      test.mode
+    );
+
+
+  return `
+
+    <div
+      class="history-card"
+    >
+
+      <div
+        class="
+          d-flex
+          justify-content-between
+          align-items-center
+          flex-wrap
+          gap-2
+        "
+      >
+
+        <div>
+
+          <strong>
+
+            ${
+              test.title ||
+              `Test ${
+                index + 1
+              }`
+            }
+
+          </strong>
+
+
+          <div
+            class="
+              small
+              text-secondary
+            "
+          >
+
+            ${formatDate(
+              date
+            )}
+
+            ${
+              mode
+                ? `
+                  •
+                  ${escapeHTML(
+                    mode
+                  )}
+                `
+                : ""
+            }
+
+          </div>
+
+        </div>
+
+
+        <strong>
+
+          ${score}%
+
+        </strong>
+
+      </div>
+
+
+      <div
+        class="
+          small
+          text-secondary
+          mt-2
+        "
+      >
+
+        ${correct}
+        correct
+        /
+        ${total}
+        questions
+
+        ${
+          wrong
+            ? `
+              •
+              ${wrong}
+              wrong
+            `
+            : ""
+        }
+
+        ${
+          unanswered
+            ? `
+              •
+              ${unanswered}
+              unanswered
+            `
+            : ""
+        }
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   DATE FORMAT
+========================================================= */
+
+function formatDate(
+  value
+) {
+
+  if (!value) {
+
+    return "Date not available";
+
+  }
+
+
+  try {
+
+    const date =
+      new Date(
+        value
+      );
+
+
+    if (
+      Number.isNaN(
+        date.getTime()
+      )
+    ) {
+
+      return String(
+        value
+      );
+
+    }
+
+
+    return date.toLocaleString(
+      "en-IN",
+      {
+        day:
+          "2-digit",
+
+        month:
+          "2-digit",
+
+        year:
+          "numeric",
+
+        hour:
+          "2-digit",
+
+        minute:
+          "2-digit"
+
+      }
+    );
+
+  }
+
+  catch {
+
+    return String(
+      value
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   EVENT LISTENERS
+========================================================= */
+
+function attachEventListeners() {
+
+  /*
+     Remove old listeners by using
+     one delegated listener on the
+     question container and one on
+     the revision container.
+  */
+
+  const questionContainer =
+    document.getElementById(
+      "questionContainer"
+    );
+
+
+  if (
+    questionContainer &&
+    !questionContainer.dataset.bound
+  ) {
+
+    questionContainer.addEventListener(
+      "click",
+      handleQuestionContainerClick
+    );
+
+
+    questionContainer.dataset.bound =
+      "true";
+
+  }
+
+
+  const revisionContainer =
+    document.getElementById(
+      "revisionContainer"
+    );
+
+
+  if (
+    revisionContainer &&
+    !revisionContainer.dataset.bound
+  ) {
+
+    revisionContainer.addEventListener(
+      "click",
+      handleRevisionContainerClick
+    );
+
+
+    revisionContainer.dataset.bound =
+      "true";
+
+  }
+
+
+  /*
+     Refresh button.
+  */
+
+  const refreshButton =
+    document.getElementById(
+      "refreshBtn"
+    );
+
+
+  if (
+    refreshButton &&
+    !refreshButton.dataset.bound
+  ) {
+
+    refreshButton.addEventListener(
+      "click",
+      function () {
+
+        refreshPageData();
+
+      }
+    );
+
+
+    refreshButton.dataset.bound =
+      "true";
+
+  }
+
+}
+
+
+/* =========================================================
+   QUESTION CONTAINER CLICK HANDLER
+========================================================= */
+
+function handleQuestionContainerClick(
+  event
+) {
+
+  const answerButton =
+    event.target.closest(
+      '[data-action="answer"]'
+    );
+
+
+  if (
+    answerButton
+  ) {
+
+    /*
+       Read directly from dataset
+       and NORMALIZE.
+    */
+
+    const questionId =
+      normalizeId(
+        answerButton.dataset.questionId
+      );
+
+
+    const selected =
+      normalizeText(
+        answerButton.dataset.answer
+      );
+
+
+    answerQuestion(
+      questionId,
+      selected
+    );
+
+
+    return;
+
+  }
+
+
+  const retryButton =
+    event.target.closest(
+      ".revision-question-retry-btn"
+    );
+
+
+  if (
+    retryButton
+  ) {
+
+    const questionId =
+      normalizeId(
+        retryButton.dataset.questionId
+      );
+
+
+    retryQuestion(
+      questionId
+    );
+
+
+    return;
+
+  }
+
+
+  const knowledgeButton =
+    event.target.closest(
+      ".knowledge-question-btn"
+    );
+
+
+  if (
+    knowledgeButton
+  ) {
+
+    const questionId =
+      normalizeId(
+        knowledgeButton.dataset.questionId
+      );
+
+
+    showKnowledgeDetails(
+      questionId
+    );
+
+
+    return;
+
+  }
+
+
+  const closeButton =
+    event.target.closest(
+      ".close-knowledge-btn"
+    );
+
+
+  if (
+    closeButton
+  ) {
+
+    const knowledgeBox =
+      closeButton.closest(
+        ".knowledge-prompt"
+      );
+
+
+    if (
+      knowledgeBox
+    ) {
+
+      knowledgeBox.remove();
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   REVISION CONTAINER CLICK HANDLER
+========================================================= */
+
+function handleRevisionContainerClick(
+  event
+) {
+
+  const retryButton =
+    event.target.closest(
+      ".revision-retry-btn"
+    );
+
+
+  if (
+    retryButton
+  ) {
+
+    const questionId =
+      normalizeId(
+        retryButton.dataset.questionId
+      );
+
+
+    console.log(
+      "Revision Queue Retry clicked:",
+      questionId
+    );
+
+
+    retryQuestion(
+      questionId
+    );
+
+
+    return;
+
+  }
+
+
+  const knowledgeButton =
+    event.target.closest(
+      ".revision-knowledge-btn"
+    );
+
+
+  if (
+    knowledgeButton
+  ) {
+
+    const entity =
+      normalizeText(
+        knowledgeButton.dataset.entity
+      );
+
+
+    showEntityKnowledge(
+      entity
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   REFRESH
+========================================================= */
+
+async function refreshPageData() {
+
+  const button =
+    document.getElementById(
+      "refreshBtn"
+    );
+
+
+  if (
+    button
+  ) {
+
+    button.disabled =
+      true;
+
+
+    button.textContent =
+      "⏳ Refreshing...";
+
+  }
+
+
+  try {
+
+    await loadDatabases();
+
+  }
+
+  finally {
+
+    if (
+      button
+    ) {
+
+      button.disabled =
+        false;
+
+
+      button.textContent =
+        "🔄 Refresh Revision Queue";
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   DEBUG / DATA SUMMARY
+========================================================= */
+
+function logDebugSummary() {
+
+  console.log(
+    "=========================================="
+  );
+
+
+  console.log(
+    "BAJEE JRF AI — REVISION DEBUG"
+  );
+
+
+  console.log(
+    "Knowledge entities:",
+    knowledgeDatabase.length
+  );
+
+
+  console.log(
+    "PYQs:",
+    pyqDatabase.length
+  );
+
+
+  console.log(
+    "Mappings:",
+    mappings.length
+  );
+
+
+  console.log(
+    "Selected mapped PYQs:",
+    selectedQuestions.map(
+      question =>
+        normalizeId(
+          question.id
+        )
+    )
+  );
+
+
+  console.log(
+    "Answered:",
+    answered
+  );
+
+
+  console.log(
+    "Performance:",
+    loadPerformance()
+  );
+
+
+  console.log(
+    "Revision queue:",
+    buildRevisionQueue()
+  );
+
+
+  console.log(
+    "=========================================="
+  );
+
+}
+
+
+/* =========================================================
+   START APPLICATION
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  async function () {
+
+    await loadDatabases();
+
+    logDebugSummary();
+
+  }
+);
+
+</script>
+
+
+</body>
+
+</html>

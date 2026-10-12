@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>BAJEE JRF AI - Revision Intelligence</title>
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/revision-intelligence.css"
+  >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar navbar-dark">
+
+  <div class="container">
+
+    <a
+      href="index.html"
+      class="navbar-brand fw-bold"
+    >
+      🎓 BAJEE JRF AI
+    </a>
+
+    <a
+      href="jrf-analytics.html"
+      class="btn btn-sm btn-outline-light"
+    >
+      ← Analytics
+    </a>
+
+  </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="revision-hero">
+
+  <div class="container">
+
+    <div class="eyebrow">
+      STEP 9.4 • REVISION INTELLIGENCE
+    </div>
+
+    <h1>
+      🧠 Revision Intelligence
+    </h1>
+
+    <p>
+      Convert your actual performance into a focused
+      revision plan for UGC NET English JRF preparation.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<main class="container py-4">
+
+
+<!-- =========================================================
+     STATUS
+========================================================= -->
+
+<section class="status-card mb-4">
+
+  <div class="d-flex
+              justify-content-between
+              align-items-center
+              flex-wrap
+              gap-2">
+
+    <div>
+
+      <strong>
+        Revision Engine
+      </strong>
+
+      <div
+        id="statusMessage"
+        class="small text-secondary mt-1"
+      >
+        Reading your recorded performance...
+      </div>
+
+    </div>
+
+
+    <span
+      id="engineStatus"
+      class="badge bg-warning text-dark"
+    >
+      Loading
+    </span>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SUMMARY
+========================================================= -->
+
+<section class="row g-3 mb-4">
+
+
+  <div class="col-md-3">
+
+    <div class="stat-card">
+
+      <div
+        id="totalAttempted"
+        class="stat-number"
+      >
+        0
+      </div>
+
+      <div class="stat-label">
+        Attempted Entities
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="col-md-3">
+
+    <div class="stat-card">
+
+      <div
+        id="highPriority"
+        class="stat-number text-danger"
+      >
+        0
+      </div>
+
+      <div class="stat-label">
+        High Priority
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="col-md-3">
+
+    <div class="stat-card">
+
+      <div
+        id="mediumPriority"
+        class="stat-number text-warning"
+      >
+        0
+      </div>
+
+      <div class="stat-label">
+        Medium Priority
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="col-md-3">
+
+    <div class="stat-card">
+
+      <div
+        id="revisionCount"
+        class="stat-number"
+      >
+        0
+      </div>
+
+      <div class="stat-label">
+        Ready for Revision
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     REVISION METHOD
+========================================================= -->
+
+<section class="section-card mb-4">
+
+  <h2>
+    🎯 How Revision Intelligence Works
+  </h2>
+
+  <p class="text-secondary">
+    The system prioritises revision using your recorded
+    performance rather than guessing what you should study.
+  </p>
+
+
+  <div class="row g-3">
+
+
+    <div class="col-md-3">
+
+      <div class="method-card">
+
+        <div class="method-icon">
+          📊
+        </div>
+
+        <h3>
+          Performance
+        </h3>
+
+        <p>
+          Reads your recorded attempts,
+          correct answers and wrong answers.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+      <div class="method-card">
+
+        <div class="method-icon">
+          ⚠️
+        </div>
+
+        <h3>
+          Weakness
+        </h3>
+
+        <p>
+          Identifies knowledge areas where
+          your accuracy requires revision.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+      <div class="method-card">
+
+        <div class="method-icon">
+          🔢
+        </div>
+
+        <h3>
+          Priority
+        </h3>
+
+        <p>
+          Assigns revision priority according
+          to the strength of the performance signal.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+      <div class="method-card">
+
+        <div class="method-icon">
+          🔄
+        </div>
+
+        <h3>
+          Retest
+        </h3>
+
+        <p>
+          Sends you back to connected practice
+          so the weakness can be tested again.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     REVISION QUEUE
+========================================================= -->
+
+<section class="section-card mb-4">
+
+
+  <div class="d-flex
+              justify-content-between
+              align-items-center
+              flex-wrap
+              gap-2
+              mb-3">
+
+    <div>
+
+      <h2>
+        🔄 Priority Revision Queue
+      </h2>
+
+      <p class="text-secondary mb-0">
+        Knowledge areas that currently require attention.
+      </p>
+
+    </div>
+
+
+    <button
+      id="refreshRevision"
+      type="button"
+      class="btn btn-gold"
+    >
+      ↻ Refresh
+    </button>
+
+  </div>
+
+
+  <div id="revisionQueue">
+
+    <div class="loading-state">
+
+      <div class="spinner-border"></div>
+
+      <div class="mt-2">
+        Building revision queue...
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     REVISION RULES
+========================================================= -->
+
+<section class="section-card mb-4">
+
+  <h2>
+    📌 Revision Priority Rules
+  </h2>
+
+
+  <div class="row g-3">
+
+
+    <div class="col-md-4">
+
+      <div class="rule-card high-rule">
+
+        <span class="priority-label high-label">
+          HIGH PRIORITY
+        </span>
+
+        <h3>
+          Immediate Revision
+        </h3>
+
+        <p>
+          Accuracy below 50% or repeated wrong
+          attempts indicate a stronger revision need.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+      <div class="rule-card medium-rule">
+
+        <span class="priority-label medium-label">
+          MEDIUM PRIORITY
+        </span>
+
+        <h3>
+          Reinforcement
+        </h3>
+
+        <p>
+          Borderline performance remains in the
+          revision cycle for reinforcement.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+      <div class="rule-card low-rule">
+
+        <span class="priority-label low-label">
+          LOW PRIORITY
+        </span>
+
+        <h3>
+          Light Revision
+        </h3>
+
+        <p>
+          Areas with developing but not critical
+          performance can receive lighter revision.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     NEXT ACTION
+========================================================= -->
+
+<section class="next-action-card mb-4">
+
+  <div class="row align-items-center">
+
+    <div class="col-md-8">
+
+      <div class="eyebrow dark-eyebrow">
+        NEXT ACTION
+      </div>
+
+      <h2>
+        Revise → Retry → Reassess
+      </h2>
+
+      <p class="mb-0">
+        Revision Intelligence is designed to close the
+        loop between performance data and actual practice.
+      </p>
+
+    </div>
+
+
+    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+
+      <a
+        href="revision.html"
+        class="btn btn-gold"
+      >
+        🔄 Open Revision Engine
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     DATA SOURCE
+========================================================= -->
+
+<section class="section-card mb-4">
+
+  <h2>
+    🔗 Data Source
+  </h2>
+
+  <p class="text-secondary">
+    This page uses the existing BAJEE JRF AI performance
+    data already stored in the browser.
+  </p>
+
+
+  <div class="data-source-box">
+
+    <strong>
+      Current performance storage
+    </strong>
+
+    <div class="small mt-2">
+      Vertical Slice / Performance Engine
+    </div>
+
+    <div
+      id="storageStatus"
+      class="small text-secondary mt-1"
+    >
+      Checking...
+    </div>
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+  <strong>
+    🎓 BAJEE JRF AI
+  </strong>
+
+  <div class="small mt-1">
+    Revision Intelligence • Step 9.4
+  </div>
+
+</footer>
+
+
+
+<script src="js/revision-intelligence.js"></script>
+<script src="js/revision-intelligence-nta-retest-fix.js"></script>
+
+</body>
+
+</html>

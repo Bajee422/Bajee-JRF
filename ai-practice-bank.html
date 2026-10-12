@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        BAJEE JRF AI - AI Practice Bank
+    </title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP 5.3.7
+    ====================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         BAJEE AI PRACTICE CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/ai-practice.css"
+    >
+
+
+    <!-- =====================================================
+         AI PRACTICE BANK PAGE CSS
+    ====================================================== -->
+
+    <style>
+
+        body {
+            background: #f4f6fa;
+            color: #172033;
+        }
+
+
+        /* =================================================
+           HERO
+        ================================================= */
+
+        .bank-hero {
+            background:
+                linear-gradient(
+                    135deg,
+                    #061b41,
+                    #29405f
+                );
+
+            color: #ffffff;
+            padding: 45px 0;
+        }
+
+
+        .bank-hero small {
+            color: #f4c430;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+
+        .bank-hero h1 {
+            font-weight: 800;
+        }
+
+
+        .bank-hero p {
+            max-width: 850px;
+            margin-bottom: 0;
+        }
+
+
+        /* =================================================
+           CARDS
+        ================================================= */
+
+        .bank-card {
+            background: #ffffff;
+            border: none;
+            border-radius: 14px;
+
+            box-shadow:
+                0 4px 18px
+                rgba(0, 0, 0, 0.07);
+        }
+
+
+        .stat-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+
+            box-shadow:
+                0 3px 14px
+                rgba(0, 0, 0, 0.06);
+        }
+
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: 800;
+            color: #08224d;
+        }
+
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+
+        /* =================================================
+           HEADINGS
+        ================================================= */
+
+        .section-title {
+            color: #08224d;
+            font-weight: 800;
+        }
+
+
+        /* =================================================
+           BUTTONS
+        ================================================= */
+
+        .btn-gold {
+            background: #d9b236;
+            border: none;
+            color: #071d42;
+            font-weight: 800;
+        }
+
+
+        .btn-gold:hover {
+            background: #c8a128;
+            color: #071d42;
+        }
+
+
+        .btn-outline-navy {
+            border: 1px solid #08224d;
+            color: #08224d;
+            font-weight: 700;
+        }
+
+
+        .btn-outline-navy:hover {
+            background: #08224d;
+            color: #ffffff;
+        }
+
+
+        .delete-btn {
+            color: #dc3545;
+            border-color: #dc3545;
+            font-weight: 700;
+        }
+
+
+        .delete-btn:hover {
+            background: #dc3545;
+            color: #ffffff;
+        }
+
+
+        /* =================================================
+           QUESTION CARD
+        ================================================= */
+
+        .question-card {
+            border-left: 5px solid #d9b236;
+            background: #ffffff;
+            border-radius: 10px;
+
+            padding: 20px;
+            margin-bottom: 16px;
+
+            box-shadow:
+                0 3px 14px
+                rgba(0, 0, 0, 0.05);
+        }
+
+
+        .question-number {
+            color: #08224d;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+
+        .question-title {
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1.55;
+            color: #172033;
+            margin-top: 8px;
+        }
+
+
+        .question-meta {
+            margin-top: 12px;
+        }
+
+
+        .meta-badge {
+            display: inline-block;
+
+            background: #eef1f6;
+            color: #08224d;
+
+            border-radius: 20px;
+
+            padding: 5px 10px;
+
+            margin-right: 5px;
+            margin-bottom: 5px;
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+
+        /* =================================================
+           SEARCH / FILTERS
+        ================================================= */
+
+        .search-box {
+            border-radius: 9px;
+        }
+
+
+        .filter-label {
+            font-weight: 700;
+            color: #172033;
+            margin-bottom: 6px;
+        }
+
+
+        /* =================================================
+           EMPTY STATE
+        ================================================= */
+
+        .empty-state {
+            text-align: center;
+            padding: 55px 20px;
+            color: #6c757d;
+        }
+
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+
+        /* =================================================
+           MODAL
+        ================================================= */
+
+        .modal-content {
+            border: none;
+            border-radius: 14px;
+        }
+
+
+        .modal-header {
+            background: #08224d;
+            color: #ffffff;
+        }
+
+
+        .modal-title {
+            font-weight: 800;
+        }
+
+
+        .modal-header .btn-close {
+            filter:
+                brightness(0)
+                invert(1);
+        }
+
+
+        .modal-question {
+            background: #f8f9fa;
+
+            border-left:
+                5px solid #d9b236;
+
+            padding: 18px;
+
+            border-radius: 9px;
+
+            font-weight: 700;
+            line-height: 1.6;
+
+            margin-bottom: 18px;
+        }
+
+
+        /* =================================================
+           MODAL OPTIONS
+        ================================================= */
+
+        .modal-option {
+            width: 100%;
+
+            text-align: left;
+
+            background: #ffffff;
+
+            border:
+                1px solid #dfe3ea;
+
+            border-radius: 9px;
+
+            padding: 13px 15px;
+
+            margin-bottom: 9px;
+
+            color: #172033;
+
+            transition:
+                background 0.2s,
+                border-color 0.2s,
+                transform 0.1s;
+        }
+
+
+        .modal-option:hover {
+            background: #f8f9fb;
+            border-color: #08224d;
+            transform: translateY(-1px);
+        }
+
+
+        .modal-option.correct {
+            background: #e8f7ee;
+
+            border:
+                2px solid #198754;
+
+            color: #146c43;
+        }
+
+
+        .modal-option.wrong {
+            background: #fbeaec;
+
+            border:
+                2px solid #dc3545;
+
+            color: #b02a37;
+        }
+
+
+        .modal-option:disabled {
+            cursor: default;
+            opacity: 1;
+        }
+
+
+        /* =================================================
+           FEEDBACK
+        ================================================= */
+
+        .modal-feedback {
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 15px;
+
+            border-radius: 9px;
+
+            line-height: 1.55;
+        }
+
+
+        .modal-feedback.correct-feedback {
+            background: #e8f7ee;
+            border-left: 5px solid #198754;
+        }
+
+
+        .modal-feedback.wrong-feedback {
+            background: #fbeaec;
+            border-left: 5px solid #dc3545;
+        }
+
+
+        /* =================================================
+           SOLUTION
+        ================================================= */
+
+        .modal-solution {
+            display: none;
+
+            margin-top: 22px;
+
+            border-top:
+                1px solid #dee2e6;
+
+            padding-top: 20px;
+        }
+
+
+        .solution-heading {
+            color: #08224d;
+
+            font-weight: 800;
+
+            font-size: 21px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .solution-answer {
+            background: #e8f7ee;
+
+            border-left:
+                5px solid #198754;
+
+            border-radius: 8px;
+
+            padding: 15px;
+
+            margin-bottom: 15px;
+
+            line-height: 1.55;
+        }
+
+
+        .solution-block {
+            background: #f8f9fa;
+
+            border-radius: 9px;
+
+            padding: 15px;
+
+            margin-top: 12px;
+        }
+
+
+        .solution-block h6 {
+            color: #08224d;
+
+            font-weight: 800;
+
+            margin-bottom: 10px;
+        }
+
+
+        .solution-block ul {
+            margin-bottom: 0;
+            padding-left: 22px;
+        }
+
+
+        .solution-block li {
+            margin-bottom: 7px;
+            line-height: 1.5;
+        }
+
+
+        .solution-text {
+            line-height: 1.65;
+        }
+
+
+        /* =================================================
+           FOOTER
+        ================================================= */
+
+        footer {
+            background: #061b41;
+            color: #ffffff;
+
+            padding: 25px;
+
+            margin-top: 50px;
+
+            text-align: center;
+        }
+
+
+        /* =================================================
+           MOBILE
+        ================================================= */
+
+        @media (max-width: 768px) {
+
+            .bank-hero {
+                padding: 35px 0;
+            }
+
+
+            .bank-hero h1 {
+                font-size: 2rem;
+            }
+
+
+            .question-title {
+                font-size: 15px;
+            }
+
+
+            .stat-number {
+                font-size: 25px;
+            }
+
+
+            .solution-heading {
+                font-size: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar navbar-expand-lg">
+
+    <div class="container">
+
+        <a
+            class="navbar-brand"
+            href="ai-practice.html"
+        >
+            🎓 BAJEE JRF AI
+        </a>
+
+
+        <div class="d-flex align-items-center gap-2">
+
+            <a
+                href="ai-practice.html"
+                class="btn btn-sm btn-outline-light"
+            >
+                ← AI Practice
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="bank-hero">
+
+    <div class="container">
+
+        <small>
+            STEP 8.6 • AI PRACTICE
+        </small>
+
+
+        <h1 class="mt-2">
+            📚 AI Practice Bank
+        </h1>
+
+
+        <p class="mt-2">
+            Review, practise and revise the original
+            AI-generated questions you have saved for
+            UGC NET English JRF preparation.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="container py-4">
+
+
+    <!-- =====================================================
+         STATISTICS
+    ====================================================== -->
+
+    <div class="row g-3 mb-4">
+
+
+        <div class="col-md-4">
+
+            <div class="stat-card">
+
+                <div
+                    id="totalQuestions"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+
+                <div class="stat-label">
+                    Saved AI Questions
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="stat-card">
+
+                <div
+                    id="visibleQuestions"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+
+                <div class="stat-label">
+                    Questions Shown
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="stat-card">
+
+                <div
+                    id="answeredQuestions"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+
+                <div class="stat-label">
+                    Answered This Session
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SEARCH / FILTER
+    ====================================================== -->
+
+    <div class="bank-card p-4 mb-4">
+
+
+        <div
+            class="d-flex
+                   justify-content-between
+                   align-items-center
+                   flex-wrap
+                   gap-2
+                   mb-3"
+        >
+
+            <h2 class="section-title h4 mb-0">
+                🔍 Find a Question
+            </h2>
+
+
+            <span
+                id="bankStatus"
+                class="badge bg-secondary"
+            >
+                Loading...
+            </span>
+
+        </div>
+
+
+        <div class="row g-3">
+
+
+            <!-- SEARCH -->
+
+            <div class="col-md-6">
+
+                <label
+                    for="searchInput"
+                    class="filter-label"
+                >
+                    Search
+                </label>
+
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    class="form-control search-box"
+                    placeholder="Search question, concept, author, work..."
+                >
+
+            </div>
+
+
+            <!-- UNIT -->
+
+            <div class="col-md-3">
+
+                <label
+                    for="unitFilter"
+                    class="filter-label"
+                >
+                    Unit
+                </label>
+
+
+                <select
+                    id="unitFilter"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        All Units
+                    </option>
+
+                    <option value="Unit I">
+                        Unit I
+                    </option>
+
+                    <option value="Unit II">
+                        Unit II
+                    </option>
+
+                    <option value="Unit III">
+                        Unit III
+                    </option>
+
+                    <option value="Unit IV">
+                        Unit IV
+                    </option>
+
+                    <option value="Unit V">
+                        Unit V
+                    </option>
+
+                    <option value="Unit VI">
+                        Unit VI
+                    </option>
+
+                    <option value="Unit VII">
+                        Unit VII
+                    </option>
+
+                    <option value="Unit VIII">
+                        Unit VIII
+                    </option>
+
+                    <option value="Unit IX">
+                        Unit IX
+                    </option>
+
+                    <option value="Unit X">
+                        Unit X
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- DIFFICULTY -->
+
+            <div class="col-md-3">
+
+                <label
+                    for="difficultyFilter"
+                    class="filter-label"
+                >
+                    Difficulty
+                </label>
+
+
+                <select
+                    id="difficultyFilter"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        All Levels
+                    </option>
+
+                    <option value="Easy">
+                        Easy
+                    </option>
+
+                    <option value="Medium">
+                        Medium
+                    </option>
+
+                    <option value="Hard">
+                        Hard
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="d-flex
+                   flex-wrap
+                   gap-2
+                   mt-4"
+        >
+
+            <button
+                type="button"
+                id="clearFiltersBtn"
+                class="btn btn-outline-navy"
+            >
+                Clear Filters
+            </button>
+
+
+            <button
+                type="button"
+                id="clearBankBtn"
+                class="btn btn-outline-danger"
+            >
+                🗑️ Clear Practice Bank
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         QUESTION LIST
+    ====================================================== -->
+
+    <div class="bank-card p-4">
+
+
+        <div
+            class="d-flex
+                   justify-content-between
+                   align-items-center
+                   mb-3"
+        >
+
+            <h2 class="section-title h4 mb-0">
+                Your AI Questions
+            </h2>
+
+
+            <span
+                id="resultCount"
+                class="text-muted small"
+            >
+                0 questions
+            </span>
+
+        </div>
+
+
+        <div id="questionList">
+            <!-- Questions generated by ai-practice-bank.js -->
+        </div>
+
+
+        <!-- EMPTY STATE -->
+
+        <div
+            id="emptyState"
+            class="empty-state"
+            style="display: none;"
+        >
+
+            <div class="empty-state-icon">
+                📚
+            </div>
+
+
+            <h3 class="section-title h5">
+                No AI practice questions found
+            </h3>
+
+
+            <p>
+                Generate and save questions from
+                the AI Practice page to build your
+                personal JRF practice bank.
+            </p>
+
+
+            <a
+                href="ai-practice.html"
+                class="btn btn-gold"
+            >
+                Generate AI Question
+            </a>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =========================================================
+     QUESTION MODAL
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="questionModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+
+    <div
+        class="modal-dialog
+               modal-lg
+               modal-dialog-scrollable"
+    >
+
+        <div class="modal-content">
+
+
+            <!-- MODAL HEADER -->
+
+            <div class="modal-header">
+
+                <h5
+                    class="modal-title"
+                    id="modalTitle"
+                >
+                    AI Practice Question
+                </h5>
+
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+
+            </div>
+
+
+            <!-- MODAL BODY -->
+
+            <div class="modal-body">
+
+
+                <!-- META -->
+
+                <div
+                    id="modalMeta"
+                    class="mb-3"
+                >
+                </div>
+
+
+                <!-- QUESTION -->
+
+                <div
+                    id="modalQuestion"
+                    class="modal-question"
+                >
+                </div>
+
+
+                <!-- OPTIONS -->
+
+                <div
+                    id="modalOptions"
+                >
+                </div>
+
+
+                <!-- FEEDBACK -->
+
+                <div
+                    id="modalFeedback"
+                    class="modal-feedback"
+                >
+                </div>
+
+
+                <!-- SOLUTION -->
+
+                <div
+                    id="modalSolution"
+                    class="modal-solution"
+                >
+
+
+                    <div class="solution-heading">
+                        SOLUTION
+                    </div>
+
+
+                    <!-- CORRECT ANSWER -->
+
+                    <div
+                        id="modalSolutionAnswer"
+                        class="solution-answer"
+                    >
+                    </div>
+
+
+                    <!-- KEY POINTS -->
+
+                    <div class="solution-block">
+
+                        <h6>
+                            🔑 Key Points
+                        </h6>
+
+
+                        <ul
+                            id="modalKeyPoints"
+                        >
+                        </ul>
+
+                    </div>
+
+
+                    <!-- EXPLANATION -->
+
+                    <div class="solution-block">
+
+                        <h6>
+                            📚 Explanation
+                        </h6>
+
+
+                        <div
+                            id="modalExplanation"
+                            class="solution-text"
+                        >
+                        </div>
+
+                    </div>
+
+
+                    <!-- ADDITIONAL INFORMATION -->
+
+                    <div class="solution-block">
+
+                        <h6>
+                            📝 Additional Information
+                        </h6>
+
+
+                        <ul
+                            id="modalAdditional"
+                        >
+                        </ul>
+
+                    </div>
+
+
+                    <!-- JRF FOCUS -->
+
+                    <div class="solution-block">
+
+                        <h6>
+                            🎯 JRF Focus
+                        </h6>
+
+
+                        <ul
+                            id="modalJrfFocus"
+                        >
+                        </ul>
+
+                    </div>
+
+
+                    <!-- COMMON CONFUSION -->
+
+                    <div class="solution-block">
+
+                        <h6>
+                            ⚠️ Common Confusion
+                        </h6>
+
+
+                        <ul
+                            id="modalConfusion"
+                        >
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MODAL FOOTER -->
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-outline-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Close
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div>
+        🎓 <strong>BAJEE JRF AI</strong>
+    </div>
+
+
+    <div class="small mt-1">
+        AI-generated practice material •
+        Separate from official PYQs
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     BOOTSTRAP JAVASCRIPT
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+></script>
+
+
+<!-- =========================================================
+     AI PRACTICE BANK JAVASCRIPT
+========================================================= -->
+
+<script src="js/ai-practice-bank.js?v=20260920"></script>
+
+
+</body>
+
+</html>

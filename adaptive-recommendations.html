@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    BAJEE JRF AI - Adaptive Recommendations
+  </title>
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/adaptive-recommendations.css"
+  >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar navbar-dark">
+
+  <div class="container">
+
+    <a
+      href="index.html"
+      class="navbar-brand fw-bold"
+    >
+      🎓 BAJEE JRF AI
+    </a>
+
+
+    <a
+      href="jrf-analytics.html"
+      class="btn btn-sm btn-outline-light"
+    >
+      ← Analytics
+    </a>
+
+  </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="recommendation-hero">
+
+  <div class="container">
+
+    <div class="eyebrow">
+      STEP 9.6 • ADAPTIVE RECOMMENDATIONS
+    </div>
+
+
+    <h1>
+      🎯 Adaptive Recommendations
+    </h1>
+
+
+    <p>
+      Turn your actual preparation data into
+      your next best study actions for UGC NET
+      English JRF preparation.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<main class="container py-4">
+
+
+<!-- =========================================================
+     ENGINE STATUS
+========================================================= -->
+
+<section class="status-card mb-4">
+
+  <div
+    class="
+      d-flex
+      justify-content-between
+      align-items-center
+      flex-wrap
+      gap-2
+    "
+  >
+
+    <div>
+
+      <strong>
+        Recommendation Engine
+      </strong>
+
+
+      <div
+        id="statusMessage"
+        class="small text-secondary mt-1"
+      >
+        Analysing your preparation data...
+      </div>
+
+    </div>
+
+
+    <span
+      id="engineStatus"
+      class="badge bg-warning text-dark"
+    >
+      Loading
+    </span>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SUMMARY
+========================================================= -->
+
+<section class="row g-3 mb-4">
+
+
+  <div class="col-md-3">
+
+    <div class="stat-card">
+
+      <div
+        id="totalSignals"
+        class="stat-number"
+      >
+        0
+      </div>
+
+
+      <div class="stat-label">
+        Performance Signals
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="col-md-3">
+
+    <div class="stat-card">
+
+      <div
+        id="urgentRecommendations"
+        class="stat-number text-danger"
+      >
+        0
+      </div>
+
+
+      <div class="stat-label">
+        Immediate Actions
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="col-md-3">
+
+    <div class="stat-card">
+
+      <div
+        id="practiceRecommendations"
+        class="stat-number text-warning"
+      >
+        0
+      </div>
+
+
+      <div class="stat-label">
+        Practice Actions
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="col-md-3">
+
+    <div class="stat-card">
+
+      <div
+        id="maintenanceRecommendations"
+        class="stat-number"
+      >
+        0
+      </div>
+
+
+      <div class="stat-label">
+        Maintain Areas
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PRIMARY RECOMMENDATION
+========================================================= -->
+
+<section class="primary-recommendation mb-4">
+
+  <div class="recommendation-icon">
+    🎯
+  </div>
+
+
+  <div class="recommendation-content">
+
+    <div class="eyebrow dark-eyebrow">
+      YOUR NEXT BEST ACTION
+    </div>
+
+
+    <h2
+      id="primaryTitle"
+    >
+      Building your recommendation...
+    </h2>
+
+
+    <p
+      id="primaryDescription"
+      class="mb-3"
+    >
+      The system is analysing your recorded
+      performance and revision history.
+    </p>
+
+
+    <div
+      id="primaryMeta"
+      class="recommendation-meta"
+    >
+      Please wait...
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RECOMMENDATION QUEUE
+========================================================= -->
+
+<section class="section-card mb-4">
+
+
+  <div
+    class="
+      d-flex
+      justify-content-between
+      align-items-center
+      flex-wrap
+      gap-2
+      mb-3
+    "
+  >
+
+    <div>
+
+      <h2>
+        🧠 Adaptive Study Recommendations
+      </h2>
+
+
+      <p class="text-secondary mb-0">
+
+        Recommendations generated from your
+        recorded preparation behaviour.
+
+      </p>
+
+    </div>
+
+
+    <button
+      id="refreshRecommendations"
+      type="button"
+      class="btn btn-gold"
+    >
+      ↻ Refresh
+    </button>
+
+  </div>
+
+
+
+  <div id="recommendationQueue">
+
+    <div class="loading-state">
+
+      <div class="spinner-border"></div>
+
+
+      <div class="mt-2">
+        Building recommendations...
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RECOMMENDATION TYPES
+========================================================= -->
+
+<section class="section-card mb-4">
+
+  <h2>
+    📌 Recommendation Logic
+  </h2>
+
+
+  <p class="text-secondary">
+    The engine uses performance signals to decide
+    what type of action should appear next.
+  </p>
+
+
+
+  <div class="row g-3">
+
+
+    <div class="col-md-4">
+
+      <div class="logic-card urgent-card">
+
+        <div class="logic-icon">
+          🔴
+        </div>
+
+
+        <h3>
+          Revise First
+        </h3>
+
+
+        <p>
+          Weak performance or repeated mistakes
+          can move an area toward immediate revision.
+        </p>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="col-md-4">
+
+      <div class="logic-card practice-card">
+
+        <div class="logic-icon">
+          🟠
+        </div>
+
+
+        <h3>
+          Practice More
+        </h3>
+
+
+        <p>
+          Borderline performance can generate
+          additional practice recommendations.
+        </p>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="col-md-4">
+
+      <div class="logic-card maintain-card">
+
+        <div class="logic-icon">
+          🟢
+        </div>
+
+
+        <h3>
+          Maintain
+        </h3>
+
+
+        <p>
+          Strong-performing areas can remain in
+          the maintenance cycle instead of being
+          repeatedly prioritised.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     STUDY BALANCE
+========================================================= -->
+
+<section class="section-card mb-4">
+
+  <h2>
+    ⚖️ Study Balance
+  </h2>
+
+
+  <p class="text-secondary">
+    Adaptive recommendations should balance
+    weakness correction with continued strength.
+  </p>
+
+
+  <div class="balance-grid">
+
+
+    <div class="balance-item">
+
+      <div class="balance-label">
+
+        <span>
+          Revision
+        </span>
+
+        <strong id="revisionBalance">
+          0%
+        </strong>
+
+      </div>
+
+
+      <div class="progress">
+
+        <div
+          id="revisionProgress"
+          class="progress-bar"
+          role="progressbar"
+          style="width: 0%"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="balance-item">
+
+      <div class="balance-label">
+
+        <span>
+          Practice
+        </span>
+
+        <strong id="practiceBalance">
+          0%
+        </strong>
+
+      </div>
+
+
+      <div class="progress">
+
+        <div
+          id="practiceProgress"
+          class="progress-bar"
+          role="progressbar"
+          style="width: 0%"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="balance-item">
+
+      <div class="balance-label">
+
+        <span>
+          Maintenance
+        </span>
+
+        <strong id="maintenanceBalance">
+          0%
+        </strong>
+
+      </div>
+
+
+      <div class="progress">
+
+        <div
+          id="maintenanceProgress"
+          class="progress-bar"
+          role="progressbar"
+          style="width: 0%"
+        ></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     NEXT STEP
+========================================================= -->
+
+<section class="next-action-card mb-4">
+
+  <div class="row align-items-center">
+
+
+    <div class="col-md-8">
+
+      <div class="eyebrow dark-eyebrow">
+        ADAPTIVE LEARNING LOOP
+      </div>
+
+
+      <h2>
+        Diagnose → Recommend → Practice → Reassess
+      </h2>
+
+
+      <p class="mb-0">
+        Your recommendations will become more useful
+        as more performance and retest data is recorded.
+      </p>
+
+    </div>
+
+
+    <div
+      class="
+        col-md-4
+        text-md-end
+        mt-3
+        mt-md-0
+      "
+    >
+
+      <a
+        href="revision-intelligence.html"
+        class="btn btn-gold"
+      >
+        🧠 Revision Intelligence
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     DATA SOURCE
+========================================================= -->
+
+<section class="section-card mb-4">
+
+  <h2>
+    🔗 Data Source
+  </h2>
+
+
+  <p class="text-secondary">
+    Recommendations use the existing browser-stored
+    BAJEE JRF AI performance and revision data.
+  </p>
+
+
+  <div class="data-source-box">
+
+    <strong>
+      Adaptive Recommendation Data
+    </strong>
+
+
+    <div class="small mt-2">
+      Performance Engine + AI Practice +
+      Revision Intelligence + Retest History
+    </div>
+
+
+    <div
+      id="storageStatus"
+      class="small text-secondary mt-1"
+    >
+      Checking...
+    </div>
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+  <strong>
+    🎓 BAJEE JRF AI
+  </strong>
+
+
+  <div class="small mt-1">
+    Adaptive Recommendations • Step 9.6
+  </div>
+
+</footer>
+
+
+
+<script
+  src="js/adaptive-recommendations.js"
+></script>
+
+
+</body>
+
+</html>
