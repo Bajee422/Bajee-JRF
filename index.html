@@ -465,7 +465,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     if(!assistantToken){$("assistantStatus").textContent="Cancelled. No token was entered.";return;}
     try{
       const firstTurnInstruction="If this is your first answer in the conversation, briefly introduce yourself as BAJEE JRF AI, the user's UGC NET English JRF study companion, then answer the question. Be source-grounded and never invent source references.";
-      const r=await fetch("http://127.0.0.1:3000/api/ai/chat",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+assistantToken},body:JSON.stringify({message:msg,context:{source:"BAJEE JRF AI homepage assistant",conversationInstruction:firstTurnInstruction}})});
+      const r=await fetch("https://bajee-jrf.onrender.com/api/ai/chat",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+assistantToken},body:JSON.stringify({message:msg,context:{source:"BAJEE JRF AI homepage assistant",conversationInstruction:firstTurnInstruction}})});
       const data=await r.json();if(!r.ok)throw new Error(data.error||("Request failed ("+r.status+")"));
       const reply=data.response?.reply||data.reply||data.response?.text||"The gateway returned no readable reply.";
       lastAssistantReply=reply;addChatLine("BAJEE JRF AI",reply);$("assistantStatus").textContent="Reply ready. It will stay silent until you click Speak Loud.";
