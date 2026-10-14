@@ -457,6 +457,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     $("assistantInput").focus();
   }
   function addChatLine(who,text){const d=document.createElement("div");d.className="chat-line"+(who==="BAJEE JRF AI"?" assistant-line":"");d.textContent=who+": "+text;$("chatLog").appendChild(d);$("chatLog").scrollTop=$("chatLog").scrollHeight;}
+```javascript
 function formatLearningMaterial(reply) {
   let data = reply;
 
@@ -468,6 +469,7 @@ function formatLearningMaterial(reply) {
     try {
       data = JSON.parse(cleaned);
     } catch {
+      // Ordinary text is preserved without inventing content.
       return reply;
     }
   }
@@ -476,83 +478,96 @@ function formatLearningMaterial(reply) {
     return String(data ?? "");
   }
 
-  // Display ordinary AI text directly, without JSON formatting.
-  if (typeof data.reply === "string" && data.reply.trim()) {
-    return data.reply;
+  // Unwrap common structured response containers.
+  if (data.response && typeof data.response === "object") {
+    data = data.response;
   }
 
-  const answer = data.solution || data;
-  const lines = [];
+  const answer = data.solution &&
+    typeof data.solution === "object"
+      ? data.solution
+      : data;
 
-  // Study-material heading and metadata.
-  const title = data.title || data.work || data.concept;
-  const author = data.author || data.knowledge_entity;
+  const lines = [];
+  const title = data.title || data.work || data.concept ||
+    answer.title || answer.work || answer.concept;
+  const author = data.author || answer.author ||
+    data.knowledge_entity || answer.knowledge_entity;
+  const period = data.period || answer.period;
+  const genre = data.genre || answer.genre;
+  const language = data.language || answer.language;
+  const overview = data.overview || answer.overview ||
+    answer.explanation;
+
   if (title) lines.push("# " + title);
   if (author) lines.push("**Author:** " + author);
-  if (data.period) lines.push("**Period:** " + data.period);
-  if (data.genre) lines.push("**Genre:** " + data.genre);
-  if (data.language) lines.push("**Language:** " + data.language);
+  if (period) lines.push("**Period:** " + period);
+  if (genre) lines.push("**Genre:** " + genre);
+  if (language) lines.push("**Language:** " + language);
 
-  if (data.overview) {
-    lines.push("## Overview\n" + data.overview);
-  }
-
-  if (data.question) {
-    lines.push("## Practice Question\n" + data.question);
-
-    if (data.options && typeof data.options === "object") {
-      lines.push(
-        Object.entries(data.options)
-          .map(([key, value]) => `${key}. ${value}`)
-          .join("\n")
-      );
-    }
-
-    if (data.answer_text) {
-      lines.push("**Correct answer:** " + data.answer_text);
-    } else if (data.correct_answer) {
-      lines.push("**Correct answer:** " + data.correct_answer);
-    }
-  }
-
-  if (answer.explanation) {
-    lines.push("## Explanation\n" + answer.explanation);
+  if (overview) {
+    lines.push("## 1. Overview\n" + overview);
   }
 
   const sections = [
-    ["Major Literary Features", answer.major_literary_features || answer.literary_features],
-    ["Key Points", answer.key_points],
-    ["Additional Information", answer.additional_information],
-    ["UGC NET/JRF Focus", answer.jrf_focus],
-    ["Common Confusions", answer.common_confusion]
+    ["2. Major literary features",
+      answer.major_literary_features || answer.literary_features],
+    ["3. UGC NET/JRF focus", answer.jrf_focus],
+    ["Key points", answer.key_points],
+    ["Additional information", answer.additional_information],
+    ["Common confusions", answer.common_confusion]
   ];
 
   for (const [heading, items] of sections) {
     if (Array.isArray(items) && items.length) {
-      lines.push(
-        "## " + heading + "\n" +
-        items.map(item => "- " + item).join("\n")
-      );
+      lines.push("## " + heading + "\n" +
+        items.map(item => "- " +
+          (typeof item === "string" ? item : JSON.stringify(item))
+        ).join("\n"));
     } else if (typeof items === "string" && items.trim()) {
       lines.push("## " + heading + "\n" + items);
     }
   }
 
-  if (data.concept && data.concept !== title) {
-    lines.push("**Related concept:** " + data.concept);
+  // Preserve explicit practice questions and their supplied answers.
+  if (data.question || answer.question) {
+    const question = data.question || answer.question;
+    lines.push("### Quick practice question\n" + question);
+
+    const options = data.options || answer.options;
+    if (options && typeof options === "object") {
+      const optionLines = Array.isArray(options)
+        ? options.map((value, index) =>
+            String.fromCharCode(65 + index) + ". " + value)
+        : Object.entries(options).map(([key, value]) =>
+            key + ". " + value);
+
+      lines.push(optionLines.join("\n"));
+    }
+
+    const correct = data.answer_text || answer.answer_text ||
+      data.correct_answer || answer.correct_answer;
+
+    if (correct) {
+      lines.push("**Correct answer:** " + correct);
+    }
+
+    const explanation = data.explanation || answer.explanation;
+    if (explanation && explanation !== overview) {
+      lines.push("**Explanation:** " + explanation);
+    }
   }
 
-  // Preserve useful fields that do not fit the standard lesson layout.
-  if (lines.length === 0) {
-    return Object.entries(data)
-      .filter(([, value]) => value != null && typeof value !== "object")
-      .map(([key, value]) =>
-        "**" + key.replace(/_/g, " ") + ":** " + value
-      )
-      .join("\n\n") || reply;
+  // Avoid showing raw JSON for unrecognized response fields.
+  if (lines.length) return lines.join("\n\n");
+
+  if (typeof data.reply === "string" && data.reply.trim()) {
+    return data.reply;
   }
 
-  return lines.join("\n\n");
+  return "The response did not contain recognizable learning-material fields. Please try the question again.";
+
+
 }  
   async function sendAssistantMessage(text){
     const msg=(text!==undefined?text:$("assistantInput").value).trim();if(!msg)return;
