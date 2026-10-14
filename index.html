@@ -457,6 +457,50 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     $("assistantInput").focus();
   }
   function addChatLine(who,text){const d=document.createElement("div");d.className="chat-line"+(who==="BAJEE JRF AI"?" assistant-line":"");d.textContent=who+": "+text;$("chatLog").appendChild(d);$("chatLog").scrollTop=$("chatLog").scrollHeight;}
+function formatLearningMaterial(reply) {
+  let data = reply;
+
+  if (typeof reply === "string") {
+    try {
+      const cleaned = reply
+        .replace(/^\s*```(?:json)?\s*/i, "")
+        .replace(/\s*```\s*$/, "");
+      data = JSON.parse(cleaned);
+    } catch {
+      return reply;
+    }
+  }
+
+  if (!data || typeof data !== "object") {
+    return String(data ?? "");
+  }
+
+  const answer = data.solution || data;
+  const lines = [];
+
+  if (data.question) lines.push("QUESTION\n" + data.question);
+  if (data.answer_text) lines.push("CORRECT ANSWER\n" + data.answer_text);
+  else if (data.correct_answer) lines.push("CORRECT OPTION\n" + data.correct_answer);
+
+  if (answer.explanation) lines.push("EXPLANATION\n" + answer.explanation);
+
+  for (const [key, heading] of [
+    ["key_points", "KEY POINTS"],
+    ["additional_information", "ADDITIONAL INFORMATION"],
+    ["jrf_focus", "JRF EXAM FOCUS"],
+    ["common_confusion", "COMMON CONFUSION"]
+  ]) {
+    const items = answer[key];
+    if (Array.isArray(items) && items.length) {
+      lines.push(heading + "\n" + items.map(item => "• " + item).join("\n"));
+    }
+  }
+
+  if (data.knowledge_entity) lines.push("KNOWLEDGE ENTITY\n" + data.knowledge_entity);
+  if (data.concept) lines.push("RELATED CONCEPT\n" + data.concept);
+
+  return lines.length ? lines.join("\n\n") : JSON.stringify(data, null, 2);
+}  
   async function sendAssistantMessage(text){
     const msg=(text!==undefined?text:$("assistantInput").value).trim();if(!msg)return;
     if(isListening && activeRecognition){try{activeRecognition.stop();}catch(e){}}
@@ -468,7 +512,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
       const r=await fetch("https://bajee-jrf.onrender.com/api/ai/chat",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+assistantToken},body:JSON.stringify({message:msg,context:{source:"BAJEE JRF AI homepage assistant",conversationInstruction:firstTurnInstruction}})});
       const data=await r.json();if(!r.ok)throw new Error(data.error||("Request failed ("+r.status+")"));
       const reply=data.response?.reply||data.reply||data.response?.text||"The gateway returned no readable reply.";
-      lastAssistantReply=reply;addChatLine("BAJEE JRF AI",reply);$("assistantStatus").textContent="Reply ready. It will stay silent until you click Speak Loud.";
+      lastAssistantReply=reply;addChatLine("BAJEE JRF AI",formatLearningMaterial(reply));$("assistantStatus").textContent="Reply ready. It will stay silent until you click Speak Loud.";
     }catch(err){$("assistantStatus").textContent="Could not connect: "+err.message+". Check that the backend is running and token is correct.";}
   }
   $("assistantSend").onclick=()=>sendAssistantMessage();
