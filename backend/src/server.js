@@ -21,7 +21,7 @@ const GEMINI_API_KEY =
 
 const GEMINI_MODEL =
     process.env.GEMINI_MODEL ||
-    "gemini-3.1-flash-lite";
+    "gemini-3.5-flash-lite";
 
 const BAJEE_API_ACCESS_TOKEN =
     process.env.BAJEE_API_ACCESS_TOKEN || "";
