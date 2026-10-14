@@ -460,11 +460,12 @@ nav.bottom .on{color:var(--ink);font-weight:600}
 function formatLearningMaterial(reply) {
   let data = reply;
 
-  if (typeof reply === "string") {
+  if (typeof data === "string") {
+    const cleaned = data
+      .replace(/^\s*```(?:json)?\s*/i, "")
+      .replace(/\s*```\s*$/, "");
+
     try {
-      const cleaned = reply
-        .replace(/^\s*```(?:json)?\s*/i, "")
-        .replace(/\s*```\s*$/, "");
       data = JSON.parse(cleaned);
     } catch {
       return reply;
@@ -475,31 +476,83 @@ function formatLearningMaterial(reply) {
     return String(data ?? "");
   }
 
+  // Display ordinary AI text directly, without JSON formatting.
+  if (typeof data.reply === "string" && data.reply.trim()) {
+    return data.reply;
+  }
+
   const answer = data.solution || data;
   const lines = [];
 
-  if (data.question) lines.push("QUESTION\n" + data.question);
-  if (data.answer_text) lines.push("CORRECT ANSWER\n" + data.answer_text);
-  else if (data.correct_answer) lines.push("CORRECT OPTION\n" + data.correct_answer);
+  // Study-material heading and metadata.
+  const title = data.title || data.work || data.concept;
+  const author = data.author || data.knowledge_entity;
+  if (title) lines.push("# " + title);
+  if (author) lines.push("**Author:** " + author);
+  if (data.period) lines.push("**Period:** " + data.period);
+  if (data.genre) lines.push("**Genre:** " + data.genre);
+  if (data.language) lines.push("**Language:** " + data.language);
 
-  if (answer.explanation) lines.push("EXPLANATION\n" + answer.explanation);
+  if (data.overview) {
+    lines.push("## Overview\n" + data.overview);
+  }
 
-  for (const [key, heading] of [
-    ["key_points", "KEY POINTS"],
-    ["additional_information", "ADDITIONAL INFORMATION"],
-    ["jrf_focus", "JRF EXAM FOCUS"],
-    ["common_confusion", "COMMON CONFUSION"]
-  ]) {
-    const items = answer[key];
-    if (Array.isArray(items) && items.length) {
-      lines.push(heading + "\n" + items.map(item => "• " + item).join("\n"));
+  if (data.question) {
+    lines.push("## Practice Question\n" + data.question);
+
+    if (data.options && typeof data.options === "object") {
+      lines.push(
+        Object.entries(data.options)
+          .map(([key, value]) => `${key}. ${value}`)
+          .join("\n")
+      );
+    }
+
+    if (data.answer_text) {
+      lines.push("**Correct answer:** " + data.answer_text);
+    } else if (data.correct_answer) {
+      lines.push("**Correct answer:** " + data.correct_answer);
     }
   }
 
-  if (data.knowledge_entity) lines.push("KNOWLEDGE ENTITY\n" + data.knowledge_entity);
-  if (data.concept) lines.push("RELATED CONCEPT\n" + data.concept);
+  if (answer.explanation) {
+    lines.push("## Explanation\n" + answer.explanation);
+  }
 
-  return lines.length ? lines.join("\n\n") : JSON.stringify(data, null, 2);
+  const sections = [
+    ["Major Literary Features", answer.major_literary_features || answer.literary_features],
+    ["Key Points", answer.key_points],
+    ["Additional Information", answer.additional_information],
+    ["UGC NET/JRF Focus", answer.jrf_focus],
+    ["Common Confusions", answer.common_confusion]
+  ];
+
+  for (const [heading, items] of sections) {
+    if (Array.isArray(items) && items.length) {
+      lines.push(
+        "## " + heading + "\n" +
+        items.map(item => "- " + item).join("\n")
+      );
+    } else if (typeof items === "string" && items.trim()) {
+      lines.push("## " + heading + "\n" + items);
+    }
+  }
+
+  if (data.concept && data.concept !== title) {
+    lines.push("**Related concept:** " + data.concept);
+  }
+
+  // Preserve useful fields that do not fit the standard lesson layout.
+  if (lines.length === 0) {
+    return Object.entries(data)
+      .filter(([, value]) => value != null && typeof value !== "object")
+      .map(([key, value]) =>
+        "**" + key.replace(/_/g, " ") + ":** " + value
+      )
+      .join("\n\n") || reply;
+  }
+
+  return lines.join("\n\n");
 }  
   async function sendAssistantMessage(text){
     const msg=(text!==undefined?text:$("assistantInput").value).trim();if(!msg)return;
