@@ -464,7 +464,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
       assistantIntroduced=true;
       if(!$("chatLog").children.length) addChatLine("BAJEE JRF AI","Hello! I'm BAJEE JRF AI, your study companion for UGC NET English (Paper II) and Paper I. I can help explain authors, works, literary periods, theories, PYQs, and revision topics. Type your question or tap Speak, then send it when you're ready.");
     }
-    $("assistantInput").focus();
+    $("assistantInput").focus({ preventScroll: true });
   }
   function addChatLine(who,text){const d=document.createElement("div");d.className="chat-line"+(who==="BAJEE JRF AI"?" assistant-line":"");d.textContent=who+": "+text;$("chatLog").appendChild(d);$("chatLog").scrollTop=$("chatLog").scrollHeight;}
 function formatLearningMaterial(reply) {
