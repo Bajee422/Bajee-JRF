@@ -283,7 +283,12 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     <div class="feature-note">Voice input depends on browser speech-recognition support. Replies are silent unless you click Speak Loud. The access token is held in page memory only and is not written to localStorage.</div>
   </div>
 </div>
-
+<div id="googleSignInArea" style="margin:12px 0;">
+  <div id="googleSignInButton"></div>
+  <p id="googleSignInStatus" role="status" aria-live="polite">
+    Sign in with Google to use the AI assistant.
+  </p>
+</div>
 <script>
 (function(){
   const $ = id => document.getElementById(id);
