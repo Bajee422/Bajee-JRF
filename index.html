@@ -640,7 +640,7 @@ function initializeGoogleSignIn() {
 
   status.textContent = "Checking your Google sign-in…";
 
-  window.google.accounts.id.prompt((notification) => {
+  
     if (status.textContent !== "Checking your Google sign-in…") {
       return;
     }
