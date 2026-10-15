@@ -576,6 +576,66 @@ function formatLearningMaterial(reply) {
 
 
 }  
+
+let googleCredential = "";
+
+async function handleGoogleCredential(response) {
+    const status = document.getElementById("googleSignInStatus");
+
+    try {
+        status.textContent = "Verifying your Google account…";
+
+        const result = await fetch(
+            "https://bajee-jrf.onrender.com/api/auth/google",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    credential: response.credential
+                })
+            }
+        );
+
+        const data = await result.json();
+
+        if (!result.ok || !data.success) {
+            throw new Error(data.error || "Google sign-in failed.");
+        }
+
+        googleCredential = response.credential;
+        status.textContent = "Signed in as " + data.user.email;
+    } catch (error) {
+        googleCredential = "";
+        status.textContent = error.message || "Google sign-in failed.";
+    }
+}
+
+function initializeGoogleSignIn() {
+    if (!window.google?.accounts?.id) {
+        document.getElementById("googleSignInStatus").textContent =
+            "Google Sign-In is unavailable. Refresh and try again.";
+        return;
+    }
+
+    window.google.accounts.id.initialize({
+        client_id:
+            "720409637850-9j3lf95q7n2kq7727gvn1htmncvmapt8.apps.googleusercontent.com",
+        callback: handleGoogleCredential
+    });
+
+    window.google.accounts.id.renderButton(
+        document.getElementById("googleSignInButton"),
+        {
+            theme: "outline",
+            size: "large",
+            text: "signin_with",
+            shape: "rectangular"
+        }
+    );
+}
+
+window.addEventListener("load", initializeGoogleSignIn);
+
   async function sendAssistantMessage(text){
     const msg=(text!==undefined?text:$("assistantInput").value).trim();if(!msg)return;
     if(isListening && activeRecognition){try{activeRecognition.stop();}catch(e){}}
