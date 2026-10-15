@@ -281,14 +281,17 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     <div class="chat-log" id="chatLog" aria-live="polite"><div class="chat-line assistant-line">BAJEE JRF AI: Hello! I’m your BAJEE JRF AI study assistant for UGC NET English Paper I and Paper II. I can help you understand authors, works, literary periods, theories, PYQs, explanations, revision and exam practice. I’ll use your connected study sources when available and tell you when a source cannot verify an answer. How can I help you today?</div></div>
     <div class="chat-controls"><input id="assistantInput" type="text" placeholder="Type your question here…" aria-label="Message for AI assistant"><div class="assistant-actions"><button class="btn" id="assistantSend" type="button">Send</button><button class="btn ghost" id="voiceBtn" type="button">🎙 Speak</button><button class="btn ghost" id="speakLoudBtn" type="button">🔊 Speak Loud</button><button class="btn ghost" id="stopSpeechBtn" type="button">⏹ Stop voice</button></div></div>
     <div class="feature-note">Voice input depends on browser speech-recognition support. Replies are silent unless you click Speak Loud. The access token is held in page memory only and is not written to localStorage.</div>
-  </div>
-</div>
+ 
 <div id="googleSignInArea" style="margin:12px 0;">
   <div id="googleSignInButton"></div>
   <p id="googleSignInStatus" role="status" aria-live="polite">
     Sign in with Google to use the AI assistant.
   </p>
 </div>
+
+  </div>
+</div>
+
 <script>
 (function(){
   const $ = id => document.getElementById(id);
