@@ -227,27 +227,15 @@ function securityHeaders(req, res, next) {
 }
 
 
-function apiSecurity(req, res, next) {
 
+async function apiSecurity(req, res, next) {
     const rate = consumeRateLimit(req);
 
-    res.setHeader(
-        "X-RateLimit-Limit",
-        String(RATE_LIMIT_PER_MIN)
-    );
-
-    res.setHeader(
-        "X-RateLimit-Remaining",
-        String(rate.remaining)
-    );
+    res.setHeader("X-RateLimit-Limit", String(RATE_LIMIT_PER_MIN));
+    res.setHeader("X-RateLimit-Remaining", String(rate.remaining));
 
     if (!rate.allowed) {
-
-        res.setHeader(
-            "Retry-After",
-            String(rate.retryAfter)
-        );
-
+        res.setHeader("Retry-After", String(rate.retryAfter));
         return res.status(429).json({
             success: false,
             error: "Too many requests. Please try again later.",
@@ -255,24 +243,65 @@ function apiSecurity(req, res, next) {
         });
     }
 
-    // A missing server-side token is a configuration failure, never permission.
-    if (!BAJEE_API_ACCESS_TOKEN) {
-        return res.status(503).json({
-            success: false,
-            error: "API access protection is not configured.",
-            code: "access_token_not_configured"
-        });
-    }
+    const authorization =
+        typeof req.headers.authorization === "string"
+            ? req.headers.authorization
+            : "";
 
-    if (!validateAccessToken(req)) {
+    if (!authorization.startsWith("Bearer ")) {
         return res.status(401).json({
             success: false,
-            error: "Unauthorized.",
+            error: "Sign in required.",
             code: "unauthorized"
         });
     }
 
-    return next();
+    const suppliedToken = authorization.slice(7).trim();
+
+    // Preserve existing API-token authentication.
+    if (validateAccessToken(req)) {
+        return next();
+    }
+
+    // Otherwise, verify the Google ID token with Google's library.
+    if (!GOOGLE_CLIENT_ID || !suppliedToken) {
+        return res.status(401).json({
+            success: false,
+            error: "Invalid sign-in. Please sign in with Google again.",
+            code: "unauthorized"
+        });
+    }
+
+    try {
+        const ticket = await googleOAuthClient.verifyIdToken({
+            idToken: suppliedToken,
+            audience: GOOGLE_CLIENT_ID
+        });
+
+        const payload = ticket.getPayload();
+
+        if (!payload || !payload.sub || !payload.email) {
+            return res.status(401).json({
+                success: false,
+                error: "Google identity verification failed.",
+                code: "unauthorized"
+            });
+        }
+
+        req.googleUser = {
+            id: payload.sub,
+            email: payload.email,
+            name: payload.name || ""
+        };
+
+        return next();
+    } catch {
+        return res.status(401).json({
+            success: false,
+            error: "Invalid or expired sign-in. Please sign in again.",
+            code: "unauthorized"
+        });
+    }
 }
 
 
