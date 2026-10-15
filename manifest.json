@@ -1,12 +1,12 @@
 
 {
-  "id": "/BAJEE-JRF/",
+  "id": "/Bajee-JRF/",
   "name": "BAJEE JRF AI",
   "short_name": "BAJEE JRF",
   "description": "Zero-cost UGC NET English and JRF preparation platform.",
   "lang": "en",
-  "start_url": "/BAJEE-JRF/",
-  "scope": "/BAJEE-JRF/",
+  "start_url": "/Bajee-JRF/",
+  "scope": "/Bajee-JRF/",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#ffffff",
