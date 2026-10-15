@@ -332,7 +332,67 @@ app.get(
         });
     }
 );
+/* =========================================================
+   GOOGLE SIGN-IN — VERIFY GOOGLE ID TOKEN
+========================================================= */
 
+app.post("/api/auth/google", async (req, res) => {
+    try {
+        if (!GOOGLE_CLIENT_ID) {
+            return res.status(503).json({
+                success: false,
+                error: "Google Sign-In is not configured."
+            });
+        }
+
+        const credential = req.body?.credential;
+
+        if (
+            typeof credential !== "string" ||
+            !credential ||
+            credential.length > 10000
+        ) {
+            return res.status(400).json({
+                success: false,
+                error: "A valid Google credential is required."
+            });
+        }
+
+        const ticket = await googleOAuthClient.verifyIdToken({
+            idToken: credential,
+            audience: GOOGLE_CLIENT_ID
+        });
+
+        const payload = ticket.getPayload();
+
+        if (!payload || !payload.sub || !payload.email) {
+            return res.status(401).json({
+                success: false,
+                error: "Google identity verification failed."
+            });
+        }
+
+        return res.json({
+            success: true,
+            user: {
+                id: payload.sub,
+                name: payload.name || "",
+                email: payload.email,
+                picture: payload.picture || ""
+            }
+        });
+    } catch (error) {
+        console.error(
+            "Google ID token verification failed:",
+            error.message
+        );
+
+        return res.status(401).json({
+            success: false,
+            error: "Google sign-in failed. Please try again."
+        });
+    }
+});
 
 app.use(
     "/api",
