@@ -613,22 +613,23 @@ async function handleGoogleCredential(response) {
 }
 
 
+
 function initializeGoogleSignIn() {
   const status = document.getElementById("googleSignInStatus");
   const button = document.getElementById("googleSignInButton");
 
+  if (!status || !button) return;
+
   if (!window.google?.accounts?.id) {
-    status.textContent =
-      "Google Sign-In is unavailable. Refresh and try again.";
+    status.textContent = "Google Sign-In is unavailable. Refresh and try again.";
     return;
   }
 
   window.google.accounts.id.initialize({
-    client_id:
-      "720409637850-9j3lf95q7n2kq7727gvn1htmncvmapt8.apps.googleusercontent.com",
+    client_id: "720409637850-9j3lf95q7n2kq7727gvn1htmncvmapt8.apps.googleusercontent.com",
     callback: handleGoogleCredential,
-    auto_select: true,
-    cancel_on_tap_outside: false
+    auto_select: false,
+    cancel_on_tap_outside: true
   });
 
   window.google.accounts.id.renderButton(button, {
@@ -638,22 +639,9 @@ function initializeGoogleSignIn() {
     shape: "rectangular"
   });
 
-  status.textContent = "Checking your Google sign-in…";
-
-  
-    if (status.textContent !== "Checking your Google sign-in…") {
-      return;
-    }
-
-    if (
-      notification.isNotDisplayed() ||
-      notification.isSkippedMoment()
-    ) {
-      status.textContent =
-        "Automatic sign-in unavailable. Click Sign in with Google to continue.";
-    }
-  });
+  status.textContent = "Sign in with Google to use the AI assistant.";
 }
+
 
 
 window.addEventListener("load", initializeGoogleSignIn);
