@@ -27,6 +27,12 @@ const GEMINI_MODEL =
 const BAJEE_API_ACCESS_TOKEN =
     process.env.BAJEE_API_ACCESS_TOKEN || "";
 
+const GOOGLE_CLIENT_ID =
+    process.env.GOOGLE_CLIENT_ID || "";
+
+const googleOAuthClient = new OAuth2Client(
+    GOOGLE_CLIENT_ID
+);
 const NODE_ENV =
     process.env.NODE_ENV || "development";
 
