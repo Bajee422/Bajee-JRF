@@ -1,0 +1,16 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Bajee JRF",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Bajee",
+  "start_url": "//BAJEE-JRF/",
+  "theme_color": "#ffffff",
+  "description": "Zero-cost UGC NET English and JRF preparation platform.",
+  "lang": "en",
+  "categories": [
+    "education"
+  ]
+}
