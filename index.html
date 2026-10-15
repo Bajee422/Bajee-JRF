@@ -638,20 +638,72 @@ function initializeGoogleSignIn() {
 
 window.addEventListener("load", initializeGoogleSignIn);
 
-  async function sendAssistantMessage(text){
-    const msg=(text!==undefined?text:$("assistantInput").value).trim();if(!msg)return;
-    if(isListening && activeRecognition){try{activeRecognition.stop();}catch(e){}}
-    $("assistantInput").value="";addChatLine("You",msg);$("assistantStatus").textContent="Waiting for the local AI gateway…";
-    if(!assistantToken)assistantToken=prompt("Enter your BAJEE_API_ACCESS_TOKEN for this browser session. Do not enter your Gemini API key.")||"";
-    if(!assistantToken){$("assistantStatus").textContent="Cancelled. No token was entered.";return;}
-    try{
-      const firstTurnInstruction="If this is your first answer in the conversation, briefly introduce yourself as BAJEE JRF AI, the user's UGC NET English JRF study companion, then answer the question. Be source-grounded and never invent source references.";
-      const r=await fetch("https://bajee-jrf.onrender.com/api/ai/chat",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+assistantToken},body:JSON.stringify({message:msg,context:{source:"BAJEE JRF AI homepage assistant",conversationInstruction:firstTurnInstruction}})});
-      const data=await r.json();if(!r.ok)throw new Error(data.error||("Request failed ("+r.status+")"));
-      const reply=data.response?.reply||data.reply||data.response?.text||"The gateway returned no readable reply.";
-      lastAssistantReply=reply;addChatLine("BAJEE JRF AI",formatLearningMaterial(reply));$("assistantStatus").textContent="Reply ready. It will stay silent until you click Speak Loud.";
-    }catch(err){$("assistantStatus").textContent="Could not connect: "+err.message+". Check that the backend is running and token is correct.";}
+  
+async function sendAssistantMessage(text) {
+  const msg = (text !== undefined ? text : $("assistantInput").value).trim();
+  if (!msg) return;
+
+  if (!googleCredential) {
+    $("assistantStatus").textContent =
+      "Please sign in with Google before sending a question.";
+    return;
   }
+
+  if (isListening && activeRecognition) {
+    try { activeRecognition.stop(); } catch (e) {}
+  }
+
+  $("assistantInput").value = "";
+  addChatLine("You", msg);
+  $("assistantStatus").textContent = "Connecting to BAJEE JRF AI…";
+
+  try {
+    const r = await fetch(
+      "https://bajee-jrf.onrender.com/api/ai/chat",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + googleCredential
+        },
+        body: JSON.stringify({
+          message: msg,
+          context: {
+            source: "BAJEE JRF AI homepage assistant",
+            conversationInstruction:
+              "Answer UGC NET English Paper I and Paper II questions accurately. Use available sources and never invent source references."
+          }
+        })
+      }
+    );
+
+    const data = await r.json();
+
+    if (!r.ok) {
+      if (r.status === 401) {
+        googleCredential = "";
+        $("assistantStatus").textContent =
+          "Google sign-in was rejected or expired. Please sign in again.";
+        return;
+      }
+      throw new Error(data.error || "Request failed (" + r.status + ")");
+    }
+
+    const reply =
+      data.response?.reply ||
+      data.reply ||
+      data.response?.text ||
+      "The gateway returned no readable reply.";
+
+    lastAssistantReply = reply;
+    addChatLine("BAJEE JRF AI", formatLearningMaterial(reply));
+    $("assistantStatus").textContent =
+      "Reply ready. Click Speak Loud to hear the answer.";
+  } catch (err) {
+    $("assistantStatus").textContent = "Could not connect: " + err.message;
+  }
+}
+
   $("assistantSend").onclick=()=>sendAssistantMessage();
   $("assistantInput").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();sendAssistantMessage();}});
   $("assistantClose").onclick=()=>{if(activeRecognition){try{activeRecognition.abort();}catch(e){}}activeRecognition=null;isListening=false;$("voiceBtn").textContent="🎙 Speak";$("assistantModal").classList.remove("open");$("assistantModal").setAttribute("aria-hidden","true");if("speechSynthesis" in window)window.speechSynthesis.cancel();};
