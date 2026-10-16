@@ -608,7 +608,20 @@ nav.bottom .on{color:var(--ink);font-weight:600}
       setSignedInUI(data.user);
       $("assistantStatus").textContent="You're signed in. Ask your study question whenever you're ready.";
     }catch(err){
-      setSignedOutUI((err&&err.message)||"Google sign-in failed.");
+      const message = (err && err.message) || "";
+      if(message.toLowerCase().includes("fetch") || message.toLowerCase().includes("network")){
+        let detail = "Cannot reach the BAJEE JRF server. ";
+        try{
+          const health = await fetch(API + "/api/health", {method:"GET",cache:"no-store"});
+          if(health.ok) detail += "The server is online, but the sign-in request may be blocked by CORS. In Render, set ALLOWED_ORIGINS to https://bajee422.github.io and redeploy.";
+          else detail += "The server health check returned HTTP " + health.status + ". Check the Render deployment and logs.";
+        }catch(healthError){
+          detail += "The server health check also failed. Check that the Render service is awake and deployed, and that its CORS origin includes https://bajee422.github.io.";
+        }
+        setSignedOutUI(detail);
+      }else{
+        setSignedOutUI(message || "Google sign-in failed. Please try again.");
+      }
     }
   }
 
@@ -723,7 +736,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
       addChatLine("BAJEE JRF AI",shown);
       $("assistantStatus").textContent="Reply ready. Tap Speak Loud to hear the answer.";
     }catch(err){
-      $("assistantStatus").textContent = err.name==="AbortError" ? "The server did not answer in time. Please try again." : "Could not connect: "+err.message;
+      $("assistantStatus").textContent = err.name==="AbortError" ? "The server did not answer in time. Please try again." : (String(err.message||"").toLowerCase().includes("fetch") ? "Could not reach the BAJEE JRF server. Check the Render service, its deployment logs, and ALLOWED_ORIGINS (https://bajee422.github.io)." : "Could not connect: "+err.message);
       $("assistantInput").value=msg;
     }finally{
       clearTimeout(wake); clearTimeout(kill);
