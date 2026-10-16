@@ -106,8 +106,8 @@ async function loadJrfDatabases(){
   try{
     const [k,p,m]=await Promise.all([
       fetch('data/knowledge/knowledge-entities.json',{cache:'no-store'}),
-      fetch('data/pyqs/pyq-database.json',{cache:'no-store'}),
-      fetch('data/pyqs/pyq-knowledge-map.json',{cache:'no-store'})
+      fetch('backend/src/pyqs/pyq-database.json',{cache:'no-store'}),
+      fetch('backend/src/pyqs/pyq-knowledge-map.json',{cache:'no-store'})
     ]);
     if(!k.ok||!p.ok||!m.ok)throw new Error('JRF knowledge/PYQ database could not be loaded.');
     const kd=await k.json(),pd=await p.json(),md=await m.json();
