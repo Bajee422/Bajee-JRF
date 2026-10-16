@@ -33,8 +33,17 @@ const GOOGLE_CLIENT_ID =
 const googleOAuthClient = new OAuth2Client(
     GOOGLE_CLIENT_ID
 );
+
 const NODE_ENV =
     process.env.NODE_ENV || "development";
+
+const APP_SESSION_SECRET =
+    process.env.APP_SESSION_SECRET ||
+    (NODE_ENV === "production" ? "" : crypto.randomBytes(32).toString("hex"));
+
+const APP_ACCESS_TOKEN_TTL_SECONDS = 15 * 60;
+const APP_REFRESH_SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+const APP_REFRESH_COOKIE = "bajee_refresh";
 
 const RATE_LIMIT_PER_MIN =
     Math.max(
@@ -74,6 +83,12 @@ const ALLOWED_ORIGINS =
 if (NODE_ENV === "production" && !BAJEE_API_ACCESS_TOKEN) {
     throw new Error(
         "BAJEE_API_ACCESS_TOKEN must be configured in production."
+    );
+}
+
+if (NODE_ENV === "production" && !APP_SESSION_SECRET) {
+    throw new Error(
+        "APP_SESSION_SECRET must be configured in production."
     );
 }
 
@@ -158,6 +173,202 @@ function safeTimingEqual(left, right) {
         rightBuffer
     );
 }
+
+
+function base64urlEncode(value) {
+    return Buffer.from(value).toString("base64url");
+}
+
+function signAppAccessToken(user) {
+    if (!APP_SESSION_SECRET) {
+        throw new Error("APP_SESSION_SECRET is not configured.");
+    }
+
+    const now = Math.floor(Date.now() / 1000);
+    const header = base64urlEncode(JSON.stringify({ alg: "HS256", typ: "JWT" }));
+    const payload = base64urlEncode(JSON.stringify({
+        sub: user.id,
+        email: user.email,
+        name: user.name || "",
+        iat: now,
+        exp: now + APP_ACCESS_TOKEN_TTL_SECONDS,
+        typ: "bajee_access"
+    }));
+    const signingInput = `${header}.${payload}`;
+    const signature = crypto
+        .createHmac("sha256", APP_SESSION_SECRET)
+        .update(signingInput)
+        .digest("base64url");
+
+    return `${signingInput}.${signature}`;
+}
+
+function verifyAppAccessToken(token) {
+    if (!APP_SESSION_SECRET || typeof token !== "string") return null;
+
+    const parts = token.split(".");
+    if (parts.length !== 3) return null;
+
+    const signingInput = `${parts[0]}.${parts[1]}`;
+    const expected = crypto
+        .createHmac("sha256", APP_SESSION_SECRET)
+        .update(signingInput)
+        .digest("base64url");
+
+    if (!safeTimingEqual(parts[2], expected)) return null;
+
+    try {
+        const payload = JSON.parse(Buffer.from(parts[1], "base64url").toString("utf8"));
+        const now = Math.floor(Date.now() / 1000);
+
+        if (
+            payload.typ !== "bajee_access" ||
+            !payload.sub ||
+            !payload.email ||
+            !Number.isFinite(payload.exp) ||
+            payload.exp <= now
+        ) {
+            return null;
+        }
+
+        return {
+            id: payload.sub,
+            email: payload.email,
+            name: payload.name || ""
+        };
+    } catch {
+        return null;
+    }
+}
+
+function getCookie(req, name) {
+    const cookieHeader = typeof req.headers.cookie === "string"
+        ? req.headers.cookie
+        : "";
+
+    for (const part of cookieHeader.split(";")) {
+        const separator = part.indexOf("=");
+        if (separator < 0) continue;
+
+        const key = part.slice(0, separator).trim();
+        if (key === name) {
+            return part.slice(separator + 1).trim();
+        }
+    }
+
+    return "";
+}
+
+function signRefreshToken(user) {
+    if (!APP_SESSION_SECRET) {
+        throw new Error("APP_SESSION_SECRET is not configured.");
+    }
+
+    const now = Math.floor(Date.now() / 1000);
+    const header = base64urlEncode(JSON.stringify({ alg: "HS256", typ: "JWT" }));
+    const payload = base64urlEncode(JSON.stringify({
+        sub: user.id,
+        email: user.email,
+        name: user.name || "",
+        picture: user.picture || "",
+        iat: now,
+        exp: now + Math.floor(APP_REFRESH_SESSION_TTL_MS / 1000),
+        jti: crypto.randomBytes(16).toString("base64url"),
+        typ: "bajee_refresh"
+    }));
+    const signingInput = `${header}.${payload}`;
+    const signature = crypto
+        .createHmac("sha256", APP_SESSION_SECRET)
+        .update(signingInput)
+        .digest("base64url");
+
+    return `${signingInput}.${signature}`;
+}
+
+function verifyRefreshToken(token) {
+    if (!APP_SESSION_SECRET || typeof token !== "string") return null;
+    const parts = token.split(".");
+    if (parts.length !== 3) return null;
+
+    const signingInput = `${parts[0]}.${parts[1]}`;
+    const expected = crypto
+        .createHmac("sha256", APP_SESSION_SECRET)
+        .update(signingInput)
+        .digest("base64url");
+
+    if (!safeTimingEqual(parts[2], expected)) return null;
+
+    try {
+        const payload = JSON.parse(Buffer.from(parts[1], "base64url").toString("utf8"));
+        const now = Math.floor(Date.now() / 1000);
+        if (
+            payload.typ !== "bajee_refresh" ||
+            !payload.sub ||
+            !payload.email ||
+            !Number.isFinite(payload.exp) ||
+            payload.exp <= now
+        ) return null;
+
+        return {
+            id: payload.sub,
+            email: payload.email,
+            name: payload.name || "",
+            picture: payload.picture || ""
+        };
+    } catch {
+        return null;
+    }
+}
+
+function setRefreshCookie(res, token) {
+    const cookie = [
+        `${APP_REFRESH_COOKIE}=${token}`,
+        "Path=/api/auth",
+        "HttpOnly",
+        "Secure",
+        "SameSite=None",
+        "Partitioned",
+        `Max-Age=${Math.floor(APP_REFRESH_SESSION_TTL_MS / 1000)}`
+    ].join("; ");
+    res.setHeader("Set-Cookie", cookie);
+}
+
+function clearRefreshCookie(res) {
+    res.setHeader(
+        "Set-Cookie",
+        `${APP_REFRESH_COOKIE}=; Path=/api/auth; HttpOnly; Secure; SameSite=None; Partitioned; Max-Age=0`
+    );
+}
+
+function createAppSession(user, res) {
+    const safeUser = {
+        id: user.id,
+        email: user.email,
+        name: user.name || "",
+        picture: user.picture || ""
+    };
+    setRefreshCookie(res, signRefreshToken(safeUser));
+
+    return {
+        accessToken: signAppAccessToken(safeUser),
+        user: safeUser,
+        expiresIn: APP_ACCESS_TOKEN_TTL_SECONDS
+    };
+}
+
+function requestOriginAllowed(req) {
+    const origin = typeof req.headers.origin === "string"
+        ? req.headers.origin
+        : "";
+
+    // Browser requests must originate from the configured frontend.
+    // Non-browser clients without an Origin header are not accepted for
+    // refresh/logout because they cannot use the HttpOnly browser cookie
+    // through the intended cross-origin flow.
+    return Boolean(origin && ALLOWED_ORIGINS.includes(origin));
+}
+
+
 
 
 function validateAccessToken(req) {
@@ -263,7 +474,15 @@ async function apiSecurity(req, res, next) {
         return next();
     }
 
-    // Otherwise, verify the Google ID token with Google's library.
+    // Prefer the short-lived BAJEE application access token.
+    const appUser = verifyAppAccessToken(suppliedToken);
+    if (appUser) {
+        req.googleUser = appUser;
+        req.authType = "bajee_session";
+        return next();
+    }
+
+    // Backward compatibility: also accept a valid Google ID token.
     if (!GOOGLE_CLIENT_ID || !suppliedToken) {
         return res.status(401).json({
             success: false,
@@ -334,7 +553,7 @@ app.use(
             "Content-Type",
             "Authorization"
         ],
-        credentials: false,
+        credentials: true,
         maxAge: 600
     })
 );
@@ -401,18 +620,20 @@ app.post("/api/auth/google", async (req, res) => {
             });
         }
 
+        const session = createAppSession({
+            id: payload.sub,
+            name: payload.name || "",
+            email: payload.email,
+            picture: payload.picture || ""
+        }, res);
+
         return res.json({
             success: true,
-            user: {
-                id: payload.sub,
-                name: payload.name || "",
-                email: payload.email,
-                picture: payload.picture || ""
-            }
+            ...session
         });
     } catch (error) {
         console.error(
-            "Google ID token verification failed:",
+            "Google ID token verification/session creation failed:",
             error.message
         );
 
@@ -421,6 +642,70 @@ app.post("/api/auth/google", async (req, res) => {
             error: "Google sign-in failed. Please try again."
         });
     }
+});
+
+/* ---------------------------------------------------------
+   REFRESH APPLICATION SESSION
+   Signed HttpOnly cookie; no database or in-memory session store.
+--------------------------------------------------------- */
+app.post("/api/auth/refresh", (req, res) => {
+    if (!requestOriginAllowed(req)) {
+        return res.status(403).json({
+            success: false,
+            error: "Origin not allowed.",
+            code: "cors_denied"
+        });
+    }
+
+    const refreshToken = getCookie(req, APP_REFRESH_COOKIE);
+    const user = verifyRefreshToken(refreshToken);
+
+    if (!user) {
+        clearRefreshCookie(res);
+        return res.status(401).json({
+            success: false,
+            error: "Your session has expired. Please sign in again.",
+            code: "session_expired"
+        });
+    }
+
+    try {
+        // Rotate the signed refresh cookie. This survives server restarts without a database.
+        setRefreshCookie(res, signRefreshToken(user));
+        return res.json({
+            success: true,
+            accessToken: signAppAccessToken(user),
+            user,
+            expiresIn: APP_ACCESS_TOKEN_TTL_SECONDS
+        });
+    } catch (error) {
+        clearRefreshCookie(res);
+        return res.status(503).json({
+            success: false,
+            error: "Application sessions are not configured.",
+            code: "session_not_configured"
+        });
+    }
+});
+
+/* ---------------------------------------------------------
+   SIGN OUT AND REVOKE THE CURRENT APPLICATION SESSION
+--------------------------------------------------------- */
+app.post("/api/auth/logout", (req, res) => {
+    if (!requestOriginAllowed(req)) {
+        return res.status(403).json({
+            success: false,
+            error: "Origin not allowed.",
+            code: "cors_denied"
+        });
+    }
+
+    clearRefreshCookie(res);
+
+    return res.json({
+        success: true,
+        message: "Signed out."
+    });
 });
 
 app.use(
@@ -1556,10 +1841,18 @@ app.listen(
         );
 
         console.log(
-            `Access token protection: ${
+            `API access-token protection: ${
                 BAJEE_API_ACCESS_TOKEN
                     ? "ENABLED"
                     : "DISABLED (development mode)"
+            }`
+        );
+
+        console.log(
+            `Persistent Google sessions: ${
+                GOOGLE_CLIENT_ID && APP_SESSION_SECRET
+                    ? "CONFIGURED (signed HttpOnly cookie)"
+                    : "NOT CONFIGURED"
             }`
         );
 
