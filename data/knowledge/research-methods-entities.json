@@ -1,0 +1,920 @@
+{
+  "project": "BAJEE JRF AI",
+  "step": "7.10",
+  "title": "Research Methods & Materials Knowledge Expansion",
+  "zero_cost": true,
+  "description": "JRF-oriented knowledge entities for UGC NET English Paper II Unit X - Research Methods and Materials in English.",
+  "unit": "Unit X",
+  "entities": [
+    {
+      "id": "research-design",
+      "name": "Research Design",
+      "type": "Research Methodology",
+      "period": "Modern Research",
+      "works": [
+        "Research proposal",
+        "Research plan"
+      ],
+      "years": [
+        "Contemporary research practice"
+      ],
+      "concepts": [
+        "research design",
+        "research problem",
+        "research questions",
+        "research objectives",
+        "methodology",
+        "scope",
+        "limitations",
+        "research framework"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "research-question",
+        "literature-review",
+        "qualitative-research",
+        "quantitative-research"
+      ],
+      "description": "Research design is the overall plan that connects a research problem and questions with appropriate methods, sources, analysis, and interpretation."
+    },
+    {
+      "id": "research-question",
+      "name": "Research Questions and Objectives",
+      "type": "Research Methodology",
+      "period": "Modern Research",
+      "works": [
+        "Research proposal",
+        "Thesis and dissertation"
+      ],
+      "years": [
+        "Contemporary research practice"
+      ],
+      "concepts": [
+        "research question",
+        "research objective",
+        "research problem",
+        "hypothesis",
+        "scope",
+        "research focus"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "research-design",
+        "literature-review",
+        "research-methodology"
+      ],
+      "description": "Research questions define what a study seeks to investigate, while research objectives state the specific purposes and outcomes of the study."
+    },
+    {
+      "id": "research-methodology",
+      "name": "Research Methodology",
+      "type": "Research Methodology",
+      "period": "Modern Research",
+      "works": [
+        "Research methodology",
+        "Research proposal"
+      ],
+      "years": [
+        "Contemporary research practice"
+      ],
+      "concepts": [
+        "methodology",
+        "research methods",
+        "research design",
+        "data",
+        "analysis",
+        "interpretation"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "qualitative-research",
+        "quantitative-research",
+        "mixed-methods-research",
+        "research-design"
+      ],
+      "description": "Research methodology explains the principles and rationale underlying the methods used to investigate a research problem."
+    },
+    {
+      "id": "primary-sources",
+      "name": "Primary Sources",
+      "type": "Research Material",
+      "period": "Research Practice",
+      "works": [
+        "Original literary texts",
+        "Manuscripts",
+        "Letters",
+        "Diaries",
+        "Interviews"
+      ],
+      "years": [
+        "Varies by research subject"
+      ],
+      "concepts": [
+        "primary source",
+        "original text",
+        "manuscript",
+        "archive",
+        "first-hand evidence",
+        "textual evidence"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "secondary-sources",
+        "textual-research",
+        "archival-research"
+      ],
+      "description": "Primary sources provide original or first-hand material that forms direct evidence for a research investigation."
+    },
+    {
+      "id": "secondary-sources",
+      "name": "Secondary Sources",
+      "type": "Research Material",
+      "period": "Research Practice",
+      "works": [
+        "Critical books",
+        "Journal articles",
+        "Research monographs",
+        "Scholarly essays"
+      ],
+      "years": [
+        "Varies by research subject"
+      ],
+      "concepts": [
+        "secondary source",
+        "criticism",
+        "scholarship",
+        "interpretation",
+        "critical analysis",
+        "literature review"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "primary-sources",
+        "literature-review",
+        "scholarly-database"
+      ],
+      "description": "Secondary sources interpret, analyze, evaluate, or discuss primary materials and previous scholarship."
+    },
+    {
+      "id": "literature-review",
+      "name": "Literature Review",
+      "type": "Research Process",
+      "period": "Modern Research",
+      "works": [
+        "Research proposal",
+        "Thesis",
+        "Dissertation",
+        "Research article"
+      ],
+      "years": [
+        "Contemporary research practice"
+      ],
+      "concepts": [
+        "literature review",
+        "previous scholarship",
+        "research gap",
+        "critical synthesis",
+        "bibliography",
+        "research context"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "primary-sources",
+        "secondary-sources",
+        "research-gap",
+        "scholarly-database"
+      ],
+      "description": "A literature review examines and synthesizes relevant previous scholarship in order to establish the context, debates, and possible gaps surrounding a research problem."
+    },
+    {
+      "id": "research-gap",
+      "name": "Research Gap",
+      "type": "Research Concept",
+      "period": "Modern Research",
+      "works": [
+        "Research proposal",
+        "Thesis",
+        "Dissertation"
+      ],
+      "years": [
+        "Contemporary research practice"
+      ],
+      "concepts": [
+        "research gap",
+        "unexplored area",
+        "scholarly gap",
+        "research problem",
+        "literature review",
+        "original contribution"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "literature-review",
+        "research-question",
+        "research-design"
+      ],
+      "description": "A research gap is an area, question, perspective, text, method, or relationship that has not been sufficiently addressed in existing scholarship."
+    },
+    {
+      "id": "qualitative-research",
+      "name": "Qualitative Research",
+      "type": "Research Method",
+      "period": "Modern Research",
+      "works": [
+        "Interpretive research",
+        "Textual analysis",
+        "Interview-based research"
+      ],
+      "years": [
+        "Contemporary research practice"
+      ],
+      "concepts": [
+        "qualitative research",
+        "interpretation",
+        "meaning",
+        "context",
+        "close reading",
+        "interviews",
+        "thematic analysis"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "quantitative-research",
+        "textual-research",
+        "mixed-methods-research"
+      ],
+      "description": "Qualitative research generally focuses on meaning, interpretation, experience, context, language, and other non-numerical forms of evidence."
+    },
+    {
+      "id": "quantitative-research",
+      "name": "Quantitative Research",
+      "type": "Research Method",
+      "period": "Modern Research",
+      "works": [
+        "Statistical research",
+        "Survey research",
+        "Corpus-based analysis"
+      ],
+      "years": [
+        "Contemporary research practice"
+      ],
+      "concepts": [
+        "quantitative research",
+        "numerical data",
+        "measurement",
+        "statistics",
+        "variables",
+        "sampling"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "qualitative-research",
+        "mixed-methods-research",
+        "corpus-research"
+      ],
+      "description": "Quantitative research uses numerical data, measurement, statistical procedures, or systematic numerical comparison to investigate research questions."
+    },
+    {
+      "id": "mixed-methods-research",
+      "name": "Mixed-Methods Research",
+      "type": "Research Method",
+      "period": "Modern Research",
+      "works": [
+        "Mixed-methods study",
+        "Interdisciplinary research"
+      ],
+      "years": [
+        "Contemporary research practice"
+      ],
+      "concepts": [
+        "mixed methods",
+        "qualitative",
+        "quantitative",
+        "triangulation",
+        "integration",
+        "research design"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "qualitative-research",
+        "quantitative-research",
+        "research-design"
+      ],
+      "description": "Mixed-methods research combines qualitative and quantitative approaches within a research project to address complementary aspects of a research problem."
+    },
+    {
+      "id": "textual-research",
+      "name": "Textual Research",
+      "type": "Research Method",
+      "period": "Literary Research",
+      "works": [
+        "Close reading",
+        "Textual analysis",
+        "Comparative textual study"
+      ],
+      "years": [
+        "Contemporary literary research"
+      ],
+      "concepts": [
+        "textual analysis",
+        "close reading",
+        "edition",
+        "variant reading",
+        "context",
+        "interpretation"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "primary-sources",
+        "archival-research",
+        "literary-criticism"
+      ],
+      "description": "Textual research examines literary or linguistic texts closely, considering language, form, structure, context, textual variants, and interpretation."
+    },
+    {
+      "id": "archival-research",
+      "name": "Archival Research",
+      "type": "Research Method",
+      "period": "Historical Research",
+      "works": [
+        "Archives",
+        "Manuscript collections",
+        "Special collections"
+      ],
+      "years": [
+        "Varies by archive"
+      ],
+      "concepts": [
+        "archive",
+        "manuscript",
+        "historical documents",
+        "primary sources",
+        "special collections",
+        "provenance"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "primary-sources",
+        "textual-research",
+        "digital-archive"
+      ],
+      "description": "Archival research investigates materials preserved in archives, libraries, special collections, or other repositories to develop evidence for historical, literary, or cultural research."
+    },
+    {
+      "id": "scholarly-database",
+      "name": "Scholarly Databases",
+      "type": "Research Resource",
+      "period": "Digital Research",
+      "works": [
+        "Bibliographic databases",
+        "Academic journal databases",
+        "Library catalogues"
+      ],
+      "years": [
+        "Contemporary digital research"
+      ],
+      "concepts": [
+        "database",
+        "bibliographic search",
+        "academic journals",
+        "metadata",
+        "peer-reviewed literature",
+        "information retrieval"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "literature-review",
+        "secondary-sources",
+        "digital-humanities"
+      ],
+      "description": "Scholarly databases organize academic publications and metadata to help researchers discover, retrieve, and evaluate relevant sources."
+    },
+    {
+      "id": "bibliography",
+      "name": "Bibliography",
+      "type": "Research Documentation",
+      "period": "Research Practice",
+      "works": [
+        "Works Cited",
+        "References",
+        "Bibliographic list"
+      ],
+      "years": [
+        "Contemporary academic practice"
+      ],
+      "concepts": [
+        "bibliography",
+        "source documentation",
+        "works cited",
+        "references",
+        "citation",
+        "documentation"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "mla-style",
+        "apa-style",
+        "primary-sources",
+        "secondary-sources"
+      ],
+      "description": "A bibliography is a systematically organized list of sources consulted or cited in research, according to the documentation requirements of a particular academic style."
+    },
+    {
+      "id": "mla-style",
+      "name": "MLA Documentation Style",
+      "type": "Citation Style",
+      "period": "Modern Academic Writing",
+      "works": [
+        "MLA Handbook"
+      ],
+      "years": [
+        "MLA style editions"
+      ],
+      "concepts": [
+        "MLA",
+        "in-text citation",
+        "parenthetical citation",
+        "Works Cited",
+        "documentation",
+        "literary research"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "bibliography",
+        "academic-writing",
+        "plagiarism"
+      ],
+      "description": "MLA documentation is widely used in literary and language studies and provides conventions for citation, documentation, and presentation of scholarly sources."
+    },
+    {
+      "id": "apa-style",
+      "name": "APA Documentation Style",
+      "type": "Citation Style",
+      "period": "Modern Academic Writing",
+      "works": [
+        "Publication Manual of the American Psychological Association"
+      ],
+      "years": [
+        "APA style editions"
+      ],
+      "concepts": [
+        "APA",
+        "author-date citation",
+        "references",
+        "in-text citation",
+        "academic documentation"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "bibliography",
+        "academic-writing",
+        "plagiarism"
+      ],
+      "description": "APA documentation uses standardized conventions for citations and references and is commonly associated with social sciences and interdisciplinary academic writing."
+    },
+    {
+      "id": "plagiarism",
+      "name": "Plagiarism",
+      "type": "Research Ethics",
+      "period": "Academic Research",
+      "works": [
+        "Academic integrity guidelines",
+        "Research ethics policies"
+      ],
+      "years": [
+        "Contemporary academic practice"
+      ],
+      "concepts": [
+        "plagiarism",
+        "academic integrity",
+        "attribution",
+        "paraphrasing",
+        "quotation",
+        "source acknowledgement"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "research-ethics",
+        "citation",
+        "academic-writing"
+      ],
+      "description": "Plagiarism involves presenting another person's words, ideas, structure, or other intellectual work without appropriate acknowledgement or attribution."
+    },
+    {
+      "id": "research-ethics",
+      "name": "Research Ethics",
+      "type": "Research Ethics",
+      "period": "Modern Research",
+      "works": [
+        "Research ethics guidelines",
+        "Institutional research policies"
+      ],
+      "years": [
+        "Contemporary research practice"
+      ],
+      "concepts": [
+        "research ethics",
+        "academic integrity",
+        "informed consent",
+        "confidentiality",
+        "data integrity",
+        "responsible research"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "plagiarism",
+        "research-integrity",
+        "academic-writing"
+      ],
+      "description": "Research ethics concerns responsible conduct in the design, collection, analysis, reporting, and publication of research."
+    },
+    {
+      "id": "research-integrity",
+      "name": "Research Integrity",
+      "type": "Research Ethics",
+      "period": "Modern Research",
+      "works": [
+        "Research integrity guidelines",
+        "Academic integrity policies"
+      ],
+      "years": [
+        "Contemporary research practice"
+      ],
+      "concepts": [
+        "research integrity",
+        "fabrication",
+        "falsification",
+        "transparency",
+        "honesty",
+        "accountability"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "research-ethics",
+        "plagiarism",
+        "peer-review"
+      ],
+      "description": "Research integrity requires honesty, transparency, accuracy, accountability, and responsible handling of evidence throughout the research process."
+    },
+    {
+      "id": "academic-writing",
+      "name": "Academic Writing",
+      "type": "Research Writing",
+      "period": "Modern Academic Writing",
+      "works": [
+        "Research article",
+        "Thesis",
+        "Dissertation",
+        "Research proposal"
+      ],
+      "years": [
+        "Contemporary academic practice"
+      ],
+      "concepts": [
+        "academic writing",
+        "argument",
+        "evidence",
+        "coherence",
+        "citation",
+        "paraphrase",
+        "critical analysis"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "thesis-writing",
+        "article-writing",
+        "citation",
+        "plagiarism"
+      ],
+      "description": "Academic writing presents research arguments and evidence in a structured, precise, documented, and critically reasoned form."
+    },
+    {
+      "id": "thesis-writing",
+      "name": "Thesis and Dissertation Writing",
+      "type": "Research Writing",
+      "period": "Modern Academic Research",
+      "works": [
+        "Thesis",
+        "Dissertation"
+      ],
+      "years": [
+        "Contemporary academic practice"
+      ],
+      "concepts": [
+        "thesis",
+        "dissertation",
+        "research question",
+        "literature review",
+        "methodology",
+        "analysis",
+        "conclusion",
+        "bibliography"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "academic-writing",
+        "research-design",
+        "literature-review",
+        "research-methodology"
+      ],
+      "description": "A thesis or dissertation presents an extended research investigation through a structured argument supported by sources, methodology, analysis, and conclusions."
+    },
+    {
+      "id": "article-writing",
+      "name": "Research Article Writing",
+      "type": "Research Writing",
+      "period": "Modern Academic Publishing",
+      "works": [
+        "Research article",
+        "Journal article"
+      ],
+      "years": [
+        "Contemporary academic practice"
+      ],
+      "concepts": [
+        "research article",
+        "abstract",
+        "introduction",
+        "methodology",
+        "analysis",
+        "discussion",
+        "conclusion",
+        "references"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "academic-writing",
+        "peer-review",
+        "academic-publishing"
+      ],
+      "description": "A research article communicates a focused scholarly investigation using an organized structure appropriate to the field and publication venue."
+    },
+    {
+      "id": "peer-review",
+      "name": "Peer Review",
+      "type": "Academic Publishing",
+      "period": "Modern Academic Publishing",
+      "works": [
+        "Peer-reviewed journal article",
+        "Scholarly publication"
+      ],
+      "years": [
+        "Contemporary academic publishing"
+      ],
+      "concepts": [
+        "peer review",
+        "scholarly evaluation",
+        "reviewer",
+        "editor",
+        "academic publishing",
+        "quality assessment"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "article-writing",
+        "academic-publishing",
+        "research-integrity"
+      ],
+      "description": "Peer review is a scholarly evaluation process in which experts assess research submitted for academic publication or other scholarly purposes."
+    },
+    {
+      "id": "academic-publishing",
+      "name": "Academic Publishing",
+      "type": "Research Communication",
+      "period": "Modern Academic Publishing",
+      "works": [
+        "Journal articles",
+        "Academic books",
+        "Edited collections",
+        "Conference publications"
+      ],
+      "years": [
+        "Contemporary academic practice"
+      ],
+      "concepts": [
+        "academic publishing",
+        "journal",
+        "publisher",
+        "peer review",
+        "editorial process",
+        "scholarly communication"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "peer-review",
+        "article-writing",
+        "research-integrity"
+      ],
+      "description": "Academic publishing communicates scholarly research through journals, books, edited volumes, conferences, and other recognized academic channels."
+    },
+    {
+      "id": "digital-humanities",
+      "name": "Digital Humanities",
+      "type": "Research Field",
+      "period": "Twenty-First Century",
+      "works": [
+        "Digital archives",
+        "Digital editions",
+        "Text analysis projects"
+      ],
+      "years": [
+        "Late twentieth century onward"
+      ],
+      "concepts": [
+        "digital humanities",
+        "digital archives",
+        "text mining",
+        "data visualization",
+        "digital editions",
+        "computational literary studies"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "digital-archive",
+        "corpus-research",
+        "scholarly-database"
+      ],
+      "description": "Digital Humanities applies digital tools, computational methods, and humanities-based interpretation to research in literature, language, culture, history, and related fields."
+    },
+    {
+      "id": "digital-archive",
+      "name": "Digital Archives",
+      "type": "Digital Research Resource",
+      "period": "Twenty-First Century",
+      "works": [
+        "Digitized manuscripts",
+        "Digital collections",
+        "Online archives"
+      ],
+      "years": [
+        "Digital research era"
+      ],
+      "concepts": [
+        "digital archive",
+        "digitization",
+        "metadata",
+        "digital collection",
+        "primary sources",
+        "online repository"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "archival-research",
+        "digital-humanities",
+        "primary-sources"
+      ],
+      "description": "Digital archives provide online access to digitized primary materials and other scholarly collections."
+    },
+    {
+      "id": "corpus-research",
+      "name": "Corpus Research",
+      "type": "Digital Research Method",
+      "period": "Modern Linguistic and Literary Research",
+      "works": [
+        "Text corpora",
+        "Corpus-based studies"
+      ],
+      "years": [
+        "Contemporary digital research"
+      ],
+      "concepts": [
+        "corpus",
+        "corpus linguistics",
+        "text collection",
+        "frequency",
+        "concordance",
+        "computational analysis"
+      ],
+      "units": [
+        "Unit X",
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "quantitative-research",
+        "digital-humanities",
+        "scholarly-database"
+      ],
+      "description": "Corpus research uses systematically collected bodies of texts to investigate patterns of language, discourse, style, usage, or other textual features."
+    },
+    {
+      "id": "citation",
+      "name": "Citation and Source Documentation",
+      "type": "Research Practice",
+      "period": "Academic Research",
+      "works": [
+        "MLA Handbook",
+        "APA Publication Manual",
+        "Academic style guides"
+      ],
+      "years": [
+        "Contemporary academic practice"
+      ],
+      "concepts": [
+        "citation",
+        "source attribution",
+        "in-text citation",
+        "reference",
+        "documentation",
+        "academic integrity"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "bibliography",
+        "mla-style",
+        "apa-style",
+        "plagiarism"
+      ],
+      "description": "Citation identifies the sources of ideas, evidence, quotations, or information used in academic research."
+    },
+    {
+      "id": "research-materials",
+      "name": "Research Materials in English",
+      "type": "Research Resources",
+      "period": "Modern Literary Research",
+      "works": [
+        "Books",
+        "Journal articles",
+        "Manuscripts",
+        "Archives",
+        "Digital resources",
+        "Databases"
+      ],
+      "years": [
+        "Contemporary research practice"
+      ],
+      "concepts": [
+        "research materials",
+        "primary sources",
+        "secondary sources",
+        "archives",
+        "databases",
+        "digital resources",
+        "bibliography"
+      ],
+      "units": [
+        "Unit X"
+      ],
+      "relatedEntities": [
+        "primary-sources",
+        "secondary-sources",
+        "scholarly-database",
+        "digital-humanities"
+      ],
+      "description": "Research materials in English studies include literary texts, manuscripts, critical scholarship, journals, archives, databases, digital collections, and other documented sources."
+    }
+  ]
+}

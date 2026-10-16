@@ -1,0 +1,1241 @@
+{
+  "project": "BAJEE JRF AI",
+  "step": "7.5",
+  "title": "Language Knowledge Expansion",
+  "zero_cost": true,
+  "description": "JRF-oriented knowledge entities for UGC NET English Paper II Unit V - Language: Basic Concepts, Theories and Pedagogy. English in Use.",
+  "unit": "Unit V",
+  "entities": [
+    {
+      "id": "ferdinand-de-saussure",
+      "name": "Ferdinand de Saussure",
+      "type": "Linguist",
+      "period": "Structural Linguistics",
+      "works": [
+        "Course in General Linguistics"
+      ],
+      "years": [
+        "Course in General Linguistics: 1916"
+      ],
+      "concepts": [
+        "signifier",
+        "signified",
+        "sign",
+        "langue",
+        "parole",
+        "synchronic",
+        "diachronic",
+        "arbitrariness of the sign",
+        "difference"
+      ],
+      "units": [
+        "Unit V",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Charles Sanders Peirce",
+        "Leonard Bloomfield",
+        "Roman Jakobson"
+      ],
+      "description": "Saussure's distinction between langue and parole, signifier and signified, and synchronic and diachronic approaches became foundational to modern structural linguistics."
+    },
+    {
+      "id": "leonard-bloomfield",
+      "name": "Leonard Bloomfield",
+      "type": "Linguist",
+      "period": "American Structuralism",
+      "works": [
+        "Language"
+      ],
+      "years": [
+        "Language: 1933"
+      ],
+      "concepts": [
+        "behaviorism",
+        "structural linguistics",
+        "distribution",
+        "morpheme",
+        "constituent analysis",
+        "descriptive linguistics"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Ferdinand de Saussure",
+        "Edward Sapir",
+        "Zellig Harris"
+      ],
+      "description": "Bloomfield was a major figure in American structural linguistics and emphasized systematic description of observable linguistic forms."
+    },
+    {
+      "id": "edward-sapir",
+      "name": "Edward Sapir",
+      "type": "Linguist / Anthropologist",
+      "period": "American Linguistics",
+      "works": [
+        "Language",
+        "Selected Writings in Language, Culture and Personality"
+      ],
+      "years": [
+        "Language: 1921"
+      ],
+      "concepts": [
+        "language and culture",
+        "linguistic relativity",
+        "language classification",
+        "culture",
+        "speech community"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Benjamin Lee Whorf",
+        "Leonard Bloomfield"
+      ],
+      "description": "Sapir examined language as a cultural and social phenomenon and contributed to the study of linguistic structure, language classification, and linguistic relativity."
+    },
+    {
+      "id": "benjamin-lee-whorf",
+      "name": "Benjamin Lee Whorf",
+      "type": "Linguist",
+      "period": "American Linguistics",
+      "works": [
+        "Language, Thought, and Reality"
+      ],
+      "years": [
+        "Language, Thought, and Reality: 1956"
+      ],
+      "concepts": [
+        "linguistic relativity",
+        "language and thought",
+        "Whorfian hypothesis",
+        "culture",
+        "categorization"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Edward Sapir"
+      ],
+      "description": "Whorf is associated with linguistic relativity and the study of relationships between language, thought, categorization, and culture."
+    },
+    {
+      "id": "noam-chomsky",
+      "name": "Noam Chomsky",
+      "type": "Linguist / Cognitive Scientist",
+      "period": "Generative Linguistics",
+      "works": [
+        "Syntactic Structures",
+        "Aspects of the Theory of Syntax",
+        "Knowledge of Language"
+      ],
+      "years": [
+        "Syntactic Structures: 1957",
+        "Aspects of the Theory of Syntax: 1965",
+        "Knowledge of Language: 1986"
+      ],
+      "concepts": [
+        "generative grammar",
+        "transformational grammar",
+        "competence",
+        "performance",
+        "deep structure",
+        "surface structure",
+        "universal grammar",
+        "language faculty"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Ferdinand de Saussure",
+        "Stephen Krashen"
+      ],
+      "description": "Chomsky transformed twentieth-century linguistics through generative approaches that treat language as a structured cognitive system capable of generating an unlimited number of sentences."
+    },
+    {
+      "id": "roman-jakobson",
+      "name": "Roman Jakobson",
+      "type": "Linguist / Literary Theorist",
+      "period": "Russian Formalism / Structuralism",
+      "works": [
+        "Linguistics and Poetics",
+        "Closing Statement: Linguistics and Poetics"
+      ],
+      "years": [
+        "Linguistics and Poetics: 1960"
+      ],
+      "concepts": [
+        "communication functions",
+        "referential function",
+        "emotive function",
+        "conative function",
+        "phatic function",
+        "metalingual function",
+        "poetic function"
+      ],
+      "units": [
+        "Unit V",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Ferdinand de Saussure",
+        "Nikolai Trubetzkoy"
+      ],
+      "description": "Jakobson proposed a six-function model of language communication and gave particular importance to the poetic function."
+    },
+    {
+      "id": "charles-sanders-peirce",
+      "name": "Charles Sanders Peirce",
+      "type": "Philosopher / Semiotician",
+      "period": "Pragmatism / Semiotics",
+      "works": [
+        "Collected Papers",
+        "Pragmatism"
+      ],
+      "years": [
+        "Major semiotic writings: late nineteenth and early twentieth century"
+      ],
+      "concepts": [
+        "icon",
+        "index",
+        "symbol",
+        "sign",
+        "object",
+        "interpretant",
+        "semiotics"
+      ],
+      "units": [
+        "Unit V",
+        "Unit IX"
+      ],
+      "relatedEntities": [
+        "Ferdinand de Saussure",
+        "Charles Morris"
+      ],
+      "description": "Peirce developed a triadic theory of signs and distinguished among icons, indexes, and symbols."
+    },
+    {
+      "id": "niko-trubetzkoy",
+      "name": "Nikolai Trubetzkoy",
+      "type": "Linguist / Phonologist",
+      "period": "Prague School",
+      "works": [
+        "Principles of Phonology"
+      ],
+      "years": [
+        "Principles of Phonology: German 1939",
+        "English translation: 1969"
+      ],
+      "concepts": [
+        "phonology",
+        "phoneme",
+        "phonological opposition",
+        "Prague School",
+        "distinctive features"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Roman Jakobson",
+        "André Martinet"
+      ],
+      "description": "Trubetzkoy was a leading Prague School phonologist whose work helped establish phonology as the systematic study of sound contrasts."
+    },
+    {
+      "id": "andre-martinet",
+      "name": "André Martinet",
+      "type": "Linguist",
+      "period": "Structural Linguistics",
+      "works": [
+        "Elements of General Linguistics",
+        "Economy of Phonetic Change"
+      ],
+      "years": [
+        "Elements of General Linguistics: 1960",
+        "Economy of Phonetic Change: 1955"
+      ],
+      "concepts": [
+        "functional linguistics",
+        "double articulation",
+        "phonology",
+        "economy",
+        "language change"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Nikolai Trubetzkoy",
+        "Roman Jakobson"
+      ],
+      "description": "Martinet developed functional approaches to language and is especially associated with the principle of economy and the concept of double articulation."
+    },
+    {
+      "id": "m-a-k-halliday",
+      "name": "M. A. K. Halliday",
+      "type": "Linguist",
+      "period": "Systemic Functional Linguistics",
+      "works": [
+        "An Introduction to Functional Grammar",
+        "Language as Social Semiotic",
+        "Explorations in the Functions of Language"
+      ],
+      "years": [
+        "Language as Social Semiotic: 1978",
+        "An Introduction to Functional Grammar: 1985"
+      ],
+      "concepts": [
+        "systemic functional linguistics",
+        "ideational metafunction",
+        "interpersonal metafunction",
+        "textual metafunction",
+        "register",
+        "language as social semiotic"
+      ],
+      "units": [
+        "Unit V",
+        "Unit VII"
+      ],
+      "relatedEntities": [
+        "Michael McCarthy",
+        "Ruqaiya Hasan"
+      ],
+      "description": "Halliday's systemic functional linguistics views language as a social semiotic system and explains meaning through interconnected functional choices."
+    },
+    {
+      "id": "geoffrey-leech",
+      "name": "Geoffrey Leech",
+      "type": "Linguist",
+      "period": "Modern Linguistics",
+      "works": [
+        "Semantics",
+        "Principles of Pragmatics",
+        "A Glossary of English Grammar"
+      ],
+      "years": [
+        "Semantics: 1974",
+        "Principles of Pragmatics: 1983"
+      ],
+      "concepts": [
+        "semantics",
+        "pragmatics",
+        "meaning",
+        "politeness",
+        "stylistics"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Paul Grice",
+        "Stephen Levinson"
+      ],
+      "description": "Leech made major contributions to semantics, pragmatics, stylistics, and the study of politeness and meaning in context."
+    },
+    {
+      "id": "j-r-firth",
+      "name": "J. R. Firth",
+      "type": "Linguist",
+      "period": "British Linguistics",
+      "works": [
+        "Papers in Linguistics 1934-1951",
+        "The Tongues of Men and Speech"
+      ],
+      "years": [
+        "Papers in Linguistics 1934-1951: 1957"
+      ],
+      "concepts": [
+        "context of situation",
+        "prosodic analysis",
+        "British linguistics",
+        "meaning in context",
+        "collocation"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "M. A. K. Halliday",
+        "John Rupert Firth"
+      ],
+      "description": "Firth emphasized the importance of context in understanding language and influenced the development of British functional linguistics."
+    },
+    {
+      "id": "michael-halliday-register",
+      "name": "Register",
+      "type": "Linguistic Concept",
+      "period": "Systemic Functional Linguistics",
+      "works": [
+        "An Introduction to Functional Grammar"
+      ],
+      "years": [
+        "Concept developed extensively in twentieth-century functional linguistics"
+      ],
+      "concepts": [
+        "field",
+        "tenor",
+        "mode",
+        "context of situation",
+        "language variation"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "M. A. K. Halliday",
+        "J. R. Firth"
+      ],
+      "description": "Register refers to language variation associated with a particular social situation, activity, relationship, or mode of communication."
+    },
+    {
+      "id": "phonetics",
+      "name": "Phonetics",
+      "type": "Linguistic Concept",
+      "period": "Linguistics",
+      "works": [
+        "General study of speech sounds"
+      ],
+      "years": [
+        "Modern phonetics developed as a systematic field during the nineteenth and twentieth centuries"
+      ],
+      "concepts": [
+        "articulatory phonetics",
+        "acoustic phonetics",
+        "auditory phonetics",
+        "speech sounds",
+        "vowels",
+        "consonants"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Phonology",
+        "International Phonetic Alphabet"
+      ],
+      "description": "Phonetics is the study of the physical properties and production, transmission, and perception of speech sounds."
+    },
+    {
+      "id": "phonology",
+      "name": "Phonology",
+      "type": "Linguistic Concept",
+      "period": "Linguistics",
+      "works": [
+        "Principles of Phonology"
+      ],
+      "years": [
+        "Established as a major linguistic field in the twentieth century"
+      ],
+      "concepts": [
+        "phoneme",
+        "allophone",
+        "minimal pair",
+        "syllable",
+        "stress",
+        "intonation",
+        "sound system"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Nikolai Trubetzkoy",
+        "Roman Jakobson"
+      ],
+      "description": "Phonology studies how speech sounds function and pattern within a particular language system."
+    },
+    {
+      "id": "morphology",
+      "name": "Morphology",
+      "type": "Linguistic Concept",
+      "period": "Linguistics",
+      "works": [
+        "Language",
+        "Foundational linguistic studies of word structure"
+      ],
+      "years": [
+        "Modern morphological analysis developed during the nineteenth and twentieth centuries"
+      ],
+      "concepts": [
+        "morpheme",
+        "free morpheme",
+        "bound morpheme",
+        "derivation",
+        "inflection",
+        "root",
+        "stem",
+        "affix"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Leonard Bloomfield",
+        "Noam Chomsky"
+      ],
+      "description": "Morphology studies the internal structure of words and the ways morphemes combine to form words and grammatical forms."
+    },
+    {
+      "id": "syntax",
+      "name": "Syntax",
+      "type": "Linguistic Concept",
+      "period": "Linguistics",
+      "works": [
+        "Syntactic Structures"
+      ],
+      "years": [
+        "Modern syntactic theory developed through structural and generative linguistics"
+      ],
+      "concepts": [
+        "sentence structure",
+        "constituent",
+        "phrase",
+        "clause",
+        "word order",
+        "grammar",
+        "generative grammar"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Noam Chomsky",
+        "Leonard Bloomfield"
+      ],
+      "description": "Syntax examines how words and phrases are organized into larger grammatical structures such as clauses and sentences."
+    },
+    {
+      "id": "semantics",
+      "name": "Semantics",
+      "type": "Linguistic Concept",
+      "period": "Linguistics",
+      "works": [
+        "Semantics"
+      ],
+      "years": [
+        "Modern linguistic semantics developed extensively during the twentieth century"
+      ],
+      "concepts": [
+        "lexical meaning",
+        "sentence meaning",
+        "sense",
+        "reference",
+        "synonymy",
+        "antonymy",
+        "polysemy",
+        "ambiguity"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Geoffrey Leech",
+        "John Lyons"
+      ],
+      "description": "Semantics is the study of meaning in language, including lexical meaning and the meaning relationships expressed through linguistic structures."
+    },
+    {
+      "id": "pragmatics",
+      "name": "Pragmatics",
+      "type": "Linguistic Concept",
+      "period": "Modern Linguistics",
+      "works": [
+        "Principles of Pragmatics"
+      ],
+      "years": [
+        "Pragmatics developed as a major linguistic field during the twentieth century"
+      ],
+      "concepts": [
+        "context",
+        "speech act",
+        "implicature",
+        "deixis",
+        "presupposition",
+        "inference",
+        "meaning in use"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Paul Grice",
+        "J. L. Austin",
+        "John Searle"
+      ],
+      "description": "Pragmatics studies how speakers and hearers derive meaning from linguistic expressions in relation to context, intention, inference, and use."
+    },
+    {
+      "id": "j-l-austin",
+      "name": "J. L. Austin",
+      "type": "Philosopher / Linguist",
+      "period": "Ordinary Language Philosophy",
+      "works": [
+        "How to Do Things with Words"
+      ],
+      "years": [
+        "How to Do Things with Words: 1962"
+      ],
+      "concepts": [
+        "speech act",
+        "locutionary act",
+        "illocutionary act",
+        "perlocutionary act",
+        "performative utterance",
+        "constative"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "John Searle",
+        "Paul Grice"
+      ],
+      "description": "Austin developed speech-act theory and demonstrated that utterances can perform actions rather than merely describe states of affairs."
+    },
+    {
+      "id": "john-searle",
+      "name": "John Searle",
+      "type": "Philosopher / Linguist",
+      "period": "Speech Act Theory",
+      "works": [
+        "Speech Acts",
+        "Expression and Meaning"
+      ],
+      "years": [
+        "Speech Acts: 1969",
+        "Expression and Meaning: 1979"
+      ],
+      "concepts": [
+        "speech acts",
+        "illocutionary force",
+        "directives",
+        "commissives",
+        "representatives",
+        "expressives",
+        "declarations"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "J. L. Austin",
+        "Paul Grice"
+      ],
+      "description": "Searle developed Austin's speech-act theory by classifying illocutionary acts and examining the rules underlying successful linguistic actions."
+    },
+    {
+      "id": "paul-grice",
+      "name": "Paul Grice",
+      "type": "Philosopher / Linguist",
+      "period": "Pragmatics",
+      "works": [
+        "Logic and Conversation",
+        "Studies in the Way of Words"
+      ],
+      "years": [
+        "Logic and Conversation: 1975",
+        "Studies in the Way of Words: 1989"
+      ],
+      "concepts": [
+        "cooperative principle",
+        "maxim of quantity",
+        "maxim of quality",
+        "maxim of relation",
+        "maxim of manner",
+        "conversational implicature"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "J. L. Austin",
+        "John Searle",
+        "Geoffrey Leech"
+      ],
+      "description": "Grice explained how speakers communicate meanings beyond literal sentence content through conversational cooperation and implicature."
+    },
+    {
+      "id": "william-labov",
+      "name": "William Labov",
+      "type": "Sociolinguist",
+      "period": "Modern Sociolinguistics",
+      "works": [
+        "The Social Stratification of English in New York City",
+        "Sociolinguistic Patterns"
+      ],
+      "years": [
+        "The Social Stratification of English in New York City: 1966",
+        "Sociolinguistic Patterns: 1972"
+      ],
+      "concepts": [
+        "variationist sociolinguistics",
+        "language variation",
+        "social class",
+        "speech community",
+        "vernacular",
+        "linguistic change"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Peter Trudgill",
+        "Dell Hymes"
+      ],
+      "description": "Labov pioneered quantitative variationist sociolinguistics and demonstrated systematic relationships between language variation and social factors."
+    },
+    {
+      "id": "dell-hymes",
+      "name": "Dell Hymes",
+      "type": "Sociolinguist / Anthropological Linguist",
+      "period": "Sociolinguistics",
+      "works": [
+        "Foundations in Sociolinguistics",
+        "On Communicative Competence"
+      ],
+      "years": [
+        "Foundations in Sociolinguistics: 1974"
+      ],
+      "concepts": [
+        "communicative competence",
+        "ethnography of communication",
+        "speech community",
+        "language use",
+        "context"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "William Labov",
+        "Michael Halliday"
+      ],
+      "description": "Hymes expanded the concept of linguistic competence by emphasizing communicative competence and the social rules governing language use."
+    },
+    {
+      "id": "peter-trudgill",
+      "name": "Peter Trudgill",
+      "type": "Sociolinguist",
+      "period": "Modern Sociolinguistics",
+      "works": [
+        "The Social Differentiation of English in Norwich",
+        "Sociolinguistics: An Introduction"
+      ],
+      "years": [
+        "The Social Differentiation of English in Norwich: 1974",
+        "Sociolinguistics: An Introduction: 1974"
+      ],
+      "concepts": [
+        "dialect",
+        "accent",
+        "social variation",
+        "gender and language",
+        "class and language",
+        "regional variation"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "William Labov",
+        "Dell Hymes"
+      ],
+      "description": "Trudgill's research examines relationships among language variation, dialect, accent, social class, gender, and regional identity."
+    },
+    {
+      "id": "stephen-krashen",
+      "name": "Stephen Krashen",
+      "type": "Applied Linguist / Language Education Scholar",
+      "period": "Second Language Acquisition",
+      "works": [
+        "Principles and Practice in Second Language Acquisition",
+        "The Input Hypothesis"
+      ],
+      "years": [
+        "Principles and Practice in Second Language Acquisition: 1982"
+      ],
+      "concepts": [
+        "input hypothesis",
+        "comprehensible input",
+        "acquisition-learning distinction",
+        "monitor hypothesis",
+        "affective filter",
+        "second language acquisition"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Noam Chomsky",
+        "Jim Cummins"
+      ],
+      "description": "Krashen proposed influential hypotheses about second-language acquisition, including comprehensible input, the acquisition-learning distinction, and the affective filter."
+    },
+    {
+      "id": "jim-cummins",
+      "name": "Jim Cummins",
+      "type": "Applied Linguist / Education Scholar",
+      "period": "Second Language Education",
+      "works": [
+        "Language, Power and Pedagogy"
+      ],
+      "years": [
+        "Language, Power and Pedagogy: 2000"
+      ],
+      "concepts": [
+        "BICS",
+        "CALP",
+        "academic language",
+        "bilingual education",
+        "language proficiency",
+        "multilingual education"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Stephen Krashen",
+        "Dell Hymes"
+      ],
+      "description": "Cummins is associated with distinctions between basic interpersonal communicative skills and cognitive academic language proficiency and with research on bilingual education."
+    },
+    {
+      "id": "language-acquisition",
+      "name": "Language Acquisition",
+      "type": "Linguistic Concept",
+      "period": "Language Development",
+      "works": [
+        "Foundational research in first and second language acquisition"
+      ],
+      "years": [
+        "Major theoretical developments: twentieth century onward"
+      ],
+      "concepts": [
+        "first language acquisition",
+        "second language acquisition",
+        "input",
+        "interaction",
+        "competence",
+        "developmental stages"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Noam Chomsky",
+        "Stephen Krashen",
+        "Dell Hymes"
+      ],
+      "description": "Language acquisition concerns how humans develop linguistic knowledge and communicative ability, including first-language and additional-language development."
+    },
+    {
+      "id": "communicative-language-teaching",
+      "name": "Communicative Language Teaching",
+      "type": "Language Teaching Approach",
+      "period": "Modern Language Pedagogy",
+      "works": [
+        "Approaches and Methods in Language Teaching"
+      ],
+      "years": [
+        "Developed prominently from the 1970s onward"
+      ],
+      "concepts": [
+        "communicative competence",
+        "meaningful interaction",
+        "fluency",
+        "functional language",
+        "learner-centred teaching",
+        "real-world communication"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Dell Hymes",
+        "Stephen Krashen"
+      ],
+      "description": "Communicative Language Teaching emphasizes meaningful communication, functional language use, interaction, and the development of communicative competence."
+    },
+    {
+      "id": "task-based-language-teaching",
+      "name": "Task-Based Language Teaching",
+      "type": "Language Teaching Approach",
+      "period": "Modern Language Pedagogy",
+      "works": [
+        "Task-Based Language Teaching"
+      ],
+      "years": [
+        "Developed prominently during the late twentieth century"
+      ],
+      "concepts": [
+        "task",
+        "meaning-focused learning",
+        "interaction",
+        "learner autonomy",
+        "problem solving",
+        "communicative competence"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Communicative Language Teaching",
+        "Michael Long"
+      ],
+      "description": "Task-Based Language Teaching organizes language learning around meaningful tasks that require learners to use language to achieve communicative outcomes."
+    },
+    {
+      "id": "english-as-lingua-franca",
+      "name": "English as a Lingua Franca",
+      "type": "Sociolinguistic Concept",
+      "period": "Contemporary English Studies",
+      "works": [
+        "English as a Lingua Franca",
+        "English as a Lingua Franca: Attitude and Identity"
+      ],
+      "years": [
+        "Major research expansion: late twentieth and early twenty-first century"
+      ],
+      "concepts": [
+        "global English",
+        "international communication",
+        "multilingualism",
+        "intelligibility",
+        "World Englishes",
+        "language variation"
+      ],
+      "units": [
+        "Unit V",
+        "Unit VI"
+      ],
+      "relatedEntities": [
+        "Jennifer Jenkins",
+        "David Crystal",
+        "Braj B. Kachru"
+      ],
+      "description": "English as a Lingua Franca refers to the use of English as a means of communication among speakers with different first languages."
+    },
+    {
+      "id": "braj-b-kachru",
+      "name": "Braj B. Kachru",
+      "type": "Linguist / World Englishes Scholar",
+      "period": "World Englishes",
+      "works": [
+        "The Other Tongue",
+        "The Alchemy of English"
+      ],
+      "years": [
+        "The Other Tongue: 1982",
+        "The Alchemy of English: 1986"
+      ],
+      "concepts": [
+        "World Englishes",
+        "Inner Circle",
+        "Outer Circle",
+        "Expanding Circle",
+        "Indian English",
+        "nativization"
+      ],
+      "units": [
+        "Unit V",
+        "Unit VI"
+      ],
+      "relatedEntities": [
+        "David Crystal",
+        "Jennifer Jenkins"
+      ],
+      "description": "Kachru's Three Circles model describes major sociolinguistic contexts of English use through the Inner, Outer, and Expanding Circles."
+    },
+    {
+      "id": "david-crystal",
+      "name": "David Crystal",
+      "type": "Linguist / Language Scholar",
+      "period": "Contemporary Linguistics",
+      "works": [
+        "The Cambridge Encyclopedia of Language",
+        "English as a Global Language",
+        "The Stories of English"
+      ],
+      "years": [
+        "The Cambridge Encyclopedia of Language: 1987",
+        "English as a Global Language: 1997",
+        "The Stories of English: 2004"
+      ],
+      "concepts": [
+        "global English",
+        "language variation",
+        "language change",
+        "English history",
+        "digital communication",
+        "linguistic diversity"
+      ],
+      "units": [
+        "Unit V",
+        "Unit VI"
+      ],
+      "relatedEntities": [
+        "Braj B. Kachru",
+        "Jennifer Jenkins"
+      ],
+      "description": "Crystal has written extensively on English, language change, language variation, global English, and the development of English in contemporary communication."
+    },
+    {
+      "id": "jennifer-jenkins",
+      "name": "Jennifer Jenkins",
+      "type": "Applied Linguist",
+      "period": "World Englishes / ELF",
+      "works": [
+        "English as a Lingua Franca",
+        "The Phonology of English as an International Language"
+      ],
+      "years": [
+        "The Phonology of English as an International Language: 2000",
+        "English as a Lingua Franca: 2007"
+      ],
+      "concepts": [
+        "English as a Lingua Franca",
+        "international English",
+        "intelligibility",
+        "phonology",
+        "global communication"
+      ],
+      "units": [
+        "Unit V",
+        "Unit VI"
+      ],
+      "relatedEntities": [
+        "Braj B. Kachru",
+        "David Crystal"
+      ],
+      "description": "Jenkins has made major contributions to research on English as a Lingua Franca, particularly pronunciation, intelligibility, and international communication."
+    },
+    {
+      "id": "international-phonetic-alphabet",
+      "name": "International Phonetic Alphabet",
+      "type": "Linguistic System",
+      "period": "Modern Phonetics",
+      "works": [
+        "International Phonetic Alphabet"
+      ],
+      "years": [
+        "First published: 1888"
+      ],
+      "concepts": [
+        "phonetic transcription",
+        "speech sounds",
+        "symbols",
+        "articulatory phonetics",
+        "pronunciation"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "International Phonetic Association",
+        "Phonetics"
+      ],
+      "description": "The International Phonetic Alphabet provides a standardized set of symbols for representing speech sounds across languages."
+    },
+    {
+      "id": "minimal-pair",
+      "name": "Minimal Pair",
+      "type": "Phonological Concept",
+      "period": "Structural Phonology",
+      "works": [
+        "Principles of Phonology"
+      ],
+      "years": [
+        "Concept established within twentieth-century phonological analysis"
+      ],
+      "concepts": [
+        "phoneme",
+        "contrast",
+        "phonology",
+        "sound distinction",
+        "distribution"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Nikolai Trubetzkoy",
+        "Roman Jakobson"
+      ],
+      "description": "A minimal pair consists of two words or forms differing in one sound in the same position, demonstrating a meaningful phonological contrast."
+    },
+    {
+      "id": "morpheme",
+      "name": "Morpheme",
+      "type": "Morphological Concept",
+      "period": "Linguistics",
+      "works": [
+        "Language"
+      ],
+      "years": [
+        "Modern linguistic analysis: twentieth century"
+      ],
+      "concepts": [
+        "smallest meaningful unit",
+        "free morpheme",
+        "bound morpheme",
+        "root",
+        "affix"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Leonard Bloomfield",
+        "Morphology"
+      ],
+      "description": "A morpheme is a minimal linguistic unit associated with meaning or grammatical function."
+    },
+    {
+      "id": "denotation-connotation",
+      "name": "Denotation and Connotation",
+      "type": "Semantic Concept",
+      "period": "Semantics / Literary Language",
+      "works": [
+        "Semantics"
+      ],
+      "years": [
+        "Major modern linguistic and literary applications: twentieth century"
+      ],
+      "concepts": [
+        "denotation",
+        "connotation",
+        "literal meaning",
+        "associative meaning",
+        "semantic meaning"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Geoffrey Leech",
+        "Roland Barthes"
+      ],
+      "description": "Denotation generally concerns a word's direct or referential meaning, while connotation concerns associated, implied, or culturally developed meanings."
+    },
+    {
+      "id": "code-switching",
+      "name": "Code-Switching",
+      "type": "Sociolinguistic Concept",
+      "period": "Modern Sociolinguistics",
+      "works": [
+        "Sociolinguistic studies of multilingual communication"
+      ],
+      "years": [
+        "Major research development: twentieth century onward"
+      ],
+      "concepts": [
+        "bilingualism",
+        "multilingualism",
+        "language choice",
+        "identity",
+        "speech community",
+        "language contact"
+      ],
+      "units": [
+        "Unit V",
+        "Unit VI"
+      ],
+      "relatedEntities": [
+        "Dell Hymes",
+        "Braj B. Kachru"
+      ],
+      "description": "Code-switching involves alternating between two or more languages or language varieties within a conversation or communicative context."
+    },
+    {
+      "id": "diglossia",
+      "name": "Diglossia",
+      "type": "Sociolinguistic Concept",
+      "period": "Sociolinguistics",
+      "works": [
+        "Diglossia"
+      ],
+      "years": [
+        "Charles Ferguson's classic formulation: 1959"
+      ],
+      "concepts": [
+        "high variety",
+        "low variety",
+        "functional distribution",
+        "language varieties",
+        "speech community"
+      ],
+      "units": [
+        "Unit V",
+        "Unit VI"
+      ],
+      "relatedEntities": [
+        "Charles A. Ferguson",
+        "Joshua Fishman"
+      ],
+      "description": "Diglossia describes a sociolinguistic situation in which distinct language varieties have different socially recognized functions within a community."
+    },
+    {
+      "id": "speech-community",
+      "name": "Speech Community",
+      "type": "Sociolinguistic Concept",
+      "period": "Sociolinguistics",
+      "works": [
+        "Foundations in Sociolinguistics"
+      ],
+      "years": [
+        "Concept developed across twentieth-century sociolinguistics"
+      ],
+      "concepts": [
+        "shared norms",
+        "language variation",
+        "social identity",
+        "communication",
+        "community"
+      ],
+      "units": [
+        "Unit V"
+      ],
+      "relatedEntities": [
+        "Dell Hymes",
+        "William Labov"
+      ],
+      "description": "A speech community is a social group characterized by shared patterns, norms, expectations, or practices concerning language use."
+    },
+    {
+      "id": "language-change",
+      "name": "Language Change",
+      "type": "Linguistic Concept",
+      "period": "Historical Linguistics",
+      "works": [
+        "The Stories of English",
+        "Historical linguistic studies"
+      ],
+      "years": [
+        "Historical study of language developed systematically from the nineteenth century onward"
+      ],
+      "concepts": [
+        "sound change",
+        "semantic change",
+        "grammatical change",
+        "lexical change",
+        "language contact",
+        "variation"
+      ],
+      "units": [
+        "Unit V",
+        "Unit VI"
+      ],
+      "relatedEntities": [
+        "David Crystal",
+        "Ferdinand de Saussure",
+        "William Labov"
+      ],
+      "description": "Language change refers to historical changes in pronunciation, vocabulary, grammar, meaning, and patterns of use."
+    }
+  ]
+}

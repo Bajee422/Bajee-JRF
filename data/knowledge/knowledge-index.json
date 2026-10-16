@@ -1,0 +1,134 @@
+{
+  "project": "BAJEE JRF AI",
+  "step": "7.11",
+  "title": "Paper II Knowledge Master Index",
+  "description": "Master index connecting all UGC NET English Paper II knowledge domains for search, PYQ mapping, testing, diagnosis, revision and future AI integration.",
+  "zero_cost": true,
+  "paper": "Paper II - English",
+  "totalUnits": 10,
+  "units": [
+    {
+      "unit": "Unit I",
+      "title": "Drama",
+      "file": "drama-entities.json",
+      "path": "data/knowledge/drama-entities.json",
+      "category": "Drama",
+      "status": "active"
+    },
+    {
+      "unit": "Unit II",
+      "title": "Poetry",
+      "file": "poetry-entities.json",
+      "path": "data/knowledge/poetry-entities.json",
+      "category": "Poetry",
+      "status": "active"
+    },
+    {
+      "unit": "Unit III",
+      "title": "Fiction and Short Story",
+      "file": "fiction-entities.json",
+      "path": "data/knowledge/fiction-entities.json",
+      "category": "Fiction",
+      "status": "active"
+    },
+    {
+      "unit": "Unit IV",
+      "title": "Non-Fictional Prose",
+      "file": "nonfiction-entities.json",
+      "path": "data/knowledge/nonfiction-entities.json",
+      "category": "Non-Fiction",
+      "status": "active"
+    },
+    {
+      "unit": "Unit V",
+      "title": "Language: Basic Concepts, Theories and Pedagogy",
+      "file": "language-entities.json",
+      "path": "data/knowledge/language-entities.json",
+      "category": "Language",
+      "status": "active"
+    },
+    {
+      "unit": "Unit VI",
+      "title": "English in India",
+      "file": "english-india-entities.json",
+      "path": "data/knowledge/english-india-entities.json",
+      "category": "English in India",
+      "status": "active"
+    },
+    {
+      "unit": "Unit VII",
+      "title": "Cultural Studies",
+      "file": "cultural-studies-entities.json",
+      "path": "data/knowledge/cultural-studies-entities.json",
+      "category": "Cultural Studies",
+      "status": "active"
+    },
+    {
+      "unit": "Unit VIII",
+      "title": "Literary Criticism",
+      "file": "literary-criticisms-entities.json",
+      "path": "data/knowledge/literary-criticisms-entities.json",
+      "category": "Literary Criticism",
+      "status": "active"
+    },
+    {
+      "unit": "Unit IX",
+      "title": "Literary Theory Post World War II",
+      "file": "literary-theory-entities.json",
+      "path": "data/knowledge/literary-theory-entities.json",
+      "category": "Literary Theory",
+      "status": "active"
+    },
+    {
+      "unit": "Unit X",
+      "title": "Research Methods and Materials in English",
+      "file": "research-methods-entities.json",
+      "path": "data/knowledge/research-methods-entities.json",
+      "category": "Research Methods",
+      "status": "active"
+    }
+  ],
+  "integration": {
+    "knowledgeBase": true,
+    "pyqMapping": true,
+    "testEngine": true,
+    "diagnosisEngine": true,
+    "revisionEngine": true,
+    "retestEngine": true,
+    "resourceLibrary": true,
+    "futureAiSearch": true
+  },
+  "searchFields": [
+    "id",
+    "name",
+    "type",
+    "period",
+    "works",
+    "years",
+    "concepts",
+    "units",
+    "relatedEntities",
+    "description"
+  ],
+  "futureSources": [
+    "PYQ Database",
+    "Resource Library",
+    "Books",
+    "PDFs",
+    "PPTs",
+    "MP3s",
+    "Videos",
+    "YouTube transcripts",
+    "Student Notes"
+  ],
+  "workflow": [
+    "Knowledge Base",
+    "PYQ Database",
+    "Knowledge Mapping",
+    "Test Engine",
+    "Performance Diagnosis",
+    "Revision Queue",
+    "Retest",
+    "Improvement"
+  ]
+}
