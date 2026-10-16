@@ -287,6 +287,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     </div>
     <div class="signin" id="googleSignInArea">
       <div id="googleSignInButton"></div>
+      <button class="btn ghost" id="googleSignOut" type="button" hidden>Sign out</button>
       <p id="googleSignInStatus" role="status" aria-live="polite">Sign in with Google to use the AI assistant.</p>
     </div>
     <div class="msg" id="assistantStatus" role="status" style="margin:0">Type a question or tap Speak to ask by voice.</div>
@@ -301,7 +302,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
         <button class="btn ghost" id="stopSpeechBtn" type="button">⏹ Stop voice</button>
       </div>
     </div>
-    <div class="feature-note" style="margin:0">Voice input depends on browser support (Chrome works best). Replies are silent unless you tap Speak Loud. Your Google sign-in token is kept in page memory only and expires after about an hour.</div>
+    <div class="feature-note" style="margin:0">Voice input depends on browser support (Chrome works best). Replies are silent unless you tap Speak Loud. Your application session normally survives closing and reopening the app; sign out to revoke the current session.</div>
   </div>
 </div>
 
@@ -475,7 +476,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
   render(); renderChecklist();
 
   /* =================== AI assistant =================== */
-  let googleCredential="", lastSpeakText="", sending=false, gsiReady=false;
+  let appAccessToken="", lastSpeakText="", sending=false, gsiReady=false;
   let activeRecognition=null, isListening=false, voiceFinal="", voiceSession=0, voiceLang="en-IN";
   const history=[];            // last turns, sent for follow-up questions
   let lastFocus=null;
@@ -548,28 +549,69 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     return "The response did not contain recognizable learning-material fields. Please try the question again.";
   }
 
-  /* ---- Google sign-in (button is drawn when the chat opens, not while hidden) ---- */
+  /* ---- Persistent Google sign-in / application session ---- */
   function tokenValid(){
     try{
-      const p=JSON.parse(atob(googleCredential.split(".")[1].replace(/-/g,"+").replace(/_/g,"/")));
+      const p=JSON.parse(atob(appAccessToken.split(".")[1].replace(/-/g,"+").replace(/_/g,"/")));
       return p.exp*1000 > Date.now()+30000;
     }catch(e){ return false; }
   }
+
+  function setSignedInUI(user){
+    $("googleSignInButton").style.display="none";
+    $("googleSignOut").hidden=false;
+    $("googleSignInStatus").textContent="Signed in as "+(user&&user.email?user.email:"your Google account");
+  }
+
+  function setSignedOutUI(message){
+    appAccessToken="";
+    $("googleSignInButton").style.display="";
+    $("googleSignOut").hidden=true;
+    $("googleSignInStatus").textContent=message||"Sign in with Google to use the AI assistant.";
+  }
+
+  async function restoreAppSession(){
+    try{
+      const res=await fetch(API+"/api/auth/refresh",{
+        method:"POST",
+        credentials:"include",
+        headers:{"Content-Type":"application/json"},
+        body:"{}"
+      });
+      const data=await res.json().catch(()=>({}));
+      if(!res.ok||!data.success||!data.accessToken){
+        appAccessToken="";
+        return false;
+      }
+      appAccessToken=data.accessToken;
+      setSignedInUI(data.user);
+      return true;
+    }catch(e){
+      appAccessToken="";
+      return false;
+    }
+  }
+
   async function handleGoogleCredential(response){
     const status=$("googleSignInStatus");
     try{
       status.textContent="Verifying your Google account…";
-      const res=await fetch(API+"/api/auth/google",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({credential:response.credential})});
+      const res=await fetch(API+"/api/auth/google",{
+        method:"POST",
+        credentials:"include",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({credential:response.credential})
+      });
       const data=await res.json();
-      if(!res.ok||!data.success) throw new Error(data.error||"Google sign-in failed.");
-      googleCredential=response.credential;
-      status.textContent="Signed in as "+data.user.email;
-      $("googleSignInButton").style.display="none";
+      if(!res.ok||!data.success||!data.accessToken) throw new Error(data.error||"Google sign-in failed.");
+      appAccessToken=data.accessToken;
+      setSignedInUI(data.user);
+      $("assistantStatus").textContent="You're signed in. Ask your study question whenever you're ready.";
     }catch(err){
-      googleCredential="";
-      status.textContent=(err&&err.message)||"Google sign-in failed.";
+      setSignedOutUI((err&&err.message)||"Google sign-in failed.");
     }
   }
+
   function showSignIn(msg){
     const status=$("googleSignInStatus"), btn=$("googleSignInButton");
     if(!(window.google&&google.accounts&&google.accounts.id)){
@@ -582,18 +624,42 @@ nav.bottom .on{color:var(--ink);font-weight:600}
       google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:handleGoogleCredential,auto_select:false,cancel_on_tap_outside:true});
       gsiReady=true;
     }
-    btn.style.display=""; btn.innerHTML="";
+    btn.style.display="";
+    $("googleSignOut").hidden=true;
+    btn.innerHTML="";
     google.accounts.id.renderButton(btn,{theme:"outline",size:"large",text:"signin_with",shape:"rectangular",width:Math.min(300,window.innerWidth-80)});
     status.textContent=msg||"Sign in with Google to use the AI assistant.";
   }
 
+  async function signOut(){
+    try{
+      await fetch(API+"/api/auth/logout",{
+        method:"POST",
+        credentials:"include",
+        headers:{"Content-Type":"application/json"},
+        body:"{}"
+      });
+    }catch(e){
+      // Clear the local access token even if the server cannot be reached.
+    }
+    appAccessToken="";
+    setSignedOutUI("You've signed out. Sign in again to use the AI assistant.");
+    $("assistantStatus").textContent="Signed out.";
+  }
+  $("googleSignOut").addEventListener("click",signOut);
+
   /* ---- Open / close ---- */
-  function openAssistant(){
+  async function openAssistant(){
     lastFocus=document.activeElement;
     const m=$("assistantModal"); m.classList.add("open"); m.setAttribute("aria-hidden","false"); document.body.classList.add("lock");
     if(!$("chatLog").children.length) addChatLine("BAJEE JRF AI","Hello! I'm your BAJEE JRF AI study assistant for UGC NET English Paper I and Paper II. I can help with authors, works, periods, theories, PYQs, explanations and revision. I'll tell you when a source cannot verify an answer. How can I help you today?");
-    if(googleCredential && tokenValid()){ $("googleSignInButton").style.display="none"; }
-    else { googleCredential=""; showSignIn(); }
+    if(appAccessToken && tokenValid()){
+      setSignedInUI();
+    }else{
+      $("googleSignInStatus").textContent="Checking your saved sign-in…";
+      const restored=await restoreAppSession();
+      if(!restored) showSignIn();
+    }
     $("assistantInput").focus({preventScroll:true});
   }
   function stopVoice(){
@@ -617,11 +683,14 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     if(sending) return;
     const msg=$("assistantInput").value.trim();
     if(!msg) return;
-    if(!googleCredential || !tokenValid()){
-      googleCredential="";
-      $("assistantStatus").textContent="Please sign in with Google first (see the box above).";
-      showSignIn("Please sign in with Google to send your question.");
-      return;
+    if(!appAccessToken || !tokenValid()){
+      $("assistantStatus").textContent="Restoring your sign-in…";
+      const restored=await restoreAppSession();
+      if(!restored){
+        $("assistantStatus").textContent="Please sign in with Google first (see the box above).";
+        showSignIn("Please sign in with Google to send your question.");
+        return;
+      }
     }
     stopVoice(); voiceFinal="";
     sending=true; $("assistantSend").disabled=true;
@@ -634,7 +703,8 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     try{
       const r=await fetch(API+"/api/ai/chat",{
         method:"POST", signal:ctrl.signal,
-        headers:{"Content-Type":"application/json","Authorization":"Bearer "+googleCredential},
+        credentials:"include",
+        headers:{"Content-Type":"application/json","Authorization":"Bearer "+appAccessToken},
         body:JSON.stringify({message:msg,context:{
           source:"BAJEE JRF AI homepage assistant",
           conversationInstruction:"Answer UGC NET English Paper I and Paper II questions accurately. Use available sources and never invent source references.",
@@ -643,7 +713,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
       });
       let data={}; try{ data=await r.json(); }catch(e){}
       if(!r.ok){
-        if(r.status===401){ googleCredential=""; showSignIn("Your Google sign-in expired. Please sign in again."); $("assistantStatus").textContent="Sign-in expired. Please sign in again."; return; }
+        if(r.status===401){ appAccessToken=""; const restored=await restoreAppSession(); if(restored){ $("assistantStatus").textContent="Your session was refreshed. Please tap Send again."; return; } showSignIn("Your session expired. Please sign in again."); $("assistantStatus").textContent="Sign-in expired. Please sign in again."; return; }
         throw new Error(data.error||("Request failed ("+r.status+")"));
       }
       const reply=(data.response&&data.response.reply)||data.reply||(data.response&&data.response.text)||"The gateway returned no readable reply.";
