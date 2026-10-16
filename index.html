@@ -1,34 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="manifest" href="/Bajee-JRF/manifest.json">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>BAJEE JRF AI</title>
+<script>
+/* Apply saved theme before first paint (prevents light flash) */
+try{var t=JSON.parse(localStorage.getItem("jrf_theme")||"null")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.dataset.theme=t;}catch(e){}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#F3F5F9; --card:#fff; --ink:#0F1B33; --muted:#5E6A80; --line:#E1E6EF;
-  --navy:#0F1B33; --navy2:#1B3358; --gold:#C9A24B; --goldsoft:#F6EBCF; --ok:#2E8B57;
-  --shadow:0 1px 2px rgba(15,27,51,.06),0 8px 24px rgba(15,27,51,.06);
-}
-:root[data-theme="dark"]{
-  --bg:#0A1220; --card:#121D31; --ink:#EAF0FA; --muted:#9AA8C0; --line:#223250;
-  --navy:#C9A24B; --navy2:#1B3358; --goldsoft:#2A2616; --shadow:none;
-}
+:root{--bg:#F3F5F9;--card:#fff;--ink:#0F1B33;--muted:#5E6A80;--line:#E1E6EF;--navy:#0F1B33;--navy2:#1B3358;--gold:#C9A24B;--goldsoft:#F6EBCF;--ok:#2E8B57;--shadow:0 1px 2px rgba(15,27,51,.06),0 8px 24px rgba(15,27,51,.06)}
+:root[data-theme="dark"]{--bg:#0A1220;--card:#121D31;--ink:#EAF0FA;--muted:#9AA8C0;--line:#223250;--navy:#C9A24B;--navy2:#1B3358;--goldsoft:#2A2616;--shadow:none}
 *{box-sizing:border-box}
 html{scroll-padding-top:70px}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Inter,system-ui,sans-serif;
-  padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 Inter,system-ui,sans-serif;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+body.lock{overflow:hidden}
 a{color:inherit;text-decoration:none}
 h1,h2,h3{font-family:Fraunces,Georgia,serif;margin:0;line-height:1.2}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:8px}
 svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 
-.top{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line);
-  padding:env(safe-area-inset-top,0px) 16px 0}
+.top{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line);padding:env(safe-area-inset-top,0px) 16px 0}
 .top-in{max-width:960px;margin:auto;height:60px;display:flex;align-items:center;gap:12px}
 .brand{font:700 20px Fraunces,serif;flex:1}
 .brand small{display:block;font:400 12px Inter;color:var(--muted)}
@@ -36,24 +31,20 @@ svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke
 .seg button{border:0;background:none;color:var(--muted);font:500 14px Inter;padding:7px 16px;border-radius:999px;cursor:pointer}
 .seg button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
 :root[data-theme="dark"] .seg button[aria-selected="true"]{background:var(--gold);color:#0A1220}
-.icon-btn{border:1px solid var(--line);background:var(--card);color:var(--ink);width:40px;height:40px;border-radius:50%;
-  display:grid;place-items:center;cursor:pointer}
+.icon-btn{border:1px solid var(--line);background:var(--card);color:var(--ink);width:40px;height:40px;border-radius:50%;display:grid;place-items:center;cursor:pointer}
 
 main{max-width:960px;margin:auto;padding:20px 16px}
 .view{display:none}.view.on{display:block}
 
-/* Today card: the one memorable element */
-.today{background:linear-gradient(135deg,var(--navy2),#0F1B33);color:#fff;border-radius:24px;padding:26px;
-  display:grid;gap:22px;grid-template-columns:1.4fr 1fr;box-shadow:var(--shadow)}
+.today{background:linear-gradient(135deg,var(--navy2),#0F1B33);color:#fff;border-radius:24px;padding:26px;display:grid;gap:22px;grid-template-columns:1.4fr 1fr;box-shadow:var(--shadow)}
 .today h1{font-size:clamp(26px,5vw,36px);font-weight:700}
 .today p{margin:6px 0 0;color:#C5D0E6}
-.count{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px;text-align:center;cursor:pointer;
-  display:flex;flex-direction:column;justify-content:center;color:inherit;font:inherit}
+.count{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px;text-align:center;cursor:pointer;display:flex;flex-direction:column;justify-content:center;color:inherit;font:inherit}
 .count b{font:700 56px/1 Fraunces,serif;color:var(--gold)}
 .count span{font-size:14px;color:#C5D0E6}
+.datepanel{display:none;margin-top:12px}.datepanel.on{display:flex}
 
-.search{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:16px;
-  padding:8px 8px 8px 14px;margin-bottom:16px;box-shadow:var(--shadow)}
+.search{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 8px 8px 14px;margin-bottom:16px;box-shadow:var(--shadow)}
 .search input{flex:1;min-width:0;border:0;background:none;color:var(--ink);font:inherit;padding:8px 0;outline:0}
 .search:focus-within{border-color:var(--gold)}
 .search-scope{font-size:12px;color:var(--muted);margin:-8px 0 14px 4px}
@@ -64,41 +55,30 @@ main{max-width:960px;margin:auto;padding:20px 16px}
 .check-row:first-of-type{border-top:0}
 .check-row select{width:100%;padding:9px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
 .feature-note{font-size:12px;color:var(--muted);margin-top:10px}
-.modal-backdrop{position:fixed;inset:0;background:var(--bg);z-index:100;display:none;align-items:stretch;justify-content:stretch;padding:0}
-.modal-backdrop.open{display:flex}.assistant-modal{width:100%;height:100%;max-height:100%;overflow:hidden;background:var(--card);color:var(--ink);border-radius:0;padding:clamp(14px,2.5vw,32px);box-shadow:none;display:flex;flex-direction:column;gap:12px}
-.assistant-head{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:12px}.assistant-head h2{margin:0;font-size:clamp(21px,2.2vw,32px)}
-.chat-log{flex:1;min-height:160px;overflow:auto;border:1px solid var(--line);border-radius:14px;padding:clamp(12px,2vw,24px);margin:0;white-space:pre-wrap;font-size:clamp(15px,1.15vw,18px);line-height:1.6}
-.chat-line{padding:12px 14px;border-radius:12px;margin-bottom:10px;background:var(--bg);max-width:100%;overflow-wrap:anywhere}.chat-line.assistant-line{border-left:4px solid var(--gold)}
-.chat-controls{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}.chat-controls input{flex:1;min-width:220px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit;font-size:16px}.assistant-actions{display:flex;gap:8px;flex-wrap:wrap}.assistant-actions .btn{min-height:44px}
-@media(max-width:600px){.assistant-modal{padding:12px}.assistant-head{align-items:flex-start}.chat-controls input{min-width:100%;width:100%}.assistant-actions{width:100%}.assistant-actions button{flex:1}}
-@media(max-width:520px){.check-row{grid-template-columns:1fr}.seg button{padding:7px 10px}.brand{font-size:17px}}
-.grid.ask{grid-template-columns:repeat(2,1fr)}
-.tile.off{opacity:.55;pointer-events:none}
+
 .nextbtn{display:inline-block;background:var(--gold);color:#0F1B33;font:600 15px Inter;padding:10px 18px;border-radius:12px}
 .later{border:1px solid var(--line);background:none;color:var(--muted);border-radius:10px;padding:8px 12px;font:500 14px Inter;cursor:pointer}
 .task.moved{opacity:.55}
 .sec{margin:28px 0 12px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 .sec h2{font-size:22px}.sec small{color:var(--muted)}
-
 .tasks{background:var(--card);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
-.task{display:flex;align-items:center;gap:14px;padding:16px 18px;border-top:1px solid var(--line)}
+.task{display:flex;align-items:center;gap:8px;padding:16px 18px;border-top:1px solid var(--line);flex-wrap:wrap}
 .task:first-child{border-top:0}
-.task input{width:22px;height:22px;accent-color:var(--ok);flex:none;cursor:pointer}
-.task label{flex:1;cursor:pointer}
-.task label b{display:block;font-weight:600}
-.task label span{font-size:14px;color:var(--muted)}
-.task input:checked + label b{text-decoration:line-through;color:var(--muted)}
-.go{background:var(--ink);color:var(--bg);border-radius:10px;padding:8px 16px;font:600 14px Inter;white-space:nowrap}
+.task .info{flex:1;min-width:180px}
+.task .info b{display:block;font-weight:600}
+.task .info span{font-size:14px;color:var(--muted)}
+.task .acts{display:flex;gap:8px;align-items:center}
+.tag{font-size:13px;font-weight:600}
+.go{background:var(--ink);color:var(--bg);border:0;border-radius:10px;padding:8px 16px;font:600 14px Inter;white-space:nowrap;cursor:pointer}
 :root[data-theme="dark"] .go{background:var(--gold);color:#0A1220}
 
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
 .stat{background:var(--card);border-radius:16px;padding:14px;box-shadow:var(--shadow);text-align:center}
 .stat b{font:700 28px Fraunces,serif;display:block}
 .stat span{font-size:13px;color:var(--muted)}
-
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.tile{background:var(--card);border-radius:18px;padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px;
-  border:1px solid transparent;transition:border-color .15s}
+.grid.ask{grid-template-columns:repeat(2,1fr)}
+.tile{background:var(--card);border-radius:18px;padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px;border:1px solid transparent;transition:border-color .15s;cursor:pointer}
 .tile:hover{border-color:var(--gold)}
 .tile .ic{width:42px;height:42px;border-radius:12px;background:var(--goldsoft);color:#8A6A1E;display:grid;place-items:center;margin-bottom:6px}
 :root[data-theme="dark"] .tile .ic{color:var(--gold)}
@@ -111,29 +91,53 @@ main{max-width:960px;margin:auto;padding:20px 16px}
 .row{display:flex;gap:10px;flex-wrap:wrap}
 input[type=url],input[type=date]{flex:1;min-width:200px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit}
 .btn{border:0;background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:12px;font:600 15px Inter;cursor:pointer}
+.btn:disabled{opacity:.5;cursor:not-allowed}
 :root[data-theme="dark"] .btn{background:var(--gold);color:#0A1220}
 .btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
+:root[data-theme="dark"] .btn.ghost{color:var(--ink)}
 .msg{font-size:14px;color:var(--muted);margin-top:10px;min-height:20px}
 .bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:10px 0 6px}
-.bar i{display:block;height:100%;width:100%;background:var(--gold)}
+.bar i{display:block;height:100%;background:var(--gold)}
 
-nav.bottom{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);
-  padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-around;z-index:10}
-nav.bottom a,nav.bottom button{flex:1;max-width:120px;border:0;background:none;color:var(--muted);font:500 12px Inter;
-  display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;cursor:pointer}
+nav.bottom{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-around;z-index:10}
+nav.bottom a,nav.bottom button{flex:1;max-width:120px;border:0;background:none;color:var(--muted);font:500 12px Inter;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;cursor:pointer}
 nav.bottom .on{color:var(--ink);font-weight:600}
 :root[data-theme="dark"] nav.bottom .on{color:var(--gold)}
+
+/* AI assistant (full-screen) */
+.modal-backdrop{position:fixed;inset:0;background:var(--bg);z-index:100;display:none}
+.modal-backdrop.open{display:block}
+.assistant-modal{width:100%;height:100%;overflow:hidden;background:var(--card);color:var(--ink);display:flex;flex-direction:column;gap:12px;
+  padding:calc(clamp(12px,2.5vw,32px) + env(safe-area-inset-top,0px)) calc(clamp(12px,2.5vw,32px) + env(safe-area-inset-right,0px)) calc(clamp(12px,2.5vw,32px) + env(safe-area-inset-bottom,0px)) calc(clamp(12px,2.5vw,32px) + env(safe-area-inset-left,0px))}
+.assistant-head{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.assistant-head h2{font-size:clamp(20px,2.2vw,30px)}
+.signin{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--bg)}
+.signin p{margin:8px 0 0;font-size:14px;color:var(--muted)}
+.chat-log{flex:1;min-height:120px;overflow:auto;border:1px solid var(--line);border-radius:14px;padding:clamp(12px,2vw,24px);font-size:clamp(15px,1.15vw,18px);line-height:1.6}
+.chat-line{padding:12px 14px;border-radius:12px;margin-bottom:10px;background:var(--bg);overflow-wrap:anywhere}
+.chat-line.assistant-line{border-left:4px solid var(--gold)}
+.chat-line .who{display:block;font-weight:600;margin-bottom:4px}
+.chat-line h4{margin:10px 0 4px;font:700 17px Fraunces,serif}
+.chat-line p{margin:0 0 8px;white-space:pre-wrap}
+.chat-line ul{margin:0 0 8px;padding-left:22px}
+.chat-controls{display:flex;gap:10px;flex-wrap:wrap}
+.chat-controls input{flex:1;min-width:220px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit;font-size:16px}
+.assistant-actions{display:flex;gap:8px;flex-wrap:wrap}
+.assistant-actions .btn{min-height:44px}
 
 @media(max-width:640px){
   .today{grid-template-columns:1fr;padding:20px}
   .count b{font-size:44px}
   .brand small{display:none}
   .grid.ask{grid-template-columns:1fr}
+  .check-row{grid-template-columns:1fr}
+  .seg button{padding:7px 10px}.brand{font-size:17px}
+  .chat-controls input{min-width:100%}
+  .assistant-actions{width:100%}.assistant-actions .btn{flex:1;padding:12px 8px}
 }
-@media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr)}.grid.ask{grid-template-columns:repeat(2,1fr)}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
-
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
@@ -144,16 +148,12 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     <button role="tab" id="tabStudy" aria-selected="true">Study</button>
     <button role="tab" id="tabWork" aria-selected="false">Workshop</button>
   </div>
-  <button class="icon-btn" id="themeBtn" aria-label="Switch light or dark theme">
-    <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-  </button>
+  <button class="icon-btn" id="themeBtn" aria-label="Switch light or dark theme"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
 </div></header>
 
 <main>
-
 <!-- ================= STUDY ================= -->
 <section class="view on" id="viewStudy">
-
   <form class="search" id="searchForm" role="search">
     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
     <input id="searchQ" type="search" placeholder="Search a word, author, work, theory or topic" aria-label="Search your library">
@@ -168,10 +168,15 @@ nav.bottom .on{color:var(--ink);font-weight:600}
       <p id="dateLine"></p>
       <p style="margin-top:14px"><a class="nextbtn" id="nextBtn" href="#">Next</a></p>
     </div>
-    <button class="count" id="countBtn" aria-label="Set exam date">
+    <button class="count" id="countBtn" type="button" aria-label="Set exam date">
       <b id="daysLeft">--</b>
       <span id="daysLabel">Tap to set exam date</span>
     </button>
+  </div>
+  <div class="row datepanel" id="datePanel">
+    <input type="date" id="examDate" aria-label="Exam date">
+    <button class="btn" id="dateSave" type="button">Save date</button>
+    <button class="btn ghost" id="dateClear" type="button">Clear</button>
   </div>
 
   <div class="motivation"><b>Today's motivation</b><p id="quoteText">Small, consistent effort becomes extraordinary preparation.</p></div>
@@ -184,7 +189,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
 
   <div class="panel" style="margin-top:14px">
     <div class="row" style="justify-content:space-between;align-items:center">
-      <b id="hrsTxt">0 of 3 hours today</b>
+      <b id="hrsTxt">0 of 190 minutes today</b>
       <small style="color:var(--muted)">Fills as you finish each task</small>
     </div>
     <div class="bar"><i id="hrsBar" style="width:0"></i></div>
@@ -195,7 +200,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
 
   <div class="sec"><h2>Ask</h2></div>
   <div class="grid ask">
-    <a class="tile" data-page="assistant" href="javascript:void(0)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/><rect x="9" y="3" width="6" height="10" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v4"/></svg></div><b>AI Chat + Voice Mentor</b><span>Type or speak your question, then read and hear the answer</span></a>
+    <a class="tile" id="askTile" href="#" role="button"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/></svg></div><b>AI Chat + Voice Mentor</b><span>Type or speak your question, then read and hear the answer</span></a>
   </div>
 
   <div class="sec"><h2>Study essentials</h2><small>Core learning and practice</small></div>
@@ -204,7 +209,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     <a class="tile" href="knowledge-structure.html"><div class="ic">🧠</div><b>Paper II knowledge base</b><span>Authors, works, theories and concepts</span></a>
     <a class="tile" href="test-engine.html"><div class="ic">📝</div><b>Practice tests</b><span>Mapped PYQs and test practice</span></a>
     <a class="tile" href="nta-exam.html"><div class="ic">⏱️</div><b>NTA examination</b><span>Exam-mode practice and results</span></a>
-    <a class="tile" href="vertical-slice.html"><div class="ic">🔁</div><b>Quick revision & retest</b><span>Revise weak areas and retry questions</span></a>
+    <a class="tile" href="vertical-slice.html"><div class="ic">🔁</div><b>Quick revision &amp; retest</b><span>Revise weak areas and retry questions</span></a>
     <a class="tile" href="revision-intelligence.html"><div class="ic">🎯</div><b>Revision intelligence</b><span>Priority queue and next revision actions</span></a>
   </div>
 
@@ -217,12 +222,11 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     <a class="tile" href="pyq-knowledge-mapping.html"><div class="ic">🔗</div><b>PYQ knowledge mapping</b><span>Connect questions to entities and concepts</span></a>
     <a class="tile" href="knowledge-graph.html"><div class="ic">🕸️</div><b>Knowledge graph</b><span>Explore connected knowledge</span></a>
     <a class="tile" href="knowledge-entity.html"><div class="ic">🧩</div><b>JRF Intelligence</b><span>Explore entity details and connections</span></a>
-    <a class="tile" href="jrf-visual-memory.html"><div class="ic">🗺️</div><b>Visual memory & mind maps</b><span>Open the existing visual learning tool</span></a>
+    <a class="tile" href="jrf-visual-memory.html"><div class="ic">🗺️</div><b>Visual memory &amp; mind maps</b><span>Open the existing visual learning tool</span></a>
   </div>
 
   <div class="sec"><h2>Progress</h2></div>
   <div class="grid">
-    <a class="tile" href="adaptive-recommendations.html"><div class="ic">🧭</div><b>Adaptive recommendations</b><span>Evidence-based next steps</span></a>
     <a class="tile" href="jrf-intelligence-core.html"><div class="ic">🧠</div><b>JRF Intelligence Core</b><span>Evidence-based next best action</span></a>
     <a class="tile" href="jrf-readiness.html"><div class="ic">🏆</div><b>JRF readiness</b><span>Preparation readiness indicators</span></a>
     <a class="tile" href="jrf-analytics.html"><div class="ic">📊</div><b>JRF analytics</b><span>Progress and performance trends</span></a>
@@ -233,32 +237,28 @@ nav.bottom .on{color:var(--ink);font-weight:600}
 <!-- ================= WORKSHOP ================= -->
 <section class="view" id="viewWork">
   <div class="sec" style="margin-top:4px"><h2>Workshop</h2><small>Creation, verification, planning and tools</small></div>
-
   <div class="panel">
     <h3>YouTube → JRF material generator</h3>
     <p>The working generator is available in its dedicated page. Open it to acquire a transcript, verify the source and generate study materials.</p>
     <div class="row"><input id="youtubeUrl" type="url" placeholder="Paste YouTube URL here (optional)" aria-label="YouTube URL"><button class="btn" id="generateMaterialBtn" type="button">Open generator →</button></div>
     <div class="msg" id="youtubeMessage" role="status"></div>
   </div>
-
   <div class="grid">
-    <a class="tile" href="jrf-visual-memory.html"><div class="ic">🗺️</div><b>Mind maps & visual memory</b><span>Use the existing visualization tool</span></a>
-    <a class="tile" href="knowledge-graph.html"><div class="ic">🔗</div><b>Author connections & chronology</b><span>Explore knowledge graph relationships</span></a>
+    <a class="tile" href="jrf-visual-memory.html"><div class="ic">🗺️</div><b>Mind maps &amp; visual memory</b><span>Use the existing visualization tool</span></a>
+    <a class="tile" href="knowledge-graph.html"><div class="ic">🔗</div><b>Author connections &amp; chronology</b><span>Explore knowledge graph relationships</span></a>
     <a class="tile" href="master-storage.html"><div class="ic">🗂️</div><b>Master-storage management</b><span>Inspect the existing storage workspace</span></a>
-    <a class="tile" href="knowledge-resources.html"><div class="ic">🛡️</div><b>Source verification & resources</b><span>Inspect linked sources and study resources</span></a>
+    <a class="tile" href="knowledge-resources.html"><div class="ic">🛡️</div><b>Source verification &amp; resources</b><span>Inspect linked sources and study resources</span></a>
     <a class="tile" href="adaptive-recommendations.html"><div class="ic">🧠</div><b>JRF intelligence tools</b><span>Evidence-based recommendations</span></a>
     <a class="tile" href="jrf-analytics.html"><div class="ic">📈</div><b>Analytics workspace</b><span>Review preparation trends</span></a>
   </div>
-
   <div class="panel" style="margin-top:14px">
     <h3>Backup your progress</h3>
-    <p>This exports browser localStorage only; it does not back up your complete Google Drive master storage. Keep a copy of the JSON backup in your master folder.</p>
-    <div class="row"><button class="btn" id="exportBtn">Save browser backup</button><button class="btn ghost" id="importBtn">Restore browser backup</button><input type="file" id="importFile" accept="application/json" hidden></div>
+    <p>This saves only this app's browser data (keys starting with <code>jrf_</code>). It does not back up your Google Drive master storage. Keep a copy of the JSON file in your master folder.</p>
+    <div class="row"><button class="btn" id="exportBtn" type="button">Save browser backup</button><button class="btn ghost" id="importBtn" type="button">Restore browser backup</button><input type="file" id="importFile" accept="application/json" hidden></div>
     <div class="msg" id="backupMsg" role="status"></div>
   </div>
 </section>
 
-<!-- Daily checklist is deliberately placed last, after Study and Workshop. -->
 <section class="panel" id="dailyChecklistPanel">
   <div class="sec" style="margin-top:0"><h2>Today's task checklist</h2><small>Completed · tomorrow · within this week</small></div>
   <p>Record what happened today. Unfinished tasks should be rescheduled, not forgotten.</p>
@@ -268,64 +268,70 @@ nav.bottom .on{color:var(--ink);font-weight:600}
 </main>
 
 <nav class="bottom" aria-label="Main">
-  <button class="on" id="nHome"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
+  <button class="on" id="nHome" type="button"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
   <a href="test-engine.html"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>Practice</a>
   <a href="vertical-slice.html"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Revise</a>
+  <button id="nAsk" type="button"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/></svg>Ask AI</button>
   <a href="resource-library.html"><svg viewBox="0 0 24 24"><path d="M4 4h4v16H4zM10 4h4v16h-4z"/><path d="M16 6l4-1 3 14-4 1z"/></svg>Library</a>
-  <button id="nWork"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.2-.5-.5-2.2z"/></svg>Workshop</button>
+  <button id="nWork" type="button"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.2-.5-.5-2.2z"/></svg>Workshop</button>
 </nav>
 
 <div class="modal-backdrop" id="assistantModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="assistantTitle">
   <div class="assistant-modal">
-    <div class="assistant-head"><div><h2 id="assistantTitle">BAJEE JRF AI — Chat & Voice Assistant</h2><div class="feature-note">Your UGC NET English JRF study companion · type or speak in the same conversation</div></div><button class="btn ghost" id="assistantClose" type="button">Close ✕</button></div>
-    <div class="msg" id="assistantStatus" role="status">Welcome. Type a question or select Speak to ask by voice.</div>
-    <div class="chat-log" id="chatLog" aria-live="polite"><div class="chat-line assistant-line">BAJEE JRF AI: Hello! I’m your BAJEE JRF AI study assistant for UGC NET English Paper I and Paper II. I can help you understand authors, works, literary periods, theories, PYQs, explanations, revision and exam practice. I’ll use your connected study sources when available and tell you when a source cannot verify an answer. How can I help you today?</div></div>
-    <div class="chat-controls"><input id="assistantInput" type="text" placeholder="Type your question here…" aria-label="Message for AI assistant"><div class="assistant-actions"><button class="btn" id="assistantSend" type="button">Send</button><button class="btn ghost" id="voiceBtn" type="button">🎙 Speak</button><button class="btn ghost" id="speakLoudBtn" type="button">🔊 Speak Loud</button><button class="btn ghost" id="stopSpeechBtn" type="button">⏹ Stop voice</button></div></div>
-    <div class="feature-note">Voice input depends on browser speech-recognition support. Replies are silent unless you click Speak Loud. The access token is held in page memory only and is not written to localStorage.</div>
-    <div id="googleSignInArea" style="margin:12px 0;">
+    <div class="assistant-head">
+      <div><h2 id="assistantTitle">BAJEE JRF AI — Chat &amp; Voice</h2><div class="feature-note" style="margin:2px 0 0">Your UGC NET English JRF study companion · type or speak</div></div>
+      <button class="btn ghost" id="assistantClose" type="button">Close ✕</button>
+    </div>
+    <div class="signin" id="googleSignInArea">
       <div id="googleSignInButton"></div>
       <p id="googleSignInStatus" role="status" aria-live="polite">Sign in with Google to use the AI assistant.</p>
     </div>
+    <div class="msg" id="assistantStatus" role="status" style="margin:0">Type a question or tap Speak to ask by voice.</div>
+    <div class="chat-log" id="chatLog" aria-live="polite"></div>
+    <div class="chat-controls">
+      <input id="assistantInput" type="text" placeholder="Type your question here…" aria-label="Message for AI assistant" enterkeyhint="send">
+      <div class="assistant-actions">
+        <button class="btn" id="assistantSend" type="button">Send</button>
+        <button class="btn ghost" id="voiceBtn" type="button">🎙 Speak</button>
+        <button class="btn ghost" id="langBtn" type="button">Voice: English</button>
+        <button class="btn ghost" id="speakLoudBtn" type="button">🔊 Speak Loud</button>
+        <button class="btn ghost" id="stopSpeechBtn" type="button">⏹ Stop voice</button>
+      </div>
+    </div>
+    <div class="feature-note" style="margin:0">Voice input depends on browser support (Chrome works best). Replies are silent unless you tap Speak Loud. Your Google sign-in token is kept in page memory only and expires after about an hour.</div>
   </div>
 </div>
 
 <script>
 (function(){
+  "use strict";
   const $ = id => document.getElementById(id);
   const store = {
-    get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
-    set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+    get(k,d){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } },
+    set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
   };
-  const key = d => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-  const today = new Date();
+  const dkey = d => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  const today = new Date(), tk = dkey(today);
+  const API = "https://bajee-jrf.onrender.com";
+  const GOOGLE_CLIENT_ID = "720409637850-9j3lf95q7n2kq7727gvn1htmncvmapt8.apps.googleusercontent.com";
 
-  /* ---- Existing page routes: keep these filenames in sync with frontend/ ---- */
-  const PAGES = { search:"jrf-master-dictionary.html", chat:"", mentor:"" };
+  /* ---- Search ---- */
   $("searchForm").onsubmit = e => {
     e.preventDefault();
     const q = $("searchQ").value.trim();
     if(!q){ $("searchMsg").textContent = "Type a word, author, work or concept first."; return; }
     store.set("jrf_dictionary_pending_query", q);
-    location.href = PAGES.search + "?q=" + encodeURIComponent(q);
+    location.href = "jrf-master-dictionary.html?q=" + encodeURIComponent(q);
   };
-
-  /* Ask cards open the integrated assistant dialog; token is requested per session and never embedded in this file. */
-  document.querySelector('[data-page="assistant"]').addEventListener("click", function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    openAssistant();
-  });
 
   /* ---- Theme ---- */
   const root = document.documentElement;
-  const savedTheme = store.get("jrf_theme", window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-  root.dataset.theme = savedTheme;
   $("themeBtn").onclick = () => {
     const t = root.dataset.theme === "dark" ? "light" : "dark";
     root.dataset.theme = t; store.set("jrf_theme", t);
   };
 
-  /* ---- Study / Workshop switch ---- */
+  /* ---- Study / Workshop ---- */
   function setMode(m){
     const w = m === "work";
     $("viewStudy").classList.toggle("on", !w);
@@ -343,424 +349,411 @@ nav.bottom .on{color:var(--ink);font-weight:600}
 
   /* ---- Greeting ---- */
   const h = today.getHours();
-  $("greet").textContent = (h<12 ? "Good morning" : h<17 ? "Good afternoon" : "Good evening") + ", Bajee";
+  $("greet").textContent = (h<12?"Good morning":h<17?"Good afternoon":"Good evening") + ", Bajee";
   $("dateLine").textContent = today.toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
 
-  /* ---- Exam countdown ---- */
+  /* ---- Exam countdown (date picker, no prompt()) ---- */
   function renderCount(){
-    const d = store.get("jrf_exam_date", "2026-12-08");
-    if(!d){ $("daysLeft").textContent = "--"; $("daysLabel").textContent = "Tap to set exam date"; return; }
-    const diff = Math.ceil((new Date(d+"T00:00:00") - new Date(key(today)+"T00:00:00")) / 86400000);
-    if(diff > 0){ $("daysLeft").textContent = diff; $("daysLabel").textContent = diff === 1 ? "day to your exam" : "days to your exam"; }
-    else if(diff === 0){ $("daysLeft").textContent = "0"; $("daysLabel").textContent = "Exam day. Good luck!"; }
-    else { $("daysLeft").textContent = "--"; $("daysLabel").textContent = "Date has passed. Tap to set a new one"; }
+    const d = store.get("jrf_exam_date","2026-12-08");
+    if(!d){ $("daysLeft").textContent="--"; $("daysLabel").textContent="Tap to set exam date"; return; }
+    const diff = Math.round((new Date(d+"T00:00:00") - new Date(tk+"T00:00:00")) / 86400000);
+    if(diff>0){ $("daysLeft").textContent=diff; $("daysLabel").textContent = diff===1?"day to your exam":"days to your exam"; }
+    else if(diff===0){ $("daysLeft").textContent="0"; $("daysLabel").textContent="Exam day. Good luck!"; }
+    else { $("daysLeft").textContent="--"; $("daysLabel").textContent="Date has passed. Tap to set a new one"; }
   }
   $("countBtn").onclick = () => {
-    const v = prompt("Enter your exam date (YYYY-MM-DD), for example 2026-12-20", store.get("jrf_exam_date","2026-12-08"));
-    if(v === null) return;
-    if(v === "" || /^\d{4}-\d{2}-\d{2}$/.test(v.trim())){ store.set("jrf_exam_date", v.trim()); renderCount(); }
-    else alert("Please use the format YYYY-MM-DD.");
+    $("examDate").value = store.get("jrf_exam_date","2026-12-08") || "";
+    $("datePanel").classList.toggle("on");
   };
+  $("dateSave").onclick = () => {
+    const v = $("examDate").value;
+    if(!v){ return; }
+    store.set("jrf_exam_date", v); renderCount(); $("datePanel").classList.remove("on");
+  };
+  $("dateClear").onclick = () => { store.set("jrf_exam_date",""); renderCount(); $("datePanel").classList.remove("on"); };
   renderCount();
 
-  /* ---- Daily plan ---- */
-  const WEAK = ["Research Methods (Unit X)", "English in India (Unit VI)"];   // edit as your weak units change
-  // 90 + 30 + 30 + 15 + 15 = 180 minutes. Change the page names here if Paper I or Paper II have their own pages.
+  /* ---- Daily plan (60 + 60 for Paper I / II; total 190 min) ---- */
+  const WEAK = ["Research Methods (Unit X)","English in India (Unit VI)"];  // edit as weak units change
   const base = [
     {id:"prevrev",t:"Previous-day quick revision",m:10,s:"Quickly recall yesterday's key points before today's study",href:"revision-intelligence.html"},
-    {id:"p1",     t:"Paper I study",  m:90, s:"Teaching, research, reasoning and the other Paper I units", href:"syllabus.html"},
-    {id:"p2",     t:"Paper II study", m:30, s:"Focus today: "+WEAK[today.getDate() % WEAK.length], href:"knowledge-structure.html"},
-    {id:"test",   t:"Test both papers", m:30, s:"Paper I and Paper II questions", href:"test-engine.html"},
-    {id:"revise", t:"Revise weak and wrong answers", m:15, s:"Go through what you got wrong", href:"vertical-slice.html"},
-    {id:"retest", t:"Retest weak and wrong questions", m:15, s:"Check that the mistakes are fixed", href:"vertical-slice.html"}
+    {id:"p1",t:"Paper I study",m:60,s:"Teaching, research, reasoning and the other Paper I units",href:"syllabus.html"},
+    {id:"p2",t:"Paper II study",m:60,s:"Focus today: "+WEAK[today.getDate()%WEAK.length],href:"knowledge-structure.html"},
+    {id:"test",t:"Test both papers",m:30,s:"Paper I and Paper II questions",href:"test-engine.html"},
+    {id:"revise",t:"Revise weak and wrong answers",m:15,s:"Go through what you got wrong",href:"vertical-slice.html"},
+    {id:"retest",t:"Retest weak and wrong questions",m:15,s:"Check that the mistakes are fixed",href:"revision-retest.html"}
   ];
-  const minsOf = {}; base.forEach(p => minsOf[p.id] = p.m);
-  const D = store.get("jrf_days", {});      // { "2026-10-09": { done:{pyq:true}, later:{weak:true}, mins:90 } }
-  const pend = store.get("jrf_pending", {}); // postponed tasks stay here until done: { id: title }
-  const tk = key(today);
-  const day = D[tk] || (D[tk] = {done:{}, later:{}, mins:0});
-  const save = () => { store.set("jrf_days", D); store.set("jrf_pending", pend); };
-  const hrefOf = {}; base.forEach(p => hrefOf[p.id] = p.href);
-  const GOAL = 190;
+  const GOAL = base.reduce((t,p)=>t+p.m,0);
+  const minsOf={}, hrefOf={}; base.forEach(p=>{minsOf[p.id]=p.m;hrefOf[p.id]=p.href;});
+  const D = store.get("jrf_days",{});
+  const pend = store.get("jrf_pending",{});
+  const day = D[tk] || (D[tk]={done:{},later:{}});
+  day.done = day.done||{}; day.later = day.later||{}; day.checklist = day.checklist||{};
+  const save = () => { store.set("jrf_days",D); store.set("jrf_pending",pend); };
+  const refresh = () => { save(); render(); renderChecklist(); };
 
   function buildList(){
-    return Object.keys(pend).map(id => ({id, m:minsOf[id]||0, t:pend[id], s:"Postponed, still to do", href:hrefOf[id]||"#"}))
-      .concat(base.filter(p => !(p.id in pend)));
+    return Object.keys(pend).map(id=>({id,m:minsOf[id]||0,t:pend[id],s:"Postponed, still to do",href:hrefOf[id]||"#"}))
+      .concat(base.filter(p=>!(p.id in pend)));
   }
+  function el(tag,cls,txt){ const n=document.createElement(tag); if(cls)n.className=cls; if(txt!==undefined)n.textContent=txt; return n; }
   function stats(list){
-    const active = d => D[d] && Object.keys(D[d].done||{}).length;
-    let streak = 0, d = new Date(today);
-    if(!active(key(d))) d.setDate(d.getDate()-1);
-    while(active(key(d))){ streak++; d.setDate(d.getDate()-1); }
-    const doable = list.filter(p => !day.later[p.id]);
+    const active = d => D[d] && D[d].done && Object.keys(D[d].done).length;
+    let streak=0; const d=new Date(today);
+    if(!active(dkey(d))) d.setDate(d.getDate()-1);
+    while(active(dkey(d))){ streak++; d.setDate(d.getDate()-1); }
+    const doable = list.filter(p=>!day.later[p.id]);
     $("sStreak").textContent = streak;
-    $("sToday").textContent = doable.filter(p => day.done[p.id]).length + "/" + doable.length;
+    $("sToday").textContent = doable.filter(p=>day.done[p.id]).length+"/"+doable.length;
     $("sTotal").textContent = Object.keys(D).filter(active).length;
-    const next = doable.find(p => !day.done[p.id]), nb = $("nextBtn");
-    if(next){ nb.textContent = "Next: " + next.t; nb.href = next.href; }
-    else { nb.textContent = "All tasks done for today. Well done."; nb.removeAttribute("href"); }
-    const m = Object.keys(day.done).reduce((t,id) => t + (minsOf[id]||0), 0);
-    $("hrsTxt").textContent = m + " of 190 minutes today (3h 10m)";
-    $("hrsBar").style.width = Math.min(100, m/GOAL*100) + "%";
+    const next = doable.find(p=>!day.done[p.id]), nb=$("nextBtn");
+    if(next){ nb.textContent="Next: "+next.t; nb.href=next.href; }
+    else { nb.textContent="All tasks done for today. Well done."; nb.removeAttribute("href"); }
+    const m = Object.keys(day.done).reduce((t,id)=>t+(minsOf[id]||0),0);
+    $("hrsTxt").textContent = m+" of "+GOAL+" minutes today ("+Math.floor(GOAL/60)+"h "+(GOAL%60)+"m)";
+    $("hrsBar").style.width = Math.min(100,m/GOAL*100)+"%";
   }
   function render(){
-    const list = buildList(), box = $("tasks"); box.innerHTML = "";
-    list.forEach(p => {
-      const moved = !!day.later[p.id], done = !!day.done[p.id];
-      const r = document.createElement("div"); r.className = "task" + (moved ? " moved" : "");
-      r.innerHTML = '<div style="flex:1;min-width:0"><b></b><div style="font-size:14px;color:var(--muted)"></div></div>'
-        + (done ? '<span style="color:var(--ok);font-size:13px;font-weight:600">Done</span>' : '')
-        + (moved ? '<span style="color:var(--muted);font-size:13px">Tomorrow</span>' : (done ? '' : '<button class="later" type="button">Later</button>') + '<a class="go" href="'+p.href+'">Start</a>');
-      r.querySelector("b").textContent = p.t + " · " + p.m + " min";
-      r.querySelector("div div").textContent = moved ? "Moved to tomorrow" : p.s;
-      const l = r.querySelector(".later");
-      if(l) l.onclick = () => { pend[p.id] = p.t; day.later[p.id] = true; save(); render(); renderChecklist(); };
-      box.appendChild(r);
+    const list=buildList(), box=$("tasks"); box.innerHTML="";
+    list.forEach(p=>{
+      const moved=!!day.later[p.id], done=!!day.done[p.id];
+      const r=el("div","task"+(moved?" moved":""));
+      const info=el("div","info"); info.append(el("b","",p.t+" · "+p.m+" min"), el("span","",moved?"Moved to tomorrow":p.s));
+      const acts=el("div","acts");
+      if(done){
+        acts.append(el("span","tag","Done"));
+        const u=el("button","later","Undo"); u.type="button";
+        u.onclick=()=>{ delete day.done[p.id]; delete day.checklist[p.id]; refresh(); };
+        acts.append(u);
+      } else if(moved){
+        acts.append(el("span","tag","Tomorrow"));
+      } else {
+        const l=el("button","later","Later"); l.type="button";
+        l.onclick=()=>{ pend[p.id]=p.t; day.later[p.id]=true; day.checklist[p.id]="tomorrow"; refresh(); };
+        const dn=el("button","later","Done"); dn.type="button";
+        dn.onclick=()=>{ day.done[p.id]=true; delete day.later[p.id]; delete pend[p.id]; day.checklist[p.id]="done"; refresh(); };
+        const go=el("a","go","Start"); go.href=p.href;
+        acts.append(l,dn,go);
+      }
+      r.append(info,acts); box.appendChild(r);
     });
     stats(list);
   }
-  render();
 
-  /* ---- Daily motivation ---- */
-  const quotes = [
-    "Small, consistent effort becomes extraordinary preparation.",
-    "Understand the connection, not just the fact.",
-    "Every mistake reviewed is one less mistake repeated.",
-    "Ten focused minutes today can protect yesterday's learning.",
-    "Study with evidence. Practise with purpose. Revise with patience."
-  ];
-  $("quoteText").textContent = quotes[Math.floor((today.getFullYear()*372+(today.getMonth()+1)*31+today.getDate())%quotes.length)];
+  /* ---- Motivation ---- */
+  const quotes=["Small, consistent effort becomes extraordinary preparation.","Understand the connection, not just the fact.","Every mistake reviewed is one less mistake repeated.","Ten focused minutes today can protect yesterday's learning.","Study with evidence. Practise with purpose. Revise with patience."];
+  $("quoteText").textContent = quotes[(today.getFullYear()*372+(today.getMonth()+1)*31+today.getDate())%quotes.length];
 
-  /* ---- Persistent end-of-page checklist ---- */
+  /* ---- End-of-page checklist ---- */
   function renderChecklist(){
-    const box=$("dailyChecklist"); if(!box) return; box.innerHTML="";
+    const box=$("dailyChecklist"); box.innerHTML="";
     const all=base.concat(Object.keys(pend).filter(id=>!base.some(p=>p.id===id)).map(id=>({id,t:pend[id],m:minsOf[id]||0})));
-    day.checklist=day.checklist||{};
     all.forEach(p=>{
-      const row=document.createElement("div"); row.className="check-row";
-      const label=document.createElement("div"); label.innerHTML="<b></b><div style='font-size:13px;color:var(--muted)'></div>";
-      label.querySelector("b").textContent=p.t+" · "+(p.m||0)+" min";
-      label.querySelector("div").textContent="Choose the final status for today's task.";
-      const select=document.createElement("select");
-      [["pending","Still pending"],["done","Completed"],["tomorrow","Compensate tomorrow"],["week","Reschedule within this week"]].forEach(([v,t])=>{const o=document.createElement("option");o.value=v;o.textContent=t;select.appendChild(o)});
-      select.value=day.checklist[p.id]||(day.done[p.id]?"done":day.later[p.id]?"tomorrow":"pending");
+      const row=el("div","check-row");
+      const label=el("div"); const b=el("b","",p.t+" · "+(p.m||0)+" min"); const s=el("div","","Choose the final status for today's task.");
+      s.style.cssText="font-size:13px;color:var(--muted)"; label.append(b,s);
+      const select=document.createElement("select"); select.setAttribute("aria-label","Status for "+p.t);
+      [["pending","Still pending"],["done","Completed"],["tomorrow","Compensate tomorrow"],["week","Reschedule within this week"]].forEach(([v,t])=>{const o=el("option","",t);o.value=v;select.appendChild(o);});
+      select.value = day.checklist[p.id] || (day.done[p.id]?"done":day.later[p.id]?"tomorrow":"pending");
       select.onchange=()=>{
-        day.checklist[p.id]=select.value;
-        if(select.value==="done"){day.done[p.id]=true;delete day.later[p.id];delete pend[p.id];}
-        else {delete day.done[p.id];if(select.value==="tomorrow"){day.later[p.id]=true;pend[p.id]=p.t}else if(select.value==="week"){day.later[p.id]=false;pend[p.id]=p.t+" (rescheduled this week)"}else{delete day.later[p.id];delete pend[p.id]}}
-        save();render();renderChecklist();
+        const v=select.value; day.checklist[p.id]=v;
+        if(v==="done"){ day.done[p.id]=true; delete day.later[p.id]; delete pend[p.id]; }
+        else {
+          delete day.done[p.id];
+          if(v==="tomorrow"){ day.later[p.id]=true; pend[p.id]=p.t.replace(/ \(rescheduled this week\)$/,""); }
+          else if(v==="week"){ day.later[p.id]=true; pend[p.id]=p.t.replace(/ \(rescheduled this week\)$/,"")+" (rescheduled this week)"; }
+          else { delete day.later[p.id]; delete pend[p.id]; }
+        }
+        refresh();
       };
-      row.append(label,select);box.appendChild(row);
+      row.append(label,select); box.appendChild(row);
     });
   }
-  renderChecklist();
+  render(); renderChecklist();
 
-  /* ---- Unified full-page AI chat + voice assistant ---- */
-  let assistantToken="", lastAssistantReply="", assistantIntroduced=false;
-  let activeRecognition=null, isListening=false, voiceFinalTranscript="";
+  /* =================== AI assistant =================== */
+  let googleCredential="", lastSpeakText="", sending=false, gsiReady=false;
+  let activeRecognition=null, isListening=false, voiceFinal="", voiceSession=0, voiceLang="en-IN";
+  const history=[];            // last turns, sent for follow-up questions
+  let lastFocus=null;
+
+  /* Minimal safe markdown: # headings, - lists, **bold**; everything via textContent */
+  function inline(parent,text){
+    text.split(/\*\*(.+?)\*\*/).forEach((part,i)=>{ if(!part)return; parent.appendChild(i%2?el("b","",part):document.createTextNode(part)); });
+  }
+  function renderMd(target,text){
+    let ul=null;
+    String(text).split("\n").forEach(line=>{
+      const hm=line.match(/^#{1,4}\s+(.*)/), lm=line.match(/^\s*[-*]\s+(.*)/);
+      if(lm){ if(!ul){ ul=el("ul"); target.appendChild(ul); } const li=el("li"); inline(li,lm[1]); ul.appendChild(li); return; }
+      ul=null;
+      if(hm){ const h4=el("h4"); inline(h4,hm[1]); target.appendChild(h4); }
+      else if(line.trim()){ const p=el("p"); inline(p,line); target.appendChild(p); }
+    });
+  }
+  const plain = t => String(t).replace(/^#{1,4}\s+/gm,"").replace(/\*\*/g,"").replace(/^\s*[-*]\s+/gm,"");
+
+  function addChatLine(who,text){
+    const d=el("div","chat-line"+(who==="BAJEE JRF AI"?" assistant-line":""));
+    d.appendChild(el("span","who",who));
+    if(who==="BAJEE JRF AI") renderMd(d,text); else d.appendChild(el("p","",text));
+    $("chatLog").appendChild(d); $("chatLog").scrollTop=$("chatLog").scrollHeight;
+  }
+
+  function formatLearningMaterial(reply){
+    let data=reply;
+    if(typeof data==="string"){
+      const cleaned=data.replace(/^\s*```(?:json)?\s*/i,"").replace(/\s*```\s*$/,"");
+      try{ data=JSON.parse(cleaned); }catch(e){ return reply; }
+    }
+    if(!data || typeof data!=="object") return String(data==null?"":data);
+    if(data.response && typeof data.response==="object") data=data.response;
+    const answer = (data.solution && typeof data.solution==="object") ? data.solution : data;
+    const pick = k => data[k]!==undefined ? data[k] : answer[k];
+    const lines=[];
+    const title=pick("title")||pick("work")||pick("concept");
+    const author=pick("author")||pick("knowledge_entity");
+    if(title) lines.push("# "+title);
+    if(author) lines.push("**Author:** "+author);
+    if(pick("period")) lines.push("**Period:** "+pick("period"));
+    if(pick("genre")) lines.push("**Genre:** "+pick("genre"));
+    if(pick("language")) lines.push("**Language:** "+pick("language"));
+    const overview=pick("overview")||answer.explanation;
+    if(overview) lines.push("## 1. Overview\n"+overview);
+    [["2. Major literary features",pick("major_literary_features")||pick("literary_features")],
+     ["3. UGC NET/JRF focus",pick("jrf_focus")],
+     ["Key points",pick("key_points")],
+     ["Additional information",pick("additional_information")],
+     ["Common confusions",pick("common_confusion")]].forEach(([head,items])=>{
+      if(Array.isArray(items)&&items.length) lines.push("## "+head+"\n"+items.map(i=>"- "+(typeof i==="string"?i:JSON.stringify(i))).join("\n"));
+      else if(typeof items==="string"&&items.trim()) lines.push("## "+head+"\n"+items);
+    });
+    const question=pick("question");
+    if(question){
+      lines.push("## Quick practice question\n"+question);
+      const options=pick("options");
+      if(options&&typeof options==="object"){
+        lines.push((Array.isArray(options)?options.map((v,i)=>"- "+String.fromCharCode(65+i)+". "+v):Object.entries(options).map(([k,v])=>"- "+k+". "+v)).join("\n"));
+      }
+      const correct=pick("answer_text")||pick("correct_answer");
+      if(correct) lines.push("**Correct answer:** "+correct);
+      const ex=pick("explanation");
+      if(ex && ex!==overview) lines.push("**Explanation:** "+ex);
+    }
+    if(lines.length) return lines.join("\n\n");
+    if(typeof data.reply==="string"&&data.reply.trim()) return data.reply;
+    return "The response did not contain recognizable learning-material fields. Please try the question again.";
+  }
+
+  /* ---- Google sign-in (button is drawn when the chat opens, not while hidden) ---- */
+  function tokenValid(){
+    try{
+      const p=JSON.parse(atob(googleCredential.split(".")[1].replace(/-/g,"+").replace(/_/g,"/")));
+      return p.exp*1000 > Date.now()+30000;
+    }catch(e){ return false; }
+  }
+  async function handleGoogleCredential(response){
+    const status=$("googleSignInStatus");
+    try{
+      status.textContent="Verifying your Google account…";
+      const res=await fetch(API+"/api/auth/google",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({credential:response.credential})});
+      const data=await res.json();
+      if(!res.ok||!data.success) throw new Error(data.error||"Google sign-in failed.");
+      googleCredential=response.credential;
+      status.textContent="Signed in as "+data.user.email;
+      $("googleSignInButton").style.display="none";
+    }catch(err){
+      googleCredential="";
+      status.textContent=(err&&err.message)||"Google sign-in failed.";
+    }
+  }
+  function showSignIn(msg){
+    const status=$("googleSignInStatus"), btn=$("googleSignInButton");
+    if(!(window.google&&google.accounts&&google.accounts.id)){
+      status.textContent="Google Sign-In has not loaded. Check your internet or ad-blocker, then tap here to retry.";
+      status.style.cursor="pointer"; status.onclick=()=>showSignIn();
+      return;
+    }
+    status.onclick=null; status.style.cursor="";
+    if(!gsiReady){
+      google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:handleGoogleCredential,auto_select:false,cancel_on_tap_outside:true});
+      gsiReady=true;
+    }
+    btn.style.display=""; btn.innerHTML="";
+    google.accounts.id.renderButton(btn,{theme:"outline",size:"large",text:"signin_with",shape:"rectangular",width:Math.min(300,window.innerWidth-80)});
+    status.textContent=msg||"Sign in with Google to use the AI assistant.";
+  }
+
+  /* ---- Open / close ---- */
   function openAssistant(){
-    const modal=$("assistantModal"); modal.classList.add("open"); modal.setAttribute("aria-hidden","false");
-    $("assistantStatus").textContent="Welcome! I'm BAJEE JRF AI, your UGC NET English JRF study companion. You can type a question or tap Speak once and talk naturally.";
-    if(!assistantIntroduced){
-      assistantIntroduced=true;
-      if(!$("chatLog").children.length) addChatLine("BAJEE JRF AI","Hello! I'm BAJEE JRF AI, your study companion for UGC NET English (Paper II) and Paper I. I can help explain authors, works, literary periods, theories, PYQs, and revision topics. Type your question or tap Speak, then send it when you're ready.");
+    lastFocus=document.activeElement;
+    const m=$("assistantModal"); m.classList.add("open"); m.setAttribute("aria-hidden","false"); document.body.classList.add("lock");
+    if(!$("chatLog").children.length) addChatLine("BAJEE JRF AI","Hello! I'm your BAJEE JRF AI study assistant for UGC NET English Paper I and Paper II. I can help with authors, works, periods, theories, PYQs, explanations and revision. I'll tell you when a source cannot verify an answer. How can I help you today?");
+    if(googleCredential && tokenValid()){ $("googleSignInButton").style.display="none"; }
+    else { googleCredential=""; showSignIn(); }
+    $("assistantInput").focus({preventScroll:true});
+  }
+  function stopVoice(){
+    voiceSession++;
+    if(activeRecognition){ try{activeRecognition.abort();}catch(e){} }
+    activeRecognition=null; isListening=false; $("voiceBtn").textContent="🎙 Speak";
+  }
+  function closeAssistant(){
+    stopVoice();
+    if("speechSynthesis" in window) speechSynthesis.cancel();
+    const m=$("assistantModal"); m.classList.remove("open"); m.setAttribute("aria-hidden","true"); document.body.classList.remove("lock");
+    if(lastFocus&&lastFocus.focus) lastFocus.focus();
+  }
+  $("askTile").addEventListener("click",e=>{ e.preventDefault(); openAssistant(); });
+  $("nAsk").onclick=openAssistant;
+  $("assistantClose").onclick=closeAssistant;
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&$("assistantModal").classList.contains("open")) closeAssistant(); });
+
+  /* ---- Send ---- */
+  async function sendAssistantMessage(){
+    if(sending) return;
+    const msg=$("assistantInput").value.trim();
+    if(!msg) return;
+    if(!googleCredential || !tokenValid()){
+      googleCredential="";
+      $("assistantStatus").textContent="Please sign in with Google first (see the box above).";
+      showSignIn("Please sign in with Google to send your question.");
+      return;
     }
-    $("assistantInput").focus({ preventScroll: true });
-  }
-  function addChatLine(who,text){const d=document.createElement("div");d.className="chat-line"+(who==="BAJEE JRF AI"?" assistant-line":"");d.textContent=who+": "+text;$("chatLog").appendChild(d);$("chatLog").scrollTop=$("chatLog").scrollHeight;}
-function formatLearningMaterial(reply) {
-  let data = reply;
-
-  if (typeof data === "string") {
-    const cleaned = data
-      .replace(/^\s*```(?:json)?\s*/i, "")
-      .replace(/\s*```\s*$/, "");
-
-    try {
-      data = JSON.parse(cleaned);
-    } catch {
-      // Ordinary text is preserved without inventing content.
-      return reply;
-    }
-  }
-
-  if (!data || typeof data !== "object") {
-    return String(data ?? "");
-  }
-
-  // Unwrap common structured response containers.
-  if (data.response && typeof data.response === "object") {
-    data = data.response;
-  }
-
-  const answer = data.solution &&
-    typeof data.solution === "object"
-      ? data.solution
-      : data;
-
-  const lines = [];
-  const title = data.title || data.work || data.concept ||
-    answer.title || answer.work || answer.concept;
-  const author = data.author || answer.author ||
-    data.knowledge_entity || answer.knowledge_entity;
-  const period = data.period || answer.period;
-  const genre = data.genre || answer.genre;
-  const language = data.language || answer.language;
-  const overview = data.overview || answer.overview ||
-    answer.explanation;
-
-  if (title) lines.push("# " + title);
-  if (author) lines.push("**Author:** " + author);
-  if (period) lines.push("**Period:** " + period);
-  if (genre) lines.push("**Genre:** " + genre);
-  if (language) lines.push("**Language:** " + language);
-
-  if (overview) {
-    lines.push("## 1. Overview\n" + overview);
-  }
-
-  const sections = [
-    ["2. Major literary features",
-      answer.major_literary_features || answer.literary_features],
-    ["3. UGC NET/JRF focus", answer.jrf_focus],
-    ["Key points", answer.key_points],
-    ["Additional information", answer.additional_information],
-    ["Common confusions", answer.common_confusion]
-  ];
-
-  for (const [heading, items] of sections) {
-    if (Array.isArray(items) && items.length) {
-      lines.push("## " + heading + "\n" +
-        items.map(item => "- " +
-          (typeof item === "string" ? item : JSON.stringify(item))
-        ).join("\n"));
-    } else if (typeof items === "string" && items.trim()) {
-      lines.push("## " + heading + "\n" + items);
+    stopVoice(); voiceFinal="";
+    sending=true; $("assistantSend").disabled=true;
+    $("assistantInput").value="";
+    addChatLine("You",msg);
+    $("assistantStatus").textContent="Connecting to BAJEE JRF AI…";
+    const ctrl=new AbortController();
+    const wake=setTimeout(()=>{ $("assistantStatus").textContent="The server may be waking up. This can take up to a minute…"; },8000);
+    const kill=setTimeout(()=>ctrl.abort(),70000);
+    try{
+      const r=await fetch(API+"/api/ai/chat",{
+        method:"POST", signal:ctrl.signal,
+        headers:{"Content-Type":"application/json","Authorization":"Bearer "+googleCredential},
+        body:JSON.stringify({message:msg,context:{
+          source:"BAJEE JRF AI homepage assistant",
+          conversationInstruction:"Answer UGC NET English Paper I and Paper II questions accurately. Use available sources and never invent source references.",
+          history:history.slice(-8)
+        }})
+      });
+      let data={}; try{ data=await r.json(); }catch(e){}
+      if(!r.ok){
+        if(r.status===401){ googleCredential=""; showSignIn("Your Google sign-in expired. Please sign in again."); $("assistantStatus").textContent="Sign-in expired. Please sign in again."; return; }
+        throw new Error(data.error||("Request failed ("+r.status+")"));
+      }
+      const reply=(data.response&&data.response.reply)||data.reply||(data.response&&data.response.text)||"The gateway returned no readable reply.";
+      const shown=formatLearningMaterial(reply);
+      lastSpeakText=plain(shown);
+      history.push({role:"user",content:msg},{role:"assistant",content:lastSpeakText.slice(0,1500)});
+      addChatLine("BAJEE JRF AI",shown);
+      $("assistantStatus").textContent="Reply ready. Tap Speak Loud to hear the answer.";
+    }catch(err){
+      $("assistantStatus").textContent = err.name==="AbortError" ? "The server did not answer in time. Please try again." : "Could not connect: "+err.message;
+      $("assistantInput").value=msg;
+    }finally{
+      clearTimeout(wake); clearTimeout(kill);
+      sending=false; $("assistantSend").disabled=false;
     }
   }
-
-  // Preserve explicit practice questions and their supplied answers.
-  if (data.question || answer.question) {
-    const question = data.question || answer.question;
-    lines.push("### Quick practice question\n" + question);
-
-    const options = data.options || answer.options;
-    if (options && typeof options === "object") {
-      const optionLines = Array.isArray(options)
-        ? options.map((value, index) =>
-            String.fromCharCode(65 + index) + ". " + value)
-        : Object.entries(options).map(([key, value]) =>
-            key + ". " + value);
-
-      lines.push(optionLines.join("\n"));
-    }
-
-    const correct = data.answer_text || answer.answer_text ||
-      data.correct_answer || answer.correct_answer;
-
-    if (correct) {
-      lines.push("**Correct answer:** " + correct);
-    }
-
-    const explanation = data.explanation || answer.explanation;
-    if (explanation && explanation !== overview) {
-      lines.push("**Explanation:** " + explanation);
-    }
-  }
-
-  // Avoid showing raw JSON for unrecognized response fields.
-  if (lines.length) return lines.join("\n\n");
-
-  if (typeof data.reply === "string" && data.reply.trim()) {
-    return data.reply;
-  }
-
-  return "The response did not contain recognizable learning-material fields. Please try the question again.";
-
-
-}  
-
-let googleCredential = "";
-
-async function handleGoogleCredential(response) {
-    const status = document.getElementById("googleSignInStatus");
-
-    try {
-        status.textContent = "Verifying your Google account…";
-
-        const result = await fetch(
-            "https://bajee-jrf.onrender.com/api/auth/google",
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    credential: response.credential
-                })
-            }
-        );
-
-        const data = await result.json();
-
-        if (!result.ok || !data.success) {
-            throw new Error(data.error || "Google sign-in failed.");
-        }
-
-        googleCredential = response.credential;
-        status.textContent = "Signed in as " + data.user.email;
-    } catch (error) {
-        googleCredential = "";
-        status.textContent = error.message || "Google sign-in failed.";
-    }
-}
-
-
-
-function initializeGoogleSignIn() {
-  const status = document.getElementById("googleSignInStatus");
-  const button = document.getElementById("googleSignInButton");
-
-  if (!status || !button) return;
-
-  if (!window.google?.accounts?.id) {
-    status.textContent = "Google Sign-In is unavailable. Refresh and try again.";
-    return;
-  }
-
-  window.google.accounts.id.initialize({
-    client_id: "720409637850-9j3lf95q7n2kq7727gvn1htmncvmapt8.apps.googleusercontent.com",
-    callback: handleGoogleCredential,
-    auto_select: false,
-    cancel_on_tap_outside: true
+  $("assistantSend").onclick=sendAssistantMessage;
+  $("assistantInput").addEventListener("keydown",e=>{
+    if(e.key==="Enter"&&!e.isComposing&&e.keyCode!==229){ e.preventDefault(); sendAssistantMessage(); }
   });
 
-  window.google.accounts.id.renderButton(button, {
-    theme: "outline",
-    size: "large",
-    text: "signin_with",
-    shape: "rectangular"
-  });
-
-  status.textContent = "Sign in with Google to use the AI assistant.";
-}
-
-
-
-window.addEventListener("load", initializeGoogleSignIn);
-
-  
-async function sendAssistantMessage(text) {
-  const msg = (text !== undefined ? text : $("assistantInput").value).trim();
-  if (!msg) return;
-
-  if (!googleCredential) {
-    $("assistantStatus").textContent =
-      "Please sign in with Google before sending a question.";
-    return;
-  }
-
-  if (isListening && activeRecognition) {
-    try { activeRecognition.stop(); } catch (e) {}
-  }
-
-  $("assistantInput").value = "";
-  addChatLine("You", msg);
-  $("assistantStatus").textContent = "Connecting to BAJEE JRF AI…";
-
-  try {
-    const r = await fetch(
-      "https://bajee-jrf.onrender.com/api/ai/chat",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + googleCredential
-        },
-        body: JSON.stringify({
-          message: msg,
-          context: {
-            source: "BAJEE JRF AI homepage assistant",
-            conversationInstruction:
-              "Answer UGC NET English Paper I and Paper II questions accurately. Use available sources and never invent source references."
-          }
-        })
-      }
-    );
-
-    const data = await r.json();
-
-    if (!r.ok) {
-      if (r.status === 401) {
-        googleCredential = "";
-        $("assistantStatus").textContent =
-          "Google sign-in was rejected or expired. Please sign in again.";
-        return;
-      }
-      throw new Error(data.error || "Request failed (" + r.status + ")");
-    }
-
-    const reply =
-      data.response?.reply ||
-      data.reply ||
-      data.response?.text ||
-      "The gateway returned no readable reply.";
-
-    lastAssistantReply = reply;
-    addChatLine("BAJEE JRF AI", formatLearningMaterial(reply));
-    $("assistantStatus").textContent =
-      "Reply ready. Click Speak Loud to hear the answer.";
-  } catch (err) {
-    $("assistantStatus").textContent = "Could not connect: " + err.message;
-  }
-}
-
-  $("assistantSend").onclick=()=>sendAssistantMessage();
-  $("assistantInput").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();sendAssistantMessage();}});
-  $("assistantClose").onclick=()=>{if(activeRecognition){try{activeRecognition.abort();}catch(e){}}activeRecognition=null;isListening=false;$("voiceBtn").textContent="🎙 Speak";$("assistantModal").classList.remove("open");$("assistantModal").setAttribute("aria-hidden","true");if("speechSynthesis" in window)window.speechSynthesis.cancel();};
-  $("assistantModal").addEventListener("click",e=>{if(e.target===$("assistantModal"))$("assistantClose").click();});
-  $("voiceBtn").onclick=()=>{
-    if(isListening&&activeRecognition){try{activeRecognition.stop();}catch(e){}return;}
-    const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-    if(!SR){$("assistantStatus").textContent="Voice typing isn't available in this browser. Try Chrome, allow microphone access, or type your question.";return;}
-    if(activeRecognition){try{activeRecognition.abort();}catch(e){}activeRecognition=null;}
-    const rec=new SR();activeRecognition=rec;voiceFinalTranscript="";isListening=true;rec.lang="en-IN";rec.interimResults=true;rec.continuous=false;rec.maxAlternatives=1;
-    $("voiceBtn").textContent="■ Stop listening";$("assistantInput").value="";$("assistantStatus").textContent="Listening… speak naturally. Tap Stop listening when you're finished.";
-    rec.onresult=e=>{let interim="",finalText="";for(let i=e.resultIndex;i<e.results.length;i++){const part=e.results[i][0].transcript;if(e.results[i].isFinal)finalText+=part;else interim+=part;}if(finalText)voiceFinalTranscript=(voiceFinalTranscript+" "+finalText).trim();$("assistantInput").value=(voiceFinalTranscript+" "+interim).trim();$("assistantStatus").textContent=interim?"Hearing: "+interim:"Voice captured. Continue speaking or tap Stop listening.";};
-    rec.onerror=e=>{isListening=false;activeRecognition=null;$("voiceBtn").textContent="🎙 Speak";const reason=e.error==="not-allowed"?"Microphone permission was blocked. Allow microphone access for this site in Chrome settings.":e.error==="no-speech"?"No speech detected. Tap Speak and try again.":"Voice input error: "+e.error+". You can type instead.";$("assistantStatus").textContent=reason;};
-    rec.onend=()=>{const captured=($("assistantInput").value||voiceFinalTranscript).trim();isListening=false;activeRecognition=null;$("voiceBtn").textContent="🎙 Speak";if(captured){$("assistantInput").value=captured;$("assistantStatus").textContent="Voice captured. Review the text, then click Send to ask the assistant.";}else $("assistantStatus").textContent="No speech captured. Tap Speak to try again, or type your question.";};
-    try{rec.start();}catch(e){isListening=false;activeRecognition=null;$("voiceBtn").textContent="🎙 Speak";$("assistantStatus").textContent="Couldn't start voice input. Check microphone permission and try again.";}
+  /* ---- Voice input ---- */
+  $("langBtn").onclick=()=>{
+    voiceLang = voiceLang==="en-IN" ? "ta-IN" : "en-IN";
+    $("langBtn").textContent = voiceLang==="en-IN" ? "Voice: English" : "Voice: தமிழ்";
   };
-  $("speakLoudBtn").onclick=()=>{if(!lastAssistantReply){$("assistantStatus").textContent="There is no assistant reply to speak yet. Ask a question first.";return;}if(!("speechSynthesis" in window)){$("assistantStatus").textContent="Speech output is not supported by this browser.";return;}window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(lastAssistantReply);utterance.lang="en-IN";utterance.volume=1;utterance.rate=0.95;utterance.onstart=()=>$("assistantStatus").textContent="Speaking the latest answer aloud…";utterance.onend=()=>$("assistantStatus").textContent="Finished speaking. Click Speak Loud again whenever you want.";window.speechSynthesis.speak(utterance);};
-  $("stopSpeechBtn").onclick=()=>{if("speechSynthesis" in window)window.speechSynthesis.cancel();$("assistantStatus").textContent="Speech stopped.";};
-  /* ---- YouTube generator: route to the working dedicated page ---- */
-  $("generateMaterialBtn").onclick = () => {
+  $("voiceBtn").onclick=()=>{
+    if(isListening&&activeRecognition){ try{activeRecognition.stop();}catch(e){} return; }
+    const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!SR){ $("assistantStatus").textContent="Voice typing isn't available in this browser. Try Chrome, allow microphone access, or type your question."; return; }
+    stopVoice();
+    const sid=voiceSession, rec=new SR();
+    activeRecognition=rec; voiceFinal=""; isListening=true;
+    rec.lang=voiceLang; rec.interimResults=true; rec.continuous=false; rec.maxAlternatives=1;
+    $("voiceBtn").textContent="■ Stop listening"; $("assistantInput").value="";
+    $("assistantStatus").textContent="Listening… speak naturally. Tap Stop listening when finished.";
+    rec.onresult=e=>{
+      if(sid!==voiceSession) return;
+      let interim="",fin="";
+      for(let i=e.resultIndex;i<e.results.length;i++){ const part=e.results[i][0].transcript; if(e.results[i].isFinal) fin+=part; else interim+=part; }
+      if(fin) voiceFinal=(voiceFinal+" "+fin).trim();
+      $("assistantInput").value=(voiceFinal+" "+interim).trim();
+      $("assistantStatus").textContent = interim ? "Hearing: "+interim : "Voice captured. Continue speaking or tap Stop listening.";
+    };
+    rec.onerror=e=>{
+      if(sid!==voiceSession) return;
+      isListening=false; activeRecognition=null; $("voiceBtn").textContent="🎙 Speak";
+      $("assistantStatus").textContent = e.error==="not-allowed" ? "Microphone permission was blocked. Allow microphone access for this site in browser settings."
+        : e.error==="no-speech" ? "No speech detected. Tap Speak and try again."
+        : e.error==="language-not-supported" ? "This voice language is not supported on your device. Switch the voice language and retry."
+        : "Voice input error: "+e.error+". You can type instead.";
+    };
+    rec.onend=()=>{
+      if(sid!==voiceSession) return;
+      const captured=($("assistantInput").value||voiceFinal).trim();
+      isListening=false; activeRecognition=null; $("voiceBtn").textContent="🎙 Speak";
+      if(captured){ $("assistantInput").value=captured; $("assistantStatus").textContent="Voice captured. Review the text, then tap Send."; }
+      else $("assistantStatus").textContent="No speech captured. Tap Speak to try again, or type your question.";
+    };
+    try{ rec.start(); }catch(e){ stopVoice(); $("assistantStatus").textContent="Couldn't start voice input. Check microphone permission and try again."; }
+  };
+
+  /* ---- Voice output (reads cleaned text, not raw JSON/markdown) ---- */
+  $("speakLoudBtn").onclick=()=>{
+    if(!lastSpeakText){ $("assistantStatus").textContent="There is no assistant reply to speak yet. Ask a question first."; return; }
+    if(!("speechSynthesis" in window)){ $("assistantStatus").textContent="Speech output is not supported by this browser."; return; }
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(lastSpeakText);
+    u.lang=/[\u0B80-\u0BFF]/.test(lastSpeakText)?"ta-IN":"en-IN"; u.volume=1; u.rate=0.95;
+    u.onstart=()=>$("assistantStatus").textContent="Speaking the latest answer aloud…";
+    u.onend=()=>$("assistantStatus").textContent="Finished speaking. Tap Speak Loud again whenever you want.";
+    u.onerror=()=>$("assistantStatus").textContent="Speech output failed on this device.";
+    speechSynthesis.speak(u);
+  };
+  $("stopSpeechBtn").onclick=()=>{ if("speechSynthesis" in window) speechSynthesis.cancel(); $("assistantStatus").textContent="Speech stopped."; };
+
+  /* ---- YouTube generator ---- */
+  $("generateMaterialBtn").onclick=()=>{
     const v=$("youtubeUrl").value.trim();
-    if(v){try{const u=new URL(v);if(!["youtube.com","www.youtube.com","youtu.be","m.youtube.com"].includes(u.hostname)){throw new Error("invalid")};}catch(e){$("youtubeMessage").textContent="Please enter a valid YouTube URL.";return;}store.set("jrf_youtube_pending_url",v);}
+    if(v){
+      try{
+        const u=new URL(v);
+        if(!["youtube.com","www.youtube.com","youtu.be","m.youtube.com"].includes(u.hostname)) throw new Error("invalid");
+      }catch(e){ $("youtubeMessage").textContent="Please enter a valid YouTube URL."; return; }
+      store.set("jrf_youtube_pending_url",v);
+    }
     location.href="youtube-generator.html";
   };
 
-  /* ---- Backup / restore (all localStorage) ---- */
-  $("exportBtn").onclick = () => {
-    const data = {}; 
-    try{ for(let i=0;i<localStorage.length;i++){ const k = localStorage.key(i); data[k] = localStorage.getItem(k); } }catch(e){}
-    const blob = new Blob([JSON.stringify({app:"BAJEE_JRF_AI", saved:new Date().toISOString(), data}, null, 2)], {type:"application/json"});
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob); a.download = "jrf-backup-"+key(today)+".json"; a.click();
-    URL.revokeObjectURL(a.href);
-    $("backupMsg").textContent = "Backup saved. Keep a copy in Google Drive.";
+  /* ---- Backup / restore (only jrf_ keys) ---- */
+  $("exportBtn").onclick=()=>{
+    const data={};
+    try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k&&k.indexOf("jrf_")===0) data[k]=localStorage.getItem(k); } }catch(e){}
+    const blob=new Blob([JSON.stringify({app:"BAJEE_JRF_AI",saved:new Date().toISOString(),data},null,2)],{type:"application/json"});
+    const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="jrf-backup-"+tk+".json";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+    $("backupMsg").textContent="Backup saved. Keep a copy in Google Drive.";
   };
-  $("importBtn").onclick = () => $("importFile").click();
-  $("importFile").onchange = e => {
-    const f = e.target.files[0]; if(!f) return;
-    const rd = new FileReader();
-    rd.onload = () => {
+  $("importBtn").onclick=()=>$("importFile").click();
+  $("importFile").onchange=e=>{
+    const f=e.target.files[0]; if(!f) return;
+    const rd=new FileReader();
+    rd.onload=()=>{
       try{
-        const o = JSON.parse(rd.result);
-        if(o.app !== "BAJEE_JRF_AI" || !o.data) throw 0;
+        const o=JSON.parse(rd.result);
+        if(o.app!=="BAJEE_JRF_AI"||!o.data||typeof o.data!=="object") throw 0;
         if(!confirm("Restore this backup? It will replace your current progress.")) return;
-        Object.keys(o.data).forEach(k => localStorage.setItem(k, o.data[k]));
-        $("backupMsg").textContent = "Backup restored. Reloading...";
-        setTimeout(() => location.reload(), 600);
-      }catch(err){ $("backupMsg").textContent = "This file is not a valid BAJEE JRF AI backup."; }
+        Object.keys(o.data).forEach(k=>{ if(k.indexOf("jrf_")===0&&typeof o.data[k]==="string") localStorage.setItem(k,o.data[k]); });
+        $("backupMsg").textContent="Backup restored. Reloading…";
+        setTimeout(()=>location.reload(),600);
+      }catch(err){ $("backupMsg").textContent="This file is not a valid BAJEE JRF AI backup."; }
+      $("importFile").value="";
     };
     rd.readAsText(f);
   };
