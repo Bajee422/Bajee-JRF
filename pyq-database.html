@@ -557,11 +557,14 @@
       ============================================================
     */
 
-    const PYQ_DATABASE_PATH = "data/pyqs/pyq-database.json";
-    const PYQ_MAP_PATH = "data/pyqs/pyq-knowledge-map.json";
+    const PYQ_DATABASE_PATH = "../data/pyqs/pyq-database.json";
+    const PYQ_MAP_PATH = "../data/pyqs/pyq-knowledge-map.json";
 
     let pyqs = [];
     let mappings = [];
+    // Answer state is kept in memory while users search/filter the database.
+    // Correct answers remain hidden until the individual question is submitted.
+    const answerState = new Map();
 
 
     /*
@@ -1056,10 +1059,6 @@
 
         getUnit(question),
 
-        getCorrectAnswer(question),
-
-        getExplanation(question),
-
         ...(arrayValue(question.authors)),
 
         ...(arrayValue(question.author)),
@@ -1223,297 +1222,162 @@
       ------------------------------------------------------------
     */
 
-    function renderQuestionCard(
-      question,
-      index,
-      mapping
-    ) {
+    function optionText(option) {
+      if (option && typeof option === "object") {
+        return String(
+          option.text ?? option.label ?? option.value ?? option.answer ?? JSON.stringify(option)
+        );
+      }
+      return String(option ?? "");
+    }
 
-      const year =
-        getYear(question);
+    function optionLabel(option, index) {
+      if (option && typeof option === "object") {
+        const explicit = option.key ?? option.label ?? option.option ?? option.id;
+        if (explicit && /^[A-D]$/i.test(String(explicit).trim())) {
+          return String(explicit).trim().toUpperCase();
+        }
+      }
+      const text = optionText(option).trim();
+      const match = text.match(/^\s*([A-D])\s*[.)\-:]\s*/i);
+      return match ? match[1].toUpperCase() : String.fromCharCode(65 + index);
+    }
 
-      const session =
-        getSession(question);
+    function resolveCorrectOptionIndex(correctAnswer, options) {
+      const answer = String(correctAnswer ?? "").trim();
+      if (!answer) return -1;
 
-      const unit =
-        getUnit(question);
+      // Common source formats: A, Option A, A. text, or the full option text.
+      const letterMatch = answer.match(/^(?:option\s*)?([A-D])(?:\s*[.)\-:]|\s*$)/i);
+      if (letterMatch) {
+        const idx = options.findIndex((option, i) => optionLabel(option, i) === letterMatch[1].toUpperCase());
+        if (idx >= 0) return idx;
+      }
 
-      const questionText =
-        getQuestionText(question);
+      const numericMatch = answer.match(/^(?:option\s*)?([1-4])\s*$/i);
+      if (numericMatch) return Number(numericMatch[1]) - 1;
 
-      const options =
-        getOptions(question);
+      const normalAnswer = normalise(answer.replace(/^\s*[A-D]\s*[.)\-:]\s*/, ""));
+      return options.findIndex((option, i) => {
+        const text = normalise(optionText(option).replace(/^\s*[A-D]\s*[.)\-:]\s*/, ""));
+        return text && (text === normalAnswer || normalAnswer === text || text.includes(normalAnswer));
+      });
+    }
 
-      const correctAnswer =
-        getCorrectAnswer(question);
-
-      const explanation =
-        getExplanation(question);
-
+    function renderQuestionCard(question, index, mapping) {
+      const year = getYear(question);
+      const session = getSession(question);
+      const unit = getUnit(question);
+      const questionText = getQuestionText(question);
+      const options = getOptions(question);
+      const correctAnswer = getCorrectAnswer(question);
+      const explanation = getExplanation(question);
+      const questionId = String(question.id || question.pyq_id || question.pyqId || `PYQ-${index + 1}`);
+      const state = answerState.get(questionId) || { selectedIndex: null, submitted: false };
+      const correctIndex = resolveCorrectOptionIndex(correctAnswer, options);
 
       const concepts = [
         ...arrayValue(question.concepts),
         ...arrayValue(mapping?.concepts)
       ];
-
-
       const authors = [
         ...arrayValue(question.authors),
         ...arrayValue(question.author),
         ...arrayValue(mapping?.authors)
       ];
-
-
       const knowledgeEntities = [
         ...arrayValue(mapping?.knowledge_entities),
         ...arrayValue(mapping?.knowledgeEntities)
       ];
-
-
-      const uniqueConcepts =
-        [...new Set(concepts.map(String))];
-
-      const uniqueAuthors =
-        [...new Set(authors.map(String))];
-
-      const uniqueKnowledge =
-        [...new Set(knowledgeEntities.map(String))];
-
+      const uniqueConcepts = [...new Set(concepts.map(String))];
+      const uniqueAuthors = [...new Set(authors.map(String))];
+      const uniqueKnowledge = [...new Set(knowledgeEntities.map(String))];
 
       let optionsHTML = "";
-
       if (options.length) {
-
         optionsHTML = `
-
-          <div class="mt-3">
-
-            ${options
-              .map(
-                (option, optionIndex) => `
-                  <div class="border rounded p-2 mb-2 small">
-                    ${escapeHTML(
-                      typeof option === "object"
-                        ? JSON.stringify(option)
-                        : option
-                    )}
-                  </div>
-                `
-              )
-              .join("")}
-
-          </div>
-
+          <fieldset class="mt-3" ${state.submitted ? "disabled" : ""}>
+            <legend class="form-label mb-2">Choose one answer</legend>
+            ${options.map((option, optionIndex) => {
+              const label = optionLabel(option, optionIndex);
+              const text = optionText(option).replace(/^\s*[A-D]\s*[.)\-:]\s*/i, "");
+              const selected = state.selectedIndex === optionIndex ? "checked" : "";
+              let optionClass = "border rounded p-3 mb-2 d-flex align-items-start gap-2";
+              if (state.submitted && optionIndex === correctIndex) optionClass += " border-success bg-success-subtle";
+              else if (state.submitted && state.selectedIndex === optionIndex && correctIndex >= 0) optionClass += " border-danger bg-danger-subtle";
+              return `
+                <label class="${optionClass}" for="${escapeHTML(questionId)}-option-${optionIndex}">
+                  <input class="form-check-input mt-1 pyq-answer-option" type="radio"
+                    id="${escapeHTML(questionId)}-option-${optionIndex}"
+                    name="answer-${escapeHTML(questionId)}" value="${optionIndex}"
+                    data-question-id="${escapeHTML(questionId)}" ${selected} ${state.submitted ? "disabled" : ""}>
+                  <span><strong>${escapeHTML(label)}.</strong> ${escapeHTML(text)}</span>
+                </label>`;
+            }).join("")}
+          </fieldset>
+          ${state.submitted ? "" : `<button type="button" class="btn btn-gold mt-2 pyq-submit-answer" data-question-id="${escapeHTML(questionId)}" ${state.selectedIndex === null ? "disabled" : ""}>Submit answer</button>`}
+          ${state.submitted ? `<div class="answer-box" role="status">
+            <div class="answer-label">${correctIndex >= 0 && state.selectedIndex === correctIndex ? "✓ CORRECT" : correctIndex >= 0 ? "✕ NOT QUITE" : "ANSWER REVEALED"}</div>
+            <div><strong>Your answer:</strong> ${state.selectedIndex === null ? "Not answered" : `${escapeHTML(optionLabel(options[state.selectedIndex], state.selectedIndex))}. ${escapeHTML(optionText(options[state.selectedIndex]).replace(/^\s*[A-D]\s*[.)\-:]\s*/i, ""))}`}</div>
+            ${correctAnswer !== "" ? `<div class="mt-2"><strong>Correct answer:</strong> ${correctIndex >= 0 ? `${escapeHTML(optionLabel(options[correctIndex], correctIndex))}. ${escapeHTML(optionText(options[correctIndex]).replace(/^\s*[A-D]\s*[.)\-:]\s*/i, ""))}` : escapeHTML(correctAnswer)}</div>` : `<div class="mt-2">No correct answer is recorded in the source for this question.</div>`}
+            ${correctIndex < 0 && correctAnswer !== "" ? `<div class="meta mt-2">The stored answer could not be matched safely to one of the options, so no automatic correctness judgment was made.</div>` : ""}
+          </div>` : `<div class="meta mt-2">Submit your choice to reveal the stored answer${explanation ? " and source explanation" : ""}.</div>`}
         `;
-
+      } else {
+        optionsHTML = `<div class="meta mt-3">No answer options are recorded for this question.</div>`;
+        if (state.submitted) {
+          optionsHTML += correctAnswer !== "" ? `<div class="answer-box"><div class="answer-label">STORED ANSWER</div><strong>${escapeHTML(correctAnswer)}</strong></div>` : "";
+          optionsHTML += explanation ? `<div class="explanation-box"><div class="explanation-label">SOURCE EXPLANATION</div><div>${escapeHTML(explanation)}</div></div>` : "";
+        } else {
+          optionsHTML += `<button type="button" class="btn btn-gold mt-2 pyq-submit-answer" data-question-id="${escapeHTML(questionId)}">Reveal stored answer</button>`;
+        }
       }
 
-
-      let conceptsHTML = "";
-
-      if (uniqueConcepts.length) {
-
-        conceptsHTML = `
-
-          <div class="mt-3">
-
-            <div class="meta mb-1">
-              Concepts
-            </div>
-
-            ${uniqueConcepts
-              .map(
-                concept =>
-                  `<span class="badge-soft">
-                    ${escapeHTML(concept)}
-                  </span>`
-              )
-              .join("")}
-
-          </div>
-
-        `;
-
-      }
-
-
-      let authorsHTML = "";
-
-      if (uniqueAuthors.length) {
-
-        authorsHTML = `
-
-          <div class="mt-3">
-
-            <div class="meta mb-1">
-              Authors / Related Figures
-            </div>
-
-            ${uniqueAuthors
-              .map(
-                author =>
-                  `<span class="badge-soft">
-                    ${escapeHTML(author)}
-                  </span>`
-              )
-              .join("")}
-
-          </div>
-
-        `;
-
-      }
-
-
-      let knowledgeHTML = "";
-
-      if (uniqueKnowledge.length) {
-
-        knowledgeHTML = `
-
-          <div class="knowledge-box">
-
-            <div class="knowledge-title">
-              🧠 Connected Knowledge
-            </div>
-
-            <div class="mt-2">
-
-              ${uniqueKnowledge
-                .map(
-                  entity =>
-                    `<span class="badge-soft">
-                      ${escapeHTML(entity)}
-                    </span>`
-                )
-                .join("")}
-
-            </div>
-
-          </div>
-
-        `;
-
-      }
-
-
-      const questionId =
-        question.id ||
-        question.pyq_id ||
-        `PYQ-${index + 1}`;
-
+      const conceptsHTML = uniqueConcepts.length ? `<div class="mt-3"><div class="meta mb-1">Concepts</div>${uniqueConcepts.map(concept => `<span class="badge-soft">${escapeHTML(concept)}</span>`).join("")}</div>` : "";
+      const authorsHTML = uniqueAuthors.length ? `<div class="mt-3"><div class="meta mb-1">Authors / Related Figures</div>${uniqueAuthors.map(author => `<span class="badge-soft">${escapeHTML(author)}</span>`).join("")}</div>` : "";
+      const knowledgeHTML = uniqueKnowledge.length ? `<div class="knowledge-box"><div class="knowledge-title">🧠 Connected Knowledge</div><div class="mt-2">${uniqueKnowledge.map(entity => `<span class="badge-soft">${escapeHTML(entity)}</span>`).join("")}</div></div>` : "";
+      const explanationHTML = state.submitted && explanation && options.length ? `<div class="explanation-box"><div class="explanation-label">SOURCE EXPLANATION</div><div>${escapeHTML(explanation)}</div></div>` : "";
 
       return `
-
-        <article class="question-card">
-
+        <article class="question-card" data-question-id="${escapeHTML(questionId)}">
           <div class="d-flex align-items-center flex-wrap gap-2">
-
-            <span class="question-number">
-              ${index + 1}
-            </span>
-
-            <strong>
-              PYQ
-            </strong>
-
-            ${
-              year
-                ? `<span class="badge-soft">
-                    ${escapeHTML(year)}
-                  </span>`
-                : ""
-            }
-
-            ${
-              session
-                ? `<span class="badge-soft">
-                    ${escapeHTML(session)}
-                  </span>`
-                : ""
-            }
-
-            ${
-              unit
-                ? `<span class="badge-soft">
-                    Unit ${escapeHTML(unit)}
-                  </span>`
-                : ""
-            }
-
+            <span class="question-number">${index + 1}</span><strong>PYQ</strong>
+            ${year ? `<span class="badge-soft">${escapeHTML(year)}</span>` : ""}
+            ${session ? `<span class="badge-soft">${escapeHTML(session)}</span>` : ""}
+            ${unit ? `<span class="badge-soft">Unit ${escapeHTML(unit)}</span>` : ""}
+            <span class="badge rounded-pill ${state.submitted ? "text-bg-success" : "text-bg-secondary"}">${state.submitted ? "Submitted" : "Not answered"}</span>
           </div>
-
-
-          <div class="meta mt-2">
-            ID:
-            ${escapeHTML(questionId)}
-          </div>
-
-
-          <div class="question-title">
-            ${escapeHTML(questionText)}
-          </div>
-
-
+          <div class="meta mt-2">ID: ${escapeHTML(questionId)}</div>
+          <div class="question-title">${escapeHTML(questionText)}</div>
           ${optionsHTML}
-
-
-          ${
-            correctAnswer !== ""
-              ? `
-                <div class="answer-box">
-
-                  <div class="answer-label">
-                    ✓ CORRECT ANSWER
-                  </div>
-
-                  <strong>
-                    ${escapeHTML(correctAnswer)}
-                  </strong>
-
-                </div>
-              `
-              : ""
-          }
-
-
-          ${
-            explanation
-              ? `
-                <div class="explanation-box">
-
-                  <div class="explanation-label">
-                    EXPLANATION
-                  </div>
-
-                  <div>
-                    ${escapeHTML(explanation)}
-                  </div>
-
-                </div>
-              `
-              : ""
-          }
-
-
-          ${authorsHTML}
-
-          ${conceptsHTML}
-
-          ${knowledgeHTML}
-
-        </article>
-
-      `;
-
+          ${explanationHTML}
+          ${authorsHTML}${conceptsHTML}${knowledgeHTML}
+        </article>`;
     }
 
+    resultsContainer.addEventListener("change", event => {
+      const input = event.target.closest(".pyq-answer-option");
+      if (!input) return;
+      const questionId = input.dataset.questionId;
+      const state = answerState.get(questionId) || { selectedIndex: null, submitted: false };
+      if (state.submitted) return;
+      state.selectedIndex = Number(input.value);
+      answerState.set(questionId, state);
+      const submitButton = resultsContainer.querySelector(`.pyq-submit-answer[data-question-id="${CSS.escape(questionId)}"]`);
+      if (submitButton) submitButton.disabled = false;
+    });
 
-    /*
-      ------------------------------------------------------------
-      EVENTS
-      ------------------------------------------------------------
-    */
+    resultsContainer.addEventListener("click", event => {
+      const button = event.target.closest(".pyq-submit-answer");
+      if (!button) return;
+      const questionId = button.dataset.questionId;
+      const state = answerState.get(questionId) || { selectedIndex: null, submitted: false };
+      if (state.submitted) return;
+      if (state.selectedIndex === null && pyqs.some(q => String(q.id || q.pyq_id || q.pyqId || "") === questionId && getOptions(q).length)) return;
+      state.submitted = true;
+      answerState.set(questionId, state);
+      renderResults();
+    });
 
     searchInput.addEventListener(
       "input",
