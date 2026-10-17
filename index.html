@@ -333,6 +333,13 @@ nav.bottom svg { width: 21px; height: 21px; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
 
+
+/* Drive audio tile additions: keeps folder rows full width and media files in tiles. */
+.drive-file.is-audio .drive-audio-player{width:100%;display:flex;flex-direction:column;gap:9px;min-width:0}
+.drive-audio-preview{display:block;width:100%;max-width:100%;min-height:40px}
+.drive-file.is-audio .drive-file-actions{width:100%}
+.drive-file.is-audio .drive-file-actions .later{min-width:0}
+
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -449,7 +456,7 @@ nav.bottom svg { width: 21px; height: 21px; }
     </div>
     <div class="msg" id="driveMessage" role="status" aria-live="polite">Drive connection has not been checked yet.</div>
     <div class="row" style="margin-top:12px">
-      <button class="btn" id="driveIndexTextBtn" type="button" disabled>Index Docs, text, PDF & PPTX</button>
+      <button class="btn" id="driveIndexTextBtn" type="button" disabled>Index Docs, text, PDF, DOCX & PPTX</button>
       <input id="driveSourceSearch" type="search" placeholder="Search indexed source text…" aria-label="Search indexed Master Storage text" disabled>
       <button class="btn ghost" id="driveSourceSearchBtn" type="button" disabled>Search sources</button>
     </div>
@@ -984,8 +991,9 @@ nav.bottom svg { width: 21px; height: 21px; }
         const row=el("div","drive-file"),name=el("div","drive-file-name",file.name||"Unnamed file");
         const meta=el("span","drive-file-meta",(file.mimeType||"Unknown type")+(file.modifiedTime?" · Updated "+new Date(file.modifiedTime).toLocaleDateString("en-IN"):""));name.appendChild(meta);row.appendChild(name);
         if(file.webViewLink){const open=el("a","later","Open in Drive");open.href=file.webViewLink;open.target="_blank";open.rel="noopener noreferrer";row.appendChild(open);}
-        const readable=file.mimeType==="application/vnd.google-apps.document"||["text/plain","text/markdown","text/csv","application/json","application/pdf","application/vnd.openxmlformats-officedocument.presentationml.presentation"].includes(file.mimeType);
-        const read=el("button","later",readable?"Read text":"Not yet supported");read.type="button";read.disabled=!readable;
+        const readable=file.mimeType==="application/vnd.google-apps.document"||["text/plain","text/markdown","text/csv","application/json","application/pdf","application/vnd.openxmlformats-officedocument.wordprocessingml.document","application/vnd.openxmlformats-officedocument.presentationml.presentation"].includes(file.mimeType);
+        const read=el("button","later",readable?"Read / extract text":"Unsupported");read.type="button";read.disabled=!readable;
+          if(!readable){const why=el("span","drive-file-meta",mime.startsWith("image/")?"Image · OCR not enabled":mime.startsWith("audio/")?"Audio playback available; transcription not enabled":mime.startsWith("video/")?"Video playback available; transcription not enabled":"Preview/extraction not available for this file type yet");row.appendChild(why);}
         read.onclick=async()=>{driveMessage("Reading "+(file.name||"file")+"…");try{const content=await driveRequest("/api/drive/files/"+encodeURIComponent(file.id)+"/content");const result=$("driveReadResult");result.textContent=content.text||"This file contains no readable text.";result.hidden=false;driveMessage("Read-only preview loaded: "+(content.file.name||file.name)+". This does not yet index the file into the dictionary.");}catch(err){driveMessage(err.message||"Could not read this file.");}};
         row.appendChild(read);box.appendChild(row);
       });
@@ -1003,7 +1011,7 @@ nav.bottom svg { width: 21px; height: 21px; }
         const inventory=await driveRequest("/api/drive/files/recursive?maxDepth=8&maxItems=1000");
         driveScannedFiles=Array.isArray(inventory.files)?inventory.files:[];
       }
-      const readable=driveScannedFiles.filter(item=>item.mimeType==="application/vnd.google-apps.document"||["text/plain","text/markdown","text/csv","application/json","application/pdf","application/vnd.openxmlformats-officedocument.presentationml.presentation"].includes(item.mimeType)).slice(0,25);
+      const readable=driveScannedFiles.filter(item=>item.mimeType==="application/vnd.google-apps.document"||["text/plain","text/markdown","text/csv","application/json","application/pdf","application/vnd.openxmlformats-officedocument.wordprocessingml.document","application/vnd.openxmlformats-officedocument.presentationml.presentation"].includes(item.mimeType)).slice(0,25);
       if(!readable.length){driveMessage("No supported Google Docs, text, PDF or PPTX files were found in the scanned folders. Video/audio files and scanned PDFs still need separate transcription or OCR.");return;}
       driveIndexedSources=[];
       let failed=0;
@@ -1063,11 +1071,35 @@ nav.bottom svg { width: 21px; height: 21px; }
         box.appendChild(row);
       });
       sortedFiles.forEach(item=>{
-        const mime=item.mimeType||"",isVideo=mime.startsWith("video/")||/\.(mp4|webm|mov|m4v|ogv)$/i.test(item.name||"");
+        const mime=item.mimeType||"",isVideo=mime.startsWith("video/")||/\.(mp4|webm|mov|m4v|ogv)$/i.test(item.name||""),isAudio=mime.startsWith("audio/")||/\.(mp3|m4a|wav|ogg|oga|opus|aac|flac|weba)$/i.test(item.name||"");
         const row=el("article","drive-file file-tile"),name=el("div","drive-file-name",item.name||"Unnamed file");
         const meta=el("span","drive-file-meta",(mime||"Unknown type")+(item.path?" · "+item.path:"")+(item.modifiedTime?" · Updated "+new Date(item.modifiedTime).toLocaleDateString("en-IN"):""));
         name.appendChild(meta);row.appendChild(name);
-        if(isVideo){
+        if(isAudio){
+          row.classList.add("is-audio");
+          const badge=el("span","drive-file-badge","AUDIO · MP3 / AUDIO");row.appendChild(badge);
+          const playerWrap=el("div","drive-audio-player");
+          const hint=el("div","drive-file-meta","Inline playback · seek when supported by the browser and source format");playerWrap.appendChild(hint);
+          const actions=el("div","drive-file-actions");
+          const play=el("button","later","▶ Play audio");play.type="button";
+          play.onclick=async()=>{
+            play.disabled=true;play.textContent="Preparing audio…";driveMessage("Preparing secure audio playback for "+(item.name||"audio")+"…");
+            try{
+              const result=await driveRequest("/api/drive/files/"+encodeURIComponent(item.id)+"/playback");
+              let audio=playerWrap.querySelector("audio");
+              if(!audio){audio=document.createElement("audio");audio.className="drive-audio-preview";audio.controls=true;audio.preload="metadata";audio.setAttribute("aria-label",item.name||"Drive audio");playerWrap.appendChild(audio);}
+              audio.src=result.url;audio.load();
+              audio.addEventListener("error",()=>driveMessage("The browser could not play this audio format. Try Open in Drive or a supported MP3/audio format."),{once:true});
+              play.textContent="Reload audio";play.onclick=async()=>{play.disabled=true;play.textContent="Preparing audio…";try{const next=await driveRequest("/api/drive/files/"+encodeURIComponent(item.id)+"/playback");audio.src=next.url;audio.load();play.textContent="Reload audio";}catch(err){driveMessage(err.message||"Could not prepare audio playback.");}finally{play.disabled=false;}};
+              driveMessage("Audio player ready: "+(item.name||"audio")+". The secure playback link expires after 10 minutes; reload audio if needed.");
+              audio.play().catch(()=>{});
+            }catch(err){driveMessage(err.message||"Could not prepare audio playback.");play.textContent="▶ Play audio";}
+            finally{play.disabled=false;}
+          };
+          actions.appendChild(play);
+          if(item.webViewLink){const open=el("a","later","Open in Drive");open.href=item.webViewLink;open.target="_blank";open.rel="noopener noreferrer";actions.appendChild(open);}
+          playerWrap.appendChild(actions);row.appendChild(playerWrap);
+        } else if(isVideo){
           const placeholder=el("div","drive-video-placeholder");placeholder.appendChild(el("span","play-symbol","▶"));placeholder.appendChild(el("span","","Video · click Play to stream"));row.appendChild(placeholder);
           const actions=el("div","drive-file-actions");
           const play=el("button","later","▶ Play video");play.type="button";
@@ -1087,9 +1119,10 @@ nav.bottom svg { width: 21px; height: 21px; }
           if(item.webViewLink){const open=el("a","later","Open in Drive");open.href=item.webViewLink;open.target="_blank";open.rel="noopener noreferrer";actions.appendChild(open);}
           row.appendChild(actions);
         } else {
-          const readable=mime==="application/vnd.google-apps.document"||["text/plain","text/markdown","text/csv","application/json","application/pdf","application/vnd.openxmlformats-officedocument.presentationml.presentation"].includes(mime);
+          const readable=mime==="application/vnd.google-apps.document"||["text/plain","text/markdown","text/csv","application/json","application/pdf","application/vnd.openxmlformats-officedocument.wordprocessingml.document","application/vnd.openxmlformats-officedocument.presentationml.presentation"].includes(mime);
           const actions=el("div","drive-file-actions");
-          const read=el("button","later",readable?"Read text":"Not yet supported");read.type="button";read.disabled=!readable;
+          const read=el("button","later",readable?"Read / extract text":"Unsupported");read.type="button";read.disabled=!readable;
+          if(!readable){const why=el("span","drive-file-meta",mime.startsWith("image/")?"Image · OCR not enabled":mime.startsWith("audio/")?"Audio playback available; transcription not enabled":mime.startsWith("video/")?"Video playback available; transcription not enabled":"Preview/extraction not available for this file type yet");row.appendChild(why);}
           read.onclick=async()=>{driveMessage("Reading "+(item.name||"file")+"…");try{const content=await driveRequest("/api/drive/files/"+encodeURIComponent(item.id)+"/content");const result=$("driveReadResult");result.textContent=content.text||"This file contains no readable text.";result.hidden=false;driveMessage("Read-only preview loaded: "+(content.file.name||item.name)+".");}catch(err){driveMessage(err.message||"Could not read this file.");}};
           actions.appendChild(read);
           if(item.webViewLink){const open=el("a","later","Open in Drive");open.href=item.webViewLink;open.target="_blank";open.rel="noopener noreferrer";actions.appendChild(open);}
