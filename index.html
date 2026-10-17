@@ -139,6 +139,16 @@ nav.bottom .on{color:var(--ink);font-weight:600}
   .assistant-actions{width:100%}.assistant-actions .btn{flex:1;padding:12px 8px}
 }
 @media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr)}.grid.ask{grid-template-columns:repeat(2,1fr)}}
+
+/* Google Drive master storage */
+.drive-status{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0 12px}
+.drive-pill{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;background:var(--bg)}
+.drive-files{display:grid;gap:8px;margin-top:12px}
+.drive-file{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;padding:12px}
+.drive-file-name{font-weight:600;overflow-wrap:anywhere;min-width:160px;flex:1}
+.drive-file-meta{display:block;font-size:12px;color:var(--muted);font-weight:400}
+#driveFolderSelect{flex:1;min-width:220px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit}
+#driveReadResult{white-space:pre-wrap;overflow-wrap:anywhere;max-height:360px;overflow:auto;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px;font-size:14px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -215,6 +225,27 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     <a class="tile" href="vertical-slice.html"><div class="ic">🔁</div><b>Quick revision &amp; retest</b><span>Revise weak areas and retry questions</span></a>
     <a class="tile" href="revision-intelligence.html"><div class="ic">🎯</div><b>Revision intelligence</b><span>Priority queue and next revision actions</span></a>
   </div>
+
+  <div class="sec"><h2>Google Drive · Master Storage</h2><small>Connect your own source library</small></div>
+  <section class="panel" id="drivePanel">
+    <h3>Connect Google Drive</h3>
+    <p>Choose your Master Storage folder so BAJEE JRF AI can list its files. Access is read-only. Your files are not copied into the app by this connection alone.</p>
+    <div class="drive-status"><span class="drive-pill" id="driveConnectionPill">Checking connection…</span><span class="feature-note" id="driveAccountNote" style="margin:0">Sign in to BAJEE JRF AI first.</span></div>
+    <div class="row">
+      <button class="btn" id="driveConnectBtn" type="button">Connect Google Drive</button>
+      <button class="btn ghost" id="driveRefreshBtn" type="button">Refresh status</button>
+      <button class="btn ghost" id="driveDisconnectBtn" type="button" hidden>Disconnect</button>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <select id="driveFolderSelect" aria-label="Choose Master Storage folder"><option value="">Connect Drive to load folders</option></select>
+      <button class="btn" id="driveSelectFolderBtn" type="button" disabled>Use this folder</button>
+      <button class="btn ghost" id="driveListFilesBtn" type="button" disabled>List files</button>
+    </div>
+    <div class="msg" id="driveMessage" role="status" aria-live="polite">Drive connection has not been checked yet.</div>
+    <div class="drive-files" id="driveFiles" aria-live="polite"></div>
+    <div id="driveReadResult" hidden></div>
+    <p class="feature-note">Current capability: list folders/files and read Google Docs or text-based files up to 2 MB. PDF/PPTX extraction, OCR, audio/video transcription, full indexing and dictionary integration are not enabled yet. Drive connection tokens are stored encrypted on the backend; persistent Render storage is recommended to survive restarts.</p>
+  </section>
 
   <div class="sec"><h2>Learning library</h2><small>Source materials and connected knowledge</small></div>
   <div class="grid">
@@ -660,6 +691,121 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     $("assistantStatus").textContent="Signed out.";
   }
   $("googleSignOut").addEventListener("click",signOut);
+
+  /* ---- Google Drive master storage ---- */
+  let driveFoldersLoaded=false;
+  const drivePill = text => { $("driveConnectionPill").textContent=text; };
+  function driveMessage(text){ $("driveMessage").textContent=text; }
+  async function ensureDriveAppSession(){
+    if(appAccessToken && tokenValid()) return true;
+    return await restoreAppSession();
+  }
+  async function driveRequest(path, options={}){
+    const ok=await ensureDriveAppSession();
+    if(!ok) throw new Error("Sign in to BAJEE JRF AI first, then connect Google Drive.");
+    const headers=Object.assign({"Authorization":"Bearer "+appAccessToken},options.headers||{});
+    if(options.body && !headers["Content-Type"]) headers["Content-Type"]="application/json";
+    const response=await fetch(API+path,Object.assign({credentials:"include",headers},options));
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok || data.success===false) throw new Error(data.error||("Drive request failed ("+response.status+")"));
+    return data;
+  }
+  async function loadDriveStatus(showMessage=true){
+    drivePill("Checking connection…");
+    try{
+      const data=await driveRequest("/api/drive/status");
+      if(!data.configured){
+        drivePill("Server not configured"); $("driveAccountNote").textContent="Drive OAuth needs backend configuration.";
+        $("driveConnectBtn").disabled=true; $("driveDisconnectBtn").hidden=true;
+      }else if(data.connected){
+        drivePill("Google Drive connected");
+        const folder=data.selectedFolder;
+        $("driveAccountNote").textContent=folder?"Master Storage: "+folder.name:"Connected. Select your Master Storage folder below.";
+        $("driveConnectBtn").textContent="Reconnect Google Drive";
+        $("driveDisconnectBtn").hidden=false;
+        await loadDriveFolders(folder&&folder.id);
+        if(showMessage) driveMessage(folder?"Drive is connected and a Master Storage folder is selected.":"Drive is connected. Choose your Master Storage folder.");
+      }else{
+        drivePill("Not connected"); $("driveAccountNote").textContent="Connect the Google account that owns your study files.";
+        $("driveConnectBtn").disabled=false; $("driveConnectBtn").textContent="Connect Google Drive";
+        $("driveDisconnectBtn").hidden=true;
+        $("driveFolderSelect").innerHTML='<option value="">Connect Drive to load folders</option>';
+        $("driveSelectFolderBtn").disabled=true; $("driveListFilesBtn").disabled=true;
+        if(showMessage) driveMessage("Sign in to BAJEE JRF AI, then connect Google Drive.");
+      }
+    }catch(err){
+      const msg=err.message||"Could not check Google Drive status.";
+      if(msg.toLowerCase().includes("sign in")){drivePill("BAJEE sign-in required");$("driveAccountNote").textContent="Open Ask AI and sign in, then refresh Drive status.";}
+      else {drivePill("Status unavailable");$("driveAccountNote").textContent="Check the backend deployment and try again.";}
+      if(showMessage) driveMessage(msg);
+    }
+  }
+  async function loadDriveFolders(selectedId){
+    const select=$("driveFolderSelect"); select.innerHTML='<option value="">Loading folders…</option>';
+    try{
+      const data=await driveRequest("/api/drive/folders");
+      const folders=Array.isArray(data.folders)?data.folders:[];
+      select.innerHTML="";
+      const placeholder=document.createElement("option"); placeholder.value=""; placeholder.textContent=folders.length?"Choose your Master Storage folder":"No folders found in this Drive account"; select.appendChild(placeholder);
+      folders.forEach(folder=>{const o=document.createElement("option");o.value=folder.id;o.textContent=folder.name||"Unnamed folder";o.dataset.url=folder.webViewLink||"";select.appendChild(o);});
+      if(selectedId) select.value=selectedId;
+      driveFoldersLoaded=true;
+      $("driveSelectFolderBtn").disabled=!select.value;
+      $("driveListFilesBtn").disabled=!selectedId;
+      if(!folders.length) driveMessage("No Drive folders were returned. Check the Google account and folder sharing.");
+    }catch(err){
+      select.innerHTML='<option value="">Could not load folders</option>';
+      $("driveSelectFolderBtn").disabled=true; $("driveListFilesBtn").disabled=true;
+      driveMessage(err.message||"Could not load Drive folders.");
+    }
+  }
+  $("driveFolderSelect").addEventListener("change",()=>{ $("driveSelectFolderBtn").disabled=!$("driveFolderSelect").value; });
+  $("driveConnectBtn").addEventListener("click",async()=>{
+    $("driveConnectBtn").disabled=true; driveMessage("Preparing secure Google Drive authorization…");
+    try{const data=await driveRequest("/api/drive/auth/start");if(!data.authUrl)throw new Error("The server did not return a Google authorization link.");window.location.assign(data.authUrl);}
+    catch(err){driveMessage(err.message||"Could not start Google Drive connection.");$("driveConnectBtn").disabled=false;}
+  });
+  $("driveRefreshBtn").addEventListener("click",()=>loadDriveStatus(true));
+  $("driveSelectFolderBtn").addEventListener("click",async()=>{
+    const folderId=$("driveFolderSelect").value;if(!folderId){driveMessage("Choose a folder first.");return;}
+    $("driveSelectFolderBtn").disabled=true;driveMessage("Saving Master Storage folder…");
+    try{const data=await driveRequest("/api/drive/folder/select",{method:"POST",body:JSON.stringify({folderId})});
+      $("driveAccountNote").textContent="Master Storage: "+(data.selectedFolder.name||"Selected folder");
+      driveMessage("Master Storage folder saved. You can now list its files.");$("driveListFilesBtn").disabled=false;
+    }catch(err){driveMessage(err.message||"Could not select that folder.");}
+    finally{$("driveSelectFolderBtn").disabled=!$("driveFolderSelect").value;}
+  });
+  $("driveListFilesBtn").addEventListener("click",async()=>{
+    const box=$("driveFiles");box.innerHTML="";$("driveReadResult").hidden=true;driveMessage("Loading files from your selected Master Storage folder…");
+    try{const data=await driveRequest("/api/drive/files?pageSize=100");const files=Array.isArray(data.files)?data.files:[];
+      if(!files.length){driveMessage("The selected folder has no direct files, or the files are stored in subfolders.");return;}
+      files.forEach(file=>{
+        const row=el("div","drive-file"),name=el("div","drive-file-name",file.name||"Unnamed file");
+        const meta=el("span","drive-file-meta",(file.mimeType||"Unknown type")+(file.modifiedTime?" · Updated "+new Date(file.modifiedTime).toLocaleDateString("en-IN"):""));name.appendChild(meta);row.appendChild(name);
+        if(file.webViewLink){const open=el("a","later","Open in Drive");open.href=file.webViewLink;open.target="_blank";open.rel="noopener noreferrer";row.appendChild(open);}
+        const readable=file.mimeType==="application/vnd.google-apps.document"||["text/plain","text/markdown","text/csv","application/json"].includes(file.mimeType);
+        const read=el("button","later",readable?"Read text":"Not yet supported");read.type="button";read.disabled=!readable;
+        read.onclick=async()=>{driveMessage("Reading "+(file.name||"file")+"…");try{const content=await driveRequest("/api/drive/files/"+encodeURIComponent(file.id)+"/content");const result=$("driveReadResult");result.textContent=content.text||"This file contains no readable text.";result.hidden=false;driveMessage("Read-only preview loaded: "+(content.file.name||file.name)+". This does not yet index the file into the dictionary.");}catch(err){driveMessage(err.message||"Could not read this file.");}};
+        row.appendChild(read);box.appendChild(row);
+      });
+      driveMessage("Loaded "+files.length+" direct file(s). Subfolders are not recursively indexed yet.");
+    }catch(err){driveMessage(err.message||"Could not list Drive files.");}
+  });
+  $("driveDisconnectBtn").addEventListener("click",async()=>{
+    if(!confirm("Disconnect Google Drive from BAJEE JRF AI? This removes the stored connection from this app but does not revoke Google's grant."))return;
+    $("driveDisconnectBtn").disabled=true;
+    try{const data=await driveRequest("/api/drive/disconnect",{method:"POST",body:"{}"});$("driveFiles").innerHTML="";$("driveReadResult").hidden=true;driveMessage(data.message||"Drive disconnected.");await loadDriveStatus(false);}
+    catch(err){driveMessage(err.message||"Could not disconnect Drive.");}
+    finally{$("driveDisconnectBtn").disabled=false;}
+  });
+  // OAuth callback returns to the frontend with ?drive=connected (or an error code).
+  const driveResult=new URLSearchParams(location.search).get("drive");
+  if(driveResult){
+    if(driveResult==="connected") driveMessage("Google Drive authorization completed. Checking your connection…");
+    else driveMessage("Google Drive connection was not completed ("+driveResult+"). Check the backend logs and OAuth settings.");
+    const cleanUrl=new URL(location.href);cleanUrl.searchParams.delete("drive");history.replaceState({},"",cleanUrl.pathname+cleanUrl.search+cleanUrl.hash);
+  }
+  loadDriveStatus(!driveResult);
 
   /* ---- Open / close ---- */
   async function openAssistant(){
