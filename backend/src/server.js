@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
+import pdfParse from "pdf-parse";
+import AdmZip from "adm-zip";
 import { OAuth2Client } from "google-auth-library";
 import {
     registerYouTubeSourceRoute
@@ -53,6 +55,7 @@ const DRIVE_TOKEN_STORE_PATH = path.resolve(
 const DRIVE_STATE_TTL_SECONDS = 10 * 60;
 const DRIVE_MAX_PAGE_SIZE = 100;
 const DRIVE_MAX_CONTENT_BYTES = 2 * 1024 * 1024;
+const DRIVE_MAX_DOCUMENT_BYTES = 10 * 1024 * 1024;
 const driveOAuthClient = new OAuth2Client(
     DRIVE_GOOGLE_CLIENT_ID,
     DRIVE_GOOGLE_CLIENT_SECRET,
@@ -1070,8 +1073,7 @@ app.get("/api/drive/files/:fileId/content", async (req, res) => {
         const folderId = connection.entry?.selectedFolder?.id;
         if (!folderId) return res.status(409).json({ success: false, error: "Select the Master Storage folder first.", code: "drive_folder_not_selected" });
         const meta = await driveApiRequest(connection.client, `files/${encodeURIComponent(fileId)}?fields=id,name,mimeType,size,modifiedTime,webViewLink,parents`);
-        // Allow reading files inside nested folders, but only when the parent chain
-        // leads back to the selected Master Storage root. Never permit arbitrary Drive IDs.
+        // Verify the file is inside the selected root, including nested folders.
         let belongsToRoot = Array.isArray(meta.parents) && meta.parents.includes(folderId);
         let parentIds = Array.isArray(meta.parents) ? [...meta.parents] : [];
         const visitedParents = new Set();
@@ -1084,27 +1086,62 @@ app.get("/api/drive/files/:fileId/content", async (req, res) => {
                 try {
                     const parentMeta = await driveApiRequest(connection.client, `files/${encodeURIComponent(parentId)}?fields=id,mimeType,parents`);
                     if (Array.isArray(parentMeta.parents)) nextParents.push(...parentMeta.parents);
-                } catch { /* inaccessible or deleted parent: do not treat it as authorized */ }
+                } catch { /* inaccessible parent means authorization cannot be proven */ }
             }
             parentIds = nextParents;
         }
         if (!belongsToRoot) return res.status(403).json({ success: false, error: "Only files inside the selected Master Storage folder or its subfolders can be read here.", code: "file_outside_master_folder" });
+
+        const mime = meta.mimeType || "";
+        const isText = mime === "application/vnd.google-apps.document" || ["text/plain", "text/markdown", "text/csv", "application/json"].includes(mime);
+        const isPdf = mime === "application/pdf";
+        const isPptx = mime === "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+        if (!isText && !isPdf && !isPptx) return res.status(415).json({ success: false, error: "Supported now: Google Docs, text files, PDF and PPTX. Scanned-PDF OCR and audio/video transcription are not included yet.", code: "drive_file_type_not_supported" });
+
+        const declaredSize = Number(meta.size || 0);
+        const maxBytes = isText ? DRIVE_MAX_CONTENT_BYTES : DRIVE_MAX_DOCUMENT_BYTES;
+        if (declaredSize > maxBytes) return res.status(413).json({ success: false, error: `This file exceeds the ${Math.round(maxBytes / 1024 / 1024)} MB limit for its type.`, code: "drive_file_too_large" });
+
+        let text = "";
+        let extraction = { type: isPdf ? "pdf-text" : isPptx ? "pptx-text" : "text", pages: null, slides: null, ocr: false };
         const token = await connection.client.getAccessToken();
-        let content;
-        if (meta.mimeType === "application/vnd.google-apps.document") {
+        if (mime === "application/vnd.google-apps.document") {
             const response = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}/export?mimeType=text%2Fplain`, { headers: { Authorization: `Bearer ${token.token}` } });
             if (!response.ok) throw Object.assign(new Error("Google Docs export failed."), { status: response.status });
-            content = await response.text();
-        } else if (["text/plain", "text/markdown", "text/csv", "application/json"].includes(meta.mimeType)) {
+            text = await response.text();
+        } else {
             const response = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?alt=media`, { headers: { Authorization: `Bearer ${token.token}` } });
             if (!response.ok) throw Object.assign(new Error("Drive file download failed."), { status: response.status });
             const buffer = Buffer.from(await response.arrayBuffer());
-            if (buffer.length > DRIVE_MAX_CONTENT_BYTES) return res.status(413).json({ success: false, error: "This file exceeds the 2 MB content limit.", code: "drive_file_too_large" });
-            content = buffer.toString("utf8");
-        } else return res.status(415).json({ success: false, error: "This endpoint reads Google Docs and text-based files only. PDF, PPTX, audio, video, OCR and transcription require the content-ingestion pipeline.", code: "drive_file_type_not_supported" });
-        if (Buffer.byteLength(content, "utf8") > DRIVE_MAX_CONTENT_BYTES) return res.status(413).json({ success: false, error: "This file exceeds the 2 MB content limit.", code: "drive_file_too_large" });
-        return res.json({ success: true, file: { id: meta.id, name: meta.name, mimeType: meta.mimeType, modifiedTime: meta.modifiedTime || null, webViewLink: meta.webViewLink || null }, text: content });
-    } catch (error) { return driveSafeError(res, error, "Could not read the selected Google Drive file."); }
+            if (buffer.length > maxBytes) return res.status(413).json({ success: false, error: `This file exceeds the ${Math.round(maxBytes / 1024 / 1024)} MB limit for its type.`, code: "drive_file_too_large" });
+            if (isText) {
+                text = buffer.toString("utf8");
+            } else if (isPdf) {
+                const parsed = await pdfParse(buffer);
+                text = (parsed.text || "").trim();
+                extraction.pages = Number(parsed.numpages || 0);
+                if (!text) return res.status(422).json({ success: false, error: "No selectable text was found in this PDF. It may be scanned; OCR is not enabled yet.", code: "pdf_no_selectable_text", extraction: { ...extraction, status: "needs_ocr" } });
+            } else if (isPptx) {
+                const zip = new AdmZip(buffer);
+                const slideEntries = zip.getEntries().filter(entry => /^ppt\/slides\/slide\d+\.xml$/.test(entry.entryName))
+                    .sort((a, b) => Number(a.entryName.match(/slide(\d+)/)[1]) - Number(b.entryName.match(/slide(\d+)/)[1]));
+                if (!slideEntries.length) return res.status(422).json({ success: false, error: "No slide XML was found in this PPTX file.", code: "pptx_no_slides" });
+                const decodeXml = value => value.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&apos;/g, "'");
+                text = slideEntries.map((entry, index) => {
+                    const xml = entry.getData().toString("utf8");
+                    const pieces = [...xml.matchAll(/<a:t(?:\s[^>]*)?>([\s\S]*?)<\/a:t>/g)].map(match => decodeXml(match[1]));
+                    return pieces.length ? `[Slide ${index + 1}]\n${pieces.join(" ")}` : "";
+                }).filter(Boolean).join("\n\n");
+                extraction.slides = slideEntries.length;
+                if (!text.trim()) return res.status(422).json({ success: false, error: "No readable slide text was found in this PPTX file.", code: "pptx_no_text" });
+            }
+        }
+        if (Buffer.byteLength(text, "utf8") > DRIVE_MAX_DOCUMENT_BYTES) return res.status(413).json({ success: false, error: "Extracted text exceeds the 10 MB response limit.", code: "drive_extracted_text_too_large" });
+        return res.json({ success: true, file: { id: meta.id, name: meta.name, mimeType: mime, modifiedTime: meta.modifiedTime || null, webViewLink: meta.webViewLink || null }, text, extraction: { ...extraction, status: "extracted" } });
+    } catch (error) {
+        if (error?.name === "InvalidPDFException" || /Invalid PDF/i.test(error?.message || "")) return res.status(422).json({ success: false, error: "This PDF could not be parsed. Scanned-PDF OCR is not enabled yet.", code: "pdf_parse_failed" });
+        return driveSafeError(res, error, "Could not read or extract this Master Storage file.");
+    }
 });
 
 /* =========================================================
