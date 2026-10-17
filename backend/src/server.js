@@ -941,7 +941,8 @@ app.get("/api/drive/media/:fileId", async (req, res) => {
         if (!rootId) return res.status(403).end("No Master Storage folder is selected.");
         const { meta, belongs } = await driveFileIsWithinRoot(connection.client, fileId, rootId);
         if (!belongs) return res.status(403).end("This file is outside the selected Master Storage folder.");
-        if (!String(meta.mimeType || "").startsWith("video/")) return res.status(415).end("This is not a supported video file.");
+        const mediaMime = String(meta.mimeType || "");
+        if (!mediaMime.startsWith("video/") && !mediaMime.startsWith("audio/")) return res.status(415).end("This file is not a supported audio/video media type.");
         const access = await connection.client.getAccessToken();
         if (!access?.token) return res.status(401).end("Drive authorization expired.");
         const headers = { Authorization: `Bearer ${access.token}` };
@@ -950,10 +951,10 @@ app.get("/api/drive/media/:fileId", async (req, res) => {
         const upstream = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?alt=media`, { headers });
         if (!upstream.ok || !upstream.body) {
             const status = upstream.status === 416 ? 416 : upstream.status === 404 ? 404 : 502;
-            return res.status(status).end("Google Drive could not stream this video.");
+            return res.status(status).end("Google Drive could not stream this media file.");
         }
         res.status(upstream.status === 206 ? 206 : 200);
-        res.setHeader("Content-Type", meta.mimeType || "video/mp4");
+        res.setHeader("Content-Type", meta.mimeType || (mediaMime.startsWith("audio/") ? "audio/mpeg" : "video/mp4"));
         res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
         res.setHeader("Accept-Ranges", upstream.headers.get("accept-ranges") || "bytes");
         res.setHeader("Cache-Control", "private, no-store");
@@ -971,7 +972,7 @@ app.get("/api/drive/media/:fileId", async (req, res) => {
         }
     } catch (error) {
         console.error("Drive media stream failed:", error?.message || "unknown error");
-        if (!res.headersSent) res.status(502).end("Could not stream this video from Google Drive."); else res.destroy();
+        if (!res.headersSent) res.status(502).end("Could not stream this media file from Google Drive."); else res.destroy();
     }
 });
 
@@ -1160,12 +1161,13 @@ app.get("/api/drive/files/:fileId/playback", async (req, res) => {
     if (!fileId || fileId.length > 256 || !/^[A-Za-z0-9_-]+$/.test(fileId)) return res.status(400).json({ success: false, error: "Provide a valid Google Drive file ID.", code: "invalid_file_id" });
     try {
         const connection = await getAuthorizedDriveClient(userId);
-        if (!connection.connected) return res.status(409).json({ success: false, error: "Connect Google Drive before playing videos.", code: "drive_not_connected" });
+        if (!connection.connected) return res.status(409).json({ success: false, error: "Connect Google Drive before playing media.", code: "drive_not_connected" });
         const rootId = connection.entry?.selectedFolder?.id;
         if (!rootId) return res.status(409).json({ success: false, error: "Select the Master Storage folder first.", code: "drive_folder_not_selected" });
         const { meta, belongs } = await driveFileIsWithinRoot(connection.client, fileId, rootId);
         if (!belongs) return res.status(403).json({ success: false, error: "Only files inside the selected Master Storage folder can be played.", code: "file_outside_master_folder" });
-        if (!String(meta.mimeType || "").startsWith("video/")) return res.status(415).json({ success: false, error: "This file is not a video supported by the browser player.", code: "not_a_video" });
+        const mediaMime = String(meta.mimeType || "");
+        if (!mediaMime.startsWith("video/") && !mediaMime.startsWith("audio/")) return res.status(415).json({ success: false, error: "This file is not a browser-supported audio/video media type.", code: "unsupported_media_type" });
         const token = createDrivePlaybackToken(userId, fileId);
         // Render terminates HTTPS at its proxy. Express may still report req.protocol as
         // "http" unless trust proxy is enabled; an HTTP media URL is blocked as mixed
@@ -1209,14 +1211,15 @@ app.get("/api/drive/files/:fileId/content", async (req, res) => {
         const isText = mime === "application/vnd.google-apps.document" || ["text/plain", "text/markdown", "text/csv", "application/json"].includes(mime);
         const isPdf = mime === "application/pdf";
         const isPptx = mime === "application/vnd.openxmlformats-officedocument.presentationml.presentation";
-        if (!isText && !isPdf && !isPptx) return res.status(415).json({ success: false, error: "Supported now: Google Docs, text files, PDF and PPTX. Scanned-PDF OCR and audio/video transcription are not included yet.", code: "drive_file_type_not_supported" });
+        const isDocx = mime === "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+        if (!isText && !isPdf && !isPptx && !isDocx) return res.status(415).json({ success: false, error: "Supported for text extraction: Google Docs, text files, selectable-text PDF, DOCX and PPTX. Scanned-PDF OCR and audio/video transcription are not included.", code: "drive_file_type_not_supported" });
 
         const declaredSize = Number(meta.size || 0);
         const maxBytes = isText ? DRIVE_MAX_CONTENT_BYTES : DRIVE_MAX_DOCUMENT_BYTES;
         if (declaredSize > maxBytes) return res.status(413).json({ success: false, error: `This file exceeds the ${Math.round(maxBytes / 1024 / 1024)} MB limit for its type.`, code: "drive_file_too_large" });
 
         let text = "";
-        let extraction = { type: isPdf ? "pdf-text" : isPptx ? "pptx-text" : "text", pages: null, slides: null, ocr: false };
+        let extraction = { type: isPdf ? "pdf-text" : isPptx ? "pptx-text" : isDocx ? "docx-text" : "text", pages: null, slides: null, ocr: false };
         const token = await connection.client.getAccessToken();
         if (mime === "application/vnd.google-apps.document") {
             const response = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}/export?mimeType=text%2Fplain`, { headers: { Authorization: `Bearer ${token.token}` } });
@@ -1247,6 +1250,15 @@ app.get("/api/drive/files/:fileId/content", async (req, res) => {
                 }).filter(Boolean).join("\n\n");
                 extraction.slides = slideEntries.length;
                 if (!text.trim()) return res.status(422).json({ success: false, error: "No readable slide text was found in this PPTX file.", code: "pptx_no_text" });
+            } else if (isDocx) {
+                const zip = new AdmZip(buffer);
+                const documentEntry = zip.getEntry("word/document.xml");
+                if (!documentEntry) return res.status(422).json({ success: false, error: "This DOCX file does not contain a readable Word document body.", code: "docx_no_document" });
+                const xml = documentEntry.getData().toString("utf8");
+                const decodeXml = value => value.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n))).replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)));
+                text = xml.replace(/<w:tab\b[^>]*\/>/g, "\t").replace(/<w:br\b[^>]*\/>/g, "\n").replace(/<\/w:p>/g, "\n").replace(/<[^>]+>/g, " ");
+                text = decodeXml(text).replace(/[ \t]+/g, " ").replace(/ *\n */g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+                if (!text) return res.status(422).json({ success: false, error: "No readable text was found in this DOCX file.", code: "docx_no_text" });
             }
         }
         if (Buffer.byteLength(text, "utf8") > DRIVE_MAX_DOCUMENT_BYTES) return res.status(413).json({ success: false, error: "Extracted text exceeds the 10 MB response limit.", code: "drive_extracted_text_too_large" });
