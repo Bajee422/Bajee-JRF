@@ -40,7 +40,9 @@ const googleOAuthClient = new OAuth2Client(
    GOOGLE DRIVE MASTER STORAGE CONFIGURATION
    Drive authorization is separate from app Google sign-in.
 ========================================================= */
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
+// Dedicated OAuth client for Drive; keep GOOGLE_CLIENT_ID reserved for app sign-in.
+const DRIVE_GOOGLE_CLIENT_ID = process.env.DRIVE_GOOGLE_CLIENT_ID || "";
+const DRIVE_GOOGLE_CLIENT_SECRET = process.env.DRIVE_GOOGLE_CLIENT_SECRET || "";
 const DRIVE_REDIRECT_URI = process.env.DRIVE_REDIRECT_URI ||
     "https://bajee-jrf.onrender.com/api/drive/callback";
 const DRIVE_FRONTEND_URL = process.env.DRIVE_FRONTEND_URL ||
@@ -52,8 +54,8 @@ const DRIVE_STATE_TTL_SECONDS = 10 * 60;
 const DRIVE_MAX_PAGE_SIZE = 100;
 const DRIVE_MAX_CONTENT_BYTES = 2 * 1024 * 1024;
 const driveOAuthClient = new OAuth2Client(
-    GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET,
+    DRIVE_GOOGLE_CLIENT_ID,
+    DRIVE_GOOGLE_CLIENT_SECRET,
     DRIVE_REDIRECT_URI
 );
 
@@ -190,7 +192,7 @@ function driveUserId(req) {
     return typeof req.googleUser?.id === "string" && req.googleUser.id ? req.googleUser.id : "";
 }
 function driveConfigReady() {
-    return Boolean(GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET && DRIVE_REDIRECT_URI && APP_SESSION_SECRET);
+    return Boolean(DRIVE_GOOGLE_CLIENT_ID && DRIVE_GOOGLE_CLIENT_SECRET && DRIVE_REDIRECT_URI && APP_SESSION_SECRET);
 }
 async function getDriveConnection(userId) {
     const store = await readDriveStore();
@@ -205,7 +207,7 @@ async function getAuthorizedDriveClient(userId) {
     const { entry } = await getDriveConnection(userId);
     if (!entry?.credentials || (!entry.credentials.refresh_token && !entry.credentials.access_token))
         return { connected: false, client: null, entry: null };
-    const client = new OAuth2Client(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, DRIVE_REDIRECT_URI);
+    const client = new OAuth2Client(DRIVE_GOOGLE_CLIENT_ID, DRIVE_GOOGLE_CLIENT_SECRET, DRIVE_REDIRECT_URI);
     client.setCredentials(entry.credentials);
     try {
         const token = await client.getAccessToken();
