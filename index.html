@@ -510,7 +510,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
   let appAccessToken="", lastSpeakText="", sending=false, gsiReady=false;
   let activeRecognition=null, isListening=false, voiceFinal="", voiceSession=0, voiceLang="en-IN";
   const history=[];            // last turns, sent for follow-up questions
-  let lastFocus=null;
+  let lastFocus=null, assistantReturnScrollY=0;
 
   /* Minimal safe markdown: # headings, - lists, **bold**; everything via textContent */
   function inline(parent,text){
@@ -809,8 +809,12 @@ nav.bottom .on{color:var(--ink);font-weight:600}
 
   /* ---- Open / close ---- */
   async function openAssistant(){
+    // Preserve the current page position when opening the full-screen assistant.
+    assistantReturnScrollY=window.scrollY||window.pageYOffset||0;
     lastFocus=document.activeElement;
     const m=$("assistantModal"); m.classList.add("open"); m.setAttribute("aria-hidden","false"); document.body.classList.add("lock");
+    // Some browsers scroll the underlying page when a control inside a fixed modal receives focus.
+    window.scrollTo(0,assistantReturnScrollY);
     if(!$("chatLog").children.length) addChatLine("BAJEE JRF AI","Hello! I'm your BAJEE JRF AI study assistant for UGC NET English Paper I and Paper II. I can help with authors, works, periods, theories, PYQs, explanations and revision. I'll tell you when a source cannot verify an answer. How can I help you today?");
     if(appAccessToken && tokenValid()){
       setSignedInUI();
@@ -819,7 +823,8 @@ nav.bottom .on{color:var(--ink);font-weight:600}
       const restored=await restoreAppSession();
       if(!restored) showSignIn();
     }
-    $("assistantInput").focus({preventScroll:true});
+    try{$("assistantInput").focus({preventScroll:true});}catch(e){}
+    window.scrollTo(0,assistantReturnScrollY);
   }
   function stopVoice(){
     voiceSession++;
@@ -830,7 +835,8 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     stopVoice();
     if("speechSynthesis" in window) speechSynthesis.cancel();
     const m=$("assistantModal"); m.classList.remove("open"); m.setAttribute("aria-hidden","true"); document.body.classList.remove("lock");
-    if(lastFocus&&lastFocus.focus) lastFocus.focus();
+    if(lastFocus&&lastFocus.focus){try{lastFocus.focus({preventScroll:true});}catch(e){}}
+    window.scrollTo(0,assistantReturnScrollY);
   }
   $("askTile").addEventListener("click",e=>{ e.preventDefault(); openAssistant(); });
   $("nAsk").onclick=openAssistant;
