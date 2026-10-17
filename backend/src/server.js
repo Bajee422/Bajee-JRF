@@ -1166,7 +1166,10 @@ app.get("/api/drive/files/:fileId/playback", async (req, res) => {
         if (!belongs) return res.status(403).json({ success: false, error: "Only files inside the selected Master Storage folder can be played.", code: "file_outside_master_folder" });
         if (!String(meta.mimeType || "").startsWith("video/")) return res.status(415).json({ success: false, error: "This file is not a video supported by the browser player.", code: "not_a_video" });
         const token = createDrivePlaybackToken(userId, fileId);
-        const base = `${req.protocol}://${req.get("host")}`;
+        // Render terminates HTTPS at its proxy. Express may still report req.protocol as
+        // "http" unless trust proxy is enabled; an HTTP media URL is blocked as mixed
+        // content by the HTTPS GitHub Pages frontend. Use the configured public API origin.
+        const base = String(process.env.PUBLIC_API_BASE_URL || "https://bajee-jrf.onrender.com").replace(/\/+$/, "");
         return res.json({ success: true, url: `${base}/api/drive/media/${encodeURIComponent(fileId)}?token=${encodeURIComponent(token)}`, expiresIn: 600, file: { id: meta.id, name: meta.name, mimeType: meta.mimeType, size: meta.size || null } });
     } catch (error) { return driveSafeError(res, error, "Could not prepare video playback."); }
 });
