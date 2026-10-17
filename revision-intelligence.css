@@ -871,3 +871,49 @@ footer strong {
   }
 
 }
+
+/* =========================================================
+   PREMIUM UI LAYER — BAJEE JRF AI (keeps existing JS hooks)
+========================================================= */
+:root{--navy:#111b3b;--navy-dark:#0b1430;--navy-light:#2b3967;--gold:#d8b65d;--gold-dark:#bd9740;--bg:#f4f6fb;--card:#fff;--text:#17223b;--muted:#68748c;--border:#e2e7f1;--shadow:0 10px 28px rgba(17,27,59,.075)}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;letter-spacing:.05px}
+.navbar{background:linear-gradient(110deg,var(--navy-dark),var(--navy-light));box-shadow:0 4px 16px #08122c25;padding:7px 0}
+.navbar-brand{font-size:17px;letter-spacing:.25px}
+.revision-hero{position:relative;overflow:hidden;padding:38px 0 43px;background:radial-gradient(circle at 90% 0%,#6475aa45,transparent 31%),linear-gradient(120deg,var(--navy-dark),#293866)}
+.revision-hero:after{content:"";position:absolute;width:220px;height:220px;border:1px solid #ffffff12;border-radius:50%;right:8%;top:-120px;box-shadow:0 0 0 25px #ffffff06,0 0 0 50px #ffffff04;pointer-events:none}
+.revision-hero h1{font-size:clamp(27px,3vw,37px);letter-spacing:-.7px;line-height:1.16}
+.revision-hero p{font-size:15px;max-width:690px;line-height:1.7;color:#e1e7f6}
+main.container{max-width:1180px}
+.status-card,.stat-card,.section-card,.next-action-card{border:1px solid var(--border);border-radius:17px;box-shadow:var(--shadow)}
+.status-card{border-left:4px solid #26996b;background:linear-gradient(105deg,#f0fbf5,#fff);padding:19px 22px}
+.status-card strong{font-size:15px}
+.stat-card{position:relative;text-align:left;padding:20px 20px 19px 22px;overflow:hidden;transition:transform .18s,box-shadow .18s}
+.stat-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold)}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 14px 28px #111b3b12}
+.stat-number{font-size:32px;letter-spacing:-1px;margin-bottom:9px}
+.stat-label{font-size:12px;letter-spacing:.25px;text-transform:uppercase}
+.section-card{padding:25px;background:#fff}
+.section-card h2{font-size:20px;letter-spacing:-.3px;margin-bottom:8px}
+.section-card>p{line-height:1.7}
+.method-card{border:1px solid #e8ebf3;border-radius:14px;background:linear-gradient(145deg,#fff,#f8f9fd);padding:19px;transition:transform .18s,box-shadow .18s}
+.method-card:hover{transform:translateY(-2px);box-shadow:0 10px 20px #101b3d0d}
+.method-icon{display:grid;place-items:center;width:43px;height:43px;border-radius:13px;background:#f3edda;font-size:22px;margin-bottom:12px}
+.method-card h3,.rule-card h3{font-size:16px;letter-spacing:-.15px}
+.method-card p,.rule-card p{line-height:1.65}
+.btn-gold{border-radius:10px;box-shadow:0 4px 10px #bd97401f;padding:10px 16px}
+#revisionQueue{display:grid;gap:12px}
+.revision-item{border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:14px;padding:20px;margin:0;box-shadow:0 4px 13px #111b3b08;transition:box-shadow .18s,transform .18s}
+.revision-item:hover{box-shadow:0 10px 23px #111b3b12;transform:translateY(-1px)}
+.revision-item.high{border-left-color:var(--red)}.revision-item.medium{border-left-color:var(--orange)}.revision-item.low{border-left-color:var(--green)}
+.revision-title{font-size:16px;line-height:1.4}.revision-meta{line-height:1.6}
+.revision-stats{gap:12px 22px}.revision-stat{color:var(--muted)}
+.btn-retry,.btn-knowledge{border-radius:9px;padding:9px 13px}
+.empty-state{border-radius:15px;padding:38px 20px;background:linear-gradient(145deg,#fff,#f8f9fd)}
+.rule-card{border-radius:14px;padding:20px}.priority-label{letter-spacing:.7px}
+.next-action-card{border-left:5px solid var(--gold);background:radial-gradient(circle at 100% 0%,#f5e8bd7a,transparent 34%),linear-gradient(120deg,#fffdf7,#fff8e5);padding:27px}
+.next-action-card h2{font-size:22px;letter-spacing:-.35px}
+.data-source-box{border-radius:12px;padding:18px;background:#f8f9fd}
+footer{margin-top:34px;padding:23px 15px;background:linear-gradient(110deg,var(--navy-dark),#26345e)}
+button:focus-visible,a:focus-visible{outline:3px solid #d8b65d;outline-offset:3px}
+@media(max-width:768px){.revision-hero{padding:30px 0 34px}.section-card{padding:19px}.stat-card{padding:17px 14px 17px 18px}.stat-number{font-size:28px}.revision-item{padding:16px}.next-action-card{padding:20px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
