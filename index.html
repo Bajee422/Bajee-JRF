@@ -141,6 +141,9 @@ nav.bottom .on{color:var(--ink);font-weight:600}
 @media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr)}.grid.ask{grid-template-columns:repeat(2,1fr)}}
 
 /* Google Drive master storage */
+/* Master Storage is fixed after its one-time folder selection. */
+#driveFolderLink,#driveSelectFolderBtn,#driveListFilesBtn,#driveIndexTextBtn{display:none!important;}
+
 .drive-status{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0 12px}
 .drive-pill{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600;background:var(--bg)}
 .drive-files{display:grid;gap:8px;margin-top:12px}
@@ -460,10 +463,10 @@ nav.bottom svg { width: 21px; height: 21px; }
 <section class="view" id="viewWork">
   <div class="sec" style="margin-top:4px"><h2>Workshop</h2><small>Creation, verification, planning and tools</small></div>
 
-  <div class="sec"><h2>Google Drive · Master Storage</h2><small>Connect your own source library</small></div>
+  <div class="sec"><h2>Google Drive · Master Storage</h2><small>One permanent source folder · scan only additions</small></div>
   <section class="panel" id="drivePanel">
-    <h3>Connect Google Drive</h3>
-    <p>Paste your Google Drive Master Storage folder link so BAJEE JRF AI can access its files. Access is read-only. Your files are not copied into the app by this connection alone.</p>
+    <h3>Final Master Storage</h3>
+    <p>BAJEE JRF AI uses your saved Master Storage folder. You do not need to paste or connect the folder again. Add new material inside that Google Drive folder, then click <strong>Scan new files</strong>. Existing file contents are not re-extracted on every scan.</p>
     <div class="drive-status"><span class="drive-pill" id="driveConnectionPill">Checking connection…</span><span class="feature-note" id="driveAccountNote" style="margin:0">Sign in to BAJEE JRF AI first.</span></div>
     <div class="row">
       <button class="btn" id="driveConnectBtn" type="button">Connect Google Drive</button>
@@ -473,8 +476,7 @@ nav.bottom svg { width: 21px; height: 21px; }
     <div class="row" style="margin-top:12px">
       <input id="driveFolderLink" type="url" inputmode="url" autocomplete="url" placeholder="Paste Google Drive folder link here" aria-label="Google Drive Master Storage folder link">
       <button class="btn" id="driveSelectFolderBtn" type="button" disabled>Connect folder</button>
-      <button class="btn ghost" id="driveListFilesBtn" type="button" disabled>List files</button>
-      <button class="btn ghost" id="driveScanFoldersBtn" type="button" disabled>Scan subfolders</button>
+      <button class="btn" id="driveScanFoldersBtn" type="button" disabled>Scan new files</button>
     </div>
     <div class="msg" id="driveMessage" role="status" aria-live="polite">Drive connection has not been checked yet.</div>
     <div class="row" style="margin-top:12px">
@@ -485,7 +487,7 @@ nav.bottom svg { width: 21px; height: 21px; }
     <div id="driveReadResult" hidden tabindex="-1" aria-live="polite" aria-label="Extracted document text"></div>
     <div class="drive-files" id="driveSearchResults" aria-live="polite"></div>
     <div class="drive-files" id="driveFiles" aria-live="polite"></div>
-    <p class="feature-note">Current capability: recursive inventory and text extraction from Google Docs/text files (2 MB) plus selectable-text PDF, DOCX and PPTX slide text (up to 25 MB per document). Scanned-PDF OCR, audio/video transcription, durable server-side indexing and dictionary integration remain separate steps. Search results are held in this browser session and clear on reload. Drive connection tokens are stored encrypted on the backend; persistent Render storage is recommended to survive restarts.</p>
+    <p class="feature-note">Scan checks folder metadata and extracts content only for newly added or changed supported documents. The first scan creates a baseline of files already present and does not reprocess their contents. Google Docs/text files: 2 MB; PDF, DOCX and PPTX: up to 25 MB each. Scanned-PDF OCR and audio/video transcription are not enabled. Search results currently remain in this browser session. The saved folder and scan manifest use the encrypted backend store; configure persistent storage on Render to preserve them across restarts/redeploys.</p>
   </section>
   <div class="panel">
     <h3>YouTube → JRF material generator</h3>
@@ -1018,7 +1020,7 @@ nav.bottom svg { width: 21px; height: 21px; }
       }else if(data.connected){
         drivePill("Google Drive connected");
         const folder=data.selectedFolder;
-        $("driveAccountNote").textContent=folder?"Master Storage: "+folder.name:"Connected. Paste your Master Storage folder link below.";
+        $("driveAccountNote").textContent=folder?"Permanent Master Storage: "+folder.name:"Connected, but the fixed Master Storage folder is not saved.";
         $("driveConnectBtn").textContent="Reconnect Google Drive";
         $("driveDisconnectBtn").hidden=false;
         if(folder){
@@ -1031,7 +1033,7 @@ nav.bottom svg { width: 21px; height: 21px; }
           if($("driveScanFoldersBtn")) $("driveScanFoldersBtn").disabled=true;
         }
         $("driveSelectFolderBtn").disabled=!$("driveFolderLink").value.trim();
-        if(showMessage) driveMessage(folder?"Drive is connected and your Master Storage folder is saved.":"Drive is connected. Paste your Master Storage folder link.");
+        if(showMessage) driveMessage(folder?"Saved Master Storage is ready. Add files to that folder and use Scan new files.":"Drive is connected, but the fixed Master Storage folder is missing from the saved connection.");
       }else{
         drivePill("Not connected"); $("driveAccountNote").textContent="Connect the Google account that owns your study files.";
         $("driveConnectBtn").disabled=false; $("driveConnectBtn").textContent="Connect Google Drive";
@@ -1150,11 +1152,13 @@ nav.bottom svg { width: 21px; height: 21px; }
 
   $("driveScanFoldersBtn").addEventListener("click",async()=>{
     const box=$("driveFiles");box.innerHTML="";$("driveReadResult").hidden=true;
-    $("driveScanFoldersBtn").disabled=true;driveMessage("Scanning Master Storage subfolders (metadata only)…");
+    $("driveScanFoldersBtn").disabled=true;driveMessage("Checking Master Storage for new or changed files. Existing document contents will not be reprocessed…");
     try{
-      const data=await driveRequest("/api/drive/files/recursive?maxDepth=8&maxItems=1000");
+      const data=await driveRequest("/api/drive/files/recursive?maxDepth=8&maxItems=1000&incremental=true");
       const folders=Array.isArray(data.folders)?data.folders:[];
       const files=Array.isArray(data.files)?data.files:[];
+      const pendingFiles=[...(Array.isArray(data.newFiles)?data.newFiles:[]),...(Array.isArray(data.changedFiles)?data.changedFiles:[])];
+      const pendingIds=new Set(pendingFiles.map(file=>file.id));
       driveScannedFiles=files;
       if($("driveIndexTextBtn")) $("driveIndexTextBtn").disabled=false;
       // Keep folders as familiar full-width rows; render actual files as responsive tiles.
@@ -1174,6 +1178,7 @@ nav.bottom svg { width: 21px; height: 21px; }
         const row=el("article","drive-file file-tile"),name=el("div","drive-file-name",item.name||"Unnamed file");
         const meta=el("span","drive-file-meta",(mime||"Unknown type")+(item.path?" · "+item.path:"")+(item.modifiedTime?" · Updated "+new Date(item.modifiedTime).toLocaleDateString("en-IN"):""));
         name.appendChild(meta);row.appendChild(name);
+        if(pendingIds.has(item.id)){const statusBadge=el("span","drive-file-badge","NEW / UPDATED · PENDING SCAN");row.appendChild(statusBadge);}
         if(isAudio){
           row.classList.add("is-audio");
           const badge=el("span","drive-file-badge","AUDIO · MP3 / AUDIO");row.appendChild(badge);
@@ -1231,8 +1236,33 @@ nav.bottom svg { width: 21px; height: 21px; }
         }
         box.appendChild(row);
       });
-      driveMessage("Recursive scan complete: "+data.totalFiles+" file(s), "+data.totalFolders+" subfolder(s) listed."+(data.truncated?" Scan reached its safety limit; increase depth/items or scan smaller folders.":""));
-    }catch(err){driveMessage(err.message||"Could not scan subfolders. Confirm the updated backend is deployed.");}
+      if(data.baselineCreated){
+        driveMessage("Initial baseline saved: "+data.totalFiles+" existing file(s) recorded. Their contents were not re-read. Add a new file to Master Storage and click Scan new files to process only additions or changes."+(data.truncated?" Inventory reached its safety limit; items beyond the limit will be detected on later scans.":""));
+      } else if(!pendingFiles.length){
+        driveMessage("Scan complete: no new or changed files found. Existing document contents were not reprocessed. Listed "+data.totalFiles+" file(s) and "+data.totalFolders+" folder(s)."+(data.truncated?" Inventory reached its safety limit; scan again to continue detecting later items.":""));
+      } else {
+        const supportedTypes=new Set(["application/vnd.google-apps.document","text/plain","text/markdown","text/csv","application/json","application/pdf","application/vnd.openxmlformats-officedocument.wordprocessingml.document","application/vnd.openxmlformats-officedocument.presentationml.presentation"]);
+        const acknowledged=[]; let extracted=0, failed=0, ignored=0;
+        for(let i=0;i<pendingFiles.length;i++){
+          const item=pendingFiles[i],mime=item.mimeType||"";
+          if(!supportedTypes.has(mime)){acknowledged.push(item.id);ignored++;continue;}
+          driveMessage("Processing new/updated file "+(i+1)+" of "+pendingFiles.length+": "+(item.name||"Unnamed file"));
+          try{
+            const content=await driveRequest("/api/drive/files/"+encodeURIComponent(item.id)+"/content");
+            const text=(content.text||"").trim();
+            if(text){driveIndexedSources=driveIndexedSources.filter(source=>source.id!==item.id);driveIndexedSources.push({id:item.id,title:item.name||"Unnamed source",path:item.path||item.name||"",url:item.webViewLink||content.file?.webViewLink||"",mimeType:mime,text,modifiedTime:item.modifiedTime||null});extracted++;}
+            acknowledged.push(item.id);
+          }catch(err){failed++;}
+        }
+        if(acknowledged.length){
+          try{await driveRequest("/api/drive/scan/ack",{method:"POST",body:JSON.stringify({fileIds:acknowledged})});}
+          catch(err){driveMessage("Files were read, but scan progress could not be saved: "+err.message+". Please scan again after checking backend storage.");}
+        }
+        $("driveSourceSearch").disabled=!driveIndexedSources.length;
+        $("driveSourceSearchBtn").disabled=!driveIndexedSources.length;
+        driveMessage("Incremental scan complete: "+pendingFiles.length+" new/updated file(s) found; "+extracted+" source(s) extracted, "+ignored+" non-text/media file(s) left available for playback, "+failed+" file(s) failed and will be retried next scan. Existing files were not re-extracted."+(data.truncated?" Inventory reached its safety limit; scan again to continue.":""));
+      }
+    }catch(err){driveMessage(err.message||"Could not scan Master Storage. Confirm the updated backend is deployed.");}
     finally{$("driveScanFoldersBtn").disabled=!$("driveFolderLink").value.trim();}
   });
   $("driveDisconnectBtn").addEventListener("click",async()=>{
