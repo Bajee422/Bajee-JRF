@@ -476,6 +476,7 @@ nav.bottom svg { width: 21px; height: 21px; }
     <div class="row" style="margin-top:12px">
       <input id="driveFolderLink" type="url" inputmode="url" autocomplete="url" placeholder="Paste Google Drive folder link here" aria-label="Google Drive Master Storage folder link">
       <button class="btn" id="driveSelectFolderBtn" type="button" disabled>Connect folder</button>
+      <button class="btn" id="driveListFilesBtn" type="button" hidden disabled>List files (compatibility)</button>
       <button class="btn" id="driveScanFoldersBtn" type="button" disabled>Scan new files</button>
     </div>
     <div class="msg" id="driveMessage" role="status" aria-live="polite">Drive connection has not been checked yet.</div>
@@ -554,6 +555,24 @@ nav.bottom svg { width: 21px; height: 21px; }
     <div class="feature-note" style="margin:0">Voice input depends on browser support (Chrome works best). Replies are silent unless you tap Speak Loud. Your application session normally survives closing and reopening the app; sign out to revoke the current session.</div>
   </div>
 </div>
+
+
+<div id="pdfBookModal" class="pdf-book-modal" role="dialog" aria-modal="true" aria-label="PDF book reader">
+  <section class="pdf-book-shell">
+    <div class="pdf-book-toolbar">
+      <div id="pdfBookTitle" class="pdf-book-title">PDF Book Reader</div>
+      <button id="pdfBookPrev" type="button" disabled>← Previous</button>
+      <span id="pdfBookCount" class="pdf-book-count">Page 0 / 0</span>
+      <button id="pdfBookNext" type="button" disabled>Next →</button>
+      <button id="pdfBookZoomOut" type="button" aria-label="Zoom out">−</button>
+      <button id="pdfBookZoomIn" type="button" aria-label="Zoom in">+</button>
+      <button id="pdfBookClose" type="button">Close ✕</button>
+    </div>
+    <div class="pdf-book-stage"><div id="pdfBookSpread" class="pdf-book-spread"><div class="pdf-book-placeholder">Choose a PDF from Master Storage to start reading.</div></div></div>
+    <div id="pdfBookStatus" class="pdf-book-footer" aria-live="polite">Two-page book view on larger screens; single-page view on mobile.</div>
+  </section>
+</div>
+
 
 <script>
 (function(){
@@ -728,7 +747,7 @@ nav.bottom svg { width: 21px; height: 21px; }
   render(); renderChecklist();
 
   /* =================== AI assistant =================== */
-  let appAccessToken="", lastSpeakText="", sending=false, gsiReady=false;
+  let appAccessToken="", lastSpeakText="", sending=false, gsiReady=false, appSessionRestorePromise=null;
   // Bind voice controls immediately; their named handlers are hoisted declarations.
   $("voiceBtn").addEventListener("click", function(e){ e.preventDefault(); startVoiceInput(); });
   $("speakLoudBtn").addEventListener("click", function(e){ e.preventDefault(); speakLatestReply(); });
@@ -827,25 +846,35 @@ nav.bottom svg { width: 21px; height: 21px; }
   }
 
   async function restoreAppSession(){
-    try{
-      const res=await fetch(API+"/api/auth/refresh",{
-        method:"POST",
-        credentials:"include",
-        headers:{"Content-Type":"application/json"},
-        body:"{}"
-      });
-      const data=await res.json().catch(()=>({}));
-      if(!res.ok||!data.success||!data.accessToken){
+    // One shared refresh request prevents AI Chat and Drive from racing each other
+    // while the app is restoring the same signed-in session.
+    if(appAccessToken && tokenValid()) return true;
+    if(appSessionRestorePromise) return appSessionRestorePromise;
+    appSessionRestorePromise=(async()=>{
+      try{
+        const res=await fetch(API+"/api/auth/refresh",{
+          method:"POST",
+          credentials:"include",
+          cache:"no-store",
+          headers:{"Content-Type":"application/json"},
+          body:"{}"
+        });
+        const data=await res.json().catch(()=>({}));
+        if(!res.ok||!data.success||!data.accessToken){
+          appAccessToken="";
+          return false;
+        }
+        appAccessToken=data.accessToken;
+        setSignedInUI(data.user);
+        return true;
+      }catch(e){
         appAccessToken="";
         return false;
+      }finally{
+        appSessionRestorePromise=null;
       }
-      appAccessToken=data.accessToken;
-      setSignedInUI(data.user);
-      return true;
-    }catch(e){
-      appAccessToken="";
-      return false;
-    }
+    })();
+    return appSessionRestorePromise;
   }
 
   async function handleGoogleCredential(response){
@@ -862,7 +891,9 @@ nav.bottom svg { width: 21px; height: 21px; }
       if(!res.ok||!data.success||!data.accessToken) throw new Error(data.error||"Google sign-in failed.");
       appAccessToken=data.accessToken;
       setSignedInUI(data.user);
-      $("assistantStatus").textContent="You're signed in. Ask your study question whenever you're ready.";
+      $("assistantStatus").textContent="Signed in. This same BAJEE login is shared by AI Chat and Google Drive.";
+      // Reuse the newly created application session immediately for the saved Drive folder.
+      await loadDriveStatus(false);
     }catch(err){
       const message = (err && err.message) || "";
       if(message.toLowerCase().includes("fetch") || message.toLowerCase().includes("network")){
@@ -1001,15 +1032,16 @@ nav.bottom svg { width: 21px; height: 21px; }
     }
   }
   function closePdfBook(){pdfBookRenderToken++;pdfBookDocument=null;pdfBookUrl="";$("pdfBookModal").classList.remove("open");document.body.style.overflow="";}
-  $("pdfBookClose").addEventListener("click",closePdfBook);
-  $("pdfBookModal").addEventListener("click",event=>{if(event.target===$("pdfBookModal"))closePdfBook();});
-  $("pdfBookPrev").addEventListener("click",()=>{if(pdfBookDocument&&pdfBookStartPage>1){pdfBookStartPage=Math.max(1,pdfBookStartPage-(pdfBookIsMobile()?1:2));renderPdfBookSpread("prev").catch(err=>$("pdfBookStatus").textContent=err.message);}});
-  $("pdfBookNext").addEventListener("click",()=>{if(pdfBookDocument&&pdfBookStartPage+(pdfBookIsMobile()?0:1)<pdfBookDocument.numPages){pdfBookStartPage=Math.min(pdfBookDocument.numPages,pdfBookStartPage+(pdfBookIsMobile()?1:2));renderPdfBookSpread("next").catch(err=>$("pdfBookStatus").textContent=err.message);}});
-  $("pdfBookZoomIn").addEventListener("click",()=>{if(pdfBookDocument){pdfBookScale=Math.min(1.8,pdfBookScale+0.15);renderPdfBookSpread().catch(err=>$("pdfBookStatus").textContent=err.message);}});
-  $("pdfBookZoomOut").addEventListener("click",()=>{if(pdfBookDocument){pdfBookScale=Math.max(.65,pdfBookScale-.15);renderPdfBookSpread().catch(err=>$("pdfBookStatus").textContent=err.message);}});
+  $("pdfBookClose")?.addEventListener("click",closePdfBook);
+  $("pdfBookModal")?.addEventListener("click",event=>{if(event.target===$("pdfBookModal"))closePdfBook();});
+  $("pdfBookPrev")?.addEventListener("click",()=>{if(pdfBookDocument&&pdfBookStartPage>1){pdfBookStartPage=Math.max(1,pdfBookStartPage-(pdfBookIsMobile()?1:2));renderPdfBookSpread("prev").catch(err=>$("pdfBookStatus").textContent=err.message);}});
+  $("pdfBookNext")?.addEventListener("click",()=>{if(pdfBookDocument&&pdfBookStartPage+(pdfBookIsMobile()?0:1)<pdfBookDocument.numPages){pdfBookStartPage=Math.min(pdfBookDocument.numPages,pdfBookStartPage+(pdfBookIsMobile()?1:2));renderPdfBookSpread("next").catch(err=>$("pdfBookStatus").textContent=err.message);}});
+  $("pdfBookZoomIn")?.addEventListener("click",()=>{if(pdfBookDocument){pdfBookScale=Math.min(1.8,pdfBookScale+0.15);renderPdfBookSpread().catch(err=>$("pdfBookStatus").textContent=err.message);}});
+  $("pdfBookZoomOut")?.addEventListener("click",()=>{if(pdfBookDocument){pdfBookScale=Math.max(.65,pdfBookScale-.15);renderPdfBookSpread().catch(err=>$("pdfBookStatus").textContent=err.message);}});
   document.addEventListener("keydown",event=>{if(!$("pdfBookModal").classList.contains("open"))return;if(event.key==="Escape")closePdfBook();else if(event.key==="ArrowRight")$("pdfBookNext").click();else if(event.key==="ArrowLeft")$("pdfBookPrev").click();});
   window.addEventListener("resize",()=>{if(pdfBookDocument&&$("pdfBookModal").classList.contains("open"))renderPdfBookSpread().catch(()=>{});});
 
+  window.__bajeeDriveFolderReady=false;
   async function loadDriveStatus(showMessage=true){
     drivePill("Checking connection…");
     try{
@@ -1024,10 +1056,12 @@ nav.bottom svg { width: 21px; height: 21px; }
         $("driveConnectBtn").textContent="Reconnect Google Drive";
         $("driveDisconnectBtn").hidden=false;
         if(folder){
+          window.__bajeeDriveFolderReady=true;
           $("driveFolderLink").value=folder.webViewLink||("https://drive.google.com/drive/folders/"+folder.id);
           $("driveListFilesBtn").disabled=false;
           if($("driveScanFoldersBtn")) $("driveScanFoldersBtn").disabled=false;
         }else{
+          window.__bajeeDriveFolderReady=false;
           $("driveFolderLink").value="";
           $("driveListFilesBtn").disabled=true;
           if($("driveScanFoldersBtn")) $("driveScanFoldersBtn").disabled=true;
@@ -1038,6 +1072,7 @@ nav.bottom svg { width: 21px; height: 21px; }
         drivePill("Not connected"); $("driveAccountNote").textContent="Connect the Google account that owns your study files.";
         $("driveConnectBtn").disabled=false; $("driveConnectBtn").textContent="Connect Google Drive";
         $("driveDisconnectBtn").hidden=true;
+        window.__bajeeDriveFolderReady=false;
         $("driveFolderLink").value="";
         $("driveSelectFolderBtn").disabled=true; $("driveListFilesBtn").disabled=true;
         if($("driveScanFoldersBtn")) $("driveScanFoldersBtn").disabled=true;
@@ -1077,6 +1112,7 @@ nav.bottom svg { width: 21px; height: 21px; }
     $("driveSelectFolderBtn").disabled=true;driveMessage("Verifying and saving your Master Storage folder…");
     try{const data=await driveRequest("/api/drive/folder/select",{method:"POST",body:JSON.stringify({folderId})});
       const folder=data.selectedFolder||{};
+      window.__bajeeDriveFolderReady=true;
       $("driveFolderLink").value=folder.webViewLink||$("driveFolderLink").value;
       $("driveAccountNote").textContent="Master Storage: "+(folder.name||"Selected folder");
       driveMessage("Master Storage folder saved. You can list direct files or scan subfolders.");$("driveListFilesBtn").disabled=false;if($("driveScanFoldersBtn")) $("driveScanFoldersBtn").disabled=false;
@@ -1263,7 +1299,7 @@ nav.bottom svg { width: 21px; height: 21px; }
         driveMessage("Incremental scan complete: "+pendingFiles.length+" new/updated file(s) found; "+extracted+" source(s) extracted, "+ignored+" non-text/media file(s) left available for playback, "+failed+" file(s) failed and will be retried next scan. Existing files were not re-extracted."+(data.truncated?" Inventory reached its safety limit; scan again to continue.":""));
       }
     }catch(err){driveMessage(err.message||"Could not scan Master Storage. Confirm the updated backend is deployed.");}
-    finally{$("driveScanFoldersBtn").disabled=!$("driveFolderLink").value.trim();}
+    finally{$("driveScanFoldersBtn").disabled=!window.__bajeeDriveFolderReady;}
   });
   $("driveDisconnectBtn").addEventListener("click",async()=>{
     if(!confirm("Disconnect Google Drive from BAJEE JRF AI? This removes the stored connection from this app but does not revoke Google's grant."))return;
@@ -1286,7 +1322,23 @@ nav.bottom svg { width: 21px; height: 21px; }
     else driveMessage("Google Drive connection was not completed ("+driveResult+"). Check the backend logs and OAuth settings.");
     const cleanUrl=new URL(location.href);cleanUrl.searchParams.delete("drive");window.history.replaceState({},"",cleanUrl.pathname+cleanUrl.search+cleanUrl.hash);
   }
-  loadDriveStatus(!driveResult);
+  async function initializeSharedLogin(){
+    // Restore the single BAJEE application login before Drive or AI controls are used.
+    // The server's HttpOnly refresh cookie persists across browser restarts; no Google
+    // credential or refresh token is copied into localStorage.
+    const restored=await restoreAppSession();
+    if(restored){
+      await loadDriveStatus(!driveResult);
+      return;
+    }
+    drivePill("Sign-in required");
+    $("driveAccountNote").textContent="Sign in once to use both AI Chat and your saved Google Drive Master Storage.";
+    driveMessage("Please sign in to BAJEE JRF AI. The same login is used by AI Chat and Google Drive.");
+    // Present the sign-in UI on first use. After successful sign-in the saved session
+    // is restored automatically on future app opens until it expires or the user signs out.
+    await openAssistant();
+  }
+  initializeSharedLogin();
 
   /* ---- Open / close ---- */
   async function openAssistant(){
@@ -1478,22 +1530,6 @@ nav.bottom svg { width: 21px; height: 21px; }
   };
 })();
 </script>
-
-<div id="pdfBookModal" class="pdf-book-modal" role="dialog" aria-modal="true" aria-label="PDF book reader">
-  <section class="pdf-book-shell">
-    <div class="pdf-book-toolbar">
-      <div id="pdfBookTitle" class="pdf-book-title">PDF Book Reader</div>
-      <button id="pdfBookPrev" type="button" disabled>← Previous</button>
-      <span id="pdfBookCount" class="pdf-book-count">Page 0 / 0</span>
-      <button id="pdfBookNext" type="button" disabled>Next →</button>
-      <button id="pdfBookZoomOut" type="button" aria-label="Zoom out">−</button>
-      <button id="pdfBookZoomIn" type="button" aria-label="Zoom in">+</button>
-      <button id="pdfBookClose" type="button">Close ✕</button>
-    </div>
-    <div class="pdf-book-stage"><div id="pdfBookSpread" class="pdf-book-spread"><div class="pdf-book-placeholder">Choose a PDF from Master Storage to start reading.</div></div></div>
-    <div id="pdfBookStatus" class="pdf-book-footer" aria-live="polite">Two-page book view on larger screens; single-page view on mobile.</div>
-  </section>
-</div>
 
 </body>
 </html>
