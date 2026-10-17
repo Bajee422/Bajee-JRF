@@ -814,7 +814,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
   if(driveResult){
     if(driveResult==="connected") driveMessage("Google Drive authorization completed. Checking your connection…");
     else driveMessage("Google Drive connection was not completed ("+driveResult+"). Check the backend logs and OAuth settings.");
-    const cleanUrl=new URL(location.href);cleanUrl.searchParams.delete("drive");history.replaceState({},"",cleanUrl.pathname+cleanUrl.search+cleanUrl.hash);
+    const cleanUrl=new URL(location.href);cleanUrl.searchParams.delete("drive");window.history.replaceState({},"",cleanUrl.pathname+cleanUrl.search+cleanUrl.hash);
   }
   loadDriveStatus(!driveResult);
 
