@@ -808,23 +808,42 @@ nav.bottom .on{color:var(--ink);font-weight:600}
   loadDriveStatus(!driveResult);
 
   /* ---- Open / close ---- */
-  async function openAssistant(){
-    // Preserve the current page position when opening the full-screen assistant.
-    assistantReturnScrollY=window.scrollY||window.pageYOffset||0;
-    lastFocus=document.activeElement;
-    const m=$("assistantModal"); m.classList.add("open"); m.setAttribute("aria-hidden","false"); document.body.classList.add("lock");
-    // Some browsers scroll the underlying page when a control inside a fixed modal receives focus.
-    window.scrollTo(0,assistantReturnScrollY);
+  let assistantBodyLock = null;
+  async function openAssistant(event){
+    // Stop default anchor/focus behavior before opening the assistant.
+    if(event && typeof event.preventDefault === "function") event.preventDefault();
+    if($("assistantModal").classList.contains("open")) return;
+
+    assistantReturnScrollY = window.scrollY || window.pageYOffset || 0;
+    lastFocus = document.activeElement;
+
+    // Fix the body at its current offset. overflow:hidden alone can reset document
+    // scroll to the top in some browsers when a full-screen modal opens.
+    const body = document.body;
+    assistantBodyLock = {
+      position: body.style.position, top: body.style.top, left: body.style.left,
+      right: body.style.right, width: body.style.width, overflow: body.style.overflow
+    };
+    body.style.position = "fixed";
+    body.style.top = "-" + assistantReturnScrollY + "px";
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+    body.classList.add("lock");
+
+    const m = $("assistantModal");
+    m.classList.add("open");
+    m.setAttribute("aria-hidden", "false");
     if(!$("chatLog").children.length) addChatLine("BAJEE JRF AI","Hello! I'm your BAJEE JRF AI study assistant for UGC NET English Paper I and Paper II. I can help with authors, works, periods, theories, PYQs, explanations and revision. I'll tell you when a source cannot verify an answer. How can I help you today?");
-    if(appAccessToken && tokenValid()){
-      setSignedInUI();
-    }else{
-      $("googleSignInStatus").textContent="Checking your saved sign-in…";
-      const restored=await restoreAppSession();
+
+    if(appAccessToken && tokenValid()) setSignedInUI();
+    else {
+      $("googleSignInStatus").textContent = "Checking your saved sign-in…";
+      const restored = await restoreAppSession();
       if(!restored) showSignIn();
     }
-    try{$("assistantInput").focus({preventScroll:true});}catch(e){}
-    window.scrollTo(0,assistantReturnScrollY);
+    try { $("assistantInput").focus({preventScroll:true}); } catch(e) {}
   }
   function stopVoice(){
     voiceSession++;
@@ -834,12 +853,26 @@ nav.bottom .on{color:var(--ink);font-weight:600}
   function closeAssistant(){
     stopVoice();
     if("speechSynthesis" in window) speechSynthesis.cancel();
-    const m=$("assistantModal"); m.classList.remove("open"); m.setAttribute("aria-hidden","true"); document.body.classList.remove("lock");
-    if(lastFocus&&lastFocus.focus){try{lastFocus.focus({preventScroll:true});}catch(e){}}
-    window.scrollTo(0,assistantReturnScrollY);
+    const m = $("assistantModal");
+    m.classList.remove("open");
+    m.setAttribute("aria-hidden", "true");
+    const body = document.body;
+    body.classList.remove("lock");
+    if(assistantBodyLock){
+      body.style.position = assistantBodyLock.position;
+      body.style.top = assistantBodyLock.top;
+      body.style.left = assistantBodyLock.left;
+      body.style.right = assistantBodyLock.right;
+      body.style.width = assistantBodyLock.width;
+      body.style.overflow = assistantBodyLock.overflow;
+      assistantBodyLock = null;
+    }
+    window.scrollTo(0, assistantReturnScrollY);
+    if(lastFocus && lastFocus.focus){try{lastFocus.focus({preventScroll:true});}catch(e){}}
+    requestAnimationFrame(() => window.scrollTo(0, assistantReturnScrollY));
   }
-  $("askTile").addEventListener("click",e=>{ e.preventDefault(); openAssistant(); });
-  $("nAsk").onclick=openAssistant;
+  $("askTile").addEventListener("click", e => openAssistant(e));
+  $("nAsk").addEventListener("click", e => openAssistant(e));
   $("assistantClose").onclick=closeAssistant;
   document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&$("assistantModal").classList.contains("open")) closeAssistant(); });
 
