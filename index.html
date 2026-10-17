@@ -147,6 +147,22 @@ nav.bottom .on{color:var(--ink);font-weight:600}
 .drive-file{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;padding:12px}
 .drive-file-name{font-weight:600;overflow-wrap:anywhere;min-width:160px;flex:1}
 .drive-file-meta{display:block;font-size:12px;color:var(--muted);font-weight:400}
+/* Master Storage: folders remain rows; files are responsive tiles. */
+.drive-file.is-folder{grid-column:1/-1;display:flex;align-items:center;min-height:76px;background:var(--card)}
+.drive-files.file-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;align-items:stretch}
+.drive-file.file-tile{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;flex-wrap:nowrap;gap:10px;min-width:0;min-height:150px;background:var(--card);box-shadow:0 2px 8px rgba(16,29,56,.04)}
+.drive-file.file-tile .drive-file-name{flex:none;min-width:0;width:100%;display:flex;flex-direction:column;gap:6px}
+.drive-file.file-tile .drive-file-name > span:first-child{font-size:15px;line-height:1.4;overflow-wrap:anywhere}
+.drive-file.file-tile .drive-file-meta{line-height:1.5;overflow-wrap:anywhere}
+.drive-file-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.drive-file-actions .later{flex:1;text-align:center;justify-content:center;min-width:90px}
+.drive-video-preview{width:100%;aspect-ratio:16/9;max-height:260px;background:#080d18;border-radius:10px;display:block}
+.drive-video-placeholder{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;gap:10px;flex-direction:column;border-radius:10px;background:linear-gradient(135deg,#101d38,#253e65);color:#fff;text-align:center;padding:14px}
+.drive-video-placeholder .play-symbol{font-size:34px;line-height:1}
+.drive-file-badge{display:inline-flex;align-self:flex-start;padding:4px 8px;border-radius:999px;background:var(--goldsoft);color:var(--navy);font-size:11px;font-weight:700}
+@media(max-width:600px){.drive-files.file-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.drive-file.file-tile{padding:10px;min-height:140px}.drive-file-actions{flex-direction:column}.drive-file-actions .later{width:100%;box-sizing:border-box}.drive-video-preview{aspect-ratio:16/10}}
+@media(max-width:380px){.drive-files.file-tiles{grid-template-columns:1fr}}
+
 #driveFolderLink{flex:1;min-width:260px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit}
 #driveReadResult{white-space:pre-wrap;overflow-wrap:anywhere;max-height:360px;overflow:auto;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px;font-size:14px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -961,7 +977,7 @@ nav.bottom svg { width: 21px; height: 21px; }
     finally{$("driveSelectFolderBtn").disabled=!$("driveFolderLink").value.trim();}
   });
   $("driveListFilesBtn").addEventListener("click",async()=>{
-    const box=$("driveFiles");box.innerHTML="";$("driveReadResult").hidden=true;driveMessage("Loading files from your selected Master Storage folder…");
+    const box=$("driveFiles");box.innerHTML="";box.classList.remove("file-tiles");$("driveReadResult").hidden=true;driveMessage("Loading files from your selected Master Storage folder…");
     try{const data=await driveRequest("/api/drive/files?pageSize=100");const files=Array.isArray(data.files)?data.files:[];
       if(!files.length){driveMessage("The selected folder has no direct files, or the files are stored in subfolders.");return;}
       files.forEach(file=>{
@@ -1034,19 +1050,50 @@ nav.bottom svg { width: 21px; height: 21px; }
       const files=Array.isArray(data.files)?data.files:[];
       driveScannedFiles=files;
       if($("driveIndexTextBtn")) $("driveIndexTextBtn").disabled=false;
-      const entries=[...folders.map(item=>({...item,isFolder:true})),...files.map(item=>({...item,isFolder:false}))]
-        .sort((a,b)=>(a.path||a.name||"").localeCompare(b.path||b.name||""));
-      if(!entries.length){driveMessage("The selected Master Storage folder is empty, or no accessible items were returned.");return;}
-      entries.forEach(item=>{
-        const row=el("div","drive-file"),name=el("div","drive-file-name",item.name||"Unnamed item");
-        const meta=el("span","drive-file-meta",(item.isFolder?"Folder":(item.mimeType||"Unknown type"))+(item.path?" · "+item.path:"")+(item.modifiedTime?" · Updated "+new Date(item.modifiedTime).toLocaleDateString("en-IN"):""));
+      // Keep folders as familiar full-width rows; render actual files as responsive tiles.
+      box.classList.add("file-tiles");
+      const sortedFolders=folders.slice().sort((a,b)=>(a.path||a.name||"").localeCompare(b.path||b.name||""));
+      const sortedFiles=files.slice().sort((a,b)=>(a.path||a.name||"").localeCompare(b.path||b.name||""));
+      if(!sortedFolders.length&&!sortedFiles.length){driveMessage("The selected Master Storage folder is empty, or no accessible items were returned.");return;}
+      sortedFolders.forEach(item=>{
+        const row=el("div","drive-file is-folder"),name=el("div","drive-file-name","📁  "+(item.name||"Unnamed folder"));
+        const meta=el("span","drive-file-meta","Folder"+(item.path?" · "+item.path:"")+(item.modifiedTime?" · Updated "+new Date(item.modifiedTime).toLocaleDateString("en-IN"):""));
         name.appendChild(meta);row.appendChild(name);
         if(item.webViewLink){const open=el("a","later","Open in Drive");open.href=item.webViewLink;open.target="_blank";open.rel="noopener noreferrer";row.appendChild(open);}
-        const readable=!item.isFolder&&(item.mimeType==="application/vnd.google-apps.document"||["text/plain","text/markdown","text/csv","application/json","application/pdf","application/vnd.openxmlformats-officedocument.presentationml.presentation"].includes(item.mimeType));
-        if(!item.isFolder){
+        box.appendChild(row);
+      });
+      sortedFiles.forEach(item=>{
+        const mime=item.mimeType||"",isVideo=mime.startsWith("video/")||/\.(mp4|webm|mov|m4v|ogv)$/i.test(item.name||"");
+        const row=el("article","drive-file file-tile"),name=el("div","drive-file-name",item.name||"Unnamed file");
+        const meta=el("span","drive-file-meta",(mime||"Unknown type")+(item.path?" · "+item.path:"")+(item.modifiedTime?" · Updated "+new Date(item.modifiedTime).toLocaleDateString("en-IN"):""));
+        name.appendChild(meta);row.appendChild(name);
+        if(isVideo){
+          const placeholder=el("div","drive-video-placeholder");placeholder.appendChild(el("span","play-symbol","▶"));placeholder.appendChild(el("span","","Video · click Play to stream"));row.appendChild(placeholder);
+          const actions=el("div","drive-file-actions");
+          const play=el("button","later","▶ Play video");play.type="button";
+          play.onclick=async()=>{
+            play.disabled=true;play.textContent="Preparing video…";driveMessage("Preparing secure playback for "+(item.name||"video")+"…");
+            try{
+              const result=await driveRequest("/api/drive/files/"+encodeURIComponent(item.id)+"/playback");
+              const video=document.createElement("video");video.className="drive-video-preview";video.controls=true;video.playsInline=true;video.preload="metadata";video.src=result.url;video.setAttribute("aria-label",item.name||"Drive video");
+              video.addEventListener("error",()=>driveMessage("The browser could not play this video. Check its format and try again."),{once:true});
+              row.replaceChild(video,placeholder);play.textContent="Reload video";play.disabled=false;
+              play.onclick=async()=>{play.disabled=true;play.textContent="Preparing video…";try{const next=await driveRequest("/api/drive/files/"+encodeURIComponent(item.id)+"/playback");video.src=next.url;video.load();play.textContent="Reload video";}catch(err){driveMessage(err.message||"Could not prepare playback.");}finally{play.disabled=false;}};
+              driveMessage("Video player ready: "+(item.name||"video")+". Playback links expire after 10 minutes; reload the video if needed.");
+              video.play().catch(()=>{});
+            }catch(err){driveMessage(err.message||"Could not prepare video playback.");play.textContent="▶ Play video";play.disabled=false;}
+          };
+          actions.appendChild(play);
+          if(item.webViewLink){const open=el("a","later","Open in Drive");open.href=item.webViewLink;open.target="_blank";open.rel="noopener noreferrer";actions.appendChild(open);}
+          row.appendChild(actions);
+        } else {
+          const readable=mime==="application/vnd.google-apps.document"||["text/plain","text/markdown","text/csv","application/json","application/pdf","application/vnd.openxmlformats-officedocument.presentationml.presentation"].includes(mime);
+          const actions=el("div","drive-file-actions");
           const read=el("button","later",readable?"Read text":"Not yet supported");read.type="button";read.disabled=!readable;
-          read.onclick=async()=>{driveMessage("Reading "+(item.name||"file")+"…");try{const content=await driveRequest("/api/drive/files/"+encodeURIComponent(item.id)+"/content");const result=$("driveReadResult");result.textContent=content.text||"This file contains no readable text.";result.hidden=false;driveMessage("Read-only preview loaded: "+(content.file.name||item.name)+". This does not yet index the file into the dictionary.");}catch(err){driveMessage(err.message||"Could not read this file.");}};
-          row.appendChild(read);
+          read.onclick=async()=>{driveMessage("Reading "+(item.name||"file")+"…");try{const content=await driveRequest("/api/drive/files/"+encodeURIComponent(item.id)+"/content");const result=$("driveReadResult");result.textContent=content.text||"This file contains no readable text.";result.hidden=false;driveMessage("Read-only preview loaded: "+(content.file.name||item.name)+".");}catch(err){driveMessage(err.message||"Could not read this file.");}};
+          actions.appendChild(read);
+          if(item.webViewLink){const open=el("a","later","Open in Drive");open.href=item.webViewLink;open.target="_blank";open.rel="noopener noreferrer";actions.appendChild(open);}
+          row.appendChild(actions);
         }
         box.appendChild(row);
       });
