@@ -186,11 +186,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
       <span id="daysLabel">Tap to set exam date</span>
     </button>
   </div>
-  <div class="row datepanel" id="datePanel">
-    <input type="date" id="examDate" aria-label="Exam date">
-    <button class="btn" id="dateSave" type="button">Save date</button>
-    <button class="btn ghost" id="dateClear" type="button">Clear</button>
-  </div>
+  <input type="date" id="examDate" aria-label="Exam date" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none" tabindex="-1">
 
   <div class="motivation"><b>Today's motivation</b><p id="quoteText">Small, consistent effort becomes extraordinary preparation.</p></div>
 
@@ -226,31 +222,11 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     <a class="tile" href="revision-intelligence.html"><div class="ic">🎯</div><b>Revision intelligence</b><span>Priority queue and next revision actions</span></a>
   </div>
 
-  <div class="sec"><h2>Google Drive · Master Storage</h2><small>Connect your own source library</small></div>
-  <section class="panel" id="drivePanel">
-    <h3>Connect Google Drive</h3>
-    <p>Choose your Master Storage folder so BAJEE JRF AI can list its files. Access is read-only. Your files are not copied into the app by this connection alone.</p>
-    <div class="drive-status"><span class="drive-pill" id="driveConnectionPill">Checking connection…</span><span class="feature-note" id="driveAccountNote" style="margin:0">Sign in to BAJEE JRF AI first.</span></div>
-    <div class="row">
-      <button class="btn" id="driveConnectBtn" type="button">Connect Google Drive</button>
-      <button class="btn ghost" id="driveRefreshBtn" type="button">Refresh status</button>
-      <button class="btn ghost" id="driveDisconnectBtn" type="button" hidden>Disconnect</button>
-    </div>
-    <div class="row" style="margin-top:12px">
-      <select id="driveFolderSelect" aria-label="Choose Master Storage folder"><option value="">Connect Drive to load folders</option></select>
-      <button class="btn" id="driveSelectFolderBtn" type="button" disabled>Use this folder</button>
-      <button class="btn ghost" id="driveListFilesBtn" type="button" disabled>List files</button>
-    </div>
-    <div class="msg" id="driveMessage" role="status" aria-live="polite">Drive connection has not been checked yet.</div>
-    <div class="drive-files" id="driveFiles" aria-live="polite"></div>
-    <div id="driveReadResult" hidden></div>
-    <p class="feature-note">Current capability: list folders/files and read Google Docs or text-based files up to 2 MB. PDF/PPTX extraction, OCR, audio/video transcription, full indexing and dictionary integration are not enabled yet. Drive connection tokens are stored encrypted on the backend; persistent Render storage is recommended to survive restarts.</p>
-  </section>
+
 
   <div class="sec"><h2>Learning library</h2><small>Source materials and connected knowledge</small></div>
   <div class="grid">
     <a class="tile" href="resource-library.html"><div class="ic">📚</div><b>Resource library</b><span>Books, PDFs, PPTs, audio and videos</span></a>
-    <a class="tile" href="master-storage.html"><div class="ic">🗂️</div><b>Master storage</b><span>Master-storage tools and source inventory</span></a>
     <a class="tile" href="jrf-master-dictionary.html"><div class="ic">🔎</div><b>JRF dictionary</b><span>Meanings, authors, works, theories and years</span></a>
     <a class="tile" href="pyq-database.html"><div class="ic">📖</div><b>PYQ database</b><span>Previous-year questions</span></a>
     <a class="tile" href="pyq-knowledge-mapping.html"><div class="ic">🔗</div><b>PYQ knowledge mapping</b><span>Connect questions to entities and concepts</span></a>
@@ -271,6 +247,27 @@ nav.bottom .on{color:var(--ink);font-weight:600}
 <!-- ================= WORKSHOP ================= -->
 <section class="view" id="viewWork">
   <div class="sec" style="margin-top:4px"><h2>Workshop</h2><small>Creation, verification, planning and tools</small></div>
+
+  <div class="sec"><h2>Google Drive · Master Storage</h2><small>Connect your own source library</small></div>
+  <section class="panel" id="drivePanel">
+    <h3>Connect Google Drive</h3>
+    <p>Choose your Master Storage folder so BAJEE JRF AI can list its files. Access is read-only. Your files are not copied into the app by this connection alone.</p>
+    <div class="drive-status"><span class="drive-pill" id="driveConnectionPill">Checking connection…</span><span class="feature-note" id="driveAccountNote" style="margin:0">Sign in to BAJEE JRF AI first.</span></div>
+    <div class="row">
+      <button class="btn" id="driveConnectBtn" type="button">Connect Google Drive</button>
+      <button class="btn ghost" id="driveRefreshBtn" type="button">Refresh status</button>
+      <button class="btn ghost" id="driveDisconnectBtn" type="button" hidden>Disconnect</button>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <select id="driveFolderSelect" aria-label="Choose Master Storage folder"><option value="">Connect Drive to load folders</option></select>
+      <button class="btn" id="driveSelectFolderBtn" type="button" disabled>Use this folder</button>
+      <button class="btn ghost" id="driveListFilesBtn" type="button" disabled>List files</button>
+    </div>
+    <div class="msg" id="driveMessage" role="status" aria-live="polite">Drive connection has not been checked yet.</div>
+    <div class="drive-files" id="driveFiles" aria-live="polite"></div>
+    <div id="driveReadResult" hidden></div>
+    <p class="feature-note">Current capability: list folders/files and read Google Docs or text-based files up to 2 MB. PDF/PPTX extraction, OCR, audio/video transcription, full indexing and dictionary integration are not enabled yet. Drive connection tokens are stored encrypted on the backend; persistent Render storage is recommended to survive restarts.</p>
+  </section>
   <div class="panel">
     <h3>YouTube → JRF material generator</h3>
     <p>The working generator is available in its dedicated page. Open it to acquire a transcript, verify the source and generate study materials.</p>
@@ -397,15 +394,18 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     else { $("daysLeft").textContent="--"; $("daysLabel").textContent="Date has passed. Tap to set a new one"; }
   }
   $("countBtn").onclick = () => {
-    $("examDate").value = store.get("jrf_exam_date","2026-12-08") || "";
-    $("datePanel").classList.toggle("on");
+    const picker = $("examDate");
+    picker.value = store.get("jrf_exam_date","2026-12-08") || "";
+    // Keep the Home page clean: open the native date picker instead of showing a separate card.
+    if(typeof picker.showPicker === "function") picker.showPicker();
+    else picker.click();
   };
-  $("dateSave").onclick = () => {
+  $("examDate").addEventListener("change", () => {
     const v = $("examDate").value;
-    if(!v){ return; }
-    store.set("jrf_exam_date", v); renderCount(); $("datePanel").classList.remove("on");
-  };
-  $("dateClear").onclick = () => { store.set("jrf_exam_date",""); renderCount(); $("datePanel").classList.remove("on"); };
+    if(!v) return;
+    store.set("jrf_exam_date", v);
+    renderCount();
+  });
   renderCount();
 
   /* ---- Daily plan (60 + 60 for Paper I / II; total 190 min) ---- */
