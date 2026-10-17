@@ -1070,6 +1070,14 @@ app.get("/api/drive/files", async (req, res) => {
     } catch (error) { return driveSafeError(res, error, "Could not list files in the selected Drive folder."); }
 });
 
+function driveInventoryFingerprint(item) {
+    return crypto.createHash("sha256").update(JSON.stringify({
+        id: item.id, name: item.name || "", mimeType: item.mimeType || "",
+        size: item.size || "0", modifiedTime: item.modifiedTime || "",
+        md5Checksum: item.md5Checksum || "", parentId: item.parentId || ""
+    })).digest("hex");
+}
+
 /*
  * Bounded recursive inventory of the selected Master Storage folder.
  * This lists metadata only; it does not download or index file contents.
@@ -1082,6 +1090,7 @@ app.get("/api/drive/files/recursive", async (req, res) => {
     const requestedItems = Number(req.query?.maxItems || 1000);
     const maxDepth = Number.isFinite(requestedDepth) ? Math.max(1, Math.min(10, Math.floor(requestedDepth))) : 8;
     const maxItems = Number.isFinite(requestedItems) ? Math.max(1, Math.min(2000, Math.floor(requestedItems))) : 1000;
+    const incremental = String(req.query?.incremental || "").toLowerCase() === "true";
     try {
         const connection = await getAuthorizedDriveClient(userId);
         if (!connection.connected) return res.status(409).json({ success: false, error: "Connect Google Drive before scanning folders.", code: "drive_not_connected" });
@@ -1116,6 +1125,7 @@ app.get("/api/drive/files/recursive", async (req, res) => {
                         mimeType: item.mimeType || "application/octet-stream",
                         size: item.size || null,
                         modifiedTime: item.modifiedTime || null,
+                        md5Checksum: item.md5Checksum || null,
                         webViewLink: item.webViewLink || null,
                         parentId: current.id,
                         path: `${current.path}/${item.name || "Unnamed item"}`,
@@ -1139,22 +1149,70 @@ app.get("/api/drive/files/recursive", async (req, res) => {
             if (truncated) break;
         }
         if (queue.length) truncated = true;
+        let baselineCreated = false;
+        let newFiles = [];
+        let changedFiles = [];
+        if (incremental) {
+            const latest = (await getDriveConnection(userId)).entry || connection.entry;
+            const sameRoot = latest.scanManifestRootId === root.id && latest.scanManifest && typeof latest.scanManifest === "object";
+            const manifest = sameRoot ? { ...latest.scanManifest } : {};
+            const fingerprints = Object.fromEntries(files.map(item => [item.id, driveInventoryFingerprint(item)]));
+            if (!sameRoot) {
+                // First scan (or a changed root) establishes a baseline only; it does not re-extract existing files.
+                for (const [id, fingerprint] of Object.entries(fingerprints)) manifest[id] = fingerprint;
+                await saveDriveConnection(userId, { ...latest, scanManifestRootId: root.id, scanManifest: manifest, scanPending: {} });
+                baselineCreated = true;
+            } else {
+                const pending = {};
+                for (const item of files) {
+                    const fingerprint = fingerprints[item.id];
+                    if (!manifest[item.id]) { newFiles.push(item); pending[item.id] = fingerprint; }
+                    else if (manifest[item.id] !== fingerprint) { changedFiles.push(item); pending[item.id] = fingerprint; }
+                }
+                await saveDriveConnection(userId, { ...latest, scanManifestRootId: root.id, scanManifest: manifest, scanPending: pending });
+            }
+        }
         return res.json({
             success: true,
             folder: root,
             files,
             folders,
+            newFiles,
+            changedFiles,
+            baselineCreated,
             totalFiles: files.length,
             totalFolders: folders.length,
             scannedItems: files.length + folders.length,
             maxDepth,
             maxItems,
             truncated,
-            note: "Recursive metadata inventory only. File content extraction and indexing are separate steps."
+            note: incremental ? "Metadata inventory checked; only new or changed file contents should be extracted." : "Recursive metadata inventory only. File content extraction and indexing are separate steps."
         });
     } catch (error) {
         return driveSafeError(res, error, "Could not scan the Master Storage folder and its subfolders.");
     }
+});
+
+app.post("/api/drive/scan/ack", async (req, res) => {
+    const userId = driveUserId(req);
+    if (!userId) return res.status(401).json({ success: false, error: "A signed-in BAJEE user is required.", code: "app_signin_required" });
+    const fileIds = Array.isArray(req.body?.fileIds) ? [...new Set(req.body.fileIds.filter(id => typeof id === "string" && /^[A-Za-z0-9_-]{1,256}$/.test(id)))] : [];
+    if (!fileIds.length || fileIds.length > 1000) return res.status(400).json({ success: false, error: "Provide between 1 and 1000 valid file IDs.", code: "invalid_scan_ack" });
+    try {
+        const { entry } = await getDriveConnection(userId);
+        if (!entry?.selectedFolder?.id) return res.status(409).json({ success: false, error: "The fixed Master Storage folder is not saved.", code: "drive_folder_not_selected" });
+        const manifest = { ...(entry.scanManifest || {}) };
+        const pending = { ...(entry.scanPending || {}) };
+        let acknowledged = 0;
+        for (const id of fileIds) {
+            if (!Object.prototype.hasOwnProperty.call(pending, id)) continue;
+            manifest[id] = pending[id];
+            delete pending[id];
+            acknowledged++;
+        }
+        await saveDriveConnection(userId, { ...entry, scanManifestRootId: entry.selectedFolder.id, scanManifest: manifest, scanPending: pending });
+        return res.json({ success: true, acknowledged, message: "Incremental scan progress saved." });
+    } catch (error) { return driveSafeError(res, error, "Could not save incremental scan progress."); }
 });
 
 app.get("/api/drive/files/:fileId/playback", async (req, res) => {
