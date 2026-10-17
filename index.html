@@ -81,7 +81,7 @@ main{max-width:960px;margin:auto;padding:20px 16px}
 .stat span{font-size:13px;color:var(--muted)}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .grid.ask{grid-template-columns:repeat(2,1fr)}
-.tile{background:var(--card);border-radius:18px;padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px;border:1px solid transparent;transition:border-color .15s;cursor:pointer}
+.tile{appearance:none;-webkit-appearance:none;width:100%;text-align:left;color:var(--ink);font:inherit;background:var(--card);border-radius:18px;padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px;border:1px solid transparent;transition:border-color .15s;cursor:pointer}
 .tile:hover{border-color:var(--gold)}
 .tile .ic{width:42px;height:42px;border-radius:12px;background:var(--goldsoft);color:#8A6A1E;display:grid;place-items:center;margin-bottom:6px}
 :root[data-theme="dark"] .tile .ic{color:var(--gold)}
@@ -209,7 +209,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
 
   <div class="sec"><h2>Ask</h2></div>
   <div class="grid ask">
-    <a class="tile" id="askTile" href="#" role="button"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/></svg></div><b>AI Chat + Voice Mentor</b><span>Type or speak your question, then read and hear the answer</span></a>
+    <button class="tile" id="askTile" type="button"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/></svg></div><b>AI Chat + Voice Mentor</b><span>Type or speak your question, then read and hear the answer</span></button>
   </div>
 
   <div class="sec"><h2>Study essentials</h2><small>Core learning and practice</small></div>
@@ -798,6 +798,13 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     catch(err){driveMessage(err.message||"Could not disconnect Drive.");}
     finally{$("driveDisconnectBtn").disabled=false;}
   });
+  // Register AI controls before the optional Drive status initialization below.
+  // This avoids a later Drive-side runtime error leaving the old href="#" behavior active.
+  $("askTile").addEventListener("click",openAssistant);
+  $("nAsk").addEventListener("click",openAssistant);
+  $("assistantClose").onclick=closeAssistant;
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("assistantModal").classList.contains("open"))closeAssistant();});
+
   // OAuth callback returns to the frontend with ?drive=connected (or an error code).
   const driveResult=new URLSearchParams(location.search).get("drive");
   if(driveResult){
@@ -808,42 +815,21 @@ nav.bottom .on{color:var(--ink);font-weight:600}
   loadDriveStatus(!driveResult);
 
   /* ---- Open / close ---- */
-  let assistantBodyLock = null;
-  async function openAssistant(event){
-    // Stop default anchor/focus behavior before opening the assistant.
-    if(event && typeof event.preventDefault === "function") event.preventDefault();
-    if($("assistantModal").classList.contains("open")) return;
-
-    assistantReturnScrollY = window.scrollY || window.pageYOffset || 0;
-    lastFocus = document.activeElement;
-
-    // Fix the body at its current offset. overflow:hidden alone can reset document
-    // scroll to the top in some browsers when a full-screen modal opens.
-    const body = document.body;
-    assistantBodyLock = {
-      position: body.style.position, top: body.style.top, left: body.style.left,
-      right: body.style.right, width: body.style.width, overflow: body.style.overflow
-    };
-    body.style.position = "fixed";
-    body.style.top = "-" + assistantReturnScrollY + "px";
-    body.style.left = "0";
-    body.style.right = "0";
-    body.style.width = "100%";
-    body.style.overflow = "hidden";
-    body.classList.add("lock");
-
-    const m = $("assistantModal");
+  async function openAssistant(){
+    lastFocus=document.activeElement;
+    const m=$("assistantModal");
     m.classList.add("open");
-    m.setAttribute("aria-hidden", "false");
+    m.setAttribute("aria-hidden","false");
+    document.body.classList.add("lock");
     if(!$("chatLog").children.length) addChatLine("BAJEE JRF AI","Hello! I'm your BAJEE JRF AI study assistant for UGC NET English Paper I and Paper II. I can help with authors, works, periods, theories, PYQs, explanations and revision. I'll tell you when a source cannot verify an answer. How can I help you today?");
-
-    if(appAccessToken && tokenValid()) setSignedInUI();
-    else {
-      $("googleSignInStatus").textContent = "Checking your saved sign-in…";
-      const restored = await restoreAppSession();
+    if(appAccessToken && tokenValid()){
+      setSignedInUI();
+    }else{
+      $("googleSignInStatus").textContent="Checking your saved sign-in…";
+      const restored=await restoreAppSession();
       if(!restored) showSignIn();
     }
-    try { $("assistantInput").focus({preventScroll:true}); } catch(e) {}
+    try{$("assistantInput").focus({preventScroll:true});}catch(e){}
   }
   function stopVoice(){
     voiceSession++;
@@ -853,28 +839,12 @@ nav.bottom .on{color:var(--ink);font-weight:600}
   function closeAssistant(){
     stopVoice();
     if("speechSynthesis" in window) speechSynthesis.cancel();
-    const m = $("assistantModal");
+    const m=$("assistantModal");
     m.classList.remove("open");
-    m.setAttribute("aria-hidden", "true");
-    const body = document.body;
-    body.classList.remove("lock");
-    if(assistantBodyLock){
-      body.style.position = assistantBodyLock.position;
-      body.style.top = assistantBodyLock.top;
-      body.style.left = assistantBodyLock.left;
-      body.style.right = assistantBodyLock.right;
-      body.style.width = assistantBodyLock.width;
-      body.style.overflow = assistantBodyLock.overflow;
-      assistantBodyLock = null;
-    }
-    window.scrollTo(0, assistantReturnScrollY);
-    if(lastFocus && lastFocus.focus){try{lastFocus.focus({preventScroll:true});}catch(e){}}
-    requestAnimationFrame(() => window.scrollTo(0, assistantReturnScrollY));
+    m.setAttribute("aria-hidden","true");
+    document.body.classList.remove("lock");
+    if(lastFocus&&lastFocus.focus){try{lastFocus.focus({preventScroll:true});}catch(e){}}
   }
-  $("askTile").addEventListener("click", e => openAssistant(e));
-  $("nAsk").addEventListener("click", e => openAssistant(e));
-  $("assistantClose").onclick=closeAssistant;
-  document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&$("assistantModal").classList.contains("open")) closeAssistant(); });
 
   /* ---- Send ---- */
   async function sendAssistantMessage(){
