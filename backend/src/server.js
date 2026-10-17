@@ -54,8 +54,10 @@ const DRIVE_TOKEN_STORE_PATH = path.resolve(
 );
 const DRIVE_STATE_TTL_SECONDS = 10 * 60;
 const DRIVE_MAX_PAGE_SIZE = 100;
+// Keep plain-text files conservative; allow larger document uploads for course PDFs/DOCX/PPTX.
 const DRIVE_MAX_CONTENT_BYTES = 2 * 1024 * 1024;
-const DRIVE_MAX_DOCUMENT_BYTES = 10 * 1024 * 1024;
+const DRIVE_MAX_DOCUMENT_BYTES = 25 * 1024 * 1024;
+const DRIVE_MAX_EXTRACTED_TEXT_BYTES = 25 * 1024 * 1024;
 const driveOAuthClient = new OAuth2Client(
     DRIVE_GOOGLE_CLIENT_ID,
     DRIVE_GOOGLE_CLIENT_SECRET,
@@ -1261,7 +1263,7 @@ app.get("/api/drive/files/:fileId/content", async (req, res) => {
                 if (!text) return res.status(422).json({ success: false, error: "No readable text was found in this DOCX file.", code: "docx_no_text" });
             }
         }
-        if (Buffer.byteLength(text, "utf8") > DRIVE_MAX_DOCUMENT_BYTES) return res.status(413).json({ success: false, error: "Extracted text exceeds the 10 MB response limit.", code: "drive_extracted_text_too_large" });
+        if (Buffer.byteLength(text, "utf8") > DRIVE_MAX_EXTRACTED_TEXT_BYTES) return res.status(413).json({ success: false, error: `Extracted text exceeds the ${Math.round(DRIVE_MAX_EXTRACTED_TEXT_BYTES / 1024 / 1024)} MB response limit.`, code: "drive_extracted_text_too_large" });
         return res.json({ success: true, file: { id: meta.id, name: meta.name, mimeType: mime, modifiedTime: meta.modifiedTime || null, webViewLink: meta.webViewLink || null }, text, extraction: { ...extraction, status: "extracted" } });
     } catch (error) {
         if (error?.name === "InvalidPDFException" || /Invalid PDF/i.test(error?.message || "")) return res.status(422).json({ success: false, error: "This PDF could not be parsed. Scanned-PDF OCR is not enabled yet.", code: "pdf_parse_failed" });
