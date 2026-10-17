@@ -429,11 +429,12 @@ nav.bottom svg { width: 21px; height: 21px; }
       <input id="driveFolderLink" type="url" inputmode="url" autocomplete="url" placeholder="Paste Google Drive folder link here" aria-label="Google Drive Master Storage folder link">
       <button class="btn" id="driveSelectFolderBtn" type="button" disabled>Connect folder</button>
       <button class="btn ghost" id="driveListFilesBtn" type="button" disabled>List files</button>
+      <button class="btn ghost" id="driveScanFoldersBtn" type="button" disabled>Scan subfolders</button>
     </div>
     <div class="msg" id="driveMessage" role="status" aria-live="polite">Drive connection has not been checked yet.</div>
     <div class="drive-files" id="driveFiles" aria-live="polite"></div>
     <div id="driveReadResult" hidden></div>
-    <p class="feature-note">Current capability: list folders/files and read Google Docs or text-based files up to 2 MB. PDF/PPTX extraction, OCR, audio/video transcription, full indexing and dictionary integration are not enabled yet. Drive connection tokens are stored encrypted on the backend; persistent Render storage is recommended to survive restarts.</p>
+    <p class="feature-note">Current capability: list direct files and read Google Docs or text-based files up to 2 MB. Recursive folder inventory requires the updated backend. PDF/PPTX extraction, OCR, audio/video transcription, full content indexing and dictionary integration remain separate steps. Drive connection tokens are stored encrypted on the backend; persistent Render storage is recommended to survive restarts.</p>
   </section>
   <div class="panel">
     <h3>YouTube → JRF material generator</h3>
@@ -896,9 +897,11 @@ nav.bottom svg { width: 21px; height: 21px; }
         if(folder){
           $("driveFolderLink").value=folder.webViewLink||("https://drive.google.com/drive/folders/"+folder.id);
           $("driveListFilesBtn").disabled=false;
+          if($("driveScanFoldersBtn")) $("driveScanFoldersBtn").disabled=false;
         }else{
           $("driveFolderLink").value="";
           $("driveListFilesBtn").disabled=true;
+          if($("driveScanFoldersBtn")) $("driveScanFoldersBtn").disabled=true;
         }
         $("driveSelectFolderBtn").disabled=!$("driveFolderLink").value.trim();
         if(showMessage) driveMessage(folder?"Drive is connected and your Master Storage folder is saved.":"Drive is connected. Paste your Master Storage folder link.");
@@ -908,6 +911,7 @@ nav.bottom svg { width: 21px; height: 21px; }
         $("driveDisconnectBtn").hidden=true;
         $("driveFolderLink").value="";
         $("driveSelectFolderBtn").disabled=true; $("driveListFilesBtn").disabled=true;
+        if($("driveScanFoldersBtn")) $("driveScanFoldersBtn").disabled=true;
         if(showMessage) driveMessage("Sign in to BAJEE JRF AI, then connect Google Drive.");
       }
     }catch(err){
@@ -946,7 +950,7 @@ nav.bottom svg { width: 21px; height: 21px; }
       const folder=data.selectedFolder||{};
       $("driveFolderLink").value=folder.webViewLink||$("driveFolderLink").value;
       $("driveAccountNote").textContent="Master Storage: "+(folder.name||"Selected folder");
-      driveMessage("Master Storage folder saved. You can now list its files.");$("driveListFilesBtn").disabled=false;
+      driveMessage("Master Storage folder saved. You can list direct files or scan subfolders.");$("driveListFilesBtn").disabled=false;if($("driveScanFoldersBtn")) $("driveScanFoldersBtn").disabled=false;
     }catch(err){driveMessage(err.message||"Could not select that folder. Check that the connected Google account can access it.");}
     finally{$("driveSelectFolderBtn").disabled=!$("driveFolderLink").value.trim();}
   });
@@ -965,6 +969,33 @@ nav.bottom svg { width: 21px; height: 21px; }
       });
       driveMessage("Loaded "+files.length+" direct file(s). Subfolders are not recursively indexed yet.");
     }catch(err){driveMessage(err.message||"Could not list Drive files.");}
+  });
+  $("driveScanFoldersBtn").addEventListener("click",async()=>{
+    const box=$("driveFiles");box.innerHTML="";$("driveReadResult").hidden=true;
+    $("driveScanFoldersBtn").disabled=true;driveMessage("Scanning Master Storage subfolders (metadata only)…");
+    try{
+      const data=await driveRequest("/api/drive/files/recursive?maxDepth=8&maxItems=1000");
+      const folders=Array.isArray(data.folders)?data.folders:[];
+      const files=Array.isArray(data.files)?data.files:[];
+      const entries=[...folders.map(item=>({...item,isFolder:true})),...files.map(item=>({...item,isFolder:false}))]
+        .sort((a,b)=>(a.path||a.name||"").localeCompare(b.path||b.name||""));
+      if(!entries.length){driveMessage("The selected Master Storage folder is empty, or no accessible items were returned.");return;}
+      entries.forEach(item=>{
+        const row=el("div","drive-file"),name=el("div","drive-file-name",item.name||"Unnamed item");
+        const meta=el("span","drive-file-meta",(item.isFolder?"Folder":(item.mimeType||"Unknown type"))+(item.path?" · "+item.path:"")+(item.modifiedTime?" · Updated "+new Date(item.modifiedTime).toLocaleDateString("en-IN"):""));
+        name.appendChild(meta);row.appendChild(name);
+        if(item.webViewLink){const open=el("a","later","Open in Drive");open.href=item.webViewLink;open.target="_blank";open.rel="noopener noreferrer";row.appendChild(open);}
+        const readable=!item.isFolder&&(item.mimeType==="application/vnd.google-apps.document"||["text/plain","text/markdown","text/csv","application/json"].includes(item.mimeType));
+        if(!item.isFolder){
+          const read=el("button","later",readable?"Read text":"Not yet supported");read.type="button";read.disabled=!readable;
+          read.onclick=async()=>{driveMessage("Reading "+(item.name||"file")+"…");try{const content=await driveRequest("/api/drive/files/"+encodeURIComponent(item.id)+"/content");const result=$("driveReadResult");result.textContent=content.text||"This file contains no readable text.";result.hidden=false;driveMessage("Read-only preview loaded: "+(content.file.name||item.name)+". This does not yet index the file into the dictionary.");}catch(err){driveMessage(err.message||"Could not read this file.");}};
+          row.appendChild(read);
+        }
+        box.appendChild(row);
+      });
+      driveMessage("Recursive scan complete: "+data.totalFiles+" file(s), "+data.totalFolders+" subfolder(s) listed."+(data.truncated?" Scan reached its safety limit; increase depth/items or scan smaller folders.":""));
+    }catch(err){driveMessage(err.message||"Could not scan subfolders. Confirm the updated backend is deployed.");}
+    finally{$("driveScanFoldersBtn").disabled=!$("driveFolderLink").value.trim();}
   });
   $("driveDisconnectBtn").addEventListener("click",async()=>{
     if(!confirm("Disconnect Google Drive from BAJEE JRF AI? This removes the stored connection from this app but does not revoke Google's grant."))return;
