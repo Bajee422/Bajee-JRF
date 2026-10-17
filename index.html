@@ -147,9 +147,176 @@ nav.bottom .on{color:var(--ink);font-weight:600}
 .drive-file{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;padding:12px}
 .drive-file-name{font-weight:600;overflow-wrap:anywhere;min-width:160px;flex:1}
 .drive-file-meta{display:block;font-size:12px;color:var(--muted);font-weight:400}
-#driveFolderSelect{flex:1;min-width:220px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit}
+#driveFolderLink{flex:1;min-width:260px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);font:inherit}
 #driveReadResult{white-space:pre-wrap;overflow-wrap:anywhere;max-height:360px;overflow:auto;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px;font-size:14px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+
+/* ==========================================================
+   BAJEE JRF AI — FINAL VISUAL POLISH (CSS ONLY)
+   Preserves existing DOM, IDs, JavaScript, routes and storage.
+========================================================== */
+:root {
+  --bg: #F4F6FA;
+  --card: #FFFFFF;
+  --ink: #101D38;
+  --muted: #59677F;
+  --line: #DFE5EF;
+  --navy: #101D38;
+  --navy2: #1A345B;
+  --gold: #D4AF55;
+  --goldsoft: #FBF4E2;
+  --ok: #21764A;
+  --shadow: 0 2px 5px rgba(16,29,56,.035), 0 12px 30px rgba(16,29,56,.055);
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --bg: #0B1323;
+  --card: #131F34;
+  --ink: #EDF2FB;
+  --muted: #AAB7CC;
+  --line: #293954;
+  --navy: #D4AF55;
+  --navy2: #172A48;
+  --gold: #DDBB68;
+  --goldsoft: #292719;
+  --shadow: 0 8px 26px rgba(0,0,0,.18);
+  color-scheme: dark;
+}
+html { scroll-behavior: smooth; }
+body { font-size: 16px; line-height: 1.65; letter-spacing: .005em; }
+main { max-width: 1120px; padding: clamp(18px, 3vw, 34px) clamp(14px, 2.5vw, 28px); }
+.top { backdrop-filter: blur(16px); background: color-mix(in srgb, var(--bg) 92%, transparent); }
+.top-in { max-width: 1120px; min-height: 66px; height: auto; gap: 14px; }
+.brand { font-size: clamp(19px, 2vw, 23px); letter-spacing: -.025em; }
+.brand small { margin-top: 1px; font-size: 12px; letter-spacing: .02em; }
+.seg { box-shadow: inset 0 1px 1px rgba(16,29,56,.03); }
+.seg button { min-height: 40px; font-weight: 600; }
+.icon-btn { width: 42px; height: 42px; transition: transform .18s ease, border-color .18s ease, background .18s ease; }
+.icon-btn:hover { transform: translateY(-1px); border-color: var(--gold); }
+.today { grid-template-columns: minmax(0,1.5fr) minmax(220px,.8fr); gap: clamp(18px,3vw,32px); padding: clamp(22px,4vw,38px); border: 1px solid rgba(255,255,255,.12); border-radius: 24px; background: radial-gradient(circle at 100% 0%, rgba(212,175,85,.16), transparent 38%), linear-gradient(135deg,#1A345B 0%,#101D38 78%); box-shadow: 0 16px 38px rgba(16,29,56,.14); }
+.today h1 { max-width: 16ch; font-size: clamp(28px,4.2vw,42px); line-height: 1.14; letter-spacing: -.035em; }
+.today p { max-width: 58ch; font-size: 15px; line-height: 1.7; }
+.count { min-height: 148px; border-radius: 20px; background: rgba(255,255,255,.075); transition: background .18s ease, transform .18s ease; }
+.count:hover { background: rgba(255,255,255,.12); transform: translateY(-2px); }
+.count b { font-size: clamp(46px,5vw,62px); }
+.search { min-height: 58px; margin-top: 22px; border-radius: 15px; padding: 8px 9px 8px 16px; transition: border-color .18s ease, box-shadow .18s ease; }
+.search input { font-size: 16px; }
+.search:focus-within { box-shadow: 0 0 0 4px color-mix(in srgb, var(--gold) 18%, transparent); }
+.search-scope { line-height: 1.5; margin: -7px 0 18px 5px; }
+.motivation { margin-top: 16px; padding: 17px 20px; border-radius: 16px; background: var(--goldsoft); border-color: color-mix(in srgb, var(--gold) 38%, var(--line)); }
+.motivation b { color: #86651F; }
+:root[data-theme="dark"] .motivation b { color: var(--gold); }
+.sec { margin: 32px 0 14px; align-items: center; }
+.sec h2 { font-size: clamp(21px,2.4vw,25px); letter-spacing: -.02em; }
+.sec small { font-size: 13px; line-height: 1.45; }
+.tasks { border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); }
+.task { padding: 17px 20px; gap: 12px; }
+.task .info { min-width: min(220px,100%); }
+.task .info b { line-height: 1.45; }
+.task .info span { display: block; margin-top: 3px; line-height: 1.5; }
+.task .acts { flex-wrap: wrap; }
+.tag { display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; padding: 4px 9px; background: var(--goldsoft); color: #745719; }
+:root[data-theme="dark"] .tag { color: var(--gold); }
+.later, .go, .nextbtn, .btn { min-height: 42px; transition: transform .16s ease, box-shadow .16s ease, background .16s ease, border-color .16s ease; }
+.later:hover, .go:hover, .nextbtn:hover, .btn:hover { transform: translateY(-1px); }
+.go { padding: 10px 16px; }
+.nextbtn { display: inline-flex; align-items: center; justify-content: center; font-weight: 700; box-shadow: 0 4px 10px rgba(16,29,56,.08); }
+.stats { gap: 14px; margin-top: 16px; }
+.stat { min-width: 0; padding: 18px 14px; border: 1px solid var(--line); border-radius: 17px; }
+.stat b { font-size: clamp(25px,3vw,32px); line-height: 1.2; }
+.stat span { display: block; margin-top: 4px; line-height: 1.45; }
+.panel { padding: clamp(17px,2.5vw,24px); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); }
+.panel h3 { font-size: 20px; line-height: 1.35; }
+.panel p { line-height: 1.7; }
+.grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.grid.ask { grid-template-columns: minmax(0,1fr); }
+.tile { min-width: 0; min-height: 176px; padding: clamp(17px,2.2vw,22px); gap: 8px; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 3px 10px rgba(16,29,56,.025); overflow-wrap: anywhere; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.tile:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--gold) 75%, var(--line)); box-shadow: 0 12px 26px rgba(16,29,56,.075); }
+.tile:active { transform: translateY(-1px); }
+.tile .ic { width: 46px; height: 46px; border: 1px solid color-mix(in srgb, var(--gold) 28%, transparent); border-radius: 14px; margin-bottom: 5px; }
+.tile b { font-size: 16px; line-height: 1.45; letter-spacing: -.01em; }
+.tile span { font-size: 14px; line-height: 1.6; }
+input[type=url], input[type=date], #driveFolderLink, .check-row select, .chat-controls input, #assistantInput { min-height: 46px; border-color: var(--line); border-radius: 12px; }
+input[type=url]:focus, input[type=date]:focus, select:focus, input:focus-visible, textarea:focus-visible { outline: 3px solid color-mix(in srgb, var(--gold) 38%, transparent); outline-offset: 1px; border-color: var(--gold); }
+.btn { border-radius: 12px; font-weight: 650; box-shadow: 0 2px 5px rgba(16,29,56,.07); }
+.btn.ghost { box-shadow: none; }
+.btn.ghost:hover { border-color: var(--gold); background: var(--goldsoft); }
+.bar { height: 11px; background: color-mix(in srgb, var(--line) 85%, var(--bg)); }
+.bar i { border-radius: inherit; background: linear-gradient(90deg,#C6A04B,#E7CA7D); transition: width .3s ease; }
+.feature-note { display: block; line-height: 1.6; }
+.drive-pill { min-height: 30px; gap: 6px; }
+.drive-files { gap: 10px; }
+.drive-file { padding: 14px; border-radius: 14px; background: var(--bg); }
+#driveReadResult { line-height: 1.7; }
+nav.bottom { padding-top: 8px; box-shadow: 0 -8px 24px rgba(16,29,56,.045); backdrop-filter: blur(16px); background: color-mix(in srgb, var(--card) 94%, transparent); }
+nav.bottom a, nav.bottom button { min-height: 52px; border-radius: 12px; gap: 4px; transition: color .15s ease, background .15s ease; }
+nav.bottom a:hover, nav.bottom button:hover { background: var(--goldsoft); color: var(--ink); }
+nav.bottom svg { width: 21px; height: 21px; }
+.assistant-modal { gap: 14px; }
+.assistant-head { padding-bottom: 14px; }
+.signin { border-color: var(--line); border-radius: 16px; }
+.chat-log { border-radius: 16px; line-height: 1.75; }
+.chat-line { padding: 15px 17px; border-radius: 14px; }
+.chat-line.assistant-line { background: color-mix(in srgb, var(--goldsoft) 32%, var(--bg)); }
+.assistant-actions .btn { min-height: 44px; }
+:focus-visible { outline: 3px solid var(--gold) !important; outline-offset: 3px; }
+::selection { background: color-mix(in srgb, var(--gold) 36%, transparent); color: var(--ink); }
+@media (min-width: 900px) {
+  .grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .grid.ask { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .today { min-height: 220px; }
+}
+@media (min-width: 1200px) {
+  .grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+  .grid.ask { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 760px) {
+  main { padding: 18px 13px calc(24px + env(safe-area-inset-bottom,0px)); }
+  .top { padding-left: 12px; padding-right: 12px; }
+  .top-in { gap: 8px; min-height: 60px; }
+  .today { grid-template-columns: minmax(0,1fr); border-radius: 20px; }
+  .today h1 { max-width: 20ch; }
+  .count { min-height: 112px; }
+  .grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  .tile { min-height: 164px; padding: 15px; }
+  .panel { padding: 16px; }
+  .task { padding: 15px; }
+  .task .acts { width: 100%; }
+  .task .acts > * { flex: 1; }
+}
+@media (max-width: 480px) {
+  body { font-size: 15px; }
+  .top-in { flex-wrap: nowrap; }
+  .brand { font-size: 17px; }
+  .brand small { display: block; font-size: 10px; }
+  .seg button { padding: 7px 9px; font-size: 12px; }
+  .icon-btn { width: 38px; height: 38px; }
+  .grid, .grid.ask { grid-template-columns: minmax(0,1fr); }
+  .tile { min-height: 0; display: grid; grid-template-columns: 44px minmax(0,1fr); column-gap: 12px; align-items: center; }
+  .tile .ic { grid-row: span 2; margin: 0; }
+  .tile b, .tile span { grid-column: 2; }
+  .stats { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+  .stat { padding: 13px 6px; }
+  .stat b { font-size: 23px; }
+  .stat span { font-size: 11px; }
+  .search { gap: 6px; padding-left: 11px; }
+  .search .btn { padding: 10px 12px; }
+  .sec { align-items: flex-start; flex-direction: column; gap: 3px; }
+  .sec small { max-width: 100%; }
+  .row > input, .row > select, .row > button { min-width: 0; max-width: 100%; }
+  .row > input, .row > select { flex-basis: 100%; }
+  nav.bottom { padding-left: 4px; padding-right: 4px; }
+  nav.bottom a, nav.bottom button { font-size: 10px; }
+  nav.bottom svg { width: 19px; height: 19px; }
+  .assistant-actions { gap: 6px; }
+  .assistant-actions .btn { min-width: 0; font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -251,7 +418,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
   <div class="sec"><h2>Google Drive · Master Storage</h2><small>Connect your own source library</small></div>
   <section class="panel" id="drivePanel">
     <h3>Connect Google Drive</h3>
-    <p>Choose your Master Storage folder so BAJEE JRF AI can list its files. Access is read-only. Your files are not copied into the app by this connection alone.</p>
+    <p>Paste your Google Drive Master Storage folder link so BAJEE JRF AI can access its files. Access is read-only. Your files are not copied into the app by this connection alone.</p>
     <div class="drive-status"><span class="drive-pill" id="driveConnectionPill">Checking connection…</span><span class="feature-note" id="driveAccountNote" style="margin:0">Sign in to BAJEE JRF AI first.</span></div>
     <div class="row">
       <button class="btn" id="driveConnectBtn" type="button">Connect Google Drive</button>
@@ -259,8 +426,8 @@ nav.bottom .on{color:var(--ink);font-weight:600}
       <button class="btn ghost" id="driveDisconnectBtn" type="button" hidden>Disconnect</button>
     </div>
     <div class="row" style="margin-top:12px">
-      <select id="driveFolderSelect" aria-label="Choose Master Storage folder"><option value="">Connect Drive to load folders</option></select>
-      <button class="btn" id="driveSelectFolderBtn" type="button" disabled>Use this folder</button>
+      <input id="driveFolderLink" type="url" inputmode="url" autocomplete="url" placeholder="Paste Google Drive folder link here" aria-label="Google Drive Master Storage folder link">
+      <button class="btn" id="driveSelectFolderBtn" type="button" disabled>Connect folder</button>
       <button class="btn ghost" id="driveListFilesBtn" type="button" disabled>List files</button>
     </div>
     <div class="msg" id="driveMessage" role="status" aria-live="polite">Drive connection has not been checked yet.</div>
@@ -697,7 +864,6 @@ nav.bottom .on{color:var(--ink);font-weight:600}
   $("googleSignOut").addEventListener("click",signOut);
 
   /* ---- Google Drive master storage ---- */
-  let driveFoldersLoaded=false;
   const drivePill = text => { $("driveConnectionPill").textContent=text; };
   function driveMessage(text){ $("driveMessage").textContent=text; }
   async function ensureDriveAppSession(){
@@ -724,16 +890,23 @@ nav.bottom .on{color:var(--ink);font-weight:600}
       }else if(data.connected){
         drivePill("Google Drive connected");
         const folder=data.selectedFolder;
-        $("driveAccountNote").textContent=folder?"Master Storage: "+folder.name:"Connected. Select your Master Storage folder below.";
+        $("driveAccountNote").textContent=folder?"Master Storage: "+folder.name:"Connected. Paste your Master Storage folder link below.";
         $("driveConnectBtn").textContent="Reconnect Google Drive";
         $("driveDisconnectBtn").hidden=false;
-        await loadDriveFolders(folder&&folder.id);
-        if(showMessage) driveMessage(folder?"Drive is connected and a Master Storage folder is selected.":"Drive is connected. Choose your Master Storage folder.");
+        if(folder){
+          $("driveFolderLink").value=folder.webViewLink||("https://drive.google.com/drive/folders/"+folder.id);
+          $("driveListFilesBtn").disabled=false;
+        }else{
+          $("driveFolderLink").value="";
+          $("driveListFilesBtn").disabled=true;
+        }
+        $("driveSelectFolderBtn").disabled=!$("driveFolderLink").value.trim();
+        if(showMessage) driveMessage(folder?"Drive is connected and your Master Storage folder is saved.":"Drive is connected. Paste your Master Storage folder link.");
       }else{
         drivePill("Not connected"); $("driveAccountNote").textContent="Connect the Google account that owns your study files.";
         $("driveConnectBtn").disabled=false; $("driveConnectBtn").textContent="Connect Google Drive";
         $("driveDisconnectBtn").hidden=true;
-        $("driveFolderSelect").innerHTML='<option value="">Connect Drive to load folders</option>';
+        $("driveFolderLink").value="";
         $("driveSelectFolderBtn").disabled=true; $("driveListFilesBtn").disabled=true;
         if(showMessage) driveMessage("Sign in to BAJEE JRF AI, then connect Google Drive.");
       }
@@ -744,26 +917,21 @@ nav.bottom .on{color:var(--ink);font-weight:600}
       if(showMessage) driveMessage(msg);
     }
   }
-  async function loadDriveFolders(selectedId){
-    const select=$("driveFolderSelect"); select.innerHTML='<option value="">Loading folders…</option>';
-    try{
-      const data=await driveRequest("/api/drive/folders");
-      const folders=Array.isArray(data.folders)?data.folders:[];
-      select.innerHTML="";
-      const placeholder=document.createElement("option"); placeholder.value=""; placeholder.textContent=folders.length?"Choose your Master Storage folder":"No folders found in this Drive account"; select.appendChild(placeholder);
-      folders.forEach(folder=>{const o=document.createElement("option");o.value=folder.id;o.textContent=folder.name||"Unnamed folder";o.dataset.url=folder.webViewLink||"";select.appendChild(o);});
-      if(selectedId) select.value=selectedId;
-      driveFoldersLoaded=true;
-      $("driveSelectFolderBtn").disabled=!select.value;
-      $("driveListFilesBtn").disabled=!selectedId;
-      if(!folders.length) driveMessage("No Drive folders were returned. Check the Google account and folder sharing.");
-    }catch(err){
-      select.innerHTML='<option value="">Could not load folders</option>';
-      $("driveSelectFolderBtn").disabled=true; $("driveListFilesBtn").disabled=true;
-      driveMessage(err.message||"Could not load Drive folders.");
-    }
+  function extractDriveFolderId(rawValue){
+    const raw=(rawValue||"").trim();
+    if(!raw) throw new Error("Paste the Google Drive folder link first.");
+    let url;
+    try{url=new URL(raw);}catch{throw new Error("That link is not a valid URL. Copy the folder link from Google Drive.");}
+    if(!["drive.google.com","www.drive.google.com","docs.google.com"].includes(url.hostname.toLowerCase()))
+      throw new Error("Please paste a link copied from Google Drive.");
+    const pathMatch=url.pathname.match(/\/folders\/([A-Za-z0-9_-]+)/);
+    const id=pathMatch?.[1]||url.searchParams.get("id");
+    if(!id||!/^[A-Za-z0-9_-]+$/.test(id)) throw new Error("I couldn't find a folder ID in that link. Copy the folder link, not a file link.");
+    return id;
   }
-  $("driveFolderSelect").addEventListener("change",()=>{ $("driveSelectFolderBtn").disabled=!$("driveFolderSelect").value; });
+  $("driveFolderLink").addEventListener("input",()=>{
+    $("driveSelectFolderBtn").disabled=!$("driveFolderLink").value.trim();
+  });
   $("driveConnectBtn").addEventListener("click",async()=>{
     $("driveConnectBtn").disabled=true; driveMessage("Preparing secure Google Drive authorization…");
     try{const data=await driveRequest("/api/drive/auth/start");if(!data.authUrl)throw new Error("The server did not return a Google authorization link.");window.location.assign(data.authUrl);}
@@ -771,13 +939,16 @@ nav.bottom .on{color:var(--ink);font-weight:600}
   });
   $("driveRefreshBtn").addEventListener("click",()=>loadDriveStatus(true));
   $("driveSelectFolderBtn").addEventListener("click",async()=>{
-    const folderId=$("driveFolderSelect").value;if(!folderId){driveMessage("Choose a folder first.");return;}
-    $("driveSelectFolderBtn").disabled=true;driveMessage("Saving Master Storage folder…");
+    let folderId;
+    try{folderId=extractDriveFolderId($("driveFolderLink").value);}catch(err){driveMessage(err.message);return;}
+    $("driveSelectFolderBtn").disabled=true;driveMessage("Verifying and saving your Master Storage folder…");
     try{const data=await driveRequest("/api/drive/folder/select",{method:"POST",body:JSON.stringify({folderId})});
-      $("driveAccountNote").textContent="Master Storage: "+(data.selectedFolder.name||"Selected folder");
+      const folder=data.selectedFolder||{};
+      $("driveFolderLink").value=folder.webViewLink||$("driveFolderLink").value;
+      $("driveAccountNote").textContent="Master Storage: "+(folder.name||"Selected folder");
       driveMessage("Master Storage folder saved. You can now list its files.");$("driveListFilesBtn").disabled=false;
-    }catch(err){driveMessage(err.message||"Could not select that folder.");}
-    finally{$("driveSelectFolderBtn").disabled=!$("driveFolderSelect").value;}
+    }catch(err){driveMessage(err.message||"Could not select that folder. Check that the connected Google account can access it.");}
+    finally{$("driveSelectFolderBtn").disabled=!$("driveFolderLink").value.trim();}
   });
   $("driveListFilesBtn").addEventListener("click",async()=>{
     const box=$("driveFiles");box.innerHTML="";$("driveReadResult").hidden=true;driveMessage("Loading files from your selected Master Storage folder…");
