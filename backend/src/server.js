@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import crypto from "node:crypto";
+import fs from "node:fs/promises";
+import path from "node:path";
 import { OAuth2Client } from "google-auth-library";
 import {
     registerYouTubeSourceRoute
@@ -32,6 +34,27 @@ const GOOGLE_CLIENT_ID =
 
 const googleOAuthClient = new OAuth2Client(
     GOOGLE_CLIENT_ID
+);
+
+/* =========================================================
+   GOOGLE DRIVE MASTER STORAGE CONFIGURATION
+   Drive authorization is separate from app Google sign-in.
+========================================================= */
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
+const DRIVE_REDIRECT_URI = process.env.DRIVE_REDIRECT_URI ||
+    "https://bajee-jrf.onrender.com/api/drive/callback";
+const DRIVE_FRONTEND_URL = process.env.DRIVE_FRONTEND_URL ||
+    "https://bajee422.github.io/Bajee-JRF/";
+const DRIVE_TOKEN_STORE_PATH = path.resolve(
+    process.env.DRIVE_TOKEN_STORE_PATH || "./data/drive-connections.enc.json"
+);
+const DRIVE_STATE_TTL_SECONDS = 10 * 60;
+const DRIVE_MAX_PAGE_SIZE = 100;
+const DRIVE_MAX_CONTENT_BYTES = 2 * 1024 * 1024;
+const driveOAuthClient = new OAuth2Client(
+    GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET,
+    DRIVE_REDIRECT_URI
 );
 
 const NODE_ENV =
@@ -100,6 +123,122 @@ if (NODE_ENV === "production" && ALLOWED_ORIGINS.length === 0) {
 
 const rateLimitStore = new Map();
 
+
+/* =========================================================
+   GOOGLE DRIVE STORAGE / OAUTH HELPERS
+========================================================= */
+function driveEncryptionKey() {
+    if (!APP_SESSION_SECRET) throw new Error("APP_SESSION_SECRET is required for Drive token storage.");
+    return crypto.createHash("sha256")
+        .update(`${APP_SESSION_SECRET}:BAJEE_JRF_DRIVE_TOKEN_STORE:v1`).digest();
+}
+function encryptDriveStore(value) {
+    const iv = crypto.randomBytes(12);
+    const cipher = crypto.createCipheriv("aes-256-gcm", driveEncryptionKey(), iv);
+    const data = Buffer.concat([cipher.update(JSON.stringify(value), "utf8"), cipher.final()]);
+    return JSON.stringify({ version: 1, iv: iv.toString("base64url"), tag: cipher.getAuthTag().toString("base64url"), data: data.toString("base64url") });
+}
+function decryptDriveStore(raw) {
+    const e = JSON.parse(raw);
+    if (e?.version !== 1 || typeof e.iv !== "string" || typeof e.tag !== "string" || typeof e.data !== "string") {
+        throw new Error("Unsupported encrypted Drive store format.");
+    }
+    const decipher = crypto.createDecipheriv("aes-256-gcm", driveEncryptionKey(), Buffer.from(e.iv, "base64url"));
+    decipher.setAuthTag(Buffer.from(e.tag, "base64url"));
+    const value = JSON.parse(Buffer.concat([decipher.update(Buffer.from(e.data, "base64url")), decipher.final()]).toString("utf8"));
+    return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+}
+async function readDriveStore() {
+    try { return decryptDriveStore(await fs.readFile(DRIVE_TOKEN_STORE_PATH, "utf8")); }
+    catch (error) {
+        if (error?.code === "ENOENT") return {};
+        console.error("Encrypted Drive storage could not be read; existing data was not overwritten.");
+        throw new Error("Drive token storage is unavailable.");
+    }
+}
+async function writeDriveStore(store) {
+    await fs.mkdir(path.dirname(DRIVE_TOKEN_STORE_PATH), { recursive: true });
+    const tmp = `${DRIVE_TOKEN_STORE_PATH}.${crypto.randomBytes(6).toString("hex")}.tmp`;
+    try {
+        await fs.writeFile(tmp, encryptDriveStore(store), { mode: 0o600 });
+        await fs.rename(tmp, DRIVE_TOKEN_STORE_PATH);
+    } catch (error) { await fs.rm(tmp, { force: true }).catch(() => {}); throw error; }
+}
+function createSignedDriveState(userId) {
+    if (!APP_SESSION_SECRET) throw new Error("APP_SESSION_SECRET is not configured.");
+    const now = Math.floor(Date.now() / 1000);
+    const payload = Buffer.from(JSON.stringify({ sub: String(userId), iat: now, exp: now + DRIVE_STATE_TTL_SECONDS,
+        nonce: crypto.randomBytes(18).toString("base64url"), purpose: "bajee_drive_oauth" })).toString("base64url");
+    const signature = crypto.createHmac("sha256", APP_SESSION_SECRET).update(payload).digest("base64url");
+    return `${payload}.${signature}`;
+}
+function verifySignedDriveState(state) {
+    if (!APP_SESSION_SECRET || typeof state !== "string") return null;
+    const parts = state.split(".");
+    if (parts.length !== 2) return null;
+    const expected = crypto.createHmac("sha256", APP_SESSION_SECRET).update(parts[0]).digest("base64url");
+    if (!safeTimingEqual(parts[1], expected)) return null;
+    try {
+        const p = JSON.parse(Buffer.from(parts[0], "base64url").toString("utf8"));
+        const now = Math.floor(Date.now() / 1000);
+        if (p.purpose !== "bajee_drive_oauth" || typeof p.sub !== "string" || !p.sub ||
+            !Number.isFinite(p.exp) || p.exp <= now || !Number.isFinite(p.iat) || p.iat > now + 60) return null;
+        return p;
+    } catch { return null; }
+}
+function driveUserId(req) {
+    return typeof req.googleUser?.id === "string" && req.googleUser.id ? req.googleUser.id : "";
+}
+function driveConfigReady() {
+    return Boolean(GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET && DRIVE_REDIRECT_URI && APP_SESSION_SECRET);
+}
+async function getDriveConnection(userId) {
+    const store = await readDriveStore();
+    return { store, entry: store[userId] || null };
+}
+async function saveDriveConnection(userId, entry) {
+    const store = await readDriveStore();
+    store[userId] = { ...entry, updatedAt: new Date().toISOString() };
+    await writeDriveStore(store);
+}
+async function getAuthorizedDriveClient(userId) {
+    const { entry } = await getDriveConnection(userId);
+    if (!entry?.credentials || (!entry.credentials.refresh_token && !entry.credentials.access_token))
+        return { connected: false, client: null, entry: null };
+    const client = new OAuth2Client(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, DRIVE_REDIRECT_URI);
+    client.setCredentials(entry.credentials);
+    try {
+        const token = await client.getAccessToken();
+        if (!token?.token) return { connected: false, client: null, entry: null };
+        const credentials = { ...entry.credentials, ...client.credentials };
+        await saveDriveConnection(userId, { ...entry, credentials });
+        return { connected: true, client, entry: { ...entry, credentials } };
+    } catch (error) {
+        console.error("Google Drive token refresh failed:", error?.message || "unknown error");
+        return { connected: false, client: null, entry };
+    }
+}
+async function driveApiRequest(client, endpoint) {
+    const token = await client.getAccessToken();
+    if (!token?.token) throw Object.assign(new Error("Drive authorization expired."), { status: 401 });
+    const response = await fetch(`https://www.googleapis.com/drive/v3/${endpoint}`, {
+        headers: { Authorization: `Bearer ${token.token}` }
+    });
+    const ct = response.headers.get("content-type") || "";
+    const body = ct.includes("application/json") ? await response.json() : await response.text();
+    if (!response.ok) throw Object.assign(new Error(body?.error?.message || "Google Drive request failed."), { status: response.status });
+    return body;
+}
+function driveSafeError(res, error, fallback) {
+    const status = Number(error?.status);
+    if (status === 401 || status === 403) return res.status(status).json({
+        success: false,
+        error: status === 401 ? "Google Drive authorization expired. Reconnect Drive and try again." : "Google Drive denied access. Check the granted permissions.",
+        code: status === 401 ? "drive_reauthorization_required" : "drive_permission_denied"
+    });
+    console.error("Google Drive operation failed:", error?.message || fallback);
+    return res.status(502).json({ success: false, error: fallback, code: "drive_request_failed" });
+}
 
 /* =========================================================
    SECURITY HELPERS
@@ -708,11 +847,158 @@ app.post("/api/auth/logout", (req, res) => {
     });
 });
 
+/* =========================================================
+   GOOGLE DRIVE OAUTH CALLBACK (public redirect endpoint)
+   Must be registered before apiSecurity: Google cannot send our
+   application's Authorization header on a redirect.
+========================================================= */
+app.get("/api/drive/callback", async (req, res) => {
+    const returnToApp = (status) => {
+        try { const url = new URL(DRIVE_FRONTEND_URL); url.searchParams.set("drive", status); return res.redirect(303, url.toString()); }
+        catch { return res.status(500).json({ success: false, error: "Drive return URL is invalid.", code: "drive_return_url_invalid" }); }
+    };
+    if (!driveConfigReady()) return returnToApp("not-configured");
+    if (req.query?.error) return returnToApp("cancelled");
+    const state = verifySignedDriveState(req.query?.state);
+    const code = req.query?.code;
+    if (!state || typeof code !== "string" || !code || code.length > 4096) return returnToApp("invalid-state");
+    try {
+        const result = await driveOAuthClient.getToken({ code, redirect_uri: DRIVE_REDIRECT_URI });
+        const credentials = result.tokens || {};
+        if (!credentials.refresh_token && !credentials.access_token) return returnToApp("token-failed");
+        const previous = await getDriveConnection(state.sub);
+        await saveDriveConnection(state.sub, {
+            credentials: { ...(previous.entry?.credentials || {}), ...credentials },
+            selectedFolder: previous.entry?.selectedFolder || null,
+            connectedAt: new Date().toISOString()
+        });
+        return returnToApp("connected");
+    } catch (error) {
+        console.error("Google Drive OAuth callback failed:", error?.message || "unknown error");
+        return returnToApp("connection-failed");
+    }
+});
+
 app.use(
     "/api",
     apiSecurity
 );
 
+/* =========================================================
+   GOOGLE DRIVE MASTER STORAGE API
+========================================================= */
+app.get("/api/drive/auth/start", (req, res) => {
+    if (!driveUserId(req)) return res.status(401).json({ success: false, error: "Sign in to BAJEE JRF AI before connecting Drive.", code: "app_signin_required" });
+    if (!driveConfigReady()) return res.status(503).json({ success: false, error: "Google Drive OAuth is not configured on the server.", code: "drive_not_configured" });
+    try {
+        const authUrl = driveOAuthClient.generateAuthUrl({ access_type: "offline", prompt: "consent", include_granted_scopes: true,
+            scope: ["https://www.googleapis.com/auth/drive.readonly"], state: createSignedDriveState(driveUserId(req)) });
+        return res.json({ success: true, authUrl });
+    } catch (error) {
+        console.error("Could not start Google Drive OAuth:", error?.message || "unknown error");
+        return res.status(500).json({ success: false, error: "Could not start Drive authorization.", code: "drive_oauth_start_failed" });
+    }
+});
+
+app.get("/api/drive/status", async (req, res) => {
+    const userId = driveUserId(req);
+    if (!userId) return res.status(401).json({ success: false, error: "A signed-in BAJEE user is required.", code: "app_signin_required" });
+    try {
+        const { entry } = await getDriveConnection(userId);
+        const connection = await getAuthorizedDriveClient(userId);
+        return res.json({ success: true, configured: driveConfigReady(), connected: Boolean(connection.connected),
+            selectedFolder: entry?.selectedFolder || null, connectedAt: entry?.connectedAt || null,
+            storage: "encrypted-local-file", note: "Render's local filesystem may be lost on restart/redeploy unless persistent storage is configured." });
+    } catch {
+        return res.status(503).json({ success: false, error: "Drive connection storage is unavailable.", code: "drive_storage_unavailable" });
+    }
+});
+
+app.post("/api/drive/disconnect", async (req, res) => {
+    const userId = driveUserId(req);
+    if (!userId) return res.status(401).json({ success: false, error: "A signed-in BAJEE user is required.", code: "app_signin_required" });
+    try {
+        const store = await readDriveStore(); delete store[userId]; await writeDriveStore(store);
+        return res.json({ success: true, message: "Stored Drive credentials removed. To revoke Google's grant too, remove BAJEE JRF AI from your Google Account security settings." });
+    } catch {
+        return res.status(503).json({ success: false, error: "Could not remove the stored Drive connection.", code: "drive_storage_unavailable" });
+    }
+});
+
+app.get("/api/drive/folders", async (req, res) => {
+    const userId = driveUserId(req);
+    if (!userId) return res.status(401).json({ success: false, error: "A signed-in BAJEE user is required.", code: "app_signin_required" });
+    try {
+        const connection = await getAuthorizedDriveClient(userId);
+        if (!connection.connected) return res.status(409).json({ success: false, error: "Connect Google Drive before listing folders.", code: "drive_not_connected" });
+        const query = new URLSearchParams({ q: "mimeType = 'application/vnd.google-apps.folder' and trashed = false", pageSize: String(DRIVE_MAX_PAGE_SIZE), orderBy: "name", fields: "nextPageToken,files(id,name,mimeType,modifiedTime,webViewLink)" });
+        const data = await driveApiRequest(connection.client, `files?${query}`);
+        return res.json({ success: true, folders: Array.isArray(data.files) ? data.files : [], nextPageToken: data.nextPageToken || null });
+    } catch (error) { return driveSafeError(res, error, "Could not list Google Drive folders."); }
+});
+
+app.post("/api/drive/folder/select", async (req, res) => {
+    const userId = driveUserId(req);
+    if (!userId) return res.status(401).json({ success: false, error: "A signed-in BAJEE user is required.", code: "app_signin_required" });
+    const folderId = typeof req.body?.folderId === "string" ? req.body.folderId.trim() : "";
+    if (!folderId || folderId.length > 256 || !/^[A-Za-z0-9_-]+$/.test(folderId)) return res.status(400).json({ success: false, error: "Provide a valid Google Drive folder ID.", code: "invalid_folder_id" });
+    try {
+        const connection = await getAuthorizedDriveClient(userId);
+        if (!connection.connected) return res.status(409).json({ success: false, error: "Connect Google Drive before selecting a folder.", code: "drive_not_connected" });
+        const folder = await driveApiRequest(connection.client, `files/${encodeURIComponent(folderId)}?fields=id,name,mimeType,webViewLink`);
+        if (folder.mimeType !== "application/vnd.google-apps.folder") return res.status(400).json({ success: false, error: "The selected Drive item is not a folder.", code: "drive_item_not_folder" });
+        await saveDriveConnection(userId, { ...connection.entry, selectedFolder: { id: folder.id, name: folder.name || "Unnamed folder", webViewLink: folder.webViewLink || null } });
+        return res.json({ success: true, selectedFolder: { id: folder.id, name: folder.name || "Unnamed folder", webViewLink: folder.webViewLink || null } });
+    } catch (error) { return driveSafeError(res, error, "Could not select that Google Drive folder."); }
+});
+
+app.get("/api/drive/files", async (req, res) => {
+    const userId = driveUserId(req);
+    if (!userId) return res.status(401).json({ success: false, error: "A signed-in BAJEE user is required.", code: "app_signin_required" });
+    const n = Number(req.query?.pageSize || DRIVE_MAX_PAGE_SIZE);
+    const pageSize = Number.isFinite(n) ? Math.max(1, Math.min(DRIVE_MAX_PAGE_SIZE, Math.floor(n))) : DRIVE_MAX_PAGE_SIZE;
+    const pageToken = typeof req.query?.pageToken === "string" ? req.query.pageToken.slice(0, 2048) : "";
+    try {
+        const connection = await getAuthorizedDriveClient(userId);
+        if (!connection.connected) return res.status(409).json({ success: false, error: "Connect Google Drive before listing files.", code: "drive_not_connected" });
+        const folderId = connection.entry?.selectedFolder?.id;
+        if (!folderId) return res.status(409).json({ success: false, error: "Select the Master Storage folder first.", code: "drive_folder_not_selected" });
+        const query = new URLSearchParams({ q: `'${folderId}' in parents and trashed = false`, pageSize: String(pageSize), orderBy: "name", fields: "nextPageToken,files(id,name,mimeType,size,modifiedTime,webViewLink,md5Checksum)" });
+        if (pageToken) query.set("pageToken", pageToken);
+        const data = await driveApiRequest(connection.client, `files?${query}`);
+        return res.json({ success: true, folder: connection.entry.selectedFolder, files: Array.isArray(data.files) ? data.files : [], nextPageToken: data.nextPageToken || null });
+    } catch (error) { return driveSafeError(res, error, "Could not list files in the selected Drive folder."); }
+});
+
+app.get("/api/drive/files/:fileId/content", async (req, res) => {
+    const userId = driveUserId(req);
+    if (!userId) return res.status(401).json({ success: false, error: "A signed-in BAJEE user is required.", code: "app_signin_required" });
+    const fileId = typeof req.params?.fileId === "string" ? req.params.fileId : "";
+    if (!fileId || fileId.length > 256 || !/^[A-Za-z0-9_-]+$/.test(fileId)) return res.status(400).json({ success: false, error: "Provide a valid Google Drive file ID.", code: "invalid_file_id" });
+    try {
+        const connection = await getAuthorizedDriveClient(userId);
+        if (!connection.connected) return res.status(409).json({ success: false, error: "Connect Google Drive before reading files.", code: "drive_not_connected" });
+        const folderId = connection.entry?.selectedFolder?.id;
+        if (!folderId) return res.status(409).json({ success: false, error: "Select the Master Storage folder first.", code: "drive_folder_not_selected" });
+        const meta = await driveApiRequest(connection.client, `files/${encodeURIComponent(fileId)}?fields=id,name,mimeType,size,modifiedTime,webViewLink,parents`);
+        if (!Array.isArray(meta.parents) || !meta.parents.includes(folderId)) return res.status(403).json({ success: false, error: "Only direct files inside the selected Master Storage folder can be read here.", code: "file_outside_master_folder" });
+        const token = await connection.client.getAccessToken();
+        let content;
+        if (meta.mimeType === "application/vnd.google-apps.document") {
+            const response = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}/export?mimeType=text%2Fplain`, { headers: { Authorization: `Bearer ${token.token}` } });
+            if (!response.ok) throw Object.assign(new Error("Google Docs export failed."), { status: response.status });
+            content = await response.text();
+        } else if (["text/plain", "text/markdown", "text/csv", "application/json"].includes(meta.mimeType)) {
+            const response = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?alt=media`, { headers: { Authorization: `Bearer ${token.token}` } });
+            if (!response.ok) throw Object.assign(new Error("Drive file download failed."), { status: response.status });
+            const buffer = Buffer.from(await response.arrayBuffer());
+            if (buffer.length > DRIVE_MAX_CONTENT_BYTES) return res.status(413).json({ success: false, error: "This file exceeds the 2 MB content limit.", code: "drive_file_too_large" });
+            content = buffer.toString("utf8");
+        } else return res.status(415).json({ success: false, error: "This endpoint reads Google Docs and text-based files only. PDF, PPTX, audio, video, OCR and transcription require the content-ingestion pipeline.", code: "drive_file_type_not_supported" });
+        if (Buffer.byteLength(content, "utf8") > DRIVE_MAX_CONTENT_BYTES) return res.status(413).json({ success: false, error: "This file exceeds the 2 MB content limit.", code: "drive_file_too_large" });
+        return res.json({ success: true, file: { id: meta.id, name: meta.name, mimeType: meta.mimeType, modifiedTime: meta.modifiedTime || null, webViewLink: meta.webViewLink || null }, text: content });
+    } catch (error) { return driveSafeError(res, error, "Could not read the selected Google Drive file."); }
+});
 
 /* =========================================================
    GEMINI URL
@@ -1859,6 +2145,9 @@ app.listen(
         console.log(
             `Rate limit: ${RATE_LIMIT_PER_MIN} requests/minute`
         );
+
+        console.log(`Google Drive OAuth: ${driveConfigReady() ? "CONFIGURED" : "NOT CONFIGURED"}`);
+        console.log("Google Drive tokens: encrypted local file; persistent storage recommended");
 
         console.log(
             "Structured Solution Schema: ENABLED"
