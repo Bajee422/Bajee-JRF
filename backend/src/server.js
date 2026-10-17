@@ -884,6 +884,96 @@ app.get("/api/drive/callback", async (req, res) => {
     }
 });
 
+/* =========================================================
+   SHORT-LIVED, SIGNED GOOGLE DRIVE MEDIA STREAM
+   The HTML video element cannot attach the app Authorization header.
+   A signed URL grants access to one verified file for 10 minutes.
+========================================================= */
+function createDrivePlaybackToken(userId, fileId) {
+    if (!APP_SESSION_SECRET) throw new Error("Playback signing is not configured.");
+    const now = Math.floor(Date.now() / 1000);
+    const payload = Buffer.from(JSON.stringify({ purpose: "bajee_drive_playback", sub: userId, fid: fileId, iat: now, exp: now + 600 })).toString("base64url");
+    const signature = crypto.createHmac("sha256", APP_SESSION_SECRET).update(payload).digest("base64url");
+    return `${payload}.${signature}`;
+}
+function verifyDrivePlaybackToken(token, fileId) {
+    if (!APP_SESSION_SECRET || typeof token !== "string" || token.length > 2048) return null;
+    const parts = token.split(".");
+    if (parts.length !== 2) return null;
+    const expected = crypto.createHmac("sha256", APP_SESSION_SECRET).update(parts[0]).digest("base64url");
+    if (!safeTimingEqual(parts[1], expected)) return null;
+    try {
+        const p = JSON.parse(Buffer.from(parts[0], "base64url").toString("utf8"));
+        const now = Math.floor(Date.now() / 1000);
+        if (p.purpose !== "bajee_drive_playback" || typeof p.sub !== "string" || !p.sub || p.fid !== fileId || !Number.isFinite(p.exp) || p.exp <= now || !Number.isFinite(p.iat) || p.iat > now + 30) return null;
+        return p;
+    } catch { return null; }
+}
+async function driveFileIsWithinRoot(client, fileId, rootId) {
+    const meta = await driveApiRequest(client, `files/${encodeURIComponent(fileId)}?fields=id,name,mimeType,size,modifiedTime,webViewLink,parents`);
+    let belongs = Array.isArray(meta.parents) && meta.parents.includes(rootId);
+    let parents = Array.isArray(meta.parents) ? [...meta.parents] : [];
+    const visited = new Set();
+    for (let depth = 0; !belongs && depth < 10 && parents.length; depth++) {
+        const next = [];
+        for (const parentId of parents) {
+            if (!parentId || visited.has(parentId)) continue;
+            visited.add(parentId);
+            if (parentId === rootId) { belongs = true; break; }
+            try {
+                const parent = await driveApiRequest(client, `files/${encodeURIComponent(parentId)}?fields=id,mimeType,parents`);
+                if (Array.isArray(parent.parents)) next.push(...parent.parents);
+            } catch { /* cannot prove membership through inaccessible parent */ }
+        }
+        parents = next;
+    }
+    return { meta, belongs };
+}
+app.get("/api/drive/media/:fileId", async (req, res) => {
+    const fileId = typeof req.params?.fileId === "string" ? req.params.fileId : "";
+    if (!fileId || fileId.length > 256 || !/^[A-Za-z0-9_-]+$/.test(fileId)) return res.status(400).end("Invalid file ID");
+    const playback = verifyDrivePlaybackToken(req.query?.token, fileId);
+    if (!playback) return res.status(401).end("Playback link expired. Press Play again.");
+    try {
+        const connection = await getAuthorizedDriveClient(playback.sub);
+        if (!connection.connected) return res.status(401).end("Drive connection expired. Reconnect Google Drive.");
+        const rootId = connection.entry?.selectedFolder?.id;
+        if (!rootId) return res.status(403).end("No Master Storage folder is selected.");
+        const { meta, belongs } = await driveFileIsWithinRoot(connection.client, fileId, rootId);
+        if (!belongs) return res.status(403).end("This file is outside the selected Master Storage folder.");
+        if (!String(meta.mimeType || "").startsWith("video/")) return res.status(415).end("This is not a supported video file.");
+        const access = await connection.client.getAccessToken();
+        if (!access?.token) return res.status(401).end("Drive authorization expired.");
+        const headers = { Authorization: `Bearer ${access.token}` };
+        const range = req.headers.range;
+        if (range && /^bytes=\d*-\d*$/.test(range)) headers.Range = range;
+        const upstream = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}?alt=media`, { headers });
+        if (!upstream.ok || !upstream.body) {
+            const status = upstream.status === 416 ? 416 : upstream.status === 404 ? 404 : 502;
+            return res.status(status).end("Google Drive could not stream this video.");
+        }
+        res.status(upstream.status === 206 ? 206 : 200);
+        res.setHeader("Content-Type", meta.mimeType || "video/mp4");
+        res.setHeader("Accept-Ranges", upstream.headers.get("accept-ranges") || "bytes");
+        res.setHeader("Cache-Control", "private, no-store");
+        const contentLength = upstream.headers.get("content-length");
+        const contentRange = upstream.headers.get("content-range");
+        if (contentLength) res.setHeader("Content-Length", contentLength);
+        if (contentRange) res.setHeader("Content-Range", contentRange);
+        const dispositionName = String(meta.name || "video").replace(/[\r\n"\\]/g, "_");
+        res.setHeader("Content-Disposition", `inline; filename="${dispositionName}"`);
+        if (typeof upstream.body.pipe === "function") upstream.body.pipe(res);
+        else {
+            const reader = upstream.body.getReader();
+            try { while (true) { const { done, value } = await reader.read(); if (done) break; if (!res.write(Buffer.from(value))) await new Promise(resolve => res.once("drain", resolve)); } res.end(); }
+            catch { res.destroy(); }
+        }
+    } catch (error) {
+        console.error("Drive media stream failed:", error?.message || "unknown error");
+        if (!res.headersSent) res.status(502).end("Could not stream this video from Google Drive."); else res.destroy();
+    }
+});
+
 app.use(
     "/api",
     apiSecurity
@@ -1060,6 +1150,25 @@ app.get("/api/drive/files/recursive", async (req, res) => {
     } catch (error) {
         return driveSafeError(res, error, "Could not scan the Master Storage folder and its subfolders.");
     }
+});
+
+app.get("/api/drive/files/:fileId/playback", async (req, res) => {
+    const userId = driveUserId(req);
+    if (!userId) return res.status(401).json({ success: false, error: "A signed-in BAJEE user is required.", code: "app_signin_required" });
+    const fileId = typeof req.params?.fileId === "string" ? req.params.fileId : "";
+    if (!fileId || fileId.length > 256 || !/^[A-Za-z0-9_-]+$/.test(fileId)) return res.status(400).json({ success: false, error: "Provide a valid Google Drive file ID.", code: "invalid_file_id" });
+    try {
+        const connection = await getAuthorizedDriveClient(userId);
+        if (!connection.connected) return res.status(409).json({ success: false, error: "Connect Google Drive before playing videos.", code: "drive_not_connected" });
+        const rootId = connection.entry?.selectedFolder?.id;
+        if (!rootId) return res.status(409).json({ success: false, error: "Select the Master Storage folder first.", code: "drive_folder_not_selected" });
+        const { meta, belongs } = await driveFileIsWithinRoot(connection.client, fileId, rootId);
+        if (!belongs) return res.status(403).json({ success: false, error: "Only files inside the selected Master Storage folder can be played.", code: "file_outside_master_folder" });
+        if (!String(meta.mimeType || "").startsWith("video/")) return res.status(415).json({ success: false, error: "This file is not a video supported by the browser player.", code: "not_a_video" });
+        const token = createDrivePlaybackToken(userId, fileId);
+        const base = `${req.protocol}://${req.get("host")}`;
+        return res.json({ success: true, url: `${base}/api/drive/media/${encodeURIComponent(fileId)}?token=${encodeURIComponent(token)}`, expiresIn: 600, file: { id: meta.id, name: meta.name, mimeType: meta.mimeType, size: meta.size || null } });
+    } catch (error) { return driveSafeError(res, error, "Could not prepare video playback."); }
 });
 
 app.get("/api/drive/files/:fileId/content", async (req, res) => {
