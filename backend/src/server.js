@@ -972,6 +972,93 @@ app.get("/api/drive/files", async (req, res) => {
     } catch (error) { return driveSafeError(res, error, "Could not list files in the selected Drive folder."); }
 });
 
+/*
+ * Bounded recursive inventory of the selected Master Storage folder.
+ * This lists metadata only; it does not download or index file contents.
+ * Bounds protect the free backend from unexpectedly huge Drive trees.
+ */
+app.get("/api/drive/files/recursive", async (req, res) => {
+    const userId = driveUserId(req);
+    if (!userId) return res.status(401).json({ success: false, error: "A signed-in BAJEE user is required.", code: "app_signin_required" });
+    const requestedDepth = Number(req.query?.maxDepth || 8);
+    const requestedItems = Number(req.query?.maxItems || 1000);
+    const maxDepth = Number.isFinite(requestedDepth) ? Math.max(1, Math.min(10, Math.floor(requestedDepth))) : 8;
+    const maxItems = Number.isFinite(requestedItems) ? Math.max(1, Math.min(2000, Math.floor(requestedItems))) : 1000;
+    try {
+        const connection = await getAuthorizedDriveClient(userId);
+        if (!connection.connected) return res.status(409).json({ success: false, error: "Connect Google Drive before scanning folders.", code: "drive_not_connected" });
+        const root = connection.entry?.selectedFolder;
+        if (!root?.id) return res.status(409).json({ success: false, error: "Save your Master Storage folder first.", code: "drive_folder_not_selected" });
+
+        const files = [];
+        const folders = [];
+        const queue = [{ id: root.id, name: root.name || "Master Storage", depth: 0, path: root.name || "Master Storage" }];
+        const visited = new Set([root.id]);
+        let truncated = false;
+
+        while (queue.length && files.length + folders.length < maxItems) {
+            const current = queue.shift();
+            let pageToken = "";
+            do {
+                const params = new URLSearchParams({
+                    q: `'${current.id}' in parents and trashed = false`,
+                    pageSize: String(DRIVE_MAX_PAGE_SIZE),
+                    orderBy: "name",
+                    fields: "nextPageToken,files(id,name,mimeType,size,modifiedTime,webViewLink,md5Checksum,parents)"
+                });
+                if (pageToken) params.set("pageToken", pageToken);
+                const data = await driveApiRequest(connection.client, `files?${params}`);
+                const entries = Array.isArray(data.files) ? data.files : [];
+                for (const item of entries) {
+                    if (files.length + folders.length >= maxItems) { truncated = true; break; }
+                    const isFolder = item.mimeType === "application/vnd.google-apps.folder";
+                    const entry = {
+                        id: item.id,
+                        name: item.name || "Unnamed item",
+                        mimeType: item.mimeType || "application/octet-stream",
+                        size: item.size || null,
+                        modifiedTime: item.modifiedTime || null,
+                        webViewLink: item.webViewLink || null,
+                        parentId: current.id,
+                        path: `${current.path}/${item.name || "Unnamed item"}`,
+                        depth: current.depth + 1
+                    };
+                    if (isFolder) {
+                        folders.push(entry);
+                        if (current.depth + 1 < maxDepth && !visited.has(item.id)) {
+                            visited.add(item.id);
+                            queue.push({ id: item.id, name: entry.name, depth: current.depth + 1, path: entry.path });
+                        } else if (current.depth + 1 >= maxDepth) {
+                            truncated = true;
+                        }
+                    } else {
+                        files.push(entry);
+                    }
+                }
+                if (truncated) break;
+                pageToken = data.nextPageToken || "";
+            } while (pageToken);
+            if (truncated) break;
+        }
+        if (queue.length) truncated = true;
+        return res.json({
+            success: true,
+            folder: root,
+            files,
+            folders,
+            totalFiles: files.length,
+            totalFolders: folders.length,
+            scannedItems: files.length + folders.length,
+            maxDepth,
+            maxItems,
+            truncated,
+            note: "Recursive metadata inventory only. File content extraction and indexing are separate steps."
+        });
+    } catch (error) {
+        return driveSafeError(res, error, "Could not scan the Master Storage folder and its subfolders.");
+    }
+});
+
 app.get("/api/drive/files/:fileId/content", async (req, res) => {
     const userId = driveUserId(req);
     if (!userId) return res.status(401).json({ success: false, error: "A signed-in BAJEE user is required.", code: "app_signin_required" });
@@ -983,7 +1070,25 @@ app.get("/api/drive/files/:fileId/content", async (req, res) => {
         const folderId = connection.entry?.selectedFolder?.id;
         if (!folderId) return res.status(409).json({ success: false, error: "Select the Master Storage folder first.", code: "drive_folder_not_selected" });
         const meta = await driveApiRequest(connection.client, `files/${encodeURIComponent(fileId)}?fields=id,name,mimeType,size,modifiedTime,webViewLink,parents`);
-        if (!Array.isArray(meta.parents) || !meta.parents.includes(folderId)) return res.status(403).json({ success: false, error: "Only direct files inside the selected Master Storage folder can be read here.", code: "file_outside_master_folder" });
+        // Allow reading files inside nested folders, but only when the parent chain
+        // leads back to the selected Master Storage root. Never permit arbitrary Drive IDs.
+        let belongsToRoot = Array.isArray(meta.parents) && meta.parents.includes(folderId);
+        let parentIds = Array.isArray(meta.parents) ? [...meta.parents] : [];
+        const visitedParents = new Set();
+        for (let depth = 0; !belongsToRoot && depth < 10 && parentIds.length; depth++) {
+            const nextParents = [];
+            for (const parentId of parentIds) {
+                if (!parentId || visitedParents.has(parentId)) continue;
+                visitedParents.add(parentId);
+                if (parentId === folderId) { belongsToRoot = true; break; }
+                try {
+                    const parentMeta = await driveApiRequest(connection.client, `files/${encodeURIComponent(parentId)}?fields=id,mimeType,parents`);
+                    if (Array.isArray(parentMeta.parents)) nextParents.push(...parentMeta.parents);
+                } catch { /* inaccessible or deleted parent: do not treat it as authorized */ }
+            }
+            parentIds = nextParents;
+        }
+        if (!belongsToRoot) return res.status(403).json({ success: false, error: "Only files inside the selected Master Storage folder or its subfolders can be read here.", code: "file_outside_master_folder" });
         const token = await connection.client.getAccessToken();
         let content;
         if (meta.mimeType === "application/vnd.google-apps.document") {
