@@ -460,9 +460,9 @@ nav.bottom svg { width: 21px; height: 21px; }
       <input id="driveSourceSearch" type="search" placeholder="Search indexed source text…" aria-label="Search indexed Master Storage text" disabled>
       <button class="btn ghost" id="driveSourceSearchBtn" type="button" disabled>Search sources</button>
     </div>
+    <div id="driveReadResult" hidden tabindex="-1" aria-live="polite" aria-label="Extracted document text"></div>
     <div class="drive-files" id="driveSearchResults" aria-live="polite"></div>
     <div class="drive-files" id="driveFiles" aria-live="polite"></div>
-    <div id="driveReadResult" hidden></div>
     <p class="feature-note">Current capability: recursive inventory and text extraction from Google Docs/text files (2 MB) plus selectable-text PDF and PPTX slide text (10 MB). Scanned-PDF OCR, audio/video transcription, durable server-side indexing and dictionary integration remain separate steps. Search results are held in this browser session and clear on reload. Drive connection tokens are stored encrypted on the backend; persistent Render storage is recommended to survive restarts.</p>
   </section>
   <div class="panel">
@@ -994,7 +994,7 @@ nav.bottom svg { width: 21px; height: 21px; }
         const readable=file.mimeType==="application/vnd.google-apps.document"||["text/plain","text/markdown","text/csv","application/json","application/pdf","application/vnd.openxmlformats-officedocument.wordprocessingml.document","application/vnd.openxmlformats-officedocument.presentationml.presentation"].includes(file.mimeType);
         const read=el("button","later",readable?"Read / extract text":"Unsupported");read.type="button";read.disabled=!readable;
           if(!readable){const fileMime=file.mimeType||"";const why=el("span","drive-file-meta",fileMime.startsWith("image/")?"Image · OCR not enabled":fileMime.startsWith("audio/")?"Audio playback is available in Scan subfolders; transcription is not enabled":fileMime.startsWith("video/")?"Video playback is available in Scan subfolders; transcription is not enabled":"Preview/extraction not available for this file type yet");row.appendChild(why);}
-        read.onclick=async()=>{driveMessage("Reading "+(file.name||"file")+"…");try{const content=await driveRequest("/api/drive/files/"+encodeURIComponent(file.id)+"/content");const result=$("driveReadResult");result.textContent=content.text||"This file contains no readable text.";result.hidden=false;driveMessage("Read-only preview loaded: "+(content.file.name||file.name)+". This does not yet index the file into the dictionary.");}catch(err){driveMessage(err.message||"Could not read this file.");}};
+        read.onclick=async()=>{driveMessage("Reading "+(file.name||"file")+"…");try{const content=await driveRequest("/api/drive/files/"+encodeURIComponent(file.id)+"/content");const result=$("driveReadResult");result.textContent=(content.text||"").trim()||"This file contains no readable text.";result.hidden=false;result.scrollIntoView({behavior:"smooth",block:"start"});result.focus({preventScroll:true});driveMessage("Read-only preview loaded: "+(content.file.name||file.name)+". This does not yet index the file into the dictionary.");}catch(err){driveMessage(err.message||"Could not read this file.");}};
         row.appendChild(read);box.appendChild(row);
       });
       driveMessage("Loaded "+files.length+" direct file(s). Subfolders are not recursively indexed yet.");
@@ -1123,7 +1123,7 @@ nav.bottom svg { width: 21px; height: 21px; }
           const actions=el("div","drive-file-actions");
           const read=el("button","later",readable?"Read / extract text":"Unsupported");read.type="button";read.disabled=!readable;
           if(!readable){const why=el("span","drive-file-meta",mime.startsWith("image/")?"Image · OCR not enabled":mime.startsWith("audio/")?"Audio playback available; transcription not enabled":mime.startsWith("video/")?"Video playback available; transcription not enabled":"Preview/extraction not available for this file type yet");row.appendChild(why);}
-          read.onclick=async()=>{driveMessage("Reading "+(item.name||"file")+"…");try{const content=await driveRequest("/api/drive/files/"+encodeURIComponent(item.id)+"/content");const result=$("driveReadResult");result.textContent=content.text||"This file contains no readable text.";result.hidden=false;driveMessage("Read-only preview loaded: "+(content.file.name||item.name)+".");}catch(err){driveMessage(err.message||"Could not read this file.");}};
+          read.onclick=async()=>{driveMessage("Reading "+(item.name||"file")+"…");try{const content=await driveRequest("/api/drive/files/"+encodeURIComponent(item.id)+"/content");const result=$("driveReadResult");result.textContent=(content.text||"").trim()||"This file contains no readable text.";result.hidden=false;result.scrollIntoView({behavior:"smooth",block:"start"});result.focus({preventScroll:true});driveMessage("Read-only preview loaded: "+(content.file.name||item.name)+".");}catch(err){driveMessage(err.message||"Could not read this file.");}};
           actions.appendChild(read);
           if(item.webViewLink){const open=el("a","later","Open in Drive");open.href=item.webViewLink;open.target="_blank";open.rel="noopener noreferrer";actions.appendChild(open);}
           row.appendChild(actions);
