@@ -954,6 +954,7 @@ app.get("/api/drive/media/:fileId", async (req, res) => {
         }
         res.status(upstream.status === 206 ? 206 : 200);
         res.setHeader("Content-Type", meta.mimeType || "video/mp4");
+        res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
         res.setHeader("Accept-Ranges", upstream.headers.get("accept-ranges") || "bytes");
         res.setHeader("Cache-Control", "private, no-store");
         const contentLength = upstream.headers.get("content-length");
