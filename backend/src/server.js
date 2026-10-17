@@ -944,7 +944,8 @@ app.get("/api/drive/media/:fileId", async (req, res) => {
         const { meta, belongs } = await driveFileIsWithinRoot(connection.client, fileId, rootId);
         if (!belongs) return res.status(403).end("This file is outside the selected Master Storage folder.");
         const mediaMime = String(meta.mimeType || "");
-        if (!mediaMime.startsWith("video/") && !mediaMime.startsWith("audio/")) return res.status(415).end("This file is not a supported audio/video media type.");
+        const isPdfDocument = mediaMime === "application/pdf";
+        if (!mediaMime.startsWith("video/") && !mediaMime.startsWith("audio/") && !isPdfDocument) return res.status(415).end("This file is not a supported audio, video, or PDF media type.");
         const access = await connection.client.getAccessToken();
         if (!access?.token) return res.status(401).end("Drive authorization expired.");
         const headers = { Authorization: `Bearer ${access.token}` };
@@ -956,7 +957,7 @@ app.get("/api/drive/media/:fileId", async (req, res) => {
             return res.status(status).end("Google Drive could not stream this media file.");
         }
         res.status(upstream.status === 206 ? 206 : 200);
-        res.setHeader("Content-Type", meta.mimeType || (mediaMime.startsWith("audio/") ? "audio/mpeg" : "video/mp4"));
+        res.setHeader("Content-Type", meta.mimeType || (isPdfDocument ? "application/pdf" : mediaMime.startsWith("audio/") ? "audio/mpeg" : "video/mp4"));
         res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
         res.setHeader("Accept-Ranges", upstream.headers.get("accept-ranges") || "bytes");
         res.setHeader("Cache-Control", "private, no-store");
@@ -964,7 +965,7 @@ app.get("/api/drive/media/:fileId", async (req, res) => {
         const contentRange = upstream.headers.get("content-range");
         if (contentLength) res.setHeader("Content-Length", contentLength);
         if (contentRange) res.setHeader("Content-Range", contentRange);
-        const dispositionName = String(meta.name || "video").replace(/[\r\n"\\]/g, "_");
+        const dispositionName = String(meta.name || (isPdfDocument ? "document.pdf" : "media-file")).replace(/[\r\n"\\]/g, "_");
         res.setHeader("Content-Disposition", `inline; filename="${dispositionName}"`);
         if (typeof upstream.body.pipe === "function") upstream.body.pipe(res);
         else {
@@ -1169,7 +1170,8 @@ app.get("/api/drive/files/:fileId/playback", async (req, res) => {
         const { meta, belongs } = await driveFileIsWithinRoot(connection.client, fileId, rootId);
         if (!belongs) return res.status(403).json({ success: false, error: "Only files inside the selected Master Storage folder can be played.", code: "file_outside_master_folder" });
         const mediaMime = String(meta.mimeType || "");
-        if (!mediaMime.startsWith("video/") && !mediaMime.startsWith("audio/")) return res.status(415).json({ success: false, error: "This file is not a browser-supported audio/video media type.", code: "unsupported_media_type" });
+        const isPdfDocument = mediaMime === "application/pdf";
+        if (!mediaMime.startsWith("video/") && !mediaMime.startsWith("audio/") && !isPdfDocument) return res.status(415).json({ success: false, error: "This file is not a supported audio, video, or PDF type.", code: "unsupported_media_type" });
         const token = createDrivePlaybackToken(userId, fileId);
         // Render terminates HTTPS at its proxy. Express may still report req.protocol as
         // "http" unless trust proxy is enabled; an HTTP media URL is blocked as mixed
