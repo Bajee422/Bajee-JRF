@@ -53,10 +53,10 @@ const DRIVE_TOKEN_STORE_PATH = path.resolve(
     process.env.DRIVE_TOKEN_STORE_PATH || "./data/drive-connections.enc.json"
 );
 const DRIVE_STATE_TTL_SECONDS = 10 * 60;
-const DRIVE_MAX_PAGE_SIZE = 100;
+const DRIVE_MAX_PAGE_SIZE = 300;
 // Keep plain-text files conservative; allow larger document uploads for course PDFs/DOCX/PPTX.
 const DRIVE_MAX_CONTENT_BYTES = 2 * 1024 * 1024;
-const DRIVE_MAX_DOCUMENT_BYTES = 25 * 1024 * 1024;
+const DRIVE_MAX_DOCUMENT_BYTES = 50 * 1024 * 1024;
 const DRIVE_MAX_EXTRACTED_TEXT_BYTES = 25 * 1024 * 1024;
 const driveOAuthClient = new OAuth2Client(
     DRIVE_GOOGLE_CLIENT_ID,
