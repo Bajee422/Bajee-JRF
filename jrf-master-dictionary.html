@@ -29,13 +29,13 @@ input,select{width:100%;padding:12px;border:1px solid #cbd3df;border-radius:9px;
 </section>
 
 <section class="card">
-<h2>1. Connect Master Folder</h2>
-<div class="notice">Select the same Master Folder used by Master Storage. Files are read locally in your browser. Nothing is uploaded, renamed, moved or modified. Each scan compares file path, size and modified time so unchanged files are reused instead of being extracted again.</div>
+<h2>1. Permanent Google Drive Master Storage</h2>
+<div class="notice">BAJEE JRF AI uses the permanent Google Drive Master Storage folder already saved in your account. No local folder picker, repeated folder selection, or copying files. Add new material to that Drive folder, then click Scan new files. Unchanged files are reused from this browser's index.</div>
 <div class="row" style="margin-top:10px">
-<button id="pick" class="btn primary">Select Master Folder</button>
-<button id="scan" class="btn secondary" disabled>🔄 Scan & Update Master Storage</button>
+<button id="scan" class="btn primary" disabled>🔄 Scan new files</button>
+<button id="refreshDrive" class="btn secondary" type="button">Refresh Drive status</button>
 </div>
-<div id="folderStatus" class="status">No folder connected.</div>
+<div id="folderStatus" class="status">Checking your saved Google Drive Master Storage…</div>
 <div class="progress"><div id="bar" class="bar"></div></div>
 </section>
 
@@ -66,7 +66,7 @@ input,select{width:100%;padding:12px;border:1px solid #cbd3df;border-radius:9px;
 </select>
 <button id="search" class="btn primary">Search Content</button>
 </div>
-<div id="searchStatus" class="status">Connect a folder and scan content first.</div>
+<div id="searchStatus" class="status">Connect to BAJEE JRF AI and scan your saved Google Drive Master Storage first.</div>
 </section>
 
 <section id="results" class="card">
@@ -79,7 +79,7 @@ input,select{width:100%;padding:12px;border:1px solid #cbd3df;border-radius:9px;
 <strong>Direct Source</strong> means the searched words occur in extracted source text.<br>
 The result shows the <strong>file name and page/slide location when available</strong>.<br>
 This build does not invent definitions, chronology, authorship, examples or explanations.<br><br>
-<strong>Important:</strong> binary files are processed locally. The original Master Storage files are never modified.
+<strong>Important:</strong> binary files are processed locally. The original Google Drive files are never modified. Only the browser-side search index is updated.
 </div>
 </section>
 </main>
@@ -88,7 +88,7 @@ This build does not invent definitions, chronology, authorship, examples or expl
 <script>
 "use strict";
 
-const state={dir:null,files:[],records:[],chunks:[],ready:false,scanVersion:1};
+const state={files:[],records:[],chunks:[],ready:false,scanVersion:2,driveFolder:null,accessToken:""};
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
 const lower=v=>String(v??"").toLowerCase();
@@ -355,19 +355,123 @@ async function extract(meta){
   return readText(file,meta);
 }
 
+const DRIVE_API="https://bajee-jrf.onrender.com";
+const DB_NAME="bajee_drive_master_dictionary_v2";
+
+async function openStateDb(){
+  return await new Promise((resolve,reject)=>{
+    const r=indexedDB.open(DB_NAME,1);
+    r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains("state"))r.result.createObjectStore("state");};
+    r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);
+  });
+}
 async function saveState(){
   try{
-    const db=await new Promise((resolve,reject)=>{
-      const r=indexedDB.open("bajee_master_content_v1",1);
-      r.onupgradeneeded=()=>r.result.createObjectStore("state");
-      r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);
-    });
+    const db=await openStateDb();
     await new Promise((resolve,reject)=>{
       const tx=db.transaction("state","readwrite");
-      tx.objectStore("state").put({version:state.scanVersion,dir:state.dir,records:state.records,chunks:state.chunks},"master");
+      tx.objectStore("state").put({version:state.scanVersion,records:state.records,chunks:state.chunks,folderId:state.driveFolder?.id||null,folderName:state.driveFolder?.name||null},"master");
       tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);
     });
-  }catch(e){console.warn("Local content cache unavailable:",e)}
+    db.close();
+  }catch(e){console.warn("Drive dictionary cache save failed:",e)}
+}
+async function driveSession(){
+  if(state.accessToken)return true;
+  const r=await fetch(DRIVE_API+"/api/auth/refresh",{method:"POST",credentials:"include",headers:{"Content-Type":"application/json"},body:"{}"});
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok||!d.success||!d.accessToken)throw new Error("Sign in to BAJEE JRF AI first. Then return here and refresh Drive status.");
+  state.accessToken=d.accessToken;return true;
+}
+async function driveRequest(path){
+  await driveSession();
+  const r=await fetch(DRIVE_API+path,{credentials:"include",headers:{Authorization:"Bearer "+state.accessToken}});
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok||d.success===false){if(r.status===401)state.accessToken="";throw new Error(d.error||("Google Drive request failed ("+r.status+")"));}
+  return d;
+}
+async function loadState(){
+  try{
+    const db=await openStateDb();
+    const x=await new Promise((resolve,reject)=>{const tx=db.transaction("state","readonly");const r=tx.objectStore("state").get("master");r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});
+    db.close();
+    if(x){state.records=Array.isArray(x.records)?x.records:[];state.chunks=normalizeCachedChunks(x.chunks);state.ready=state.chunks.length>0;updateCachedStats();}
+  }catch(e){console.warn("Drive dictionary cache load failed:",e)}
+}
+async function refreshDriveStatus(show=true){
+  $("scan").disabled=true;
+  try{
+    const d=await driveRequest("/api/drive/status");
+    if(!d.connected)throw new Error("Google Drive is not connected. Open Workshop on the home page, connect Google Drive, and save the permanent Master Storage folder once.");
+    if(!d.selectedFolder?.id)throw new Error("Google Drive is connected, but no permanent Master Storage folder is saved yet. Set it once in Workshop.");
+    state.driveFolder=d.selectedFolder;
+    $("scan").disabled=false;
+    $("folderStatus").innerHTML=`<span class="ok">Permanent Drive Master Storage connected:</span> ${esc(d.selectedFolder.name||"Master Storage")} — folder and subfolders will be scanned from Google Drive.`;
+    if(show)$("searchStatus").textContent=state.chunks.length?`Cached Drive index ready: ${state.chunks.length} source chunks. Scan new files to update it.` : "Drive is connected. Click Scan new files to build the source index.";
+  }catch(e){
+    $("folderStatus").innerHTML=`<span class="bad">${esc(e.message||"Could not check Drive connection.")}</span>`;
+    $("searchStatus").textContent="Google Drive Master Storage is not ready.";
+  }
+}
+function driveFilePath(item){return String(item.path||item.name||item.id);}
+function driveFileType(item){
+  const e=ext(item.name||"");
+  if(e==="pdf"||item.mimeType==="application/pdf")return "pdf";
+  if(e==="pptx"||item.mimeType==="application/vnd.openxmlformats-officedocument.presentationml.presentation")return "pptx";
+  if(e==="docx"||item.mimeType==="application/vnd.openxmlformats-officedocument.wordprocessingml.document")return "docx";
+  if(["txt","csv","json","md"].includes(e)||String(item.mimeType||"").startsWith("text/")||item.mimeType==="application/vnd.google-apps.document")return "txt";
+  return "unsupported";
+}
+function driveFingerprint(item){return [item.id,item.size||"",item.modifiedTime||"",item.md5Checksum||"",item.mimeType||""].join("|");}
+function splitDriveText(text,item,type){
+  const clean=cleanText(text);if(!clean)return [];
+  const chunks=[];const max=3200,overlap=180;
+  for(let start=0,index=0;start<clean.length;start+=max-overlap,index++){
+    const piece=clean.slice(start,Math.min(clean.length,start+max)).trim();
+    if(piece)chunks.push({id:`${item.id}-${index}`,text:piece,file:item.name||"Unnamed source",path:driveFilePath(item),type,location:`Extracted text · Part ${index+1}`,driveId:item.id,modifiedTime:item.modifiedTime||null});
+  }
+  return chunks;
+}
+async function scan(){
+  try{
+    $("scan").disabled=true;$("refreshDrive").disabled=true;
+    await driveSession();
+    if(!state.driveFolder)await refreshDriveStatus(false);
+    if(!state.driveFolder?.id)throw new Error("No saved Master Storage folder was found. Set it once in Workshop first.");
+    $("folderStatus").textContent="Scanning the permanent Google Drive folder and subfolders…";
+    const inventory=await driveRequest("/api/drive/files/recursive?maxDepth=8&maxItems=1000");
+    const all=Array.isArray(inventory.files)?inventory.files:[];
+    const supportedFiles=all.filter(x=>driveFileType(x)!=="unsupported");
+    const oldRecords=new Map((state.records||[]).map(r=>[r.id,r]));
+    const oldChunksById=new Map();
+    (state.chunks||[]).forEach(c=>{if(c.driveId){if(!oldChunksById.has(c.driveId))oldChunksById.set(c.driveId,[]);oldChunksById.get(c.driveId).push(c);}});
+    const nextChunks=[],nextRecords=[];let added=0,changed=0,reused=0,failed=0,needsOcr=0;
+    $("files").textContent=all.length;$("supported").textContent=supportedFiles.length;$("bar").style.width="0%";
+    for(let i=0;i<supportedFiles.length;i++){
+      const item=supportedFiles[i],type=driveFileType(item),fingerprint=driveFingerprint(item),old=oldRecords.get(item.id);
+      $("folderStatus").textContent=`Scanning ${i+1} of ${supportedFiles.length}: ${driveFilePath(item)}`;
+      if(old&&old.fingerprint===fingerprint&&oldChunksById.has(item.id)){
+        nextChunks.push(...oldChunksById.get(item.id));reused++;
+      }else{
+        if(old)changed++;else added++;
+        try{
+          const result=await driveRequest(`/api/drive/files/${encodeURIComponent(item.id)}/content`);
+          const text=String(result.text||"").trim();
+          if(text)nextChunks.push(...splitDriveText(text,item,type));
+          else if(result.extraction?.status==="needs_ocr")needsOcr++;
+        }catch(e){failed++;console.warn("Drive source extraction failed:",item.name,e.message);}
+      }
+      nextRecords.push({id:item.id,path:driveFilePath(item),name:item.name||"Unnamed source",type,size:Number(item.size||0),modifiedTime:item.modifiedTime||null,fingerprint,webViewLink:item.webViewLink||null,indexedAt:new Date().toISOString()});
+      $("bar").style.width=`${Math.round(((i+1)/Math.max(1,supportedFiles.length))*100)}%`;
+    }
+    const removed=Math.max(0,(state.records||[]).filter(r=>!nextRecords.some(n=>n.id===r.id)).length);
+    state.records=nextRecords;state.chunks=nextChunks;state.files=all;state.ready=true;
+    $("chunks").textContent=state.chunks.length;
+    $("folderStatus").innerHTML=`<span class="ok">Drive scan complete.</span> ${added} new, ${changed} changed, ${reused} unchanged reused, ${removed} removed, ${failed} extraction failures${needsOcr?`, ${needsOcr} scanned PDF(s) need OCR`:""}.`;
+    await saveState();
+    $("searchStatus").textContent=`Indexed ${state.chunks.length} source chunks from ${nextRecords.length} supported Drive files. Search uses extracted source text only.`;
+  }catch(e){$("folderStatus").innerHTML=`<span class="bad">Drive scan failed: ${esc(e.message)}</span>`;}
+  finally{$("scan").disabled=!state.driveFolder;$("refreshDrive").disabled=false;}
 }
 
 function sourceCategory(path){
@@ -421,105 +525,6 @@ function updateCachedStats(){
   $("chunks").textContent=state.chunks.length;
 }
 
-async function loadState(){
-  try{
-    const db=await new Promise((resolve,reject)=>{
-      const r=indexedDB.open("bajee_master_content_v1",1);
-      r.onupgradeneeded=()=>r.result.createObjectStore("state");
-      r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);
-    });
-    const x=await new Promise((resolve,reject)=>{
-      const tx=db.transaction("state","readonly");const r=tx.objectStore("state").get("master");
-      r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);
-    });
-    if(x){
-      state.dir=x.dir||null;
-      state.records=Array.isArray(x.records)?x.records:[];
-      state.chunks=normalizeCachedChunks(x.chunks);
-      state.ready=state.chunks.length>0;
-      if(state.dir){
-        let permission="prompt";
-        try{permission=await state.dir.queryPermission?.({mode:"read"})||"prompt";}catch(e){}
-        if(permission==="granted"){
-          $("folderStatus").innerHTML=`<span class="ok">Cached Master Folder permission is available. Incremental scan is ready.</span>`;
-        }else{
-          $("folderStatus").innerHTML=`<span class="bad">Cached folder found, but browser permission must be granted again. Click Select Master Folder and choose the same folder, then scan.</span>`;
-        }
-        $("scan").disabled=false;
-      }else{
-        $("folderStatus").innerHTML=`<span class="ok">Cached source index available.</span>`;
-      }
-      updateCachedStats();
-      if(state.chunks.length) $("searchStatus").textContent=`Cached source index loaded: ${state.chunks.length} source chunks ready.`;
-      else $("searchStatus").textContent="No extracted source chunks are currently indexed. Select the Master Folder and click Scan & Update Master Storage before searching its files.";
-    }
-  }catch(e){console.warn("Master Dictionary cache load failed:",e)}
-}
-
-async function pickFolder(){
-  if(!window.showDirectoryPicker){alert("This browser does not support folder access. Use current Chrome/Edge.");return}
-  try{
-    state.dir=await window.showDirectoryPicker({mode:"read"});
-    state.ready=false;state.chunks=[];
-    $("folderStatus").innerHTML=`<span class="ok">Master Folder connected in read-only mode.</span>`;
-    $("scan").disabled=false;
-    await saveState();
-  }catch(e){
-    if(e.name!=="AbortError")$("folderStatus").innerHTML=`<span class="bad">Folder connection failed: ${esc(e.message)}</span>`;
-  }
-}
-
-async function scan(){
-  if(!state.dir)return;
-  try{
-    await loadLibraries();
-    $("scan").disabled=true;$("pick").disabled=true;
-    $("folderStatus").textContent="Discovering files and comparing with the existing index…";
-    const all=await walk(state.dir);
-    const discovered=[];
-    for(const item of all.filter(x=>supported(x.name))){
-      const file=await item.handle.getFile();
-      const category=sourceCategory(item.path);
-      discovered.push({...item,type:typeOf(item.name),size:file.size,lastModified:file.lastModified,fingerprint:fileFingerprint(item,file),category:category.area,unit:category.unit});
-    }
-    state.files=discovered;
-    const oldRecords=new Map((state.records||[]).map(r=>[r.path,r]));
-    const oldChunksByPath=new Map();
-    (state.chunks||[]).forEach(c=>{const key=c.path||c.file;if(!oldChunksByPath.has(key))oldChunksByPath.set(key,[]);oldChunksByPath.get(key).push(c);});
-    const nextChunks=[];
-    const nextRecords=[];
-    let reused=0,added=0,changed=0,failed=0;
-    $("files").textContent=discovered.length;$("supported").textContent=discovered.length;$("bar").style.width="0%";
-    for(let i=0;i<discovered.length;i++){
-      const meta=discovered[i];
-      const old=oldRecords.get(meta.path);
-      const same=old&&old.fingerprint===meta.fingerprint;
-      $("folderStatus").textContent=`Scanning ${i+1} of ${discovered.length}: ${meta.path}`;
-      if(same&&oldChunksByPath.has(meta.path)){
-        nextChunks.push(...oldChunksByPath.get(meta.path).map(c=>({...c,category:meta.category,unit:meta.unit})));
-        reused++;
-      }else{
-        if(old)changed++;else added++;
-        try{
-          const got=await extract(meta);
-          nextChunks.push(...got.map(c=>({...c,category:meta.category,unit:meta.unit,fingerprint:meta.fingerprint})));
-        }catch(e){failed++;console.warn("Skipped",meta.path,e)}
-      }
-      nextRecords.push({path:meta.path,name:meta.name,type:meta.type,size:meta.size,lastModified:meta.lastModified,fingerprint:meta.fingerprint,category:meta.category,unit:meta.unit,indexedAt:new Date().toISOString()});
-      $("bar").style.width=`${Math.round(((i+1)/Math.max(1,discovered.length))*100)}%`;
-    }
-    const removed=Math.max(0,(state.records||[]).length-nextRecords.length);
-    state.records=nextRecords;
-    state.chunks=nextChunks;
-    state.ready=true;
-    $("chunks").textContent=state.chunks.length;
-    $("folderStatus").innerHTML=`<span class="ok">Incremental scan complete.</span> ${added} new, ${changed} changed, ${reused} unchanged reused, ${removed} removed, ${failed} failed.`;
-    await saveState();
-  }catch(e){
-    $("folderStatus").innerHTML=`<span class="bad">Content scan failed: ${esc(e.message)}</span>`;
-  }finally{$("scan").disabled=false;$("pick").disabled=false}
-}
-
 async function search(){
   const q=lower($("query").value).trim(),type=$("type").value;
   if(!q){$("searchStatus").textContent="Enter a search term.";$("answer").innerHTML='<div class="notice">Enter a term to build a source-grounded JRF view.</div>';return}
@@ -542,8 +547,8 @@ async function search(){
 }
 
 
-$("pick").onclick=pickFolder;
 $("scan").onclick=scan;
+$("refreshDrive").onclick=()=>refreshDriveStatus(true);
 $("search").onclick=search;
 $("query").addEventListener("keydown",e=>{if(e.key==="Enter")search()});
 (async function initDictionary(){
@@ -551,12 +556,13 @@ $("query").addEventListener("keydown",e=>{if(e.key==="Enter")search()});
   const pending=params.get("q")||"";
   if(pending) $("query").value=pending;
   await loadState();
+  await refreshDriveStatus(false);
   if(pending){
     if(state.chunks.length||knowledgeDatabase.length||pyqDatabase.length){
       await search();
     }else{
       $("searchStatus").textContent=`Search term “${pending}” received from the homepage. No Master Storage source chunks are indexed yet; connect the folder and scan, then click Search Content.`;
-      $("answer").innerHTML=`<div class="notice"><strong>Search ready: ${esc(pending)}</strong><br>The homepage query arrived correctly. This browser currently has no extracted Master Storage chunks, so the page cannot return source-file hits yet. Select the same Master Folder, click <strong>Scan & Update Master Storage</strong>, then search again.</div>`;
+      $("answer").innerHTML=`<div class="notice"><strong>Search ready: ${esc(pending)}</strong><br>The homepage query arrived correctly. This browser currently has no extracted Google Drive source chunks, so the page cannot return source-file hits yet. Click <strong>Scan new files</strong>, then search again.</div>`;
     }
   }
 })();
