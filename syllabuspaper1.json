@@ -1,0 +1,114 @@
+{
+  "paper": "Paper I",
+  "title": "General Paper on Teaching & Research Aptitude",
+  "units": [
+    {
+      "unit": 1,
+      "title": "Teaching Aptitude",
+      "topics": [
+        "Teaching – Concept, Levels, and Objectives",
+        "Evaluation Systems",
+        "Learner’s Characteristics",
+        "Factors affecting Teaching",
+        "Teaching Methods in Institutions of Higher Learning",
+        "Teaching Support System – Traditional, Modern, and ICT Based"
+      ]
+    },
+    {
+      "unit": 2,
+      "title": "Research Aptitude",
+      "topics": [
+        "Research ethics and methods",
+        "Steps of Research",
+        "Application of ICT In Research",
+        "Research Methods",
+        "Thesis and Article Writing",
+        "Research Ethics"
+      ]
+    },
+    {
+      "unit": 3,
+      "title": "Communication",
+      "topics": [
+        "Verbal and Non-Verbal Communication",
+        "Effective communication in different contexts",
+        "Barriers to Communication",
+        "Mass-Media and Society"
+      ]
+    },
+    {
+      "unit": 4,
+      "title": "Comprehension",
+      "topics": [
+        "Reading and analyzing passages"
+      ]
+    },
+    {
+      "unit": 5,
+      "title": "Mathematical Reasoning and Aptitude",
+      "topics": [
+        "Different types of Reasoning",
+        "Mathematical Aptitude",
+        "Number and Letter Series",
+        "Coding-Decoding"
+      ]
+    },
+    {
+      "unit": 6,
+      "title": "Data Interpretation",
+      "topics": [
+        "Data and Governance",
+        "Graphical Representation and Mapping of Data",
+        "Quantitative and Qualitative Data",
+        "Sources, Acquisition, and Classification of Data"
+      ]
+    },
+    {
+      "unit": 7,
+      "title": "Logical Reasoning",
+      "topics": [
+        "Analogies",
+        "Venn Diagrams",
+        "Indian Logic: Means of Knowledge",
+        "Understanding the Structure of Arguments",
+        "Evaluating and Distinguishing Inductive and Deductive Reasoning",
+        "Pramanas – Anumana, Pratyaksha, Shabda, Upamana, Arthapatti, and Anupalabddhi"
+      ]
+    },
+    {
+      "unit": 8,
+      "title": "Information and Communication Technology (ICT)",
+      "topics": [
+        "ICT And Governance",
+        "Digital Initiatives in Higher Education",
+        "ICT: General Abbreviations and Terminology",
+        "Basics of the Internet, Intranet, E-Mail, Audio, And Video-conferencing"
+      ]
+    },
+    {
+      "unit": 9,
+      "title": "People, Development, and Environment",
+      "topics": [
+        "Human and Environment Interaction",
+        "Impacts of Pollutants on Human Health",
+        "Development and Environment – Millennium Development and Sustainable Development Goals",
+        "Natural Hazards and Disasters – Mitigation Strategies",
+        "Environmental Issues",
+        "Natural and Energy Resources",
+        "Environmental Protection Act (1986)"
+      ]
+    },
+    {
+      "unit": 10,
+      "title": "Higher Education System",
+      "topics": [
+        "Policies, Governance, and Administration",
+        "Value and Environmental Education",
+        "Evolution of Higher Learning and Research in Post-Independence India",
+        "Professional, Technical, and Skill-Based Education",
+        "Institutions of Higher Learning in Ancient India",
+        "Oriental, Conventional, and Non-Conventional Learning Programmes In India"
+      ]
+    }
+  ]
+}
