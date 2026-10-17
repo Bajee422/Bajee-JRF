@@ -508,6 +508,18 @@ nav.bottom .on{color:var(--ink);font-weight:600}
 
   /* =================== AI assistant =================== */
   let appAccessToken="", lastSpeakText="", sending=false, gsiReady=false;
+  /* ---- Core assistant controls: bind before optional Drive setup ---- */
+  $("askTile").addEventListener("click", function(e){ e.preventDefault(); openAssistant(); });
+  $("nAsk").addEventListener("click", function(e){ e.preventDefault(); openAssistant(); });
+  $("assistantClose").addEventListener("click", function(e){ e.preventDefault(); closeAssistant(); });
+  $("assistantSend").addEventListener("click", function(e){ e.preventDefault(); sendAssistantMessage(); });
+  $("assistantInput").addEventListener("keydown", function(e){
+    if(e.key === "Enter" && !e.isComposing && e.keyCode !== 229){ e.preventDefault(); sendAssistantMessage(); }
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape" && $("assistantModal").classList.contains("open")) closeAssistant();
+  });
+
   let activeRecognition=null, isListening=false, voiceFinal="", voiceSession=0, voiceLang="en-IN";
   const history=[];            // last turns, sent for follow-up questions
   let lastFocus=null, assistantReturnScrollY=0;
@@ -798,12 +810,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
     catch(err){driveMessage(err.message||"Could not disconnect Drive.");}
     finally{$("driveDisconnectBtn").disabled=false;}
   });
-  // Register AI controls before the optional Drive status initialization below.
-  // This avoids a later Drive-side runtime error leaving the old href="#" behavior active.
-  $("askTile").addEventListener("click",openAssistant);
-  $("nAsk").addEventListener("click",openAssistant);
-  $("assistantClose").onclick=closeAssistant;
-  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("assistantModal").classList.contains("open"))closeAssistant();});
+  // Core assistant controls were registered earlier, before optional Drive setup.
 
   // OAuth callback returns to the frontend with ?drive=connected (or an error code).
   const driveResult=new URLSearchParams(location.search).get("drive");
@@ -898,10 +905,7 @@ nav.bottom .on{color:var(--ink);font-weight:600}
       sending=false; $("assistantSend").disabled=false;
     }
   }
-  $("assistantSend").onclick=sendAssistantMessage;
-  $("assistantInput").addEventListener("keydown",e=>{
-    if(e.key==="Enter"&&!e.isComposing&&e.keyCode!==229){ e.preventDefault(); sendAssistantMessage(); }
-  });
+  // Send and Enter handlers were registered earlier.
 
   /* ---- Voice input ---- */
   $("langBtn").onclick=()=>{
