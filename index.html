@@ -432,9 +432,15 @@ nav.bottom svg { width: 21px; height: 21px; }
       <button class="btn ghost" id="driveScanFoldersBtn" type="button" disabled>Scan subfolders</button>
     </div>
     <div class="msg" id="driveMessage" role="status" aria-live="polite">Drive connection has not been checked yet.</div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" id="driveIndexTextBtn" type="button" disabled>Index readable files</button>
+      <input id="driveSourceSearch" type="search" placeholder="Search indexed source text…" aria-label="Search indexed Master Storage text" disabled>
+      <button class="btn ghost" id="driveSourceSearchBtn" type="button" disabled>Search sources</button>
+    </div>
+    <div class="drive-files" id="driveSearchResults" aria-live="polite"></div>
     <div class="drive-files" id="driveFiles" aria-live="polite"></div>
     <div id="driveReadResult" hidden></div>
-    <p class="feature-note">Current capability: list direct files and read Google Docs or text-based files up to 2 MB. Recursive folder inventory requires the updated backend. PDF/PPTX extraction, OCR, audio/video transcription, full content indexing and dictionary integration remain separate steps. Drive connection tokens are stored encrypted on the backend; persistent Render storage is recommended to survive restarts.</p>
+    <p class="feature-note">Current capability: recursive inventory plus on-demand text extraction for Google Docs and text-based files up to 2 MB. The first text index is held in this browser session and clears on reload; it is not yet a durable server-side index. PDF/PPTX extraction, OCR, audio/video transcription and dictionary integration remain separate steps. Drive connection tokens are stored encrypted on the backend; persistent Render storage is recommended to survive restarts.</p>
   </section>
   <div class="panel">
     <h3>YouTube → JRF material generator</h3>
@@ -970,6 +976,55 @@ nav.bottom svg { width: 21px; height: 21px; }
       driveMessage("Loaded "+files.length+" direct file(s). Subfolders are not recursively indexed yet.");
     }catch(err){driveMessage(err.message||"Could not list Drive files.");}
   });
+  let driveScannedFiles = [];
+  let driveIndexedSources = [];
+  $("driveIndexTextBtn").addEventListener("click",async()=>{
+    const btn=$("driveIndexTextBtn");
+    btn.disabled=true; $("driveSourceSearch").disabled=true; $("driveSourceSearchBtn").disabled=true;
+    driveMessage("Preparing the source inventory for text extraction…");
+    try{
+      if(!driveScannedFiles.length){
+        const inventory=await driveRequest("/api/drive/files/recursive?maxDepth=8&maxItems=1000");
+        driveScannedFiles=Array.isArray(inventory.files)?inventory.files:[];
+      }
+      const readable=driveScannedFiles.filter(item=>item.mimeType==="application/vnd.google-apps.document"||["text/plain","text/markdown","text/csv","application/json"].includes(item.mimeType)).slice(0,25);
+      if(!readable.length){driveMessage("No supported Google Docs or text files were found in the scanned folders.");return;}
+      driveIndexedSources=[];
+      let failed=0;
+      for(let i=0;i<readable.length;i++){
+        const item=readable[i];
+        driveMessage("Extracting readable source "+(i+1)+" of "+readable.length+": "+(item.name||"Unnamed file"));
+        try{
+          const result=await driveRequest("/api/drive/files/"+encodeURIComponent(item.id)+"/content");
+          const text=(result.text||"").trim();
+          if(text)driveIndexedSources.push({id:item.id,title:item.name||"Unnamed source",path:item.path||item.name||"",url:item.webViewLink||result.file?.webViewLink||"",mimeType:item.mimeType,text,modifiedTime:item.modifiedTime||null});
+        }catch(err){failed++;}
+      }
+      $("driveSourceSearch").disabled=!driveIndexedSources.length;
+      $("driveSourceSearchBtn").disabled=!driveIndexedSources.length;
+      driveMessage("Text extraction complete: "+driveIndexedSources.length+" source(s) ready for this browser session; "+failed+" source(s) could not be extracted. Maximum 25 readable files per run.");
+    }catch(err){driveMessage(err.message||"Could not extract readable sources. Confirm the recursive backend is deployed.");}
+    finally{btn.disabled=!$("driveFolderLink").value.trim();}
+  });
+  function searchIndexedDriveSources(){
+    const query=$("driveSourceSearch").value.trim().toLowerCase();
+    const box=$("driveSearchResults");box.innerHTML="";
+    if(!query){driveMessage("Enter a word or phrase to search the extracted source text.");return;}
+    let matches=0;
+    for(const source of driveIndexedSources){
+      const at=source.text.toLowerCase().indexOf(query);if(at<0)continue;
+      matches++;const start=Math.max(0,at-180),end=Math.min(source.text.length,at+query.length+260);
+      const row=el("div","drive-file"),title=el("div","drive-file-name",source.title);
+      title.appendChild(el("span","drive-file-meta",source.path+(source.modifiedTime?" · Updated "+new Date(source.modifiedTime).toLocaleDateString("en-IN"):"")));
+      row.appendChild(title);row.appendChild(el("p","drive-source-snippet","…"+source.text.slice(start,end).replace(/\s+/g," ")+"…"));
+      if(source.url){const open=el("a","later","Open source in Drive");open.href=source.url;open.target="_blank";open.rel="noopener noreferrer";row.appendChild(open);}
+      box.appendChild(row);
+    }
+    driveMessage(matches?"Found "+matches+" source(s). Results quote extracted text and link to the original Drive source.":"No matches found in the sources extracted in this browser session.");
+  }
+  $("driveSourceSearchBtn").addEventListener("click",searchIndexedDriveSources);
+  $("driveSourceSearch").addEventListener("keydown",event=>{if(event.key==="Enter")searchIndexedDriveSources();});
+
   $("driveScanFoldersBtn").addEventListener("click",async()=>{
     const box=$("driveFiles");box.innerHTML="";$("driveReadResult").hidden=true;
     $("driveScanFoldersBtn").disabled=true;driveMessage("Scanning Master Storage subfolders (metadata only)…");
@@ -977,6 +1032,8 @@ nav.bottom svg { width: 21px; height: 21px; }
       const data=await driveRequest("/api/drive/files/recursive?maxDepth=8&maxItems=1000");
       const folders=Array.isArray(data.folders)?data.folders:[];
       const files=Array.isArray(data.files)?data.files:[];
+      driveScannedFiles=files;
+      if($("driveIndexTextBtn")) $("driveIndexTextBtn").disabled=false;
       const entries=[...folders.map(item=>({...item,isFolder:true})),...files.map(item=>({...item,isFolder:false}))]
         .sort((a,b)=>(a.path||a.name||"").localeCompare(b.path||b.name||""));
       if(!entries.length){driveMessage("The selected Master Storage folder is empty, or no accessible items were returned.");return;}
