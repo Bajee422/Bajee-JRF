@@ -340,6 +340,28 @@ nav.bottom svg { width: 21px; height: 21px; }
 .drive-file.is-audio .drive-file-actions{width:100%}
 .drive-file.is-audio .drive-file-actions .later{min-width:0}
 
+
+/* PDF book reader */
+.pdf-book-modal{position:fixed;inset:0;z-index:10000;background:rgba(8,15,30,.88);display:none;align-items:center;justify-content:center;padding:16px;box-sizing:border-box}
+.pdf-book-modal.open{display:flex}
+.pdf-book-shell{width:min(1200px,100%);height:min(92vh,900px);background:#eef1f6;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 70px rgba(0,0,0,.35)}
+.pdf-book-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 14px;background:#101d38;color:white}
+.pdf-book-title{font-weight:700;flex:1;min-width:160px;overflow-wrap:anywhere}
+.pdf-book-toolbar button{border:1px solid #d8deea;background:white;color:#101d38;border-radius:9px;padding:9px 12px;font:inherit;cursor:pointer}
+.pdf-book-toolbar button:disabled{opacity:.45;cursor:not-allowed}
+.pdf-book-count{font-size:13px;min-width:90px;text-align:center}
+.pdf-book-stage{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:18px;overflow:hidden;background:radial-gradient(ellipse at center,#dfe5ee,#c7d0df)}
+.pdf-book-spread{width:100%;height:100%;display:flex;align-items:center;justify-content:center;gap:2px;perspective:1800px;transition:transform .24s ease,opacity .24s ease;transform-origin:center}
+.pdf-book-spread.turn-next{animation:pdfTurnNext .28s ease}
+.pdf-book-spread.turn-prev{animation:pdfTurnPrev .28s ease}
+@keyframes pdfTurnNext{0%{opacity:.55;transform:rotateY(-8deg) translateX(16px)}100%{opacity:1;transform:rotateY(0) translateX(0)}}
+@keyframes pdfTurnPrev{0%{opacity:.55;transform:rotateY(8deg) translateX(-16px)}100%{opacity:1;transform:rotateY(0) translateX(0)}}
+.pdf-book-page{height:100%;width:calc(50% - 1px);max-width:50%;object-fit:contain;background:white;box-shadow:0 4px 16px rgba(15,28,52,.18);min-width:0}
+.pdf-book-page.single{width:auto;max-width:100%}
+.pdf-book-placeholder{color:#35435c;text-align:center;padding:24px}
+.pdf-book-footer{padding:8px 14px;text-align:center;font-size:12px;color:#45536c;background:#f8f9fb}
+@media(max-width:640px){.pdf-book-modal{padding:0}.pdf-book-shell{height:100dvh;border-radius:0}.pdf-book-stage{padding:8px}.pdf-book-page{width:100%;max-width:100%}.pdf-book-page.second{display:none}.pdf-book-toolbar{padding:9px}.pdf-book-title{flex-basis:100%}}
+@media(prefers-reduced-motion:reduce){.pdf-book-spread.turn-next,.pdf-book-spread.turn-prev{animation:none}}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -910,6 +932,82 @@ nav.bottom svg { width: 21px; height: 21px; }
     if(!response.ok || data.success===false) throw new Error(data.error||("Drive request failed ("+response.status+")"));
     return data;
   }
+  let pdfBookDocument=null, pdfBookUrl="", pdfBookStartPage=1, pdfBookScale=1.15, pdfBookRenderToken=0;
+  let pdfJsPromise=null;
+  function loadPdfJs(){
+    if(window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+    if(pdfJsPromise) return pdfJsPromise;
+    pdfJsPromise=new Promise((resolve,reject)=>{
+      const script=document.createElement("script");
+      script.src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+      script.onload=()=>{if(!window.pdfjsLib){reject(new Error("PDF reader library did not initialise."));return;}window.pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";resolve(window.pdfjsLib);};
+      script.onerror=()=>reject(new Error("Could not load the PDF reader library. Check your internet connection and try again."));
+      document.head.appendChild(script);
+    });
+    return pdfJsPromise;
+  }
+  function pdfBookIsMobile(){return window.matchMedia("(max-width: 640px)").matches;}
+  function pdfBookUpdateControls(){
+    const total=pdfBookDocument?.numPages||0, mobile=pdfBookIsMobile();
+    $("pdfBookPrev").disabled=!pdfBookDocument||pdfBookStartPage<=1;
+    $("pdfBookNext").disabled=!pdfBookDocument||pdfBookStartPage+(mobile?0:1)>=total;
+    $("pdfBookCount").textContent=total?(`Page ${pdfBookStartPage}${!mobile&&pdfBookStartPage+1<=total?"–"+(pdfBookStartPage+1):""} / ${total}`):"Page 0 / 0";
+  }
+  async function renderPdfBookSpread(direction=""){
+    if(!pdfBookDocument)return;
+    const token=++pdfBookRenderToken, spread=$("pdfBookSpread"), mobile=pdfBookIsMobile();
+    spread.classList.remove("turn-next","turn-prev");
+    if(direction){void spread.offsetWidth;spread.classList.add(direction==="next"?"turn-next":"turn-prev");}
+    spread.innerHTML="";
+    const pages=[pdfBookStartPage];if(!mobile&&pdfBookStartPage+1<=pdfBookDocument.numPages)pages.push(pdfBookStartPage+1);
+    $("pdfBookStatus").textContent="Rendering page"+(pages.length>1?"s ":" ")+pages.join(" and ")+"…";
+    for(const pageNumber of pages){
+      if(token!==pdfBookRenderToken)return;
+      const page=await pdfBookDocument.getPage(pageNumber);
+      const base=page.getViewport({scale:1});
+      const stage=$("pdfBookModal").querySelector(".pdf-book-stage");
+      const maxWidth=Math.max(180,(stage.clientWidth-(mobile?24:52))/(mobile?1:2));
+      const maxHeight=Math.max(240,stage.clientHeight-30);
+      const scale=Math.min(maxWidth/base.width,maxHeight/base.height)*pdfBookScale;
+      const viewport=page.getViewport({scale});
+      const canvas=document.createElement("canvas");canvas.className="pdf-book-page"+(pages.length===1?" single":"")+(pages[0]!==pageNumber?" second":"");
+      const outputScale=Math.min(window.devicePixelRatio||1,1.6);canvas.width=Math.floor(viewport.width*outputScale);canvas.height=Math.floor(viewport.height*outputScale);canvas.style.width=viewport.width+"px";canvas.style.height=viewport.height+"px";
+      const context=canvas.getContext("2d",{alpha:false});context.setTransform(outputScale,0,0,outputScale,0,0);
+      spread.appendChild(canvas);
+      await page.render({canvasContext:context,viewport}).promise;
+    }
+    if(token!==pdfBookRenderToken)return;
+    $("pdfBookStatus").textContent="Book view ready · use Previous/Next to turn pages. Zoom controls improve readability.";
+    pdfBookUpdateControls();
+  }
+  async function openDrivePdfBook(file){
+    const modal=$("pdfBookModal");modal.classList.add("open");document.body.style.overflow="hidden";
+    $("pdfBookTitle").textContent=file.name||"PDF Book Reader";$("pdfBookStatus").textContent="Preparing secure PDF…";$("pdfBookSpread").innerHTML='<div class="pdf-book-placeholder">Connecting to Google Drive…</div>';
+    pdfBookDocument=null;pdfBookStartPage=1;pdfBookScale=1.0;pdfBookUpdateControls();
+    try{
+      const library=await loadPdfJs();
+      const playback=await driveRequest("/api/drive/files/"+encodeURIComponent(file.id)+"/playback");
+      pdfBookUrl=playback.url;
+      pdfBookDocument=await library.getDocument({url:pdfBookUrl,withCredentials:false}).promise;
+      $("pdfBookTitle").textContent=(file.name||"PDF Book Reader")+" · "+pdfBookDocument.numPages+" pages";
+      await renderPdfBookSpread();
+    }catch(err){
+      pdfBookDocument=null;$("pdfBookSpread").innerHTML='<div class="pdf-book-placeholder"></div>';
+      $("pdfBookSpread").firstElementChild.textContent=err.message||"Could not open this PDF.";
+      $("pdfBookStatus").textContent="PDF could not be opened. Try Open in Drive or check the backend deployment.";
+      pdfBookUpdateControls();
+    }
+  }
+  function closePdfBook(){pdfBookRenderToken++;pdfBookDocument=null;pdfBookUrl="";$("pdfBookModal").classList.remove("open");document.body.style.overflow="";}
+  $("pdfBookClose").addEventListener("click",closePdfBook);
+  $("pdfBookModal").addEventListener("click",event=>{if(event.target===$("pdfBookModal"))closePdfBook();});
+  $("pdfBookPrev").addEventListener("click",()=>{if(pdfBookDocument&&pdfBookStartPage>1){pdfBookStartPage=Math.max(1,pdfBookStartPage-(pdfBookIsMobile()?1:2));renderPdfBookSpread("prev").catch(err=>$("pdfBookStatus").textContent=err.message);}});
+  $("pdfBookNext").addEventListener("click",()=>{if(pdfBookDocument&&pdfBookStartPage+(pdfBookIsMobile()?0:1)<pdfBookDocument.numPages){pdfBookStartPage=Math.min(pdfBookDocument.numPages,pdfBookStartPage+(pdfBookIsMobile()?1:2));renderPdfBookSpread("next").catch(err=>$("pdfBookStatus").textContent=err.message);}});
+  $("pdfBookZoomIn").addEventListener("click",()=>{if(pdfBookDocument){pdfBookScale=Math.min(1.8,pdfBookScale+0.15);renderPdfBookSpread().catch(err=>$("pdfBookStatus").textContent=err.message);}});
+  $("pdfBookZoomOut").addEventListener("click",()=>{if(pdfBookDocument){pdfBookScale=Math.max(.65,pdfBookScale-.15);renderPdfBookSpread().catch(err=>$("pdfBookStatus").textContent=err.message);}});
+  document.addEventListener("keydown",event=>{if(!$("pdfBookModal").classList.contains("open"))return;if(event.key==="Escape")closePdfBook();else if(event.key==="ArrowRight")$("pdfBookNext").click();else if(event.key==="ArrowLeft")$("pdfBookPrev").click();});
+  window.addEventListener("resize",()=>{if(pdfBookDocument&&$("pdfBookModal").classList.contains("open"))renderPdfBookSpread().catch(()=>{});});
+
   async function loadDriveStatus(showMessage=true){
     drivePill("Checking connection…");
     try{
@@ -992,7 +1090,8 @@ nav.bottom svg { width: 21px; height: 21px; }
         const meta=el("span","drive-file-meta",(file.mimeType||"Unknown type")+(file.modifiedTime?" · Updated "+new Date(file.modifiedTime).toLocaleDateString("en-IN"):""));name.appendChild(meta);row.appendChild(name);
         if(file.webViewLink){const open=el("a","later","Open in Drive");open.href=file.webViewLink;open.target="_blank";open.rel="noopener noreferrer";row.appendChild(open);}
         const readable=file.mimeType==="application/vnd.google-apps.document"||["text/plain","text/markdown","text/csv","application/json","application/pdf","application/vnd.openxmlformats-officedocument.wordprocessingml.document","application/vnd.openxmlformats-officedocument.presentationml.presentation"].includes(file.mimeType);
-        const read=el("button","later",readable?"Read / extract text":"Unsupported");read.type="button";read.disabled=!readable;
+        const read=el("button","later",readable?(file.mimeType==="application/pdf"?"Extract text":"Read / extract text"):"Unsupported");read.type="button";read.disabled=!readable;
+          if(file.mimeType==="application/pdf"){const book=el("button","later","📖 Read as book");book.type="button";book.onclick=()=>openDrivePdfBook(file);row.appendChild(book);}
           if(!readable){const fileMime=file.mimeType||"";const why=el("span","drive-file-meta",fileMime.startsWith("image/")?"Image · OCR not enabled":fileMime.startsWith("audio/")?"Audio playback is available in Scan subfolders; transcription is not enabled":fileMime.startsWith("video/")?"Video playback is available in Scan subfolders; transcription is not enabled":"Preview/extraction not available for this file type yet");row.appendChild(why);}
         read.onclick=async()=>{driveMessage("Reading "+(file.name||"file")+"…");try{const content=await driveRequest("/api/drive/files/"+encodeURIComponent(file.id)+"/content");const result=$("driveReadResult");result.textContent=(content.text||"").trim()||"This file contains no readable text.";result.hidden=false;result.scrollIntoView({behavior:"smooth",block:"start"});result.focus({preventScroll:true});driveMessage("Read-only preview loaded: "+(content.file.name||file.name)+". This does not yet index the file into the dictionary.");}catch(err){driveMessage(err.message||"Could not read this file.");}};
         row.appendChild(read);box.appendChild(row);
@@ -1121,9 +1220,11 @@ nav.bottom svg { width: 21px; height: 21px; }
         } else {
           const readable=mime==="application/vnd.google-apps.document"||["text/plain","text/markdown","text/csv","application/json","application/pdf","application/vnd.openxmlformats-officedocument.wordprocessingml.document","application/vnd.openxmlformats-officedocument.presentationml.presentation"].includes(mime);
           const actions=el("div","drive-file-actions");
-          const read=el("button","later",readable?"Read / extract text":"Unsupported");read.type="button";read.disabled=!readable;
+          const isPdf=mime==="application/pdf";
+          const read=el("button","later",readable?(isPdf?"Extract text":"Read / extract text"):"Unsupported");read.type="button";read.disabled=!readable;
           if(!readable){const why=el("span","drive-file-meta",mime.startsWith("image/")?"Image · OCR not enabled":mime.startsWith("audio/")?"Audio playback available; transcription not enabled":mime.startsWith("video/")?"Video playback available; transcription not enabled":"Preview/extraction not available for this file type yet");row.appendChild(why);}
           read.onclick=async()=>{driveMessage("Reading "+(item.name||"file")+"…");try{const content=await driveRequest("/api/drive/files/"+encodeURIComponent(item.id)+"/content");const result=$("driveReadResult");result.textContent=(content.text||"").trim()||"This file contains no readable text.";result.hidden=false;result.scrollIntoView({behavior:"smooth",block:"start"});result.focus({preventScroll:true});driveMessage("Read-only preview loaded: "+(content.file.name||item.name)+".");}catch(err){driveMessage(err.message||"Could not read this file.");}};
+          if(isPdf){const book=el("button","later","📖 Read as book");book.type="button";book.onclick=()=>openDrivePdfBook(item);actions.appendChild(book);}
           actions.appendChild(read);
           if(item.webViewLink){const open=el("a","later","Open in Drive");open.href=item.webViewLink;open.target="_blank";open.rel="noopener noreferrer";actions.appendChild(open);}
           row.appendChild(actions);
@@ -1347,5 +1448,22 @@ nav.bottom svg { width: 21px; height: 21px; }
   };
 })();
 </script>
+
+<div id="pdfBookModal" class="pdf-book-modal" role="dialog" aria-modal="true" aria-label="PDF book reader">
+  <section class="pdf-book-shell">
+    <div class="pdf-book-toolbar">
+      <div id="pdfBookTitle" class="pdf-book-title">PDF Book Reader</div>
+      <button id="pdfBookPrev" type="button" disabled>← Previous</button>
+      <span id="pdfBookCount" class="pdf-book-count">Page 0 / 0</span>
+      <button id="pdfBookNext" type="button" disabled>Next →</button>
+      <button id="pdfBookZoomOut" type="button" aria-label="Zoom out">−</button>
+      <button id="pdfBookZoomIn" type="button" aria-label="Zoom in">+</button>
+      <button id="pdfBookClose" type="button">Close ✕</button>
+    </div>
+    <div class="pdf-book-stage"><div id="pdfBookSpread" class="pdf-book-spread"><div class="pdf-book-placeholder">Choose a PDF from Master Storage to start reading.</div></div></div>
+    <div id="pdfBookStatus" class="pdf-book-footer" aria-live="polite">Two-page book view on larger screens; single-page view on mobile.</div>
+  </section>
+</div>
+
 </body>
 </html>
