@@ -1024,6 +1024,86 @@ app.post("/api/source/extract-url", async (req, res) => {
     }
 });
 
+
+/* =========================================================
+   SOURCE-GROUNDED PYQ EXTRACTION
+   Separate schema from the single-question AI chat endpoint.
+========================================================= */
+app.post("/api/pyq/extract", async (req, res) => {
+    if (!GEMINI_API_KEY) return res.status(503).json({ success: false, error: "Gemini API key is not configured.", code: "gemini_key_missing" });
+    const sourceText = typeof req.body?.sourceText === "string" ? req.body.sourceText.trim() : "";
+    const sourceUrl = typeof req.body?.sourceUrl === "string" ? req.body.sourceUrl.trim().slice(0, 2048) : "";
+    const paper = typeof req.body?.paper === "string" ? req.body.paper.slice(0, 100) : "UGC NET English Paper II";
+    const requestedCount = Number(req.body?.maxQuestions || 25);
+    const maxQuestions = Number.isFinite(requestedCount) ? Math.max(1, Math.min(100, Math.floor(requestedCount))) : 25;
+    if (!sourceText) return res.status(400).json({ success: false, error: "No source text was supplied for question extraction.", code: "pyq_source_missing" });
+    if (sourceText.length > 9000) return res.status(413).json({ success: false, error: "Source text is too large. Please use a shorter excerpt.", code: "pyq_source_too_large" });
+    try {
+        const schema = {
+            type: "OBJECT",
+            properties: {
+                source_url: { type: "STRING" },
+                limitations: { type: "ARRAY", items: { type: "STRING" } },
+                questions: {
+                    type: "ARRAY",
+                    items: {
+                        type: "OBJECT",
+                        properties: {
+                            question: { type: "STRING" },
+                            options: {
+                                type: "ARRAY",
+                                items: {
+                                    type: "OBJECT",
+                                    properties: { key: { type: "STRING", enum: ["A", "B", "C", "D"] }, text: { type: "STRING" } },
+                                    required: ["key", "text"]
+                                }
+                            },
+                            correct_answer: { type: "STRING", enum: ["A", "B", "C", "D", "UNVERIFIED"] },
+                            explanation: { type: "STRING" }
+                        },
+                        required: ["question", "options", "correct_answer", "explanation"]
+                    }
+                }
+            },
+            required: ["source_url", "limitations", "questions"]
+        };
+        const prompt = `Extract existing multiple-choice questions from the source excerpt for ${paper}. Return no more than ${maxQuestions}. Use ONLY the supplied text. Do NOT invent or complete questions, options, answer keys, explanations, dates, or missing content. Include a question only when the question text is actually present. Preserve the source wording as closely as possible. Include options only when shown in the source. Set correct_answer to UNVERIFIED unless the supplied source explicitly gives a reliable answer key for that question. Do not guess answers from general knowledge. Put any missing content or extraction limits in limitations. source_url must be the provided URL or an empty string.\nSOURCE URL: ${sourceUrl}\nSOURCE TEXT:\n${sourceText}`;
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), GEMINI_TIMEOUT_MS);
+        let upstream;
+        try {
+            upstream = await fetch(getGeminiUrl(), {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "x-goog-api-key": GEMINI_API_KEY },
+                body: JSON.stringify({
+                    system_instruction: { parts: [{ text: "You extract source text faithfully. Never fabricate missing questions or answers. Return only the requested JSON." }] },
+                    contents: [{ role: "user", parts: [{ text: prompt }] }],
+                    generationConfig: { temperature: 0.1, responseMimeType: "application/json", responseSchema: schema }
+                }),
+                signal: controller.signal
+            });
+        } catch (error) {
+            if (error?.name === "AbortError") return res.status(504).json({ success: false, error: "Question extraction timed out. Please try a shorter source excerpt.", code: "pyq_extraction_timeout" });
+            return res.status(502).json({ success: false, error: "AI question extraction is temporarily unavailable.", code: "pyq_ai_unavailable" });
+        } finally { clearTimeout(timer); }
+        const data = await upstream.json().catch(() => ({}));
+        if (!upstream.ok) {
+            console.error(`Gemini PYQ extraction failed with HTTP ${upstream.status}.`);
+            return res.status(502).json({ success: false, error: "AI could not process this source. Try a shorter excerpt or paste the text manually.", code: "pyq_ai_error" });
+        }
+        const reply = extractGeminiText(data);
+        if (!reply) return res.status(502).json({ success: false, error: "AI returned no extractable question data.", code: "pyq_empty_response" });
+        let result;
+        try { result = JSON.parse(reply); }
+        catch { return res.status(502).json({ success: false, error: "AI returned an invalid question-data format. Please retry.", code: "pyq_invalid_json" }); }
+        const questions = Array.isArray(result.questions) ? result.questions.slice(0, maxQuestions).filter(q => typeof q?.question === "string" && q.question.trim()) : [];
+        return res.json({ success: true, result: { source_url: sourceUrl || result.source_url || "", limitations: Array.isArray(result.limitations) ? result.limitations : [], questions } });
+    } catch (error) {
+        console.error("PYQ extraction route failed:", error?.message || "unknown error");
+        return res.status(500).json({ success: false, error: "Question extraction failed unexpectedly.", code: "pyq_backend_error" });
+    }
+});
+
 /* =========================================================
    GOOGLE DRIVE MASTER STORAGE API
 ========================================================= */
