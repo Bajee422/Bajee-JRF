@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import crypto from "node:crypto";
+import { lookup as dnsLookup } from "node:dns/promises";
+import { isIP } from "node:net";
 import pdfParse from "pdf-parse";
 import AdmZip from "adm-zip";
 import { OAuth2Client } from "google-auth-library";
@@ -1009,6 +1011,19 @@ app.use(
     apiSecurity
 );
 
+app.post("/api/source/extract-url", async (req, res) => {
+    const rawUrl = typeof req.body?.url === "string" ? req.body.url.trim() : "";
+    if (!rawUrl || rawUrl.length > 2048) return res.status(400).json({ success: false, error: "Provide a valid source URL (maximum 2048 characters).", code: "source_url_invalid" });
+    try {
+        const result = await fetchPublicSource(rawUrl);
+        return res.json({ success: true, source: result });
+    } catch (error) {
+        const status = Number(error?.status);
+        const safeStatus = status >= 400 && status <= 599 ? status : 502;
+        return res.status(safeStatus).json({ success: false, error: error?.message || "Could not extract text from this source URL.", code: "source_extraction_failed" });
+    }
+});
+
 /* =========================================================
    GOOGLE DRIVE MASTER STORAGE API
 ========================================================= */
@@ -1300,6 +1315,176 @@ app.get("/api/drive/files/:fileId/content", async (req, res) => {
 /* =========================================================
    GEMINI URL
 ========================================================= */
+
+/* =========================================================
+   SAFE PUBLIC WEBPAGE / PDF SOURCE EXTRACTION
+   Only public HTTP(S) hosts; blocks private/internal destinations and
+   re-checks every redirect. This route is protected by apiSecurity.
+========================================================= */
+const SOURCE_FETCH_TIMEOUT_MS = 10000;
+const SOURCE_FETCH_MAX_BYTES = 8 * 1024 * 1024;
+const SOURCE_FETCH_MAX_CHARS = 12000;
+
+function isPublicSourceIp(address) {
+    const version = isIP(address);
+    if (version === 4) {
+        const parts = address.split(".").map(Number);
+        if (parts.length !== 4 || parts.some(n => !Number.isInteger(n) || n < 0 || n > 255)) return false;
+        const [a, b] = parts;
+        if (a === 0 || a === 10 || a === 127 || a >= 224) return false;
+        if (a === 100 && b >= 64 && b <= 127) return false;
+        if (a === 169 && b === 254) return false;
+        if (a === 172 && b >= 16 && b <= 31) return false;
+        if (a === 192 && (b === 0 || b === 168)) return false;
+        if (a === 198 && (b === 18 || b === 19)) return false;
+        return true;
+    }
+    if (version === 6) {
+        const ip = address.toLowerCase();
+        if (ip === "::" || ip === "::1" || ip.startsWith("fc") || ip.startsWith("fd") || /^fe[89ab]/.test(ip)) return false;
+        if (ip.startsWith("::ffff:")) return isPublicSourceIp(ip.slice(7));
+        // Public IPv6 global unicast is within 2000::/3.
+        return /^2[0-9a-f]{3}:/.test(ip);
+    }
+    return false;
+}
+
+async function validatePublicSourceUrl(raw) {
+    let url;
+    try { url = new URL(raw); } catch { throw Object.assign(new Error("Enter a valid public webpage URL."), { status: 400 }); }
+    if (!['http:', 'https:'].includes(url.protocol)) throw Object.assign(new Error("Only HTTP and HTTPS webpage URLs are supported."), { status: 400 });
+    if (url.username || url.password) throw Object.assign(new Error("URLs containing embedded credentials are not allowed."), { status: 400 });
+    if (url.port && !['80', '443'].includes(url.port)) throw Object.assign(new Error("Only standard HTTP/HTTPS ports are allowed."), { status: 400 });
+    const host = url.hostname.toLowerCase().replace(/^\[|\]$/g, '');
+    if (!host || host === 'localhost' || host.endsWith('.localhost') || host.endsWith('.local') || host.endsWith('.internal')) {
+        throw Object.assign(new Error("Private or local network URLs are not allowed."), { status: 400 });
+    }
+    if (isIP(host)) {
+        if (!isPublicSourceIp(host)) throw Object.assign(new Error("Private or reserved IP addresses are not allowed."), { status: 400 });
+    } else {
+        let records;
+        try { records = await dnsLookup(host, { all: true, verbatim: true }); }
+        catch { throw Object.assign(new Error("The webpage host could not be resolved."), { status: 422 }); }
+        if (!records.length || records.some(record => !isPublicSourceIp(record.address))) {
+            throw Object.assign(new Error("The webpage host does not resolve exclusively to public IP addresses."), { status: 400 });
+        }
+    }
+    url.hash = '';
+    return url;
+}
+
+function decodeSourceHtmlEntities(value) {
+    const named = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', ndash: '–', mdash: '—', rsquo: '’', lsquo: '‘', rdquo: '”', ldquo: '“', hellip: '…', copy: '©', reg: '®' };
+    return value.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (match, entity) => {
+        if (entity[0] === '#') {
+            const hex = entity[1]?.toLowerCase() === 'x';
+            const number = Number.parseInt(entity.slice(hex ? 2 : 1), hex ? 16 : 10);
+            try { return Number.isFinite(number) && number > 0 && number <= 0x10ffff ? String.fromCodePoint(number) : ' '; } catch { return ' '; }
+        }
+        return named[entity.toLowerCase()] ?? match;
+    });
+}
+
+function extractReadableHtml(html) {
+    return decodeSourceHtmlEntities(String(html)
+        .replace(/<!--[\s\S]*?-->/g, ' ')
+        .replace(/<(script|style|noscript|svg|canvas|iframe|nav|footer|header|form)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, ' ')
+        .replace(/<(script|style|noscript|svg|canvas|iframe|nav|footer|header|form)\b[^>]*\/?\s*>/gi, ' ')
+        .replace(/<(br|\/p|\/div|\/li|\/tr|\/h[1-6]|\/section|\/article|\/table)\b[^>]*>/gi, '\n')
+        .replace(/<[^>]+>/g, ' '))
+        .replace(/[\t\f\v ]+/g, ' ')
+        .replace(/ *\n */g, '\n')
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
+}
+
+async function fetchPublicSource(rawUrl) {
+    let url = await validatePublicSourceUrl(rawUrl);
+    for (let redirects = 0; redirects <= 3; redirects++) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), SOURCE_FETCH_TIMEOUT_MS);
+        let response;
+        try {
+            response = await fetch(url, {
+                method: 'GET',
+                redirect: 'manual',
+                signal: controller.signal,
+                headers: {
+                    'User-Agent': 'BAJEE-JRF-Academic-Source-Reader/1.0 (+public-page-text-extraction)',
+                    'Accept': 'text/html, text/plain, application/pdf;q=0.9, */*;q=0.1'
+                }
+            });
+        } catch (error) {
+            if (error?.name === 'AbortError') throw Object.assign(new Error("The source website took too long to respond."), { status: 504 });
+            throw Object.assign(new Error("Could not connect to the source website."), { status: 502 });
+        } finally { clearTimeout(timer); }
+
+        if ([301, 302, 303, 307, 308].includes(response.status)) {
+            const location = response.headers.get('location');
+            if (!location || redirects === 3) throw Object.assign(new Error("The source website redirected too many times."), { status: 422 });
+            try { await response.body?.cancel(); } catch {}
+            url = await validatePublicSourceUrl(new URL(location, url).toString());
+            continue;
+        }
+        if (!response.ok) {
+            try { await response.body?.cancel(); } catch {}
+            throw Object.assign(new Error(`The source website returned HTTP ${response.status}. It may block automated access.`), { status: 422 });
+        }
+        const contentType = (response.headers.get('content-type') || '').toLowerCase();
+        if (!contentType.includes('text/html') && !contentType.includes('text/plain') && !contentType.includes('application/pdf')) {
+            try { await response.body?.cancel(); } catch {}
+            throw Object.assign(new Error("This URL did not return an HTML webpage, plain text, or PDF. For YouTube, paste a transcript or use the existing YouTube source workflow."), { status: 415 });
+        }
+        const declaredLength = Number(response.headers.get('content-length') || 0);
+        if (declaredLength > SOURCE_FETCH_MAX_BYTES) {
+            try { await response.body?.cancel(); } catch {}
+            throw Object.assign(new Error("The source file exceeds the 8 MB retrieval limit."), { status: 413 });
+        }
+        const chunks = [];
+        let total = 0;
+        const reader = response.body?.getReader();
+        if (!reader) throw Object.assign(new Error("The source website returned an empty response."), { status: 422 });
+        try {
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                total += value.byteLength;
+                if (total > SOURCE_FETCH_MAX_BYTES) {
+                    await reader.cancel();
+                    throw Object.assign(new Error("The source file exceeds the 8 MB retrieval limit."), { status: 413 });
+                }
+                chunks.push(Buffer.from(value));
+            }
+        } catch (error) {
+            if (error?.status) throw error;
+            throw Object.assign(new Error("The source response could not be read completely."), { status: 502 });
+        }
+        const buffer = Buffer.concat(chunks);
+        let text;
+        let extractionType;
+        if (contentType.includes('application/pdf') || url.pathname.toLowerCase().endsWith('.pdf')) {
+            try {
+                const parsed = await pdfParse(buffer);
+                text = String(parsed.text || '').trim();
+                extractionType = 'pdf-text';
+            } catch {
+                throw Object.assign(new Error("The PDF could not be parsed. Scanned PDFs need OCR, which is not enabled yet."), { status: 422 });
+            }
+            if (!text) throw Object.assign(new Error("No selectable text was found in this PDF. It may be scanned; OCR is not enabled yet."), { status: 422 });
+        } else if (contentType.includes('text/plain')) {
+            text = buffer.toString('utf8').trim();
+            extractionType = 'plain-text';
+        } else {
+            text = extractReadableHtml(buffer.toString('utf8'));
+            extractionType = 'html-text';
+        }
+        if (!text) throw Object.assign(new Error("No readable text was found on this webpage."), { status: 422 });
+        const truncated = text.length > SOURCE_FETCH_MAX_CHARS;
+        if (truncated) text = text.slice(0, SOURCE_FETCH_MAX_CHARS);
+        return { url: url.toString(), title: null, text, extractionType, truncated, characters: text.length };
+    }
+    throw Object.assign(new Error("Could not retrieve the source webpage."), { status: 422 });
+}
 
 function getGeminiUrl() {
 
