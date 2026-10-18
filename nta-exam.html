@@ -2928,7 +2928,7 @@ async function loadPYQDatabase(){
 
     const response =
         await fetch(
-            "data/pyqs/pyq-database.json",
+            "../data/pyqs/pyq-database.json",
             {
                 cache:
                     "no-store"
@@ -3150,29 +3150,50 @@ function isUsableQuestion(
         !question ||
         typeof question !== "object"
     ){
-
         return false;
-
     }
 
-
     const text =
-
         question.question ||
-
         question.question_text ||
-
         question.questionText ||
-
         question.text ||
-
         "";
 
+    if(!String(text).trim()){
+        return false;
+    }
 
-    return Boolean(
-        String(text).trim()
-    );
+    /*
+     * Safety gate: explicit review-only records must never enter
+     * a scored NTA examination. Do not infer or invent their answers.
+     */
+    if(question.exam_eligible === false){
+        return false;
+    }
 
+    const rawAnswer = String(
+        question.correct_answer ??
+        question.correctAnswer ??
+        question.answer ??
+        question.correct ??
+        ""
+    ).trim().toUpperCase();
+
+    const answer = /^[0-3]$/.test(rawAnswer)
+        ? String.fromCharCode(65 + Number(rawAnswer))
+        : rawAnswer;
+
+    if(!/^[A-D]$/.test(answer)){
+        return false;
+    }
+
+    const options = getOptions(question);
+    const hasFourOptions = ["A", "B", "C", "D"].every(function(key){
+        return String(options[key] ?? "").trim().length > 0;
+    });
+
+    return hasFourOptions;
 }
 
 
@@ -3810,21 +3831,11 @@ function prepareExamQuestions(){
     ){
 
         throw new Error(
-
-            "Not enough questions are available for " +
-
-            activeSession.paperLabel +
-
-            ". Requested: " +
-
-            activeSession.questionCount +
-
-            ". Available: " +
-
-            available.length +
-
-            "."
-
+            "This examination cannot start safely because the validated question pool is smaller than the requested exam. " +
+            "Requested: " + activeSession.questionCount +
+            ". Valid questions available: " + available.length +
+            ". Questions marked review-only or missing a usable answer key/options are excluded. " +
+            "Please verify the source records before attempting a full 150-question mock; no answers have been guessed."
         );
 
     }
