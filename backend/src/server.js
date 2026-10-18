@@ -2,8 +2,6 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import crypto from "node:crypto";
-import fs from "node:fs/promises";
-import path from "node:path";
 import pdfParse from "pdf-parse";
 import AdmZip from "adm-zip";
 import { OAuth2Client } from "google-auth-library";
@@ -49,14 +47,14 @@ const DRIVE_REDIRECT_URI = process.env.DRIVE_REDIRECT_URI ||
     "https://bajee-jrf.onrender.com/api/drive/callback";
 const DRIVE_FRONTEND_URL = process.env.DRIVE_FRONTEND_URL ||
     "https://bajee422.github.io/Bajee-JRF/";
-const DRIVE_TOKEN_STORE_PATH = path.resolve(
-    process.env.DRIVE_TOKEN_STORE_PATH || "./data/drive-connections.enc.json"
-);
+// Durable backend-only storage for encrypted Google Drive connection metadata.
+const SUPABASE_URL = (process.env.SUPABASE_URL || "").replace(/\/+$/, "");
+const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY || "";
 const DRIVE_STATE_TTL_SECONDS = 10 * 60;
-const DRIVE_MAX_PAGE_SIZE = 300;
+const DRIVE_MAX_PAGE_SIZE = 100;
 // Keep plain-text files conservative; allow larger document uploads for course PDFs/DOCX/PPTX.
 const DRIVE_MAX_CONTENT_BYTES = 2 * 1024 * 1024;
-const DRIVE_MAX_DOCUMENT_BYTES = 50 * 1024 * 1024;
+const DRIVE_MAX_DOCUMENT_BYTES = 25 * 1024 * 1024;
 const DRIVE_MAX_EXTRACTED_TEXT_BYTES = 25 * 1024 * 1024;
 const driveOAuthClient = new OAuth2Client(
     DRIVE_GOOGLE_CLIENT_ID,
@@ -155,21 +153,34 @@ function decryptDriveStore(raw) {
     const value = JSON.parse(Buffer.concat([decipher.update(Buffer.from(e.data, "base64url")), decipher.final()]).toString("utf8"));
     return value && typeof value === "object" && !Array.isArray(value) ? value : {};
 }
-async function readDriveStore() {
-    try { return decryptDriveStore(await fs.readFile(DRIVE_TOKEN_STORE_PATH, "utf8")); }
-    catch (error) {
-        if (error?.code === "ENOENT") return {};
-        console.error("Encrypted Drive storage could not be read; existing data was not overwritten.");
-        throw new Error("Drive token storage is unavailable.");
-    }
+function supabaseDriveStorageReady() {
+    return Boolean(SUPABASE_URL && SUPABASE_SECRET_KEY);
 }
-async function writeDriveStore(store) {
-    await fs.mkdir(path.dirname(DRIVE_TOKEN_STORE_PATH), { recursive: true });
-    const tmp = `${DRIVE_TOKEN_STORE_PATH}.${crypto.randomBytes(6).toString("hex")}.tmp`;
-    try {
-        await fs.writeFile(tmp, encryptDriveStore(store), { mode: 0o600 });
-        await fs.rename(tmp, DRIVE_TOKEN_STORE_PATH);
-    } catch (error) { await fs.rm(tmp, { force: true }).catch(() => {}); throw error; }
+
+async function supabaseDriveRequest(method, query = "", body = null, prefer = "") {
+    if (!supabaseDriveStorageReady()) {
+        throw new Error("Supabase Drive storage is not configured.");
+    }
+    const url = `${SUPABASE_URL}/rest/v1/bajee_drive_connections${query}`;
+    const headers = {
+        apikey: SUPABASE_SECRET_KEY,
+        "Content-Type": "application/json",
+        Accept: "application/json"
+    };
+    if (prefer) headers.Prefer = prefer;
+    const response = await fetch(url, {
+        method,
+        headers,
+        ...(body === null ? {} : { body: JSON.stringify(body) })
+    });
+    if (!response.ok) {
+        // Do not log response bodies or credentials; they may contain sensitive details.
+        console.error(`Supabase Drive storage request failed with HTTP ${response.status}.`);
+        throw new Error("Drive connection storage is unavailable.");
+    }
+    if (response.status === 204) return null;
+    const text = await response.text();
+    return text ? JSON.parse(text) : null;
 }
 function createSignedDriveState(userId) {
     if (!APP_SESSION_SECRET) throw new Error("APP_SESSION_SECRET is not configured.");
@@ -197,16 +208,31 @@ function driveUserId(req) {
     return typeof req.googleUser?.id === "string" && req.googleUser.id ? req.googleUser.id : "";
 }
 function driveConfigReady() {
-    return Boolean(DRIVE_GOOGLE_CLIENT_ID && DRIVE_GOOGLE_CLIENT_SECRET && DRIVE_REDIRECT_URI && APP_SESSION_SECRET);
+    return Boolean(DRIVE_GOOGLE_CLIENT_ID && DRIVE_GOOGLE_CLIENT_SECRET && DRIVE_REDIRECT_URI && APP_SESSION_SECRET && supabaseDriveStorageReady());
 }
 async function getDriveConnection(userId) {
-    const store = await readDriveStore();
-    return { store, entry: store[userId] || null };
+    if (typeof userId !== "string" || !userId) throw new Error("A valid Drive user ID is required.");
+    const query = `?${new URLSearchParams({ id: `eq.${userId}`, select: "id,encrypted_payload,updated_at" })}`;
+    const rows = await supabaseDriveRequest("GET", query);
+    const row = Array.isArray(rows) ? rows[0] : null;
+    if (!row) return { entry: null };
+    const entry = decryptDriveStore(row.encrypted_payload);
+    return { entry: entry && typeof entry === "object" && !Array.isArray(entry) ? entry : null };
 }
 async function saveDriveConnection(userId, entry) {
-    const store = await readDriveStore();
-    store[userId] = { ...entry, updatedAt: new Date().toISOString() };
-    await writeDriveStore(store);
+    if (typeof userId !== "string" || !userId) throw new Error("A valid Drive user ID is required.");
+    const value = { ...entry, updatedAt: new Date().toISOString() };
+    const payload = {
+        id: userId,
+        encrypted_payload: encryptDriveStore(value),
+        updated_at: value.updatedAt
+    };
+    await supabaseDriveRequest("POST", "", payload, "resolution=merge-duplicates,return=minimal");
+}
+async function deleteDriveConnection(userId) {
+    if (typeof userId !== "string" || !userId) throw new Error("A valid Drive user ID is required.");
+    const query = `?${new URLSearchParams({ id: `eq.${userId}` })}`;
+    await supabaseDriveRequest("DELETE", query, null, "return=minimal");
 }
 async function getAuthorizedDriveClient(userId) {
     const { entry } = await getDriveConnection(userId);
@@ -1007,7 +1033,7 @@ app.get("/api/drive/status", async (req, res) => {
         const connection = await getAuthorizedDriveClient(userId);
         return res.json({ success: true, configured: driveConfigReady(), connected: Boolean(connection.connected),
             selectedFolder: entry?.selectedFolder || null, connectedAt: entry?.connectedAt || null,
-            storage: "encrypted-local-file", note: "Render's local filesystem may be lost on restart/redeploy unless persistent storage is configured." });
+            storage: "supabase-encrypted-payload", note: "Drive connection metadata is encrypted by the backend before it is stored in Supabase." });
     } catch {
         return res.status(503).json({ success: false, error: "Drive connection storage is unavailable.", code: "drive_storage_unavailable" });
     }
@@ -1017,7 +1043,7 @@ app.post("/api/drive/disconnect", async (req, res) => {
     const userId = driveUserId(req);
     if (!userId) return res.status(401).json({ success: false, error: "A signed-in BAJEE user is required.", code: "app_signin_required" });
     try {
-        const store = await readDriveStore(); delete store[userId]; await writeDriveStore(store);
+        await deleteDriveConnection(userId);
         return res.json({ success: true, message: "Stored Drive credentials removed. To revoke Google's grant too, remove BAJEE JRF AI from your Google Account security settings." });
     } catch {
         return res.status(503).json({ success: false, error: "Could not remove the stored Drive connection.", code: "drive_storage_unavailable" });
@@ -2418,7 +2444,7 @@ app.listen(
         );
 
         console.log(`Google Drive OAuth: ${driveConfigReady() ? "CONFIGURED" : "NOT CONFIGURED"}`);
-        console.log("Google Drive tokens: encrypted local file; persistent storage recommended");
+        console.log(`Google Drive connection storage: ${supabaseDriveStorageReady() ? "Supabase configured (encrypted payloads)" : "NOT CONFIGURED"}`);
 
         console.log(
             "Structured Solution Schema: ENABLED"
