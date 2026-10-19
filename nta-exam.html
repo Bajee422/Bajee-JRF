@@ -1164,36 +1164,6 @@ footer{
     </section>
 
 
-    <!-- YEAR / UNIT PYQ FILTERS -->
-
-    <section class="section-card mb-4" id="pyqFilterSection">
-        <h2 class="h4 mb-2">3. Year-wise and Unit-wise PYQ Filters</h2>
-        <p class="text-secondary mb-3">
-            Optional filters for Paper I or Paper II custom-length examinations. Full Mock always uses the complete validated Paper I + Paper II pool and ignores these filters.
-        </p>
-        <div class="row g-3">
-            <div class="col-md-4">
-                <label for="pyqYearFilter" class="form-label fw-bold">Exam year</label>
-                <select id="pyqYearFilter" class="form-select">
-                    <option value="all">All available years</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label for="pyqUnitFilter" class="form-label fw-bold">Syllabus unit</label>
-                <select id="pyqUnitFilter" class="form-select">
-                    <option value="all">All available units</option>
-                </select>
-            </div>
-            <div class="col-md-4 d-flex align-items-end">
-                <button type="button" id="clearPyqFilters" class="btn btn-outline-secondary w-100">Clear filters</button>
-            </div>
-        </div>
-        <div id="pyqFilterStatus" class="form-text mt-3" role="status" aria-live="polite">
-            Loading available years and units from the PYQ database…
-        </div>
-    </section>
-
-
     <!-- INSTRUCTIONS -->
 
     <section class="section-card mb-4">
@@ -1226,10 +1196,6 @@ footer{
 
             <li>
                 Select the examination duration.
-            </li>
-
-            <li>
-                Optionally choose a year and unit filter for Paper I or Paper II. Full Mock uses all eligible questions.
             </li>
 
             <li>
@@ -2131,11 +2097,6 @@ const mode =
         "mode"
     );
 
-const pyqYearFilter = document.getElementById("pyqYearFilter");
-const pyqUnitFilter = document.getElementById("pyqUnitFilter");
-const pyqFilterStatus = document.getElementById("pyqFilterStatus");
-const clearPyqFilters = document.getElementById("clearPyqFilters");
-
 
 const fullMockSwitcher =
     document.getElementById(
@@ -2559,8 +2520,6 @@ function updateSummary(){
     }
 
 
-    if(typeof updatePYQFilterStatus === "function") updatePYQFilterStatus();
-
     summaryQuestions.textContent =
         questionCount.value +
         " questions";
@@ -2807,6 +2766,13 @@ function startExamination(){
     }
 
 
+    /* A new session must never inherit the previous session's answers. */
+    clearExamState();
+    answers = {};
+    reviewFlags = {};
+    currentQuestionIndex = 0;
+    examQuestions = [];
+
     activeSession = {
 
         sessionId:
@@ -2830,9 +2796,6 @@ function startExamination(){
 
         mode:
             "nta",
-
-        pyqYearFilter: selected === "full" ? "all" : (pyqYearFilter ? pyqYearFilter.value : "all"),
-        pyqUnitFilter: selected === "full" ? "all" : (pyqUnitFilter ? pyqUnitFilter.value : "all"),
 
         createdAt:
             new Date().toISOString(),
@@ -2879,23 +2842,27 @@ function startExamination(){
 
         activeSession.durationMinutes +
 
-        " minutes • NTA Exam Mode" +
-        (activeSession.paper === "full" ? " • Full Mock (all years/units)" :
-            " • Year: " + (activeSession.pyqYearFilter === "all" ? "All" : activeSession.pyqYearFilter) +
-            " • Unit: " + (activeSession.pyqUnitFilter === "all" ? "All" : activeSession.pyqUnitFilter));
+        " minutes • NTA Exam Mode";
 
 
     sessionSection.classList.remove(
         "d-none"
     );
 
+    sessionMessage.textContent =
+        activeSession.questionCount +
+        " questions • " +
+        activeSession.durationMinutes +
+        " minutes • NTA Exam Mode";
 
     statusMessage.textContent =
-        "Examination session created successfully. Click Enter Examination to begin the countdown timer.";
-
+        "New examination session created successfully. Click Enter Examination to begin the countdown timer.";
 
     startExamBtn.disabled =
         true;
+
+    startExamBtn.textContent =
+        "📝 Start Examination";
 
 
     window.scrollTo({
@@ -2973,72 +2940,52 @@ function normalizeDatabase(data){
 
 async function loadPYQDatabase(){
 
-    /*
-     * Support the two common frontend layouts without assuming
-     * the page is always stored at the same folder depth:
-     *   frontend/pages/nta-exam.html -> ../data/pyqs/...
-     *   frontend/nta-exam.html       -> data/pyqs/...
-     *
-     * Relative URLs are resolved against this page, so a GitHub
-     * Pages project subpath is preserved instead of jumping to
-     * the domain root.
-     */
-    const candidates = [
-        "../data/pyqs/pyq-database.json",
-        "data/pyqs/pyq-database.json",
-        "./data/pyqs/pyq-database.json",
-        "../data/pyq-database.json",
-        "data/pyq-database.json"
-    ];
-
-    const failures = [];
-    let data = null;
-    let loadedUrl = "";
-
-    for(const candidate of candidates){
-        const url = new URL(candidate, document.baseURI).href;
-
-        try{
-            const response = await fetch(url, { cache: "no-store" });
-
-            if(!response.ok){
-                failures.push(candidate + " (HTTP " + response.status + ")");
-                continue;
+    const response =
+        await fetch(
+            "../data/pyqs/pyq-database.json",
+            {
+                cache:
+                    "no-store"
             }
-
-            const parsed = await response.json();
-            const normalized = normalizeDatabase(parsed);
-
-            if(!normalized.length){
-                failures.push(candidate + " (no questions in supported JSON structure)");
-                continue;
-            }
-
-            data = normalized;
-            loadedUrl = url;
-            break;
-        }
-        catch(error){
-            failures.push(candidate + " (" + (error.message || "request failed") + ")");
-        }
-    }
-
-    if(!data){
-        throw new Error(
-            "PYQ database could not be loaded from the known frontend paths. " +
-            "Check that pyq-database.json is committed under the frontend data folder. " +
-            "Paths checked: " + failures.join("; ")
         );
+
+
+    if(!response.ok){
+
+        throw new Error(
+            "PYQ database could not be loaded. HTTP " +
+            response.status
+        );
+
     }
 
-    pyqDatabase = data;
+
+    const data =
+        await response.json();
+
+
+    pyqDatabase =
+        normalizeDatabase(
+            data
+        );
+
+
+    if(
+        !pyqDatabase.length
+    ){
+
+        throw new Error(
+            "PYQ database loaded, but it contains no questions."
+        );
+
+    }
+
 
     console.log(
         "NTA Exam PYQ database loaded:",
-        pyqDatabase.length,
-        "questions from",
-        loadedUrl
+        pyqDatabase.length
     );
+
 }
 
 
@@ -3265,99 +3212,75 @@ function isUsableQuestion(
 
 
 /* =========================================================
-   YEAR / UNIT FILTER CONTROLS
+   FILTER QUESTIONS
 ========================================================= */
-
-function getQuestionYear(question){
-    const value = question && (question.year ?? question.exam_year ?? question.examYear);
-    return value === undefined || value === null || String(value).trim() === "" ? "Unspecified" : String(value).trim();
-}
-
-function getQuestionUnit(question){
-    const value = question && (question.unit ?? question.unit_name ?? question.unitName);
-    return value === undefined || value === null || String(value).trim() === "" ? "Unclassified" : String(value).trim();
-}
-
-function populatePYQFilters(){
-    if(!pyqYearFilter || !pyqUnitFilter || !Array.isArray(pyqDatabase)) return;
-    const selectedYear = pyqYearFilter.value || "all";
-    const selectedUnit = pyqUnitFilter.value || "all";
-    const years = Array.from(new Set(pyqDatabase.map(getQuestionYear)))
-        .sort((a,b) => a === "Unspecified" ? 1 : b === "Unspecified" ? -1 : Number(b) - Number(a));
-    const units = Array.from(new Set(pyqDatabase.map(getQuestionUnit)))
-        .sort((a,b) => a === "Unclassified" ? 1 : b === "Unclassified" ? -1 : a.localeCompare(b, undefined, {numeric:true}));
-
-    pyqYearFilter.innerHTML = '<option value="all">All available years</option>';
-    years.forEach(year => {
-        const option = document.createElement("option");
-        option.value = year;
-        option.textContent = year === "Unspecified" ? "Year not specified" : year;
-        pyqYearFilter.appendChild(option);
-    });
-    pyqUnitFilter.innerHTML = '<option value="all">All available units</option>';
-    units.forEach(unit => {
-        const option = document.createElement("option");
-        option.value = unit;
-        option.textContent = unit === "Unclassified" ? "Unclassified / not assigned" : unit;
-        pyqUnitFilter.appendChild(option);
-    });
-    if(Array.from(pyqYearFilter.options).some(o => o.value === selectedYear)) pyqYearFilter.value = selectedYear;
-    if(Array.from(pyqUnitFilter.options).some(o => o.value === selectedUnit)) pyqUnitFilter.value = selectedUnit;
-    updatePYQFilterStatus();
-}
-
-function updatePYQFilterStatus(){
-    if(!pyqFilterStatus) return;
-    const selected = getSelectedPaper();
-    if(selected === "full"){
-        pyqYearFilter.disabled = true;
-        pyqUnitFilter.disabled = true;
-        clearPyqFilters.disabled = true;
-        pyqFilterStatus.textContent = "Full Mock is fixed at 50 Paper I + 100 Paper II questions. Year/unit filters are disabled for this mode.";
-        return;
-    }
-    pyqYearFilter.disabled = false;
-    pyqUnitFilter.disabled = false;
-    clearPyqFilters.disabled = false;
-    if(!pyqDatabase.length){
-        pyqFilterStatus.textContent = "The PYQ database has not loaded yet; available filters will appear when it loads.";
-        return;
-    }
-    if(!selected){
-        pyqFilterStatus.textContent = "Choose Paper I or Paper II to preview how many validated questions match these filters.";
-        return;
-    }
-    const matches = getQuestionsForPaper(selected);
-    pyqFilterStatus.textContent = matches.length + " validated questions match the selected paper and filters. Choose a question count no greater than this number.";
-}
 
 function getQuestionsForPaper(
     paper
 ){
-    const usable = pyqDatabase.filter(isUsableQuestion);
-    let paperQuestions = [];
 
-    if(paper === "paper1"){
-        paperQuestions = usable.filter(isPaper1Question);
-    } else if(paper === "paper2"){
-        paperQuestions = usable.filter(isPaper2Question);
-    } else if(paper === "full"){
-        const paper1 = usable.filter(isPaper1Question);
-        const paper2 = usable.filter(isPaper2Question);
-        // Full Mock stays unfiltered to preserve the 50 + 100 structure.
-        return paper1.concat(paper2);
-    } else {
-        return [];
+    const usable =
+        pyqDatabase.filter(
+            isUsableQuestion
+        );
+
+
+    if(
+        paper === "paper1"
+    ){
+
+        return usable.filter(
+            isPaper1Question
+        );
+
     }
 
-    const year = pyqYearFilter ? pyqYearFilter.value : "all";
-    const unit = pyqUnitFilter ? pyqUnitFilter.value : "all";
-    return paperQuestions.filter(function(question){
-        const yearMatches = year === "all" || getQuestionYear(question) === year;
-        const unitMatches = unit === "all" || getQuestionUnit(question) === unit;
-        return yearMatches && unitMatches;
-    });
+
+    if(
+        paper === "paper2"
+    ){
+
+        return usable.filter(
+            isPaper2Question
+        );
+
+    }
+
+
+    if(
+        paper === "full"
+    ){
+
+        const paper1 =
+            usable.filter(
+                isPaper1Question
+            );
+
+        const paper2 =
+            usable.filter(
+                isPaper2Question
+            );
+
+        /*
+         * Full JRF Mock is deliberately assembled as:
+         * Paper I  = 50 questions
+         * Paper II = 100 questions
+         * Total    = 150 questions
+         *
+         * Keep the two papers separate here so the Full Mock
+         * cannot accidentally depend on JSON record ordering.
+         */
+        return paper1.concat(
+            paper2
+        );
+
+    }
+
+
+    return [];
+
 }
+
 
 /* =========================================================
    FULL MOCK PAPER SWITCHING
@@ -4498,16 +4421,9 @@ async function enterExamination(){
     try{
 
         await loadPYQDatabase();
-        populatePYQFilters();
-        if(activeSession.paper !== "full"){
-            if(pyqYearFilter && activeSession.pyqYearFilter) pyqYearFilter.value = activeSession.pyqYearFilter;
-            if(pyqUnitFilter && activeSession.pyqUnitFilter) pyqUnitFilter.value = activeSession.pyqUnitFilter;
-        }
+
 
         prepareExamQuestions();
-
-        /* Restore saved answers/index only when the session ID matches. */
-        loadExamState();
 
 
         renderExamWorkspace();
@@ -4537,9 +4453,7 @@ async function enterExamination(){
          * the examination workspace opens.
          */
 
-        if(activeSession.status !== "submitted"){
-            initializeTimer();
-        }
+        initializeTimer();
 
 
         renderCurrentQuestion();
@@ -4581,13 +4495,11 @@ async function enterExamination(){
 
 
         enterExamBtn.disabled =
-            activeSession && activeSession.status === "time_expired";
+            false;
 
 
         enterExamBtn.textContent =
-            activeSession && activeSession.status === "time_expired"
-                ? "⏰ Session Expired"
-                : "▶ Enter Examination";
+            "▶ Enter Examination";
 
 
         statusMessage.innerHTML =
@@ -6337,7 +6249,6 @@ paperInputs.forEach(
                 }
 
                 updateSummary();
-                updatePYQFilterStatus();
 
             }
         );
@@ -6441,52 +6352,17 @@ newExamBtn.addEventListener(
 mode.value =
     "nta";
 
-if(pyqYearFilter) pyqYearFilter.addEventListener("change", updatePYQFilterStatus);
-if(pyqUnitFilter) pyqUnitFilter.addEventListener("change", updatePYQFilterStatus);
-if(clearPyqFilters) clearPyqFilters.addEventListener("click", function(){
-    pyqYearFilter.value = "all";
-    pyqUnitFilter.value = "all";
-    updatePYQFilterStatus();
-});
 
 updateSummary();
-
-// Load metadata early so year/unit filters are populated before an exam starts.
-loadPYQDatabase().then(function(){
-    populatePYQFilters();
-}).catch(function(error){
-    if(pyqFilterStatus) pyqFilterStatus.textContent = "Filter options could not load yet. The exam will retry database loading when you enter it. " + error.message;
-});
 
 
 /* =========================================================
    SESSION RECOVERY
 ========================================================= */
 
-let existingSession =
+const existingSession =
     loadSavedSession();
 
-/* Ignore corrupt/obsolete session summaries instead of presenting stale data. */
-const validSessionStatuses = ["ready", "in_progress", "submitted", "time_expired"];
-const isValidSavedSession = Boolean(
-    existingSession &&
-    typeof existingSession.sessionId === "string" &&
-    typeof existingSession.paper === "string" &&
-    Object.prototype.hasOwnProperty.call(paperLabels, existingSession.paper) &&
-    Number.isFinite(Number(existingSession.questionCount)) &&
-    Number(existingSession.questionCount) > 0 &&
-    Number.isFinite(Number(existingSession.durationMinutes)) &&
-    Number(existingSession.durationMinutes) > 0 &&
-    validSessionStatuses.includes(existingSession.status)
-);
-
-if(existingSession && !isValidSavedSession){
-    console.warn("Clearing an invalid or obsolete saved NTA session.");
-    sessionStorage.removeItem("bajee_nta_exam_session_v1");
-    sessionStorage.removeItem("bajee_nta_exam_answers_v1");
-    existingSession = null;
-    statusMessage.textContent = "An outdated or incomplete saved session was cleared. You can configure a new examination.";
-}
 
 if(existingSession){
 
@@ -6543,14 +6419,32 @@ if(existingSession){
         "submitted"
     ){
 
+        /*
+         * A submitted session is historical, not a new examination.
+         * Keep Enter Examination available for answer review, but allow
+         * the learner to create a fresh session from the current settings.
+         */
+        sessionMessage.textContent =
+            "Previous submitted session: " +
+            Number(existingSession.questionCount || 0) +
+            " questions • " +
+            Number(existingSession.durationMinutes || 0) +
+            " minutes • NTA Exam Mode";
+
         statusMessage.textContent =
-            "This examination has already been submitted. Click Enter Examination to reopen the answer review.";
+            "Your previous examination is submitted. You can review it with Enter Examination or start a new examination using the configuration above.";
 
         sessionStatus.textContent =
-            "SUBMITTED";
+            "PREVIOUS SESSION — SUBMITTED";
 
         sessionStatus.className =
             "fw-bold text-success";
+
+        startExamBtn.disabled =
+            false;
+
+        startExamBtn.textContent =
+            "📝 Start New Examination";
 
     }
 
