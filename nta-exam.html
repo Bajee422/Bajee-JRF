@@ -2806,10 +2806,13 @@ async function startExamination(){
     }
 
     if(selected !== "full") {
-        const availableCount = getQuestionsForPaper(selected).length;
         const requestedCount = Number(questionCount.value);
+        const matchingQuestions = getQuestionsForPaper(selected);
+        const availableCount = requestedCount < 5
+            ? matchingQuestions.filter(function(question){ return !isStimulusQuestion(question); }).length
+            : matchingQuestions.length;
         if(requestedCount > availableCount) {
-            statusMessage.textContent = "Cannot start " + paperLabels[selected] + ": " + requestedCount + " questions requested but only " + availableCount + " validated questions match this paper and the selected year/unit filters. Reduce the question count or clear filters.";
+            statusMessage.textContent = "Cannot start " + paperLabels[selected] + ": " + requestedCount + " questions requested but only " + availableCount + " eligible questions match this paper and the selected year/unit filters" + (requestedCount < 5 ? " after excluding Reading Comprehension and Data Interpretation" : "") + ". Reduce the question count or clear filters.";
             configurationStatus.textContent = "Not enough matching questions";
             configurationStatus.className = "status-pill bg-danger text-white";
             return;
@@ -3938,6 +3941,8 @@ function createShufflePlan(questions){
 }
 
 function applySavedShufflePlan(questions, plan){
+    // Restore the exact sampled set from the full eligible pool, not from the
+    // first N source records. This keeps the same attempt stable after refresh.
     const byKey = new Map();
     questions.forEach(function(question, index){
         byKey.set(getStableQuestionKey(question, index), question);
@@ -3949,7 +3954,58 @@ function applySavedShufflePlan(questions, plan){
             result.push(applyOptionOrder(question, item.optionOrder));
         }
     });
-    return result.length === questions.length ? result : null;
+    return result.length === plan.length ? result : null;
+}
+
+function isStimulusQuestion(question){
+    if(getQuestionStimulus(question)) return true;
+    const topic = String(question && (question.topic || question.unit || question.unit_name || question.category) || '').toLowerCase();
+    return /reading comprehension|comprehension|data interpretation/.test(topic);
+}
+
+function selectRandomQuestionSet(questions, count){
+    const target = Number(count);
+    if(!Number.isInteger(target) || target < 1) return [];
+
+    // Under five questions, keep passage/DI items out entirely. At five or
+    // more, treat each shared stimulus and its questions as one indivisible unit.
+    const eligible = target < 5
+        ? questions.filter(function(question){ return !isStimulusQuestion(question); })
+        : questions.slice();
+
+    const groups = new Map();
+    eligible.forEach(function(question, index){
+        const key = getStimulusGroupKey(question, index);
+        if(!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(question);
+    });
+
+    const units = shuffleCopy(Array.from(groups.values()));
+    const selected = [];
+    let remaining = target;
+    while(remaining > 0){
+        const fitting = units.filter(function(unit){ return unit.length <= remaining; });
+        if(!fitting.length) break;
+        // Weight larger units by their question count, while always preserving
+        // group integrity and selecting a fresh random combination per session.
+        const totalWeight = fitting.reduce(function(sum, unit){ return sum + unit.length; }, 0);
+        let pick = Math.random() * totalWeight;
+        let chosenIndex = fitting.length - 1;
+        for(let i = 0; i < fitting.length; i++){
+            pick -= fitting[i].length;
+            if(pick < 0){ chosenIndex = i; break; }
+        }
+        const chosen = fitting[chosenIndex];
+        selected.push.apply(selected, chosen);
+        remaining -= chosen.length;
+        const originalIndex = units.indexOf(chosen);
+        if(originalIndex >= 0) units.splice(originalIndex, 1);
+    }
+
+    if(remaining !== 0){
+        throw new Error('The eligible question groups cannot fill exactly ' + target + ' questions without splitting a passage or data set. Please choose another question count or verify the source grouping.');
+    }
+    return shuffleCopy(selected);
 }
 
 function prepareExamQuestions(){
@@ -3985,29 +4041,35 @@ function prepareExamQuestions(){
     }
 
 
-    const selectedQuestions = available.slice(0, activeSession.questionCount);
-
-    // Full Mock keeps the official Paper I (50) / Paper II (100) split.
-    // Each paper is shuffled independently, and shared passage/data sets stay grouped.
+    // A saved plan contains the exact question IDs chosen for this attempt.
+    // Rebuild from the whole eligible pool so refresh never changes the sample.
+    let selectedQuestions;
     let shuffledQuestions;
     if(activeSession.shufflePlan && Array.isArray(activeSession.shufflePlan)){
-        shuffledQuestions = applySavedShufflePlan(selectedQuestions, activeSession.shufflePlan);
+        shuffledQuestions = applySavedShufflePlan(available, activeSession.shufflePlan);
     }else if(activeSession.startedAt){
-        // Legacy in-progress sessions have no saved shuffle plan. Keep their
-        // original order so previously saved answer indexes are not remapped.
+        // Compatibility for older in-progress attempts created before random
+        // sampling existed: do not change their question set or answer indexes.
+        selectedQuestions = available.slice(0, activeSession.questionCount);
         shuffledQuestions = selectedQuestions;
-    }else{
-        if(activeSession.paper === "full"){
-            const paperOne = selectedQuestions.slice(0, FULL_MOCK_PAPER1_COUNT);
-            const paperTwo = selectedQuestions.slice(FULL_MOCK_PAPER1_COUNT);
-            shuffledQuestions = shuffledQuestionOrder(paperOne).concat(shuffledQuestionOrder(paperTwo));
-        }else{
-            shuffledQuestions = shuffledQuestionOrder(selectedQuestions);
+    }else if(activeSession.paper === "full"){
+        const paperOnePool = getQuestionsForPaper("paper1");
+        const paperTwoPool = getQuestionsForPaper("paper2");
+        if(paperOnePool.length < FULL_MOCK_PAPER1_COUNT || paperTwoPool.length < 100){
+            throw new Error("Full Mock requires 50 eligible Paper I questions and 100 eligible Paper II questions. Available: Paper I " + paperOnePool.length + ", Paper II " + paperTwoPool.length + ". No missing answers will be guessed.");
         }
+        const paperOne = shuffledQuestionOrder(selectRandomQuestionSet(paperOnePool, FULL_MOCK_PAPER1_COUNT));
+        const paperTwo = shuffledQuestionOrder(selectRandomQuestionSet(paperTwoPool, 100));
+        shuffledQuestions = paperOne.concat(paperTwo);
         activeSession.shufflePlan = createShufflePlan(shuffledQuestions);
         saveSession();
-        // Apply the same stored option mapping to the newly shuffled order.
-        shuffledQuestions = applySavedShufflePlan(shuffledQuestions, activeSession.shufflePlan);
+        shuffledQuestions = applySavedShufflePlan(available, activeSession.shufflePlan);
+    }else{
+        selectedQuestions = selectRandomQuestionSet(available, activeSession.questionCount);
+        shuffledQuestions = shuffledQuestionOrder(selectedQuestions);
+        activeSession.shufflePlan = createShufflePlan(shuffledQuestions);
+        saveSession();
+        shuffledQuestions = applySavedShufflePlan(available, activeSession.shufflePlan);
     }
 
     if(!shuffledQuestions || shuffledQuestions.length !== activeSession.questionCount){
