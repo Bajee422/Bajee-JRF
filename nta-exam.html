@@ -2762,7 +2762,7 @@ function loadSavedSession(){
    START EXAMINATION SESSION
 ========================================================= */
 
-function startExamination(){
+async function startExamination(){
 
     const selected =
         getSelectedPaper();
@@ -2783,6 +2783,30 @@ function startExamination(){
 
     }
 
+
+    try {
+        if(!Array.isArray(pyqDatabase) || !pyqDatabase.length){
+            await loadPYQDatabase();
+            populatePYQFilters();
+        }
+    } catch(error) {
+        statusMessage.textContent = "Cannot start: PYQ database failed to load. " + error.message;
+        configurationStatus.textContent = "Database unavailable";
+        configurationStatus.className = "status-pill bg-danger text-white";
+        console.error("NTA exam start blocked by database load failure:", error);
+        return;
+    }
+
+    if(selected !== "full") {
+        const availableCount = getQuestionsForPaper(selected).length;
+        const requestedCount = Number(questionCount.value);
+        if(requestedCount > availableCount) {
+            statusMessage.textContent = "Cannot start " + paperLabels[selected] + ": " + requestedCount + " questions requested but only " + availableCount + " validated questions match this paper and the selected year/unit filters. Reduce the question count or clear filters.";
+            configurationStatus.textContent = "Not enough matching questions";
+            configurationStatus.className = "status-pill bg-danger text-white";
+            return;
+        }
+    }
 
     if(selected === "full"){
 
@@ -2891,22 +2915,19 @@ function startExamination(){
 
 
     statusMessage.textContent =
-        "Examination session created successfully. Click Enter Examination to begin the countdown timer.";
+        "Examination session created. Opening " + activeSession.paperLabel + " now…";
 
-
-    startExamBtn.disabled =
-        true;
+    startExamBtn.disabled = true;
+    startExamBtn.textContent = "Opening Examination…";
 
 
     window.scrollTo({
-
-        top:
-            document.body.scrollHeight,
-
-        behavior:
-            "smooth"
-
+        top: 0,
+        behavior: "smooth"
     });
+
+    // The primary Start Examination button must actually open the selected paper.
+    await enterExamination();
 
 }
 
@@ -2983,12 +3004,16 @@ async function loadPYQDatabase(){
      * Pages project subpath is preserved instead of jumping to
      * the domain root.
      */
+    const projectBase = new URL("./", document.baseURI);
     const candidates = [
-        "../data/pyqs/pyq-database.json",
-        "data/pyqs/pyq-database.json",
         "./data/pyqs/pyq-database.json",
+        "data/pyqs/pyq-database.json",
+        "../data/pyqs/pyq-database.json",
+        "../../data/pyqs/pyq-database.json",
+        "./data/pyq-database.json",
+        "data/pyq-database.json",
         "../data/pyq-database.json",
-        "data/pyq-database.json"
+        new URL("data/pyqs/pyq-database.json", projectBase).href
     ];
 
     const failures = [];
@@ -3109,101 +3134,23 @@ function getQuestionSubjectValue(
 }
 
 
-function isPaper1Question(
-    question
-){
-
-    const paper =
-        getQuestionPaperValue(
-            question
-        );
-
-    const subject =
-        getQuestionSubjectValue(
-            question
-        );
-
-
-    const combined =
-        paper +
-        " " +
-        subject;
-
-
-    return (
-
-        combined.includes(
-            "paper i"
-        ) ||
-
-        combined.includes(
-            "paper 1"
-        ) ||
-
-        combined.includes(
-            "paper-1"
-        ) ||
-
-        combined.includes(
-            "paper_1"
-        ) ||
-
-        combined.includes(
-            "general paper"
-        )
-
-    );
-
+function isPaper1Question(question){
+    const paper = getQuestionPaperValue(question);
+    if(paper){
+        return /^(paper\s*i|paper\s*1|paper[-_ ]?1|general paper)(\b|$)/i.test(paper);
+    }
+    const subject = getQuestionSubjectValue(question);
+    return /general paper|paper\s*i|paper\s*1/i.test(subject);
 }
 
-
-function isPaper2Question(
-    question
-){
-
-    const paper =
-        getQuestionPaperValue(
-            question
-        );
-
-    const subject =
-        getQuestionSubjectValue(
-            question
-        );
-
-
-    const combined =
-        paper +
-        " " +
-        subject;
-
-
-    return (
-
-        combined.includes(
-            "paper ii"
-        ) ||
-
-        combined.includes(
-            "paper 2"
-        ) ||
-
-        combined.includes(
-            "paper-2"
-        ) ||
-
-        combined.includes(
-            "paper_2"
-        ) ||
-
-        combined.includes(
-            "english"
-        )
-
-    );
-
+function isPaper2Question(question){
+    const paper = getQuestionPaperValue(question);
+    if(paper){
+        return /^(paper\s*ii|paper\s*2|paper[-_ ]?2|english(\s+subject)?)(\b|$)/i.test(paper);
+    }
+    const subject = getQuestionSubjectValue(question);
+    return /paper\s*ii|paper\s*2|english/i.test(subject);
 }
-
 
 /* =========================================================
    QUESTION VALIDATION
@@ -3282,9 +3229,13 @@ function populatePYQFilters(){
     if(!pyqYearFilter || !pyqUnitFilter || !Array.isArray(pyqDatabase)) return;
     const selectedYear = pyqYearFilter.value || "all";
     const selectedUnit = pyqUnitFilter.value || "all";
-    const years = Array.from(new Set(pyqDatabase.map(getQuestionYear)))
+    const selectedPaper = getSelectedPaper();
+    const paperPool = selectedPaper === "paper1" ? pyqDatabase.filter(isPaper1Question)
+        : selectedPaper === "paper2" ? pyqDatabase.filter(isPaper2Question)
+        : pyqDatabase;
+    const years = Array.from(new Set(paperPool.map(getQuestionYear)))
         .sort((a,b) => a === "Unspecified" ? 1 : b === "Unspecified" ? -1 : Number(b) - Number(a));
-    const units = Array.from(new Set(pyqDatabase.map(getQuestionUnit)))
+    const units = Array.from(new Set(paperPool.map(getQuestionUnit)))
         .sort((a,b) => a === "Unclassified" ? 1 : b === "Unclassified" ? -1 : a.localeCompare(b, undefined, {numeric:true}));
 
     pyqYearFilter.innerHTML = '<option value="all">All available years</option>';
@@ -3328,7 +3279,7 @@ function updatePYQFilterStatus(){
         return;
     }
     const matches = getQuestionsForPaper(selected);
-    pyqFilterStatus.textContent = matches.length + " validated questions match the selected paper and filters. Choose a question count no greater than this number.";
+    pyqFilterStatus.textContent = "Selected: " + paperLabels[selected] + " • Year: " + (pyqYearFilter.value === "all" ? "All" : pyqYearFilter.value) + " • Unit: " + (pyqUnitFilter.value === "all" ? "All" : pyqUnitFilter.value) + " • " + matches.length + " validated questions available. Choose a question count no greater than this number.";
 }
 
 function getQuestionsForPaper(
@@ -4472,8 +4423,9 @@ async function enterExamination(){
     if(!stored){
 
         statusMessage.textContent =
-            "No active examination session was found.";
-
+            "No active examination session was found. Select a paper and click Start Examination.";
+        startExamBtn.disabled = false;
+        startExamBtn.textContent = "📝 Start Examination";
         return;
 
     }
@@ -6322,40 +6274,21 @@ function escapeHTML(
    EVENT LISTENERS
 ========================================================= */
 
-paperInputs.forEach(
-    function(input){
-
-        input.addEventListener(
-            "change",
-            function(){
-
-                if(input.value === "full" && input.checked){
-
-                    questionCount.value = "150";
-                    duration.value = "180";
-
-                }
-
-                updateSummary();
-                updatePYQFilterStatus();
-
-            }
-        );
-
-    }
-);
-
-
-questionCount.addEventListener(
-    "change",
-    updateSummary
-);
-
-
-duration.addEventListener(
-    "change",
-    updateSummary
-);
+paperInputs.forEach(function(input){
+    input.addEventListener("change", function(){
+        // A changed paper is a new configuration, never reuse a session for another paper.
+        sessionStorage.removeItem("bajee_nta_exam_session_v1");
+        sessionStorage.removeItem("bajee_nta_exam_answers_v1");
+        activeSession = null;
+        if(sessionSection) sessionSection.classList.add("d-none");
+        startExamBtn.disabled = false;
+        startExamBtn.textContent = "📝 Start Examination";
+        updateSummary();
+        if(Array.isArray(pyqDatabase) && pyqDatabase.length){
+            populatePYQFilters();
+        }
+    });
+});
 
 
 mode.addEventListener(
