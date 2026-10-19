@@ -3858,6 +3858,100 @@ function getOptions(
    PREPARE QUESTIONS
 ========================================================= */
 
+/* =========================================================
+   EXAM SHUFFLING (session-stable)
+   Shuffle question groups and A-D options without changing source data.
+   Passage/data-interpretation questions sharing a stimulus stay together.
+========================================================= */
+function shuffleCopy(items){
+    const copy = items.slice();
+    for(let i = copy.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+}
+
+function getStableQuestionKey(question, fallbackIndex){
+    const id = question && (question.id ?? question.pyq_id ?? question.question_id ?? question.questionId);
+    if(id !== undefined && id !== null && String(id).trim()) return String(id).trim();
+    const text = String(question && (question.question || question.question_text || question.questionText || question.text) || '').trim();
+    return 'question-text-' + text;
+}
+
+function getStimulusGroupKey(question, fallbackIndex){
+    const explicit = String(question && (question.passage_group_id || question.stimulus_group_id || question.comprehension_group_id || '') || '').trim();
+    if(explicit) return 'stimulus-id:' + explicit;
+    const stimulus = getQuestionStimulus(question);
+    if(stimulus) return 'stimulus-text:' + stimulus;
+    return 'single:' + getStableQuestionKey(question, fallbackIndex);
+}
+
+function shuffledQuestionOrder(questions){
+    const groups = new Map();
+    questions.forEach(function(question, index){
+        const key = getStimulusGroupKey(question, index);
+        if(!groups.has(key)) groups.set(key, { firstIndex:index, questions:[] });
+        groups.get(key).questions.push({question:question, originalIndex:index});
+    });
+    const shuffledGroups = shuffleCopy(Array.from(groups.values()));
+    const result = [];
+    shuffledGroups.forEach(function(group){
+        group.questions.sort(function(a,b){ return a.originalIndex - b.originalIndex; });
+        group.questions.forEach(function(entry){ result.push(entry.question); });
+    });
+    return result;
+}
+
+function getCorrectAnswerSourceLetter(question){
+    const raw = String(question.correct_answer ?? question.correctAnswer ?? question.answer ?? question.correct ?? '').trim().toUpperCase();
+    if(/^[0-3]$/.test(raw)) return String.fromCharCode(65 + Number(raw));
+    return raw;
+}
+
+function applyOptionOrder(question, optionOrder){
+    const originalOptions = getOptions(question);
+    const remappedOptions = {};
+    const oldToNew = {};
+    ['A','B','C','D'].forEach(function(newLetter, index){
+        const oldLetter = optionOrder[index];
+        remappedOptions[newLetter] = originalOptions[oldLetter];
+        oldToNew[oldLetter] = newLetter;
+    });
+    const originalCorrect = getCorrectAnswerSourceLetter(question);
+    const cloned = Object.assign({}, question, { options: remappedOptions });
+    if(oldToNew[originalCorrect]) cloned.correct_answer = oldToNew[originalCorrect];
+    // Preserve common alternative key fields consistently in the session snapshot.
+    if(question.correctAnswer !== undefined) cloned.correctAnswer = oldToNew[originalCorrect] || question.correctAnswer;
+    if(question.answer !== undefined) cloned.answer = oldToNew[originalCorrect] || question.answer;
+    if(question.correct !== undefined) cloned.correct = oldToNew[originalCorrect] || question.correct;
+    return cloned;
+}
+
+function createShufflePlan(questions){
+    return questions.map(function(question, index){
+        return {
+            key: getStableQuestionKey(question, index),
+            optionOrder: shuffleCopy(['A','B','C','D'])
+        };
+    });
+}
+
+function applySavedShufflePlan(questions, plan){
+    const byKey = new Map();
+    questions.forEach(function(question, index){
+        byKey.set(getStableQuestionKey(question, index), question);
+    });
+    const result = [];
+    plan.forEach(function(item){
+        const question = byKey.get(item.key);
+        if(question && Array.isArray(item.optionOrder) && item.optionOrder.length === 4){
+            result.push(applyOptionOrder(question, item.optionOrder));
+        }
+    });
+    return result.length === questions.length ? result : null;
+}
+
 function prepareExamQuestions(){
 
     if(!activeSession){
@@ -3891,11 +3985,36 @@ function prepareExamQuestions(){
     }
 
 
-    examQuestions =
-        available.slice(
-            0,
-            activeSession.questionCount
-        );
+    const selectedQuestions = available.slice(0, activeSession.questionCount);
+
+    // Full Mock keeps the official Paper I (50) / Paper II (100) split.
+    // Each paper is shuffled independently, and shared passage/data sets stay grouped.
+    let shuffledQuestions;
+    if(activeSession.shufflePlan && Array.isArray(activeSession.shufflePlan)){
+        shuffledQuestions = applySavedShufflePlan(selectedQuestions, activeSession.shufflePlan);
+    }else if(activeSession.startedAt){
+        // Legacy in-progress sessions have no saved shuffle plan. Keep their
+        // original order so previously saved answer indexes are not remapped.
+        shuffledQuestions = selectedQuestions;
+    }else{
+        if(activeSession.paper === "full"){
+            const paperOne = selectedQuestions.slice(0, FULL_MOCK_PAPER1_COUNT);
+            const paperTwo = selectedQuestions.slice(FULL_MOCK_PAPER1_COUNT);
+            shuffledQuestions = shuffledQuestionOrder(paperOne).concat(shuffledQuestionOrder(paperTwo));
+        }else{
+            shuffledQuestions = shuffledQuestionOrder(selectedQuestions);
+        }
+        activeSession.shufflePlan = createShufflePlan(shuffledQuestions);
+        saveSession();
+        // Apply the same stored option mapping to the newly shuffled order.
+        shuffledQuestions = applySavedShufflePlan(shuffledQuestions, activeSession.shufflePlan);
+    }
+
+    if(!shuffledQuestions || shuffledQuestions.length !== activeSession.questionCount){
+        throw new Error("The saved question shuffle could not be restored safely. Please start a new examination session.");
+    }
+
+    examQuestions = shuffledQuestions;
 
 
     answers = {};
