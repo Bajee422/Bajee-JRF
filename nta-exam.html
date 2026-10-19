@@ -2564,8 +2564,13 @@ function updateSummary(){
 
     if(typeof updatePYQFilterStatus === "function") updatePYQFilterStatus();
 
+    // Always read the live select value. This previously stayed stale when the
+    // question-count selector changed, even though the exam used the new value.
+    const requestedQuestionCount = Number(questionCount.value);
     summaryQuestions.textContent =
-        questionCount.value +
+        (Number.isFinite(requestedQuestionCount) && requestedQuestionCount > 0
+            ? requestedQuestionCount
+            : 0) +
         " questions";
 
 
@@ -6319,6 +6324,10 @@ paperInputs.forEach(function(input){
 });
 
 
+// Keep every configuration summary in sync with the controls the user sees.
+questionCount.addEventListener("change", updateSummary);
+duration.addEventListener("change", updateSummary);
+
 mode.addEventListener(
     "change",
     updateSummary
@@ -6419,12 +6428,19 @@ mode.value =
     }
 })();
 
-if(pyqYearFilter) pyqYearFilter.addEventListener("change", updatePYQFilterStatus);
-if(pyqUnitFilter) pyqUnitFilter.addEventListener("change", updatePYQFilterStatus);
+if(pyqYearFilter) pyqYearFilter.addEventListener("change", function(){
+    updatePYQFilterStatus();
+    updateSummary();
+});
+if(pyqUnitFilter) pyqUnitFilter.addEventListener("change", function(){
+    updatePYQFilterStatus();
+    updateSummary();
+});
 if(clearPyqFilters) clearPyqFilters.addEventListener("click", function(){
     pyqYearFilter.value = "all";
     pyqUnitFilter.value = "all";
     updatePYQFilterStatus();
+    updateSummary();
 });
 
 updateSummary();
