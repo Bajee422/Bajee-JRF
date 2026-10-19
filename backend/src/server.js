@@ -1403,7 +1403,9 @@ app.get("/api/drive/files/:fileId/content", async (req, res) => {
 ========================================================= */
 const SOURCE_FETCH_TIMEOUT_MS = 10000;
 const SOURCE_FETCH_MAX_BYTES = 8 * 1024 * 1024;
-const SOURCE_FETCH_MAX_CHARS = 12000;
+// QP Creator must receive enough source text to split a full 100-question paper
+// into small AI requests. Keep the byte limit above as the hard retrieval bound.
+const SOURCE_FETCH_MAX_CHARS = 250000;
 
 function isPublicSourceIp(address) {
     const version = isIP(address);
@@ -1561,7 +1563,7 @@ async function fetchPublicSource(rawUrl) {
         if (!text) throw Object.assign(new Error("No readable text was found on this webpage."), { status: 422 });
         const truncated = text.length > SOURCE_FETCH_MAX_CHARS;
         if (truncated) text = text.slice(0, SOURCE_FETCH_MAX_CHARS);
-        return { url: url.toString(), title: null, text, extractionType, truncated, characters: text.length };
+        return { url: url.toString(), title: null, text, extractionType, truncated, characters: text.length, maxCharacters: SOURCE_FETCH_MAX_CHARS };
     }
     throw Object.assign(new Error("Could not retrieve the source webpage."), { status: 422 });
 }
