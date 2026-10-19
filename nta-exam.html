@@ -828,6 +828,9 @@ footer{
 
 
 <body>
+<div class="container-fluid px-3 pt-3 d-flex justify-content-end">
+  <a class="btn btn-outline-primary" href="exam-history.html">📚 Exam History &amp; Review</a>
+</div>
 
 
 <!-- =========================================================
@@ -4889,7 +4892,32 @@ function saveJrfUnifiedPerformanceRecord(result){
                         : [],
 
                 source:
-                    String(question.source || ""),
+                    typeof question.source === "string"
+                        ? question.source
+                        : (question.source && question.source.title) || "",
+
+                year:
+                    question.year == null ? "" : String(question.year),
+
+                session:
+                    String(question.session || ""),
+
+                topic:
+                    String(question.topic || ""),
+
+                question_text:
+                    String(question.question || question.question_text || question.text || ""),
+
+                options:
+                    question.options && typeof question.options === "object"
+                        ? question.options
+                        : {},
+
+                answer_text:
+                    String(question.answer_text || ""),
+
+                explanation:
+                    String(question.explanation || ""),
 
                 status:
                     row.status || ""
@@ -6373,6 +6401,23 @@ newExamBtn.addEventListener(
 
 mode.value =
     "nta";
+
+// Exam History can request a fresh attempt for a specific paper.
+(function prepareHistoryRestart(){
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const restartPaper = params.get("restartPaper");
+        if (!restartPaper || !Object.prototype.hasOwnProperty.call(paperLabels, restartPaper)) return;
+        sessionStorage.removeItem("bajee_nta_exam_session_v1");
+        sessionStorage.removeItem("bajee_nta_exam_answers_v1");
+        const radio = document.querySelector('input[name="paper"][value="' + restartPaper + '"]');
+        if (radio) radio.checked = true;
+        updatePaperCards();
+        history.replaceState({}, document.title, window.location.pathname);
+    } catch (error) {
+        console.warn("Could not prepare a fresh exam from history.", error);
+    }
+})();
 
 if(pyqYearFilter) pyqYearFilter.addEventListener("change", updatePYQFilterStatus);
 if(pyqUnitFilter) pyqUnitFilter.addEventListener("change", updatePYQFilterStatus);
