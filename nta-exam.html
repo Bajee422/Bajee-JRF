@@ -1406,6 +1406,14 @@ footer{
                 ▶ Enter Examination
             </button>
 
+            <button
+                id="restartSessionBtn"
+                type="button"
+                class="btn btn-outline-secondary ms-2"
+            >
+                ↻ Restart / New Examination
+            </button>
+
         </div>
 
     </section>
@@ -2203,6 +2211,11 @@ const enterExamBtn =
         "enterExamBtn"
     );
 
+const restartSessionBtn =
+    document.getElementById(
+        "restartSessionBtn"
+    );
+
 const configurationScreen =
     document.getElementById(
         "configurationScreen"
@@ -2766,13 +2779,6 @@ function startExamination(){
     }
 
 
-    /* A new session must never inherit the previous session's answers. */
-    clearExamState();
-    answers = {};
-    reviewFlags = {};
-    currentQuestionIndex = 0;
-    examQuestions = [];
-
     activeSession = {
 
         sessionId:
@@ -2849,20 +2855,13 @@ function startExamination(){
         "d-none"
     );
 
-    sessionMessage.textContent =
-        activeSession.questionCount +
-        " questions • " +
-        activeSession.durationMinutes +
-        " minutes • NTA Exam Mode";
 
     statusMessage.textContent =
-        "New examination session created successfully. Click Enter Examination to begin the countdown timer.";
+        "Examination session created successfully. Click Enter Examination to begin the countdown timer.";
+
 
     startExamBtn.disabled =
         true;
-
-    startExamBtn.textContent =
-        "📝 Start Examination";
 
 
     window.scrollTo({
@@ -2939,53 +2938,64 @@ function normalizeDatabase(data){
 ========================================================= */
 
 async function loadPYQDatabase(){
+    /*
+     * GitHub Pages hosts this app under /<repository>/, so a path
+     * beginning with ../ can escape the repository and return HTTP 404.
+     * Try paths relative to this page first, then known project layouts.
+     * No database records or answers are created by this fallback.
+     */
+    const pageUrl = new URL(window.location.href);
+    const pathParts = pageUrl.pathname.split("/").filter(Boolean);
+    const isGitHubProjectPage = pageUrl.hostname.endsWith("github.io") && pathParts.length > 0;
+    const repoBase = isGitHubProjectPage ? "/" + pathParts[0] + "/" : "/";
+    const candidates = [
+        new URL("./data/pyqs/pyq-database.json", pageUrl).href,
+        new URL("./pyq-database.json", pageUrl).href,
+        new URL("./data/pyq-database.json", pageUrl).href,
+        new URL("data/pyqs/pyq-database.json", pageUrl).href,
+        new URL(repoBase + "data/pyqs/pyq-database.json", pageUrl.origin).href,
+        new URL("../data/pyqs/pyq-database.json", pageUrl).href,
+        new URL("./data/pyq-database.json", pageUrl).href,
+        new URL(repoBase + "data/pyq-database.json", pageUrl.origin).href
+    ];
+    const tried = [];
+    let lastStatus = "not found";
+    let data = null;
 
-    const response =
-        await fetch(
-            "../data/pyqs/pyq-database.json",
-            {
-                cache:
-                    "no-store"
+    for (const url of [...new Set(candidates)]) {
+        if (tried.includes(url)) continue;
+        tried.push(url);
+        try {
+            const response = await fetch(url, { cache: "no-store" });
+            if (!response.ok) {
+                lastStatus = "HTTP " + response.status;
+                continue;
             }
-        );
-
-
-    if(!response.ok){
-
-        throw new Error(
-            "PYQ database could not be loaded. HTTP " +
-            response.status
-        );
-
+            const parsed = await response.json();
+            const normalized = normalizeDatabase(parsed);
+            if (!normalized.length) {
+                lastStatus = "JSON loaded but no question records were found";
+                continue;
+            }
+            data = normalized;
+            console.info("NTA Exam PYQ database loaded from:", url);
+            break;
+        } catch (error) {
+            lastStatus = error && error.message ? error.message : String(error);
+        }
     }
 
-
-    const data =
-        await response.json();
-
-
-    pyqDatabase =
-        normalizeDatabase(
-            data
-        );
-
-
-    if(
-        !pyqDatabase.length
-    ){
-
+    if (!data) {
+        console.error("Could not load the PYQ database. Paths tried:", tried);
         throw new Error(
-            "PYQ database loaded, but it contains no questions."
+            "PYQ database could not be loaded. Checked " + tried.length +
+            " likely paths; last result: " + lastStatus +
+            ". Publish the supplied pyq-database.json at data/pyqs/pyq-database.json beside this page in the GitHub Pages site."
         );
-
     }
 
-
-    console.log(
-        "NTA Exam PYQ database loaded:",
-        pyqDatabase.length
-    );
-
+    pyqDatabase = data;
+    console.log("NTA Exam PYQ database loaded:", pyqDatabase.length);
 }
 
 
@@ -6344,6 +6354,20 @@ newExamBtn.addEventListener(
     }
 );
 
+function restartNtaSession(){
+    const proceed = window.confirm(
+        "Start a new examination? The current in-progress answers for this session will be cleared. Previously submitted results and performance history will be preserved."
+    );
+    if(!proceed) return;
+    sessionStorage.removeItem("bajee_nta_exam_session_v1");
+    sessionStorage.removeItem("bajee_nta_exam_answers_v1");
+    window.location.reload();
+}
+
+if(restartSessionBtn){
+    restartSessionBtn.addEventListener("click", restartNtaSession);
+}
+
 
 /* =========================================================
    INITIALIZE
@@ -6419,32 +6443,14 @@ if(existingSession){
         "submitted"
     ){
 
-        /*
-         * A submitted session is historical, not a new examination.
-         * Keep Enter Examination available for answer review, but allow
-         * the learner to create a fresh session from the current settings.
-         */
-        sessionMessage.textContent =
-            "Previous submitted session: " +
-            Number(existingSession.questionCount || 0) +
-            " questions • " +
-            Number(existingSession.durationMinutes || 0) +
-            " minutes • NTA Exam Mode";
-
         statusMessage.textContent =
-            "Your previous examination is submitted. You can review it with Enter Examination or start a new examination using the configuration above.";
+            "This examination has already been submitted. Click Enter Examination to reopen the answer review.";
 
         sessionStatus.textContent =
-            "PREVIOUS SESSION — SUBMITTED";
+            "SUBMITTED";
 
         sessionStatus.className =
             "fw-bold text-success";
-
-        startExamBtn.disabled =
-            false;
-
-        startExamBtn.textContent =
-            "📝 Start New Examination";
 
     }
 
