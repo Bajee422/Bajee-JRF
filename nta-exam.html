@@ -2926,52 +2926,72 @@ function normalizeDatabase(data){
 
 async function loadPYQDatabase(){
 
-    const response =
-        await fetch(
-            "../data/pyqs/pyq-database.json",
-            {
-                cache:
-                    "no-store"
+    /*
+     * Support the two common frontend layouts without assuming
+     * the page is always stored at the same folder depth:
+     *   frontend/pages/nta-exam.html -> ../data/pyqs/...
+     *   frontend/nta-exam.html       -> data/pyqs/...
+     *
+     * Relative URLs are resolved against this page, so a GitHub
+     * Pages project subpath is preserved instead of jumping to
+     * the domain root.
+     */
+    const candidates = [
+        "../data/pyqs/pyq-database.json",
+        "data/pyqs/pyq-database.json",
+        "./data/pyqs/pyq-database.json",
+        "../data/pyq-database.json",
+        "data/pyq-database.json"
+    ];
+
+    const failures = [];
+    let data = null;
+    let loadedUrl = "";
+
+    for(const candidate of candidates){
+        const url = new URL(candidate, document.baseURI).href;
+
+        try{
+            const response = await fetch(url, { cache: "no-store" });
+
+            if(!response.ok){
+                failures.push(candidate + " (HTTP " + response.status + ")");
+                continue;
             }
-        );
 
+            const parsed = await response.json();
+            const normalized = normalizeDatabase(parsed);
 
-    if(!response.ok){
+            if(!normalized.length){
+                failures.push(candidate + " (no questions in supported JSON structure)");
+                continue;
+            }
 
-        throw new Error(
-            "PYQ database could not be loaded. HTTP " +
-            response.status
-        );
-
+            data = normalized;
+            loadedUrl = url;
+            break;
+        }
+        catch(error){
+            failures.push(candidate + " (" + (error.message || "request failed") + ")");
+        }
     }
 
-
-    const data =
-        await response.json();
-
-
-    pyqDatabase =
-        normalizeDatabase(
-            data
-        );
-
-
-    if(
-        !pyqDatabase.length
-    ){
-
+    if(!data){
         throw new Error(
-            "PYQ database loaded, but it contains no questions."
+            "PYQ database could not be loaded from the known frontend paths. " +
+            "Check that pyq-database.json is committed under the frontend data folder. " +
+            "Paths checked: " + failures.join("; ")
         );
-
     }
 
+    pyqDatabase = data;
 
     console.log(
         "NTA Exam PYQ database loaded:",
-        pyqDatabase.length
+        pyqDatabase.length,
+        "questions from",
+        loadedUrl
     );
-
 }
 
 
@@ -4411,6 +4431,9 @@ async function enterExamination(){
 
         prepareExamQuestions();
 
+        /* Restore saved answers/index only when the session ID matches. */
+        loadExamState();
+
 
         renderExamWorkspace();
 
@@ -4439,7 +4462,9 @@ async function enterExamination(){
          * the examination workspace opens.
          */
 
-        initializeTimer();
+        if(activeSession.status !== "submitted"){
+            initializeTimer();
+        }
 
 
         renderCurrentQuestion();
@@ -4481,11 +4506,13 @@ async function enterExamination(){
 
 
         enterExamBtn.disabled =
-            false;
+            activeSession && activeSession.status === "time_expired";
 
 
         enterExamBtn.textContent =
-            "▶ Enter Examination";
+            activeSession && activeSession.status === "time_expired"
+                ? "⏰ Session Expired"
+                : "▶ Enter Examination";
 
 
         statusMessage.innerHTML =
@@ -6346,9 +6373,30 @@ updateSummary();
    SESSION RECOVERY
 ========================================================= */
 
-const existingSession =
+let existingSession =
     loadSavedSession();
 
+/* Ignore corrupt/obsolete session summaries instead of presenting stale data. */
+const validSessionStatuses = ["ready", "in_progress", "submitted", "time_expired"];
+const isValidSavedSession = Boolean(
+    existingSession &&
+    typeof existingSession.sessionId === "string" &&
+    typeof existingSession.paper === "string" &&
+    Object.prototype.hasOwnProperty.call(paperLabels, existingSession.paper) &&
+    Number.isFinite(Number(existingSession.questionCount)) &&
+    Number(existingSession.questionCount) > 0 &&
+    Number.isFinite(Number(existingSession.durationMinutes)) &&
+    Number(existingSession.durationMinutes) > 0 &&
+    validSessionStatuses.includes(existingSession.status)
+);
+
+if(existingSession && !isValidSavedSession){
+    console.warn("Clearing an invalid or obsolete saved NTA session.");
+    sessionStorage.removeItem("bajee_nta_exam_session_v1");
+    sessionStorage.removeItem("bajee_nta_exam_answers_v1");
+    existingSession = null;
+    statusMessage.textContent = "An outdated or incomplete saved session was cleared. You can configure a new examination.";
+}
 
 if(existingSession){
 
