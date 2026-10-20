@@ -45,7 +45,7 @@
 
 
   const PYQ_DATABASE_URL =
-    "data/pyqs/pyq-database.json";
+    "../data/pyqs/pyq-database.json";
 
 
   const PRIORITY = {
