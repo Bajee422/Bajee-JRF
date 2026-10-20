@@ -28,7 +28,7 @@
 </main>
 
 <script>
-fetch("data/paper1/syllabus.json")
+fetch("../data/paper1/syllabus.json")
   .then(r => r.json())
   .then(data => {
     document.getElementById("syllabusGrid").innerHTML = data.units.map(u => `
@@ -53,5 +53,7 @@ fetch("data/paper1/syllabus.json")
       '<div class="col-12"><div class="alert alert-warning">Unable to load the Paper I syllabus file.</div></div>';
   });
 </script>
+
+<script src="js/global-bottom-nav.js" defer></script>
 </body>
 </html>
