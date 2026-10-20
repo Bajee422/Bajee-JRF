@@ -725,7 +725,7 @@ INPUT:
     bajee_jrf_ai_adaptive_queue_v1
 
 PYQ:
-    data/pyqs/pyq-database.json
+    ../data/pyqs/pyq-database.json
 
 OUTPUT:
     bajee_jrf_ai_adaptive_test_history_v1
@@ -889,7 +889,7 @@ async function loadQuestions() {
 
         const response =
             await fetch(
-                "data/pyqs/pyq-database.json"
+                "../data/pyqs/pyq-database.json"
             );
 
 
@@ -2710,5 +2710,7 @@ loadAdaptiveQueue();
 
 </script>
 
+
+<script src="js/global-bottom-nav.js" defer></script>
 </body>
 </html>
