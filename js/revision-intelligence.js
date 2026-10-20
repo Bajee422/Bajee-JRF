@@ -707,26 +707,34 @@
             ? data.questions
             : [];
 
-      const map =
-        new Map();
+      const map = new Map();
 
-      questions.forEach(
-        question => {
+      // Index each question using every identifier format used by the
+      // PYQ database and exam-performance history. IDs are compared
+      // case-insensitively so a formatting difference does not block retest.
+      questions.forEach(question => {
+        if (!question || typeof question !== "object") return;
 
-          if (
-            question &&
-            question.id
-          ) {
+        const identifiers = [
+          question.id,
+          question.question_id,
+          question.questionId
+        ];
 
-            map.set(
-              String(question.id),
-              question
-            );
+        identifiers.forEach(identifier => {
+          const key = text(identifier).toLowerCase();
+          if (key) map.set(key, question);
+        });
 
-          }
-
+        // Safe fallback when the history stores question text rather than
+        // the database ID. Do not change the question content itself.
+        const questionText = text(
+          question.question ?? question.question_text ?? question.text
+        ).toLowerCase().replace(/\s+/g, " ");
+        if (questionText && !map.has(`text:${questionText}`)) {
+          map.set(`text:${questionText}`, question);
         }
-      );
+      });
 
       return map;
 
@@ -928,10 +936,15 @@
 
             }
 
+            const rowQuestionText = text(
+              row.questionText || row.question_text || row.question || ""
+            ).toLowerCase().replace(/\s+/g, " ");
+
             const question =
-              questionMap.get(
-                questionId
-              );
+              questionMap.get(questionId.toLowerCase()) ||
+              (rowQuestionText
+                ? questionMap.get(`text:${rowQuestionText}`)
+                : null);
 
             if (question) {
 
@@ -945,12 +958,36 @@
 
               }
 
-              record.options =
-                question.options ||
-                record.options;
+              // The retest page expects options in an A/B/C/D object.
+              // Preserve object options; convert a four-item array safely.
+              const rawOptions =
+                question.options || question.choices || question.answers;
+
+              if (Array.isArray(rawOptions) && rawOptions.length >= 4) {
+                record.options = {
+                  A: rawOptions[0],
+                  B: rawOptions[1],
+                  C: rawOptions[2],
+                  D: rawOptions[3]
+                };
+              } else if (rawOptions && typeof rawOptions === "object") {
+                const normalizedOptions = {};
+                ["A", "B", "C", "D"].forEach(letter => {
+                  const value = rawOptions[letter] ?? rawOptions[letter.toLowerCase()];
+                  if (value !== undefined && value !== null && String(value).trim()) {
+                    normalizedOptions[letter] = value;
+                  }
+                });
+                if (Object.keys(normalizedOptions).length >= 4) {
+                  record.options = normalizedOptions;
+                }
+              }
 
               record.correct_answer =
                 question.correct_answer ||
+                question.correctAnswer ||
+                question.correct_option ||
+                question.answer ||
                 record.correct_answer;
 
               record.answer_text =
