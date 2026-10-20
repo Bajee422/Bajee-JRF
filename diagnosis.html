@@ -726,9 +726,9 @@ async function loadDatabase() {
     // PYQ records and mappings are required. The entity catalogue is optional:
     // question-level saved mappings can still support diagnosis without it.
     const responses = await Promise.all([
-      fetch("data/pyqs/pyq-database.json"),
-      fetch("data/pyqs/pyq-knowledge-map.json"),
-      fetch("data/knowledge/knowledge-entities.json").catch(() => null)
+      fetch("../data/pyqs/pyq-database.json"),
+      fetch("../data/pyqs/pyq-knowledge-map.json"),
+      fetch("../data/knowledge/knowledge-entities.json").catch(() => null)
     ]);
 
     if (!responses[0].ok || !responses[1].ok) {
@@ -1961,6 +1961,8 @@ loadDatabase();
 
 </script>
 
+
+<script src="js/global-bottom-nav.js" defer></script>
 </body>
 
 </html>
