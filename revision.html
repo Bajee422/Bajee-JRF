@@ -1165,11 +1165,11 @@ async function loadDatabase() {
     const responses =
       await Promise.all([
 
-        fetch("data/pyqs/pyq-database.json"),
+        fetch("../data/pyqs/pyq-database.json"),
 
-        fetch("data/pyqs/pyq-knowledge-map.json"),
+        fetch("../data/pyqs/pyq-knowledge-map.json"),
 
-        fetch("data/knowledge/knowledge-entities.json").catch(() => null)
+        fetch("../data/knowledge/knowledge-entities.json").catch(() => null)
 
       ]);
 
@@ -4256,6 +4256,8 @@ loadDatabase();
 
 </script>
 
+
+<script src="js/global-bottom-nav.js" defer></script>
 </body>
 
 </html>
