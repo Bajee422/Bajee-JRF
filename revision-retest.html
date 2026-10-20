@@ -1,861 +1,4263 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BAJEE JRF AI — NTA Style Revision Retest</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"><style>body{margin:0;background:#eef1f5;color:#202633;font-family:Arial,sans-serif}.top{background:#08224d;color:#fff;padding:12px 0}.brand{color:#f4c430;font-weight:800;text-decoration:none}.head{background:#fff;border-bottom:1px solid #ccd3de;padding:14px 0}.main{max-width:1180px}.title{color:#08224d;font-weight:800}.timer{background:#fff4d6;border:2px solid #d9b236;border-radius:6px;padding:7px 15px;text-align:center;min-width:130px}.timer b{display:block;font-size:22px}.timer.danger{background:#fde8e8;border-color:#dc3545;color:#b02a37}.box{background:#fff;border:1px solid #d6dce5;border-radius:6px;overflow:hidden}.ih{background:#f4f6f9;border-bottom:1px solid #d6dce5;padding:11px 15px;color:#08224d;font-weight:800}.ib{padding:13px;font-size:13px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:16px;margin-top:16px}.qh{display:flex;justify-content:space-between;padding:12px 15px;background:#fafbfc;border-bottom:1px solid #d6dce5}.qb{padding:22px}.qt{font-size:17px;line-height:1.65;font-weight:600;white-space:pre-line;margin-bottom:22px}
-.qtype{display:inline-block;background:#eef3fb;color:#08224d;border:1px solid #cbd6e7;border-radius:4px;padding:4px 9px;font-size:11px;font-weight:800;margin-bottom:14px}
-.passage-box{background:#f8f9fa;border:1px solid #d6dce5;border-left:4px solid #08224d;border-radius:5px;padding:16px;margin-bottom:20px;font-size:15px;line-height:1.75;white-space:pre-line}
-.structure-title{font-weight:800;color:#08224d;margin-bottom:9px}
-.statement-list{margin:0 0 20px 0;padding-left:24px}
-.statement-list li{margin-bottom:8px;line-height:1.55}
-.match-table{width:100%;border-collapse:collapse;margin:0 0 20px 0;background:#fff}
-.match-table th,.match-table td{border:1px solid #cbd2dd;padding:10px 12px;vertical-align:top}
-.match-table th{background:#f1f4f8;color:#08224d;font-weight:800}
-.question-stem{margin-bottom:16px}
-.question-display-heading{font-size:18px;font-weight:800;color:#202633;margin-bottom:12px}
-.question-items{margin:0 0 22px 0;padding-left:26px}
-.question-items li{margin-bottom:8px;line-height:1.55}
-.options-heading{font-size:18px;font-weight:800;color:#202633;margin:18px 0 12px}
+<!DOCTYPE html>
+<html lang="en">
 
-.opt{display:flex;gap:12px;align-items:flex-start;width:100%;padding:14px;margin:0 0 10px;border:1px solid #cbd2dd;border-radius:5px;background:#fff;cursor:pointer;text-align:left}.opt:hover{background:#f7f9fb}.opt.sel{background:#eaf2ff;border:2px solid #0d6efd;padding:13px}.opt input{margin-top:4px}.letter{font-weight:800;color:#08224d}.actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:14px 15px;background:#f7f8fa;border-top:1px solid #d6dce5}.btn-navy{background:#08224d;color:#fff;font-weight:700}.btn-submit{background:#198754;color:#fff;font-weight:800}.btn-clear,.btn-review{background:#fff;border:1px solid #7c8797;font-weight:700}.btn-review.marked{background:#fff4d6;border-color:#d9b236}.palette{display:flex;gap:7px;flex-wrap:wrap}.palette button{width:38px;height:35px;border:1px solid #b8c0cc;border-radius:4px;background:#fff;font-weight:800}.palette .answered{background:#198754;color:#fff}.palette .reviewed{background:#d9b236}.result{display:none;margin-top:16px}.result-good{background:#e8f7ee;border-left:5px solid #198754;padding:13px}.result-bad{background:#fbeaec;border-left:5px solid #dc3545;padding:13px}.solution{background:#f7f8fa;border:1px solid #d6dce5;border-radius:5px;padding:15px;margin-top:15px}.empty{max-width:700px;margin:60px auto;background:#fff;border:1px solid #d6dce5;border-radius:7px;padding:40px;text-align:center}@media(max-width:900px){.layout{grid-template-columns:1fr}}</style></head><body><div class="top"><div class="container main d-flex justify-content-between align-items-center"><a class="brand" href="index.html">🎓 BAJEE JRF AI</a><a class="btn btn-outline-light btn-sm" href="revision-intelligence.html">← Revision Intelligence</a></div></div><div class="head"><div class="container main d-flex justify-content-between align-items-center gap-3"><div><h1 class="title fs-4 mb-1">UGC NET English — Revision Retest</h1><div class="text-muted small">NTA-style objective mock test • One selected revision question</div></div><div id="timer" class="timer"><small>TIME REMAINING</small><b id="clock">01:30</b></div></div></div><main class="container main py-3"><div id="status" class="alert alert-warning d-none"></div><div id="empty" class="empty d-none"><div style="font-size:48px">🎯</div><h2>No Retest Question Selected</h2><p class="text-muted">Open Revision Intelligence and select Retry Practice.</p><a class="btn btn-navy" href="revision-intelligence.html">Open Revision Intelligence</a></div><div id="app" class="d-none"><div class="box"><div class="ih">NTA Mock Test Instructions</div><div class="ib"><ul class="mb-0"><li>Objective MCQ format — not a paragraph-answer exercise.</li><li><strong>2 marks</strong> for the correct answer.</li><li><strong>No negative marking.</strong></li><li>One answer only; answer may be changed before submission.</li><li>Clear Response removes the selection.</li><li>Mark for Review flags the question.</li><li>Correct answer and explanation appear only after submission.</li><li>Timer expiry automatically submits the retest.</li></ul></div></div><div class="layout"><section class="box"><div class="qh"><strong>Question 1 of 1</strong><span>Maximum Marks: <strong>2</strong></span></div><div class="qb"><div class="mb-3"><span id="priority" class="badge bg-danger">HIGH PRIORITY</span></div><div class="row g-2 small mb-4"><div class="col-md-3"><strong>Entity:</strong> <span id="entity">—</span></div><div class="col-md-3"><strong>Concept:</strong> <span id="concept">—</span></div><div class="col-md-3"><strong>Unit:</strong> <span id="unit">—</span></div><div class="col-md-3"><strong>Previous Accuracy:</strong> <span id="accuracy">—</span></div></div><div id="questionType" class="qtype">MCQ</div><div id="question" class="qt"></div><div id="options"></div></div><div class="actions"><div class="d-flex gap-2"><button id="clear" class="btn btn-clear">Clear Response</button><button id="review" class="btn btn-review">Mark for Review</button></div><button id="submit" class="btn btn-submit">Submit Retest</button></div></section><aside><div class="box mb-3"><div class="ih">Question Palette</div><div class="ib"><div class="palette"><button id="palette">1</button></div><hr><div class="small"><div>🟩 Answered</div><div>🟨 Marked for Review</div><div>⬜ Not Answered</div></div></div></div><div class="box"><div class="ih">Question Information</div><div class="ib small"><div><strong>Paper:</strong> <span id="paper">Paper II — English</span></div><div><strong>Type:</strong> <span id="type">MCQ</span></div><div><strong>Marks:</strong> 2</div><div><strong>Negative Mark:</strong> 0</div><div><strong>Previous Attempts:</strong> <span id="attempts">0</span></div></div></div></aside></div><section id="result" class="box result"><div class="ih">Retest Result</div><div class="p-3"><div id="resultMessage"></div><div class="row g-3 mt-1"><div class="col-md-3"><strong>Score:</strong> <span id="score">0 / 2</span></div><div class="col-md-3"><strong>Result:</strong> <span id="resultStatus">—</span></div><div class="col-md-3"><strong>Correct Answer:</strong> <span id="correct">—</span></div><div class="col-md-3"><strong>Accuracy:</strong> <span id="newAccuracy">—</span></div></div><div class="solution"><h5>Solution</h5><p id="solutionAnswer"></p><p id="solutionExplanation" class="mb-0"></p></div><button id="back" class="btn btn-navy mt-3">Return to Revision Intelligence</button></div></section></div></main><script>
-"use strict";
+<head>
 
-const KEY="bajee_revision_retest_item";
-const HKEY="bajee_revision_retest_history";
-const PKEY="bajee_ai_practice_bank";
+  <meta charset="UTF-8">
 
-let item=null;
-let q=null;
-let selected="";
-let reviewed=false;
-let submitted=false;
-let left=90;
-let timer=null;
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
-const $=id=>document.getElementById(id);
+  <title>BAJEE JRF AI — Revision Queue</title>
 
-const esc=v=>String(v??"")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    rel="stylesheet">
 
-const key=v=>{
-    const m=String(v??"").trim().toUpperCase().match(/[ABCD]/);
-    return m?m[0]:"";
-};
+  <style>
 
-function empty(){
-    $("empty").classList.remove("d-none");
-    $("app").classList.add("d-none");
-}
-
-function fail(message){
-    $("status").textContent=message;
-    $("status").classList.remove("d-none");
-    empty();
-}
-
-/* =========================================================
-   QUESTION TYPE
-   Rule: preserve the original PYQ structure.
-========================================================= */
-
-function rawType(){
-    return String(
-        q.question_type ??
-        q.questionType ??
-        q.type ??
-        q.format ??
-        q.category ??
-        q.question_category ??
-        item.question_type ??
-        item.questionType ??
-        ""
-    ).trim().toLowerCase();
-}
-
-function hasPassage(){
-    return Boolean(
-        q.passage ||
-        q.comprehension_passage ||
-        q.comprehensionPassage ||
-        q.passage_text ||
-        q.reading_passage
-    );
-}
-
-function hasStatements(){
-    return Array.isArray(q.statements) ||
-           Array.isArray(q.statement_list) ||
-           Array.isArray(q.statementList);
-}
-
-function hasMatchLists(){
-    return Boolean(
-        q.list_i ||
-        q.listI ||
-        q.list_1 ||
-        q.match_list_i ||
-        q.matching ||
-        q.matching_data
-    );
-}
-
-function detectType(){
-    const t=rawType();
-
-    if(hasPassage() || /reading comprehension|comprehension|passage/.test(t))
-        return "Reading Comprehension";
-
-    if(hasMatchLists() || /match.*follow|matching/.test(t))
-        return "Match the Following";
-
-    if(hasStatements() || /statement/.test(t))
-        return "Statement-based";
-
-    if(/assertion.*reason|reason.*assertion/.test(t))
-        return "Assertion–Reason";
-
-    if(/chronolog|sequence|order|arrange/.test(t) ||
-       /chronological order|correct order|sequence of/i.test(String(q.question||"")))
-        return "Chronology / Sequence";
-
-    if(/multiple response|multiple select|multi-select/.test(t))
-        return "Multiple-response";
-
-    return "MCQ";
-}
-
-/* =========================================================
-   OPTIONS
-   Preserve the original A/B/C/D values.
-========================================================= */
-
-function getOptions(){
-    const source=q.options ?? item.options ?? {
-        A:q.A,B:q.B,C:q.C,D:q.D
-    };
-
-    if(Array.isArray(source)){
-        const out={};
-        source.slice(0,4).forEach((v,i)=>{
-            const letter=String.fromCharCode(65+i);
-            out[letter]=typeof v==="object"
-                ? (v.text ?? v.label ?? v.value ?? "")
-                : v;
-        });
-        return out;
+    body {
+      background: #f5f7fb;
+      color: #172033;
     }
 
+    .bg-navy {
+      background: #071a3d;
+    }
+
+    .text-gold {
+      color: #d4af37 !important;
+    }
+
+    .btn-navy {
+      background: #071a3d;
+      color: #ffffff;
+      border: 1px solid #071a3d;
+    }
+
+    .btn-navy:hover {
+      background: #102d61;
+      color: #ffffff;
+    }
+
+    .btn-gold {
+      background: #d4af37;
+      color: #071a3d;
+      border: 1px solid #d4af37;
+      font-weight: 700;
+    }
+
+    .btn-gold:hover {
+      background: #c29f2f;
+      color: #071a3d;
+    }
+
+    .hero {
+
+      background:
+        linear-gradient(
+          135deg,
+          #071a3d,
+          #102d61
+        );
+
+      color: #ffffff;
+
+      border-radius: 18px;
+
+      padding: 35px;
+
+    }
+
+    .section-card {
+
+      background: #ffffff;
+
+      border-radius: 16px;
+
+      padding: 25px;
+
+      box-shadow:
+        0 5px 20px rgba(
+          0,
+          0,
+          0,
+          .06
+        );
+
+    }
+
+    .eyebrow {
+
+      letter-spacing: 2px;
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+      color: #d4af37;
+
+    }
+
+    .stat-card {
+
+      background: #f8f9fa;
+
+      border-radius: 12px;
+
+      padding: 20px;
+
+      text-align: center;
+
+      height: 100%;
+
+    }
+
+    .stat-number {
+
+      font-size: 30px;
+
+      font-weight: 800;
+
+      color: #071a3d;
+
+    }
+
+    .empty-state {
+
+      background: #f8f9fa;
+
+      border-radius: 12px;
+
+      padding: 40px;
+
+      text-align: center;
+
+      color: #6c757d;
+
+    }
+
+    .knowledge-card {
+
+      background: #ffffff;
+
+      border-radius: 14px;
+
+      padding: 20px;
+
+      margin-bottom: 15px;
+
+      box-shadow:
+        0 3px 12px rgba(
+          0,
+          0,
+          0,
+          .04
+        );
+
+    }
+
+    .knowledge-card.high {
+      border-left: 5px solid #dc3545;
+    }
+
+    .knowledge-card.medium {
+      border-left: 5px solid #d4af37;
+    }
+
+    .knowledge-card.low {
+      border-left: 5px solid #198754;
+    }
+
+    .knowledge-name {
+
+      font-size: 18px;
+
+      font-weight: 700;
+
+      color: #071a3d;
+
+    }
+
+    .knowledge-score {
+
+      font-size: 28px;
+
+      font-weight: 800;
+
+    }
+
+    .score-high {
+      color: #dc3545;
+    }
+
+    .score-medium {
+      color: #856404;
+    }
+
+    .score-low {
+      color: #198754;
+    }
+
+    .progress {
+
+      height: 10px;
+
+      background: #e9ecef;
+
+    }
+
+    .tag {
+
+      display: inline-block;
+
+      padding: 5px 9px;
+
+      margin: 3px;
+
+      border-radius: 20px;
+
+      background: #e9ecef;
+
+      font-size: 12px;
+
+    }
+
+    .entity-tag {
+
+      background: #e8eef8;
+
+      color: #071a3d;
+
+      font-weight: 600;
+
+    }
+
+    .unit-tag {
+
+      background: #d1e7dd;
+
+      color: #0f5132;
+
+    }
+
+    .priority-high {
+
+      background: #f8d7da;
+
+      color: #842029;
+
+    }
+
+    .priority-medium {
+
+      background: #fff3cd;
+
+      color: #664d03;
+
+    }
+
+    .priority-low {
+
+      background: #d1e7dd;
+
+      color: #0f5132;
+
+    }
+
+    .pyq-card {
+
+      border: 1px solid #dee2e6;
+
+      border-radius: 14px;
+
+      padding: 20px;
+
+      margin-bottom: 15px;
+
+      background: #ffffff;
+
+    }
+
+    .pyq-card.retest-active {
+
+      border: 2px solid #0d6efd;
+
+      box-shadow:
+        0 4px 15px rgba(
+          13,
+          110,
+          253,
+          .12
+        );
+
+    }
+
+    .option-btn {
+
+      display: block;
+
+      width: 100%;
+
+      text-align: left;
+
+      background: #ffffff;
+
+      border: 1px solid #ced4da;
+
+      border-radius: 9px;
+
+      padding: 12px 15px;
+
+      margin-bottom: 8px;
+
+      color: #172033;
+
+      transition: .15s ease;
+
+    }
+
+    .option-btn:hover {
+
+      background: #f1f5fb;
+
+      border-color: #071a3d;
+
+    }
+
+    .option-btn.correct {
+
+      background: #d1e7dd;
+
+      border-color: #198754;
+
+      color: #0f5132;
+
+      font-weight: 700;
+
+    }
+
+    .option-btn.wrong {
+
+      background: #f8d7da;
+
+      border-color: #dc3545;
+
+      color: #842029;
+
+      font-weight: 700;
+
+    }
+
+    .option-btn:disabled {
+
+      cursor: default;
+
+      opacity: 1;
+
+    }
+
+    .result-box {
+
+      border-radius: 10px;
+
+      padding: 15px;
+
+      background: #f8f9fa;
+
+      margin-top: 15px;
+
+    }
+
+    .history-card {
+
+      background: #f8f9fa;
+
+      border-radius: 12px;
+
+      padding: 15px;
+
+      margin-bottom: 10px;
+
+    }
+
+    .alert-info-custom {
+
+      background: #eef5ff;
+
+      border-left: 4px solid #0d6efd;
+
+      border-radius: 10px;
+
+      padding: 15px;
+
+    }
+
+    .connection-flow {
+
+      border: 1px solid #dee2e6;
+
+      border-radius: 10px;
+
+      padding: 12px;
+
+      font-size: 13px;
+
+      background: #fbfcfe;
+
+    }
+
+    .small-muted {
+
+      font-size: 12px;
+
+      color: #6c757d;
+
+    }
+
+    .hidden {
+
+      display: none !important;
+
+    }
+
+  
+
+    /* Shared source-preserving question formatting (Revision Retest) */
+    .question-type-label {
+      display: inline-block; margin: 5px 0 8px; padding: 5px 9px;
+      border-radius: 6px; font-size: 10px; font-weight: 800;
+      letter-spacing: .08em; background: #eef2f8; color: #0d2d63;
+    }
+    .question-stem { margin-top: 4px; line-height: 1.65; overflow-wrap: anywhere; }
+    .question-type-match { border-left: 3px solid #d4af37; padding-left: 12px; }
+    .question-type-assertion { border-left: 3px solid #0d6efd; padding-left: 12px; }
+    .question-type-chronology { border-left: 3px solid #198754; padding-left: 12px; }
+    .structured-statement { margin-top: 10px; padding: 12px 14px; background: #f4f6fa; border-radius: 8px; line-height: 1.6; }
+    .structured-statement > strong { display: block; margin-bottom: 4px; }
+    .chronology-items, .statement-items { display: grid; gap: 7px; margin-top: 10px; }
+    .assertion-block { border-left: 4px solid #0d6efd; }
+    .reason-block { border-left: 4px solid #d4af37; }
+    .match-lists-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 12px 0; }
+    .match-list-panel { border: 1px solid #d7deea; border-radius: 10px; padding: 12px; background: #f8faff; min-width: 0; }
+    .match-list-panel h6 { font-weight: 800; color: #071a3d; border-bottom: 1px solid #d7deea; padding-bottom: 8px; margin-bottom: 8px; }
+    .match-list-item { padding: 5px 0; overflow-wrap: anywhere; }
+    @media (max-width: 640px) { .match-lists-grid { grid-template-columns: 1fr; } }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar navbar-dark bg-navy">
+
+  <div class="container">
+
+    <a
+      class="navbar-brand fw-bold"
+      href="index.html">
+
+      🎓 BAJEE JRF AI
+
+    </a>
+
+
+    <div class="d-flex align-items-center gap-2">
+
+      <a
+        href="diagnosis.html"
+        class="btn btn-sm btn-outline-light">
+
+        📊 Diagnosis
+
+      </a>
+
+
+      <span class="navbar-text text-gold">
+
+        Revision Queue
+
+      </span>
+
+    </div>
+
+  </div>
+
+</nav>
+
+
+
+<main class="container py-5">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero mb-4">
+
+  <p class="eyebrow">
+
+    STEP 5.0 — REVISION ENGINE
+
+  </p>
+
+
+  <h1 class="display-6 fw-bold">
+
+    🔄 Revision Queue
+
+  </h1>
+
+
+  <p class="mb-0">
+
+    Identify weak knowledge entities from your
+    actual test performance and turn them into
+    a focused revision cycle.
+
+  </p>
+
+</section>
+
+
+
+<!-- =====================================================
+     ENGINE STATUS
+===================================================== -->
+
+<section class="section-card mb-4">
+
+  <div
+    class="d-flex justify-content-between
+           align-items-center flex-wrap gap-2">
+
+    <div>
+
+      <p class="eyebrow mb-1">
+
+        REVISION ENGINE STATUS
+
+      </p>
+
+
+      <h2 class="h5 mb-1">
+
+        Revision Engine
+
+      </h2>
+
+
+      <p class="text-secondary mb-0">
+
+        The queue is calculated directly from
+        your question-level performance.
+
+      </p>
+
+    </div>
+
+
+    <span
+      id="engineStatus"
+      class="badge rounded-pill bg-secondary">
+
+      Loading...
+
+    </span>
+
+  </div>
+
+
+  <hr>
+
+
+  <div class="connection-flow">
+
+    🧠 Knowledge Base
+    <strong>→</strong>
+
+    📜 PYQ Database
+    <strong>→</strong>
+
+    🔗 Knowledge Mapping
+    <strong>→</strong>
+
+    📊 Performance
+    <strong>→</strong>
+
+    🔄 Revision Queue
+
+  </div>
+
+
+  <div
+    id="engineMessage"
+    class="alert-info-custom mt-3">
+
+    Loading revision data...
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STATISTICS
+===================================================== -->
+
+<section class="mb-4">
+
+  <div class="row g-3">
+
+    <div class="col-md-3">
+
+      <div class="stat-card">
+
+        <div
+          id="totalAttempts"
+          class="stat-number">
+
+          0
+
+        </div>
+
+        <div class="small text-secondary">
+
+          Total Question Attempts
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+      <div class="stat-card">
+
+        <div
+          id="weakEntities"
+          class="stat-number">
+
+          0
+
+        </div>
+
+        <div class="small text-secondary">
+
+          Weak Entities
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+      <div class="stat-card">
+
+        <div
+          id="revisionItems"
+          class="stat-number">
+
+          0
+
+        </div>
+
+        <div class="small text-secondary">
+
+          Revision Items
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+      <div class="stat-card">
+
+        <div
+          id="mappedPyqs"
+          class="stat-number">
+
+          0
+
+        </div>
+
+        <div class="small text-secondary">
+
+          Mapped PYQs
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PRIORITY QUEUE
+===================================================== -->
+
+<section class="section-card mb-4">
+
+  <div
+    class="d-flex justify-content-between
+           align-items-center flex-wrap gap-2">
+
+    <div>
+
+      <p class="eyebrow mb-1">
+
+        REVISION SIGNAL
+
+      </p>
+
+
+      <h2 class="h4 mb-1">
+
+        🔄 Priority Revision Queue
+
+      </h2>
+
+
+      <p class="text-secondary mb-0">
+
+        Source-backed entity, unit and topic priorities requiring revision.
+
+      </p>
+
+    </div>
+
+
+    <span
+      id="priorityCount"
+      class="badge rounded-pill bg-secondary">
+
+      0 items
+
+    </span>
+
+  </div>
+
+
+  <hr>
+
+
+  <div id="priorityContainer">
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     RETEST AREA
+===================================================== -->
+
+<section
+  id="retestSection"
+  class="section-card mb-4 hidden">
+
+  <div
+    class="d-flex justify-content-between
+           align-items-center flex-wrap gap-2">
+
+    <div>
+
+      <p class="eyebrow mb-1">
+
+        FOCUSED RETEST
+
+      </p>
+
+
+      <h2 class="h4 mb-1">
+
+        📝 Retest Connected PYQs
+
+      </h2>
+
+
+      <p class="text-secondary mb-0">
+
+        Answer the connected PYQs again after
+        reviewing the weak knowledge area.
+
+      </p>
+
+    </div>
+
+
+    <button
+      id="closeRetestBtn"
+      class="btn btn-outline-secondary btn-sm"
+      type="button">
+
+      ✕ Close Retest
+
+    </button>
+
+  </div>
+
+
+  <hr>
+
+
+  <div id="retestContainer">
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     KNOWLEDGE PERFORMANCE
+===================================================== -->
+
+<section class="section-card mb-4">
+
+  <div
+    class="d-flex justify-content-between
+           align-items-center flex-wrap gap-2">
+
+    <div>
+
+      <p class="eyebrow mb-1">
+
+        KNOWLEDGE PERFORMANCE
+
+      </p>
+
+
+      <h2 class="h4 mb-1">
+
+        🧠 Knowledge Entity Performance
+
+      </h2>
+
+
+      <p class="text-secondary mb-0">
+
+        Accuracy for explicitly mapped knowledge entities only; unit/topic performance appears in the priority queue.
+
+      </p>
+
+    </div>
+
+
+    <span
+      id="performanceCount"
+      class="badge rounded-pill bg-secondary">
+
+      0 entities
+
+    </span>
+
+  </div>
+
+
+  <hr>
+
+
+  <div id="performanceContainer">
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     RECENT HISTORY
+===================================================== -->
+
+<section class="section-card mb-4">
+
+  <h2 class="h4 mb-1">
+
+    📈 Recent Test & Retest History
+
+  </h2>
+
+
+  <p class="text-secondary">
+
+    Your latest recorded attempts.
+
+  </p>
+
+
+  <div id="historyContainer">
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     HOW IT WORKS
+===================================================== -->
+
+<section class="section-card mb-4">
+
+  <p class="eyebrow mb-1">
+
+    HOW THE QUEUE WORKS
+
+  </p>
+
+
+  <h2 class="h4">
+
+    🎯 Revision Priority Logic
+
+  </h2>
+
+
+  <p class="text-secondary">
+
+    The system uses actual question-level
+    performance rather than guessing your weaknesses.
+
+  </p>
+
+
+  <div class="row g-3 mt-2">
+
+
+    <div class="col-md-4">
+
+      <div class="border rounded p-3 h-100">
+
+        <div class="fw-bold text-danger">
+
+          🔴 High Priority
+
+        </div>
+
+
+        <div class="small text-secondary mt-2">
+
+          Accuracy below 50% or repeated
+          incorrect attempts.
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+      <div class="border rounded p-3 h-100">
+
+        <div class="fw-bold text-warning">
+
+          🟡 Medium Priority
+
+        </div>
+
+
+        <div class="small text-secondary mt-2">
+
+          Accuracy from 50% to below 75%.
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+      <div class="border rounded p-3 h-100">
+
+        <div class="fw-bold text-success">
+
+          🟢 Low Priority
+
+        </div>
+
+
+        <div class="small text-secondary mt-2">
+
+          Accuracy from 75% to below 85%,
+          requiring light reinforcement.
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ACTIONS
+===================================================== -->
+
+<section class="section-card">
+
+  <div
+    class="d-flex justify-content-between
+           align-items-center flex-wrap gap-3">
+
+    <div>
+
+      <h2 class="h5 mb-1">
+
+        🎯 Next Action
+
+      </h2>
+
+
+      <p class="text-secondary mb-0">
+
+        Revise weak entities first, then retest
+        the connected PYQs.
+
+      </p>
+
+    </div>
+
+
+    <div class="d-flex gap-2 flex-wrap">
+
+
+      <a
+        href="diagnosis.html"
+        class="btn btn-navy">
+
+        📊 View Diagnosis
+
+      </a>
+
+
+      <a
+        href="test-engine.html"
+        class="btn btn-gold">
+
+        📝 Take Another Test
+
+      </a>
+
+
+      <button
+        id="refreshBtn"
+        type="button"
+        class="btn btn-outline-primary">
+
+        🔄 Refresh Queue
+
+      </button>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+
+<footer class="py-4 text-center">
+
+  <small class="text-secondary">
+
+    BAJEE JRF AI • Step 5.0 • Revision Queue
+
+  </small>
+
+</footer>
+
+
+
+<script>
+
+/* =========================================================
+   BAJEE JRF AI
+   STEP 5.0 — REVISION QUEUE
+
+   IMPORTANT:
+   This file deliberately uses the SAME data flow
+   used by diagnosis.html.
+
+   Storage:
+   bajee_jrf_ai_test_history_v1
+
+   Data:
+   pyq-database.json
+   pyq-knowledge-map.json
+   knowledge-entities.json
+========================================================= */
+
+
+const STORAGE_KEY =
+  "bajee_jrf_ai_test_history_v1";
+
+
+let pyqDatabase = [];
+
+let mappings = [];
+
+let knowledgeDatabase = [];
+
+let testHistory = [];
+
+let currentRetestQuestions = [];
+
+let currentRetestEntity = null;
+let currentRetestCategory = "topic";
+
+let retestResults = [];
+
+
+
+/* =========================================================
+   LOAD DATABASE
+========================================================= */
+
+async function loadDatabase() {
+
+  try {
+
+    setEngineStatus(
+      "Loading...",
+      "bg-secondary"
+    );
+
+
+    const responses =
+      await Promise.all([
+
+        fetch("../data/pyqs/pyq-database.json"),
+
+        fetch("../data/pyqs/pyq-knowledge-map.json"),
+
+        fetch("../data/knowledge/knowledge-entities.json").catch(() => null)
+
+      ]);
+
+
+    if (
+      !responses[0].ok ||
+      !responses[1].ok
+    ) {
+
+      throw new Error(
+        "Could not load one or more revision databases."
+      );
+
+    }
+
+
+    const pyqData =
+      await responses[0].json();
+
+
+    const mappingData =
+      await responses[1].json();
+
+
+    let knowledgeData = { entities: [] };
+    if (responses[2] && responses[2].ok) {
+      try { knowledgeData = await responses[2].json(); }
+      catch (error) { console.warn("Optional knowledge catalogue could not be parsed:", error); }
+    }
+
+
+    /* -----------------------------------------------------
+       PYQ DATABASE
+    ----------------------------------------------------- */
+
+    if (
+      Array.isArray(
+        pyqData.questions
+      )
+    ) {
+
+      pyqDatabase =
+        pyqData.questions;
+
+    }
+
+    else if (
+      Array.isArray(
+        pyqData
+      )
+    ) {
+
+      pyqDatabase =
+        pyqData;
+
+    }
+
+
+    /* -----------------------------------------------------
+       MAPPINGS
+    ----------------------------------------------------- */
+
+    if (
+      Array.isArray(
+        mappingData.mappings
+      )
+    ) {
+
+      mappings =
+        mappingData.mappings;
+
+    }
+
+    else if (
+      Array.isArray(
+        mappingData
+      )
+    ) {
+
+      mappings =
+        mappingData;
+
+    }
+
+
+    /* -----------------------------------------------------
+       KNOWLEDGE
+    ----------------------------------------------------- */
+
+    if (
+      Array.isArray(
+        knowledgeData.entities
+      )
+    ) {
+
+      knowledgeDatabase =
+        knowledgeData.entities;
+
+    }
+
+    else if (
+      Array.isArray(
+        knowledgeData
+      )
+    ) {
+
+      knowledgeDatabase =
+        knowledgeData;
+
+    }
+
+
+    loadHistory();
+
+
+    renderRevisionPage();
+
+
+    setEngineStatus(
+      "Connected",
+      "bg-success"
+    );
+
+
+    document.getElementById(
+      "engineMessage"
+    ).innerHTML = `
+
+      Revision engine connected •
+      ${knowledgeDatabase.length} knowledge entities •
+      ${mappings.length} mapped records •
+      ${testHistory.length} test records
+
+    `;
+
+
+    console.log(
+      "BAJEE JRF AI Revision Engine loaded successfully.",
+      {
+        pyqs:
+          pyqDatabase.length,
+
+        mappings:
+          mappings.length,
+
+        knowledge:
+          knowledgeDatabase.length,
+
+        tests:
+          testHistory.length
+      }
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Revision loading error:",
+      error
+    );
+
+
+    setEngineStatus(
+      "Error",
+      "bg-danger"
+    );
+
+
+    document.getElementById(
+      "engineMessage"
+    ).innerHTML = `
+
+      <strong>
+        Revision database error
+      </strong>
+
+      <div class="small mt-1">
+
+        ${escapeHTML(
+          error.message
+        )}
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+
+/* =========================================================
+   ENGINE STATUS
+========================================================= */
+
+function setEngineStatus(
+  text,
+  className
+) {
+
+  const element =
+    document.getElementById(
+      "engineStatus"
+    );
+
+
+  element.textContent =
+    text;
+
+
+  element.className =
+    `badge rounded-pill ${className}`;
+
+}
+
+
+
+/* =========================================================
+   LOAD HISTORY
+========================================================= */
+
+function loadHistory() {
+
+  testHistory = [];
+
+
+  try {
+
+    const stored =
+      localStorage.getItem(
+        STORAGE_KEY
+      );
+
+
+    if (!stored) {
+
+      return;
+
+    }
+
+
+    const parsed =
+      JSON.parse(
+        stored
+      );
+
+
+    if (
+      Array.isArray(
+        parsed
+      )
+    ) {
+
+      testHistory =
+        parsed;
+
+    }
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Could not read test history:",
+      error
+    );
+
+  }
+
+}
+
+
+
+/* =========================================================
+   SAVE HISTORY
+========================================================= */
+
+function saveHistory() {
+
+  try {
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(
+        testHistory
+      )
+    );
+
+
+    return true;
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Could not save test history:",
+      error
+    );
+
+
+    alert(
+      "Could not save the retest result."
+    );
+
+
+    return false;
+
+  }
+
+}
+
+
+
+/* =========================================================
+   MAIN RENDER
+========================================================= */
+
+function renderRevisionPage() {
+
+  const stats =
+    buildKnowledgeStats();
+
+
+  renderStatistics(
+    stats
+  );
+
+
+  renderPriorityQueue(
+    stats
+  );
+
+
+  renderPerformance(
+    stats
+  );
+
+
+  renderHistory();
+
+}
+
+
+
+/* =========================================================
+   BUILD KNOWLEDGE STATS
+
+   THIS IS INTENTIONALLY THE SAME CORE LOGIC
+   USED BY diagnosis.html.
+========================================================= */
+
+function buildKnowledgeStats() {
+  const stats = {};
+  const normalizeId = value => String(value ?? "").trim().toLowerCase();
+  const firstId = (...values) => values.find(value => value !== undefined && value !== null && String(value).trim() !== "");
+  const normalizeLabels = values => {
+    if (values === undefined || values === null) return [];
+    const list = Array.isArray(values) ? values : [values];
+    return [...new Set(list.map(value => {
+      if (typeof value === "string" || typeof value === "number") return String(value).trim();
+      if (value && typeof value === "object") return String(value.name ?? value.label ?? value.title ?? value.entity_name ?? value.id ?? "").trim();
+      return "";
+    }).filter(Boolean))];
+  };
+
+  // Index every explicit source mapping ID and every known alias for each PYQ.
+  const mappingById = new Map();
+  mappings.forEach(mapping => {
+    const ids = [mapping.pyq_id, mapping.question_id, mapping.questionId, mapping.id]
+      .filter(value => value !== undefined && value !== null && String(value).trim());
+    ids.forEach(id => mappingById.set(normalizeId(id), mapping));
+  });
+  const questionByAlias = new Map();
+  pyqDatabase.forEach(question => {
+    const ids = [question.pyq_id, question.question_id, question.questionId, question.id]
+      .filter(value => value !== undefined && value !== null && String(value).trim());
+    ids.forEach(id => questionByAlias.set(normalizeId(id), question));
+  });
+
+  const addStat = (key, label, category, result, questionId, units, concepts) => {
+    if (!stats[key]) stats[key] = {
+      name: label, category, attempted: 0, correct: 0, wrong: 0, unanswered: 0,
+      units: new Set(), concepts: new Set(), questionIds: new Set()
+    };
+    const item = stats[key];
+    item.attempted++;
+    if (result.is_correct === true || result.is_correct === 1 || result.is_correct === "true") item.correct++;
+    else if (result.answered === true ||
+      (result.selected_answer !== undefined && result.selected_answer !== null && result.selected_answer !== "") ||
+      (result.selected !== undefined && result.selected !== null && result.selected !== "")) item.wrong++;
+    else item.unanswered++;
+    if (questionId) item.questionIds.add(String(questionId));
+    [...units, ...concepts].forEach(value => {
+      if (units.includes(value)) item.units.add(value);
+      if (concepts.includes(value)) item.concepts.add(value);
+    });
+  };
+
+  testHistory.forEach(test => {
+    if (!Array.isArray(test.question_results)) return;
+    test.question_results.forEach(result => {
+      const rawId = firstId(result.question_id, result.questionId, result.pyq_id, result.id);
+      const id = normalizeId(rawId);
+      const question = questionByAlias.get(id);
+      const canonicalId = normalizeId(firstId(question?.pyq_id, question?.question_id, question?.questionId, question?.id));
+      const mapping = mappingById.get(id) || mappingById.get(canonicalId) || {};
+      const entities = normalizeLabels(result.knowledge_entities ?? result.knowledgeEntities ?? result.knowledge_entity ?? result.knowledgeEntity)
+        .concat(normalizeLabels(mapping.knowledge_entities ?? mapping.knowledgeEntities));
+      const units = [...new Set([
+        ...normalizeLabels(result.units ?? result.unit).filter(label => normalizeId(label) !== "unclassified"),
+        ...normalizeLabels(mapping.units ?? mapping.unit).filter(label => normalizeId(label) !== "unclassified")
+      ])];
+      const concepts = [...new Set([
+        ...normalizeLabels(result.concepts ?? result.topics ?? result.topic).filter(label => normalizeId(label) !== "unclassified"),
+        ...normalizeLabels(mapping.concepts ?? mapping.topics ?? mapping.topic).filter(label => normalizeId(label) !== "unclassified")
+      ])];
+      // A unit/topic label must never be counted as an author/work/critic/etc.
+      // This also safely corrects older retest records that stored the focus label
+      // in `knowledge_entity`, without rewriting the saved source/history records.
+      const nonEntityLabels = new Set([...units, ...concepts].map(normalizeId));
+      const uniqueEntities = [...new Set(entities)].filter(label => {
+        const key = normalizeId(label);
+        return key && !nonEntityLabels.has(key) && !/^unit\s+(?:[ivxlcdm]+|\d+)$/i.test(key);
+      });
+
+      // Entity performance is calculated only from explicit, non-unit/topic metadata.
+      if (uniqueEntities.length) {
+        uniqueEntities.forEach(entity => addStat(`entity:${entity.toLowerCase()}`, entity, "entity", result, rawId, units, concepts));
+      } else {
+        // If no entity is explicitly linked, retain source-backed unit/topic diagnosis.
+        // This is a fallback, not a fabricated author/work/knowledge-entity link.
+        units.forEach(unit => addStat(`unit:${unit.toLowerCase()}`, unit, "unit", result, rawId, units, concepts));
+        concepts.forEach(topic => addStat(`topic:${topic.toLowerCase()}`, topic, "topic", result, rawId, units, concepts));
+      }
+    });
+  });
+
+  return Object.values(stats).map(item => {
+    // Accuracy must use answered questions only. Unanswered questions are practice needs,
+    // not evidence of an incorrect answer or a measured 0% accuracy.
+    const answeredCount = item.correct + item.wrong;
+    const accuracy = answeredCount > 0 ? Math.round((item.correct / answeredCount) * 100) : null;
     return {
-        A:source.A ?? source.a ?? "",
-        B:source.B ?? source.b ?? "",
-        C:source.C ?? source.c ?? "",
-        D:source.D ?? source.d ?? ""
+      ...item, answeredCount, accuracy,
+      level: answeredCount === 0 ? "unmeasured" : accuracy >= 75 ? "strong" : accuracy >= 50 ? "medium" : "weak",
+      units: [...item.units], concepts: [...item.concepts], questionIds: [...item.questionIds]
     };
-}
-
-function completeOptions(){
-    const o=getOptions();
-    return Boolean(o.A && o.B && o.C && o.D);
+  }).sort((a, b) => (a.accuracy ?? 101) - (b.accuracy ?? 101) || b.attempted - a.attempted);
 }
 
 /* =========================================================
-   STRUCTURED DATA HELPERS
+   STATISTICS
 ========================================================= */
 
-function firstValue(...values){
-    return values.find(v=>v!==undefined && v!==null && v!=="");
+function renderStatistics(stats) {
+
+  // Count every saved question result, even when its knowledge mapping is absent.
+  // Entity metrics remain based only on supported, explicit mappings.
+  const totalAttempts = testHistory.reduce((sum, test) =>
+    sum + (Array.isArray(test.question_results) ? test.question_results.length : 0), 0);
+
+  const weakEntities = stats.filter(item => item.category === "entity" && item.answeredCount > 0 && item.accuracy < 50).length;
+  const revisionItems = stats.filter(item => item.answeredCount === 0 || item.accuracy < 75).length;
+  const mappedQuestionIds = new Set();
+  const hasEmbeddedEntities = values => Array.isArray(values) && values.some(value => {
+    if (typeof value === "string" || typeof value === "number") return String(value).trim() !== "";
+    return !!(value && typeof value === "object" && String(value.name ?? value.label ?? value.title ?? value.entity_name ?? value.id ?? "").trim());
+  });
+  const mappingIds = new Set(mappings.flatMap(mapping =>
+    [mapping.pyq_id, mapping.question_id, mapping.questionId, mapping.id]
+      .filter(value => value !== undefined && value !== null && String(value).trim())
+      .map(value => String(value).trim().toLowerCase())
+  ));
+  const aliases = new Map();
+  pyqDatabase.forEach(question => {
+    const ids = [question.pyq_id, question.question_id, question.questionId, question.id]
+      .filter(value => value !== undefined && value !== null && String(value).trim())
+      .map(value => String(value).trim().toLowerCase());
+    if (ids.some(id => mappingIds.has(id))) ids.forEach(id => aliases.set(id, true));
+  });
+
+  testHistory.forEach(test => {
+    if (!Array.isArray(test.question_results)) return;
+    test.question_results.forEach(result => {
+      const id = String(result.question_id ?? result.questionId ?? result.pyq_id ?? result.id ?? "").trim().toLowerCase();
+      if (id && (mappingIds.has(id) || aliases.has(id) ||
+          hasEmbeddedEntities(result.knowledge_entities ?? result.knowledgeEntities ?? result.knowledge_entity ?? result.knowledgeEntity))) {
+        mappedQuestionIds.add(id);
+      }
+    });
+  });
+
+  document.getElementById("totalAttempts").textContent = totalAttempts;
+  document.getElementById("weakEntities").textContent = weakEntities;
+  document.getElementById("revisionItems").textContent = revisionItems;
+  document.getElementById("mappedPyqs").textContent = mappedQuestionIds.size;
 }
 
-function getPassage(){
-    return firstValue(
-        q.passage,
-        q.comprehension_passage,
-        q.comprehensionPassage,
-        q.passage_text,
-        q.reading_passage
+/* =========================================================
+   PRIORITY QUEUE
+========================================================= */
+
+function renderPriorityQueue(stats) {
+  const container = document.getElementById("priorityContainer");
+  const revisionItems = stats
+    .filter(item => (item.answeredCount === 0 || item.accuracy < 75) && item.category !== "unclassified")
+    .sort((a, b) => (a.accuracy ?? 101) - (b.accuracy ?? 101) || b.attempted - a.attempted);
+
+  document.getElementById("priorityCount").textContent =
+    `${revisionItems.length} ${revisionItems.length === 1 ? "item" : "items"}`;
+
+  if (!revisionItems.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div style="font-size:42px;">🎉</div>
+        <strong>No supported revision priorities detected yet.</strong>
+        <div class="small mt-2">
+          Saved question attempts are counted above. Entity priorities require explicit entity links; unit/topic priorities require source-backed unit or topic labels.
+        </div>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="small text-secondary mb-3">
+      Entity, unit and topic priorities are separated by source type. Placeholder labels such as “Unclassified” are not treated as revision topics.
+    </div>
+    ${revisionItems.map(item => createPriorityCard(item)).join("")}`;
+}
+
+
+/* =========================================================
+   PRIORITY CARD
+========================================================= */
+
+function createPriorityCard(
+  item
+) {
+
+  const priority =
+    getPriority(
+      item.accuracy,
+      item.answeredCount
     );
-}
 
-function getStatements(){
-    return firstValue(
-        q.statements,
-        q.statement_list,
-        q.statementList
-    );
-}
 
-function getMatchData(){
-    const data=firstValue(
-        q.matching,
-        q.matching_data
-    );
+  const priorityClass =
+    priority === "HIGH"
 
-    if(data && typeof data==="object" && !Array.isArray(data))
-        return data;
+      ? "priority-high"
 
-    const left=firstValue(q.list_i,q.listI,q.list_1,q.match_list_i);
-    const right=firstValue(q.list_ii,q.listII,q.list_2,q.match_list_ii);
+      : priority === "MEDIUM" || priority === "PRACTICE"
 
-    return {left,right};
-}
+        ? "priority-medium"
 
-function normaliseList(list){
-    if(!list) return [];
-    if(Array.isArray(list)) return list;
-    if(typeof list==="object"){
-        return Object.entries(list).map(([key,value])=>({
-            key,
-            value: typeof value==="object" ? (value.text ?? value.value ?? "") : value
-        }));
-    }
-    return [];
-}
+        : "priority-low";
 
-function renderStructuredQuestion(){
-    const type=detectType();
-    const container=$("question");
-    const stem=String(
-        q.question_stem ??
-        q.questionStem ??
-        q.stem ??
-        q.question ??
-        ""
-    );
 
-    $("questionType").textContent=type;
-    $("type").textContent=type;
+  const cardClass =
+    priority === "HIGH"
 
-    let html="";
+      ? "high"
 
-    /* Reading comprehension: passage first, then original question. */
-    if(type==="Reading Comprehension"){
-        const passage=getPassage();
+      : priority === "MEDIUM" || priority === "PRACTICE"
 
-        if(passage){
-            html += `
-                <div class="structure-title">Passage</div>
-                <div class="passage-box">${esc(passage)}</div>
-            `;
-        }
+        ? "medium"
 
-        html += `<div class="question-stem">${esc(stem)}</div>`;
-        container.innerHTML=html;
-        return;
-    }
+        : "low";
 
-    /* Match the Following: preserve both lists and the stem. */
-    if(type==="Match the Following"){
-        const data=getMatchData();
-        const left=normaliseList(data.left ?? data.listI ?? data.list_i);
-        const right=normaliseList(data.right ?? data.listII ?? data.list_ii);
 
-        html += `<div class="question-stem">${esc(stem)}</div>`;
+  return `
 
-        if(left.length || right.length){
-            const count=Math.max(left.length,right.length);
+    <div class="
+      knowledge-card
+      ${cardClass}
+    ">
 
-            html += `
-                <div class="structure-title">Match the Following</div>
-                <table class="match-table">
-                    <thead>
-                        <tr>
-                            <th>List I</th>
-                            <th>List II</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
+      <div class="
+        d-flex
+        justify-content-between
+        align-items-start
+        flex-wrap
+        gap-3
+      ">
 
-            for(let i=0;i<count;i++){
-                const l=left[i];
-                const r=right[i];
 
-                const lv=typeof l==="object"
-                    ? `${l.key ? esc(l.key)+". " : ""}${esc(l.value ?? "")}`
-                    : esc(l);
+        <div>
 
-                const rv=typeof r==="object"
-                    ? `${r.key ? esc(r.key)+". " : ""}${esc(r.value ?? "")}`
-                    : esc(r);
+          <div class="knowledge-name">
 
-                html += `<tr><td>${lv}</td><td>${rv}</td></tr>`;
+            ${item.category === "entity" ? "🧠" : item.category === "unit" ? "📘" : "🧩"} ${escapeHTML(item.name)}
+
+          </div>
+
+
+          <div class="small text-secondary">
+
+            ${item.attempted} question records •
+            ${item.correct} correct •
+            ${item.wrong} wrong •
+            ${item.unanswered} unanswered
+
+          </div>
+
+        </div>
+
+
+        <span class="
+          tag
+          ${priorityClass}
+        ">
+
+          ${priority === "PRACTICE" ? "PRACTICE NEEDED" : `${priority} PRIORITY`} · ${item.category === "entity" ? "ENTITY" : item.category === "unit" ? "UNIT" : "TOPIC"}
+
+        </span>
+
+      </div>
+
+
+      <div class="row align-items-center mt-3">
+
+
+        <div class="col-md-2">
+
+          <div class="
+            knowledge-score
+            ${
+              priority === "HIGH"
+
+                ? "score-high"
+
+                : priority === "MEDIUM" || priority === "PRACTICE"
+
+                  ? "score-medium"
+
+                  : "score-low"
             }
+          ">
 
-            html += `</tbody></table>`;
-        }
+            ${item.accuracy === null ? "—" : `${item.accuracy}%`}
 
-        container.innerHTML=html;
-        return;
-    }
+          </div>
 
-    /* Statement-based: preserve every supplied statement. */
-    if(type==="Statement-based"){
-        html += `<div class="question-stem">${esc(stem)}</div>`;
 
-        const statements=normaliseList(getStatements());
+          <div class="small text-secondary">
 
-        if(statements.length){
-            html += `<div class="structure-title">Statements</div><ol class="statement-list">`;
+            ${item.accuracy === null ? "Accuracy not measured" : "Accuracy of answered questions"}
 
-            statements.forEach((s,index)=>{
-                const value=typeof s==="object"
-                    ? (s.text ?? s.value ?? "")
-                    : s;
+          </div>
 
-                html += `<li>${esc(value)}</li>`;
-            });
+        </div>
 
-            html += `</ol>`;
-        }
 
-        container.innerHTML=html;
-        return;
-    }
+        <div class="col-md-10">
 
-    /* Assertion–Reason: preserve the two original parts. */
-    if(type==="Assertion–Reason"){
-        const assertion=firstValue(
-            q.assertion,
-            q.assertion_text,
-            q.assertionText
-        );
+          <div class="progress">
 
-        const reason=firstValue(
-            q.reason,
-            q.reason_text,
-            q.reasonText
-        );
+            <div
+              class="progress-bar"
+              style="width:${item.accuracy ?? 0}%">
 
-        html += `<div class="question-stem">${esc(stem)}</div>`;
+            </div>
 
-        if(assertion){
-            html += `<div class="passage-box"><strong>Assertion (A):</strong><br>${esc(assertion)}</div>`;
-        }
+          </div>
 
-        if(reason){
-            html += `<div class="passage-box"><strong>Reason (R):</strong><br>${esc(reason)}</div>`;
-        }
+        </div>
 
-        container.innerHTML=html;
-        return;
-    }
+      </div>
 
-    /*
-       Chronology / Sequence:
-       Preserve the source presentation: Question heading, question stem,
-       the four labelled works/items, then an Options heading.
-       The A-D option combinations are rendered separately below.
-    */
-    if(type==="Chronology / Sequence"){
-        const match=stem.match(/^(.*?)(?:\s+)(A\.\s+.*?)(?:;\s*|\n+)(B\.\s+.*?)(?:;\s*|\n+)(C\.\s+.*?)(?:;\s*|\n+)(D\.\s+.*?)(?:\.\s*)?(?:Choose|Select|Which|$)/i);
 
-        if(match){
-            const clean=v=>v.replace(/[;.]\s*$/,'').trim();
-            html += `<div class="question-display-heading">Question</div>`;
-            html += `<div class="question-stem">${esc(clean(match[1]))}</div>`;
-            html += `<ol class="question-items" type="A">`;
-            html += `<li>${esc(clean(match[2].replace(/^A\.\s*/i,'')))}</li>`;
-            html += `<li>${esc(clean(match[3].replace(/^B\.\s*/i,'')))}</li>`;
-            html += `<li>${esc(clean(match[4].replace(/^C\.\s*/i,'')))}</li>`;
-            html += `<li>${esc(clean(match[5].replace(/^D\.\s*/i,'')))}</li>`;
-            html += `</ol>`;
-            html += `<div class="options-heading">Options</div>`;
-            container.innerHTML=html;
-            return;
-        }
+      ${
+        item.units.length
 
-        // Fallback: still use the original wording if it is not safely parseable.
-        container.innerHTML=`<div class="question-display-heading">Question</div><div class="question-stem">${esc(stem)}</div><div class="options-heading">Options</div>`;
-        return;
-    }
+          ? `
 
-    /* Normal MCQ: use the original wording without rewriting it. */
-    container.innerHTML=`<div class="question-display-heading">Question</div><div class="question-stem">${esc(stem)}</div><div class="options-heading">Options</div>`;
+            <div class="mt-3">
+
+              <strong class="small">
+
+                Units:
+
+              </strong>
+
+
+              ${item.units
+                .map(
+                  unit => `
+
+                    <span class="
+                      tag
+                      unit-tag
+                    ">
+
+                      ${escapeHTML(
+                        unit
+                      )}
+
+                    </span>
+
+                  `
+                )
+                .join("")
+              }
+
+            </div>
+
+          `
+
+          : ""
+      }
+
+
+      ${
+        item.concepts.length
+
+          ? `
+
+            <div class="mt-2">
+
+              <strong class="small">
+
+                Concepts:
+
+              </strong>
+
+
+              ${item.concepts
+                .map(
+                  concept => `
+
+                    <span class="tag">
+
+                      ${escapeHTML(
+                        concept
+                      )}
+
+                    </span>
+
+                  `
+                )
+                .join("")
+              }
+
+            </div>
+
+          `
+
+          : ""
+      }
+
+
+      <div class="d-flex gap-2 flex-wrap mt-4">
+
+
+        <button
+          type="button"
+          class="btn btn-navy btn-sm"
+          data-revision-action="retest"
+          data-revision-name="${escapeHTML(item.name)}"
+          data-revision-ids="${escapeHTML(JSON.stringify(item.questionIds))}"
+          data-revision-category="${escapeHTML(item.category)}">
+
+          🔄 Retry Connected ${escapeHTML(item.category === "entity" ? "PYQs" : "Questions")}
+
+        </button>
+
+
+        <button
+          type="button"
+          class="btn btn-outline-secondary btn-sm"
+          data-revision-action="source"
+          data-revision-name="${escapeHTML(item.name)}"
+          data-revision-category="${escapeHTML(item.category)}">
+
+          📚 ${item.category === "entity" ? "View Knowledge" : "View Source Context"}
+
+        </button>
+
+
+      </div>
+
+    </div>
+
+  `;
+
 }
 
+
+
 /* =========================================================
-   LOAD
+   PRIORITY CALCULATION
 ========================================================= */
 
-function load(){
-    try{
-        const raw=localStorage.getItem(KEY);
+function getPriority(
+  accuracy,
+  answeredCount = 1
+) {
 
-        if(!raw){
-            empty();
-            return;
-        }
+  if (answeredCount === 0 || accuracy === null || accuracy === undefined) {
+    return "PRACTICE";
+  }
 
-        item=JSON.parse(raw);
+  if (
+    accuracy < 50
+  ) {
 
-        q=item.questionData || item.question || item;
+    return "HIGH";
 
-        if(!q || typeof q!=="object" || !q.question){
-            fail("The selected retest question could not be loaded.");
-            return;
-        }
+  }
 
-        if(!completeOptions() || !key(q.correct_answer || q.correctAnswer)){
-            fail("This question cannot be scored because complete MCQ data is unavailable.");
-            return;
-        }
 
-        $("app").classList.remove("d-none");
+  if (
+    accuracy < 75
+  ) {
 
-        $("entity").textContent=
-            q.knowledge_entity ||
-            q.knowledgeEntity ||
-            item.knowledge_entity ||
-            "—";
+    return "MEDIUM";
 
-        $("concept").textContent=
-            q.concept ||
-            item.concept ||
-            "—";
+  }
 
-        $("unit").textContent=
-            q.unit ||
-            item.unit ||
-            "—";
 
-        $("paper").textContent=
-            q.paper ||
-            item.paper ||
-            "Paper II — English";
+  return "LOW";
 
-        const attempts=Number(
-            item.attempts ??
-            q.attempts ??
-            0
-        );
-
-        const correct=Number(
-            item.correct_count ??
-            q.correct_count ??
-            0
-        );
-
-        $("attempts").textContent=attempts;
-
-        $("accuracy").textContent=
-            (attempts ? Math.round(correct/attempts*100) : 0)+"%";
-
-        const p=String(
-            item.priority ||
-            item.revision_priority ||
-            "low"
-        ).toLowerCase();
-
-        $("priority").textContent=
-            p==="high" ? "HIGH PRIORITY" :
-            p==="medium" ? "MEDIUM PRIORITY" :
-            "LOW PRIORITY";
-
-        $("priority").className=
-            "badge "+
-            (
-                p==="high"
-                ? "bg-danger"
-                : p==="medium"
-                ? "bg-warning text-dark"
-                : "bg-success"
-            );
-
-        renderStructuredQuestion();
-        renderOptions();
-
-        palette();
-        start();
-
-    }catch(e){
-        console.error("Revision Retest load error:",e);
-        fail("Unable to load the revision retest.");
-    }
 }
 
+
+
 /* =========================================================
-   OPTIONS
+   KNOWLEDGE PERFORMANCE
 ========================================================= */
 
-function renderOptions(){
-    const o=getOptions();
-    const box=$("options");
+function renderPerformance(stats) {
+  const container = document.getElementById("performanceContainer");
+  const entityStats = stats.filter(item => item.category === "entity");
 
-    box.innerHTML="";
+  document.getElementById("performanceCount").textContent =
+    `${entityStats.length} ${entityStats.length === 1 ? "entity" : "entities"}`;
 
-    ["A","B","C","D"].forEach(l=>{
-        const el=document.createElement("label");
+  if (!entityStats.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div style="font-size:42px;">🧠</div>
+        <strong>No question-level knowledge-entity performance available yet.</strong>
+        <div class="small mt-2">
+          Unit/topic revision is shown separately above. Entity performance appears only when a saved result or source mapping explicitly identifies a knowledge entity.
+        </div>
+      </div>`;
+    return;
+  }
 
-        el.className="opt";
+  container.innerHTML = entityStats.map(item => createPerformanceCard(item)).join("");
+}
 
-        el.innerHTML=`
-            <input type="radio" name="ans" value="${l}">
-            <span class="letter">${l}.</span>
-            <span>${esc(o[l])}</span>
-        `;
 
-        el.onclick=()=>{
-            if(submitted)return;
+/* =========================================================
+   PERFORMANCE CARD
+========================================================= */
 
-            selected=l;
+function createPerformanceCard(
+  item
+) {
 
-            document.querySelectorAll(".opt")
-                .forEach(x=>x.classList.remove("sel"));
+  const priority =
+    getPriority(
+      item.accuracy,
+      item.answeredCount
+    );
 
-            el.classList.add("sel");
 
-            palette();
-        };
+  let borderClass =
+    "low";
 
-        box.appendChild(el);
+
+  if (
+    priority === "HIGH"
+  ) {
+
+    borderClass =
+      "high";
+
+  }
+
+  else if (
+    priority === "MEDIUM"
+  ) {
+
+    borderClass =
+      "medium";
+
+  }
+
+
+  return `
+
+    <div class="
+      knowledge-card
+      ${borderClass}
+    ">
+
+      <div class="
+        d-flex
+        justify-content-between
+        align-items-start
+        flex-wrap
+        gap-3
+      ">
+
+        <div>
+
+          <div class="knowledge-name">
+
+            ${escapeHTML(
+              item.name
+            )}
+
+          </div>
+
+
+          <div class="small text-secondary">
+
+            Explicitly mapped knowledge entity
+
+          </div>
+
+        </div>
+
+
+        <div class="
+          knowledge-score
+          ${
+            item.accuracy === null
+              ? ""
+              : item.accuracy < 50
+                ? "score-high"
+                : item.accuracy < 75
+                  ? "score-medium"
+                  : "score-low"
+          }
+        ">
+
+          ${item.accuracy === null ? "—" : `${item.accuracy}%`}
+
+        </div>
+
+      </div>
+
+
+      <div class="progress mt-3">
+
+        <div
+          class="progress-bar"
+          style="width:${item.accuracy ?? 0}%">
+
+        </div>
+
+      </div>
+
+
+      <div class="row g-3 mt-2">
+
+
+        <div class="col-4">
+
+          <div class="text-center">
+
+            <strong>
+
+              ${item.attempted}
+
+            </strong>
+
+
+            <div class="small text-secondary">
+
+              Attempted
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="col-4">
+
+          <div class="text-center">
+
+            <strong class="text-success">
+
+              ${item.correct}
+
+            </strong>
+
+
+            <div class="small text-secondary">
+
+              Correct
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="col-4">
+
+          <div class="text-center">
+
+            <strong class="text-danger">
+
+              ${item.wrong}
+
+            </strong>
+
+
+            <div class="small text-secondary">
+
+              Wrong
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      ${
+        item.units.length
+
+          ? `
+
+            <div class="mt-3">
+
+              ${item.units
+                .map(
+                  unit => `
+
+                    <span class="
+                      tag
+                      unit-tag
+                    ">
+
+                      ${escapeHTML(
+                        unit
+                      )}
+
+                    </span>
+
+                  `
+                )
+                .join("")
+              }
+
+            </div>
+
+          `
+
+          : ""
+      }
+
+
+      ${
+        item.concepts.length
+
+          ? `
+
+            <div class="mt-2">
+
+              ${item.concepts
+                .map(
+                  concept => `
+
+                    <span class="tag">
+
+                      ${escapeHTML(
+                        concept
+                      )}
+
+                    </span>
+
+                  `
+                )
+                .join("")
+              }
+
+            </div>
+
+          `
+
+          : ""
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   FIND PYQ BY ID
+
+   Handles common ID field variations.
+========================================================= */
+
+function findPyqById(questionId) {
+  const target = String(questionId ?? "").trim().toLowerCase();
+  if (!target) return null;
+
+  return pyqDatabase.find(question => {
+    const candidates = [
+      question.id,
+      question.pyq_id,
+      question.question_id,
+      question.questionId
+    ];
+    return candidates.some(value =>
+      String(value ?? "").trim().toLowerCase() === target
+    );
+  }) || null;
+}
+
+
+
+/* =========================================================
+   GET CONNECTED PYQS
+========================================================= */
+
+function getConnectedPyqs(entityName, candidateIds = []) {
+  const target = normalize(entityName);
+  const ids = Array.isArray(candidateIds) ? [...candidateIds] : [];
+
+  // Use exact question IDs already captured from saved question-level history.
+  // This does not infer or create knowledge-entity relationships.
+  if (ids.length) {
+    return [...new Set(ids.map(id => String(id ?? "").trim().toLowerCase()).filter(Boolean))]
+      .map(id => findPyqById(id))
+      .filter(Boolean)
+      .filter(question => {
+        const options = getOptions(question);
+        const answer = getCorrectAnswer(question, options);
+        return options.length >= 2 && String(answer ?? "").trim() !== "";
+      });
+  }
+
+  // If no saved IDs were supplied, use only explicit source mapping connections.
+  const directIds = mappings.filter(mapping => {
+    const entities = Array.isArray(mapping.knowledge_entities) ? mapping.knowledge_entities : [];
+    return entities.some(entity => normalize(
+      typeof entity === "object"
+        ? (entity.name ?? entity.label ?? entity.title ?? entity.id ?? "")
+        : entity
+    ) === target);
+  }).map(mapping => mapping.pyq_id ?? mapping.question_id ?? mapping.questionId ?? mapping.id);
+
+  const fallbackIds = directIds.length ? [] : mappings.filter(mapping => {
+    const labels = [
+      ...normalizeLabelsForRetest(mapping.units ?? mapping.unit),
+      ...normalizeLabelsForRetest(mapping.topics ?? mapping.topic),
+      ...normalizeLabelsForRetest(mapping.concepts)
+    ];
+    return labels.some(label => normalize(label) === target);
+  }).map(mapping => mapping.pyq_id ?? mapping.question_id ?? mapping.questionId ?? mapping.id);
+
+  return [...new Set([...directIds, ...fallbackIds]
+    .map(id => String(id ?? "").trim().toLowerCase())
+    .filter(Boolean))]
+    .map(id => findPyqById(id))
+    .filter(Boolean)
+    .filter(question => {
+      const options = getOptions(question);
+      const answer = getCorrectAnswer(question, options);
+      return options.length >= 2 && String(answer ?? "").trim() !== "";
     });
 }
 
+
+
+function normalizeLabelsForRetest(values) {
+  if (values === undefined || values === null) return [];
+  const list = Array.isArray(values) ? values : [values];
+  return list.map(value => {
+    if (typeof value === "string" || typeof value === "number") return String(value).trim();
+    if (value && typeof value === "object") return String(value.name ?? value.label ?? value.title ?? value.id ?? "").trim();
+    return "";
+  }).filter(Boolean);
+}
+
 /* =========================================================
-   PALETTE / TIMER
+   START RETEST
 ========================================================= */
 
-function palette(){
-    const b=$("palette");
+function startRetestForEntity(entityName, questionIds = [], category = "topic") {
+  const questions = getConnectedPyqs(entityName, questionIds);
 
-    b.className=
-        reviewed
-        ? "reviewed"
-        : selected
-        ? "answered"
-        : "";
+  if (!questions.length) {
+    alert(
+      `No eligible source questions could be matched to "${entityName}".\n\n` +
+      "This revision item remains available, but a retest needs a matching question ID, " +
+      "at least two options, and a usable answer key. No connection has been guessed."
+    );
+    return;
+  }
 
-    b.textContent=
-        reviewed
-        ? "1★"
-        : "1";
+  currentRetestEntity = entityName;
+  currentRetestCategory = ["entity", "unit", "topic"].includes(category) ? category : "topic";
+  currentRetestQuestions = questions;
+  retestResults = [];
+
+  const retestSection = document.getElementById("retestSection");
+  if (!retestSection) {
+    alert("The retest section is missing from revision.html.");
+    return;
+  }
+
+  retestSection.classList.remove("hidden");
+  renderRetestQuestions();
+  retestSection.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-function start(){
-    clearInterval(timer);
 
-    timer=setInterval(()=>{
-        if(submitted)return;
 
-        left--;
+/* =========================================================
+   SHARED QUESTION-TYPE RENDERER
+   Used in the live test, immediate feedback and review.
+   It formats source text only; it never invents or changes
+   question wording, options, answer keys or relationships.
+========================================================= */
+function getSourceExplanation(question) {
+  const value = question?.explanation ?? question?.explanation_text ?? "";
+  return typeof value === "string" ? value.trim() : "";
+}
 
-        const m=String(Math.floor(left/60)).padStart(2,"0");
-        const s=String(left%60).padStart(2,"0");
+function renderExplanationBlock(question) {
+  const explanation = getSourceExplanation(question);
+  // A bare source/key citation is not an explanation. Do not display it as one.
+  if (!explanation) return "";
+  const citationOnly = /^(?:official\s+)?(?:NTA\s+)?(?:final\s+)?answer\s+key\b/i.test(explanation)
+    || /lists?\s+option\s+[1-4A-D]\b/i.test(explanation)
+    || /answer\s+key\s+(?:for|of)\s+(?:exam|question|paper)\b/i.test(explanation)
+    || /https?:\/\/\S+/i.test(explanation) && explanation.length < 180;
+  if (citationOnly) return "";
+  return `<div class="explanation-box"><strong>Explanation</strong><div class="mt-2">${escapeHTML(explanation)}</div></div>`;
+}
 
-        $("clock").textContent=m+":"+s;
+function detectQuestionType(question) {
+  const text = String(question.question ?? question.text ?? "");
+  const topic = String(question.topic ?? "");
+  const combined = `${text} ${topic}`.toLowerCase();
 
-        if(left<=20)
-            $("timer").classList.add("danger");
+  if (/\bassertion\s*\(?\s*a\s*\)?\s*[:\-]/i.test(text) &&
+      /\breason\s*\(?\s*r\s*\)?\s*[:\-]/i.test(text)) return "assertion-reason";
+  if (/\bmatch\b/i.test(text) && /\blist\s*[- ]?i\b/i.test(text) && /\blist\s*[- ]?ii\b/i.test(text)) return "match-following";
+  if (/\bmatch\s+(the\s+)?following\b/i.test(text)) return "match-following";
+  if (/\bchronolog(?:y|ical)\b|\bpublication\s+of\s+the\s+works\b|\bsequence\b|\barrange\b.*\b(order|sequence)\b|\bcorrect order\b/i.test(combined)) return "chronology";
+  // Statement-based questions commonly introduce labelled A./B./C. statements.
+  if (/\bstatements?\b/i.test(text) && /(?:^|[\s;])A\s*[.)]\s+/i.test(text) && /(?:^|[\s;])B\s*[.)]\s+/i.test(text)) return "statement-based";
+  return "standard";
+}
 
-        if(left<=0){
-            clearInterval(timer);
-            submit(true);
+function formatQuestionStem(question) {
+  const raw = String(question.question ?? question.text ?? "");
+  const type = detectQuestionType(question);
+  const typeLabels = {
+    "match-following": "Match the Following",
+    "assertion-reason": "Assertion–Reason",
+    chronology: "Chronology",
+    "statement-based": "Statement-based Question",
+    standard: "Question"
+  };
+  const label = typeLabels[type] || "Question";
+  const safe = value => escapeHTML(String(value ?? "").trim());
+  const readable = value => safe(value).replace(/\r\n?/g, "\n").replace(/\n/g, "<br>");
+  const itemPattern = /(?:^|[\s;])([A-E])\s*[.)]\s+/g;
+  const romanPattern = /(?:^|[\s;])((?:IV|III|II|I))\s*[.)]\s+/g;
+  const parseItems = (value, pattern) => {
+    const matches = [...value.matchAll(pattern)];
+    if (!matches.length) return [];
+    return matches.map((m, i) => {
+      const start = m.index + m[0].length;
+      const end = i + 1 < matches.length ? matches[i + 1].index : value.length;
+      return { label: m[1].toUpperCase(), text: value.slice(start, end).replace(/^[\s.:—-]+|[\s;,]+$/g, "").trim() };
+    }).filter(item => item.text);
+  };
+  const renderItems = items => items.map(item =>
+    `<div class="structured-statement"><strong>${safe(item.label)}.</strong> ${safe(item.text)}</div>`
+  ).join("");
+  const header = `<div class="question-type-label">${label}</div>`;
+
+  if (type === "match-following") {
+    const listIHeading = raw.search(/\bLIST\s*[- ]?I\b/i);
+    const listIIHeading = raw.search(/\bLIST\s*[- ]?II\b/i);
+    // Source questions occur in both forms: headings before both lists, or
+    // headings embedded in the instruction followed by A./B. and I./II. items.
+    const searchFrom = Math.max(listIHeading, listIIHeading, 0);
+    const listOneStartMatch = /(?:^|[\s;])A\s*[.)]\s+/.exec(raw.slice(searchFrom));
+    if (listOneStartMatch) {
+      const startOne = searchFrom + listOneStartMatch.index;
+      const romanOneMatch = /(?:^|[\s;])I\s*[.)]\s+/.exec(raw.slice(startOne + listOneStartMatch[0].length));
+      const explicitListTwo = listIIHeading > startOne ? listIIHeading : -1;
+      let boundary = -1;
+      let startTwo = -1;
+      if (explicitListTwo >= 0 && romanOneMatch) {
+        boundary = explicitListTwo;
+        const romanAfterHeading = /(?:^|[\s;])I\s*[.)]\s+/.exec(raw.slice(explicitListTwo));
+        if (romanAfterHeading) startTwo = explicitListTwo + romanAfterHeading.index;
+      } else if (romanOneMatch) {
+        boundary = startOne + listOneStartMatch[0].length + romanOneMatch.index;
+        startTwo = boundary;
+      }
+      if (boundary > startOne && startTwo >= 0) {
+        const prompt = raw.slice(0, startOne).replace(/[\s:;,—-]+$/g, "").trim();
+        const itemsI = parseItems(raw.slice(startOne, boundary), itemPattern);
+        const itemsII = parseItems(raw.slice(startTwo), romanPattern);
+        if (itemsI.length && itemsII.length) {
+          return `${header}<div class="question-stem question-type-match">${readable(prompt || "Match the following items.")}</div>
+            <div class="match-lists-grid">
+              <section class="match-list-panel" aria-label="List I"><h6>LIST I</h6>${itemsI.map(item => `<div class="match-list-item"><strong>${safe(item.label)}.</strong> ${safe(item.text)}</div>`).join("")}</section>
+              <section class="match-list-panel" aria-label="List II"><h6>LIST II</h6>${itemsII.map(item => `<div class="match-list-item"><strong>${safe(item.label)}.</strong> ${safe(item.text)}</div>`).join("")}</section>
+            </div>`;
         }
-    },1000);
+      }
+    }
+  }
+
+  if (type === "assertion-reason") {
+    const assertionMatch = /\bAssertion\s*\(?\s*A\s*\)?\s*[:\-]\s*/i.exec(raw);
+    const reasonMatch = /\bReason\s*\(?\s*R\s*\)?\s*[:\-]\s*/i.exec(raw);
+    if (assertionMatch && reasonMatch && reasonMatch.index > assertionMatch.index) {
+      const intro = raw.slice(0, assertionMatch.index).trim();
+      const assertion = raw.slice(assertionMatch.index + assertionMatch[0].length, reasonMatch.index).trim();
+      const reason = raw.slice(reasonMatch.index + reasonMatch[0].length).trim();
+      return `${header}${intro ? `<div class="question-stem">${readable(intro)}</div>` : ""}
+        <div class="structured-statement assertion-block"><strong>Assertion (A)</strong>${readable(assertion)}</div>
+        <div class="structured-statement reason-block"><strong>Reason (R)</strong>${readable(reason)}</div>`;
+    }
+  }
+
+  if (type === "chronology" || type === "statement-based") {
+    const items = parseItems(raw, itemPattern);
+    // Only structure when at least three labelled source items were actually found.
+    if (items.length >= 3) {
+      const first = raw.search(/(?:^|[\s;])A\s*[.)]\s+/);
+      const intro = first > 0 ? raw.slice(0, first).replace(/[\s:;,—-]+$/g, "").trim() : "";
+      return `${header}${intro ? `<div class="question-stem">${readable(intro)}</div>` : ""}
+        <div class="${type === "chronology" ? "chronology-items" : "statement-items"}">${renderItems(items)}</div>`;
+    }
+  }
+
+  return `${header}<div class="question-stem question-type-standard" style="white-space:pre-line">${readable(raw)}</div>`;
 }
+
+function renderReviewOptions(question, selectedKey, correctKey) {
+  const options = getOptions(question);
+  return `<div class="review-options mt-3"><strong>Options</strong>${
+    Object.entries(options).map(([key, value]) => {
+      const isCorrect = normaliseOptionKey(key) === normaliseOptionKey(correctKey);
+      const isSelected = selectedKey && normaliseOptionKey(key) === normaliseOptionKey(selectedKey);
+      const classes = ["review-option", isCorrect ? "review-option-correct" : "", isSelected && !isCorrect ? "review-option-wrong" : ""].filter(Boolean).join(" ");
+      const marker = isCorrect ? " ✓ Correct answer" : (isSelected ? " ✕ Your answer" : "");
+      return `<div class="${classes}"><strong>${escapeHTML(key)}.</strong> ${escapeHTML(value)}${marker ? `<span class="review-option-marker">${escapeHTML(marker)}</span>` : ""}</div>`;
+    }).join("")
+  }</div>`;
+}
+
+/* =========================================================
+   RENDER RETEST QUESTIONS
+========================================================= */
+
+function renderRetestQuestions() {
+
+  const container =
+    document.getElementById(
+      "retestContainer"
+    );
+
+
+  if (
+    !currentRetestQuestions.length
+  ) {
+
+    container.innerHTML = `
+
+      <div class="empty-state">
+
+        No connected PYQs available.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = `
+
+    <div class="alert-info-custom mb-4">
+
+      <strong>
+
+        🔄 Retest Mode Active
+
+      </strong>
+
+
+      <div class="small mt-1">
+
+        Revision focus:
+        ${escapeHTML(
+          currentRetestEntity
+        )}
+
+        <br>
+
+        ${currentRetestQuestions.length}
+        connected PYQ(s) selected.
+
+      </div>
+
+    </div>
+
+
+    ${currentRetestQuestions
+      .map(
+        (
+          question,
+          index
+        ) =>
+          createRetestQuestion(
+            question,
+            index
+          )
+      )
+      .join("")
+    }
+
+
+    <div
+      id="retestSummary"
+      class="mt-3">
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   CREATE RETEST QUESTION
+========================================================= */
+
+function createRetestQuestion(
+  question,
+  index
+) {
+
+  const id =
+    getQuestionId(
+      question
+    );
+
+
+  const questionText =
+    getQuestionText(
+      question
+    );
+
+
+  const options =
+    getOptions(
+      question
+    );
+
+
+  const correctAnswer =
+    getCorrectAnswer(
+      question,
+      options
+    );
+
+
+  return `
+
+    <div
+      id="retest-question-${safeDomId(id)}"
+      class="pyq-card retest-active">
+
+      <div class="small text-secondary mb-2">
+
+        PYQ ${index + 1}
+
+        ${
+          question.year
+            ? ` • ${escapeHTML(
+                question.year
+              )}`
+            : ""
+        }
+
+        ${
+          question.session
+            ? ` • ${escapeHTML(
+                question.session
+              )}`
+            : ""
+        }
+
+      </div>
+
+
+      <div class="mb-3">
+
+        <span class="tag entity-tag">
+
+          📘 Revision focus:
+          ${escapeHTML(
+            currentRetestEntity
+          )}
+
+        </span>
+
+      </div>
+
+
+      <div class="question-prompt mb-3">
+
+        <div class="question-number h5">${index + 1}.</div>
+
+        ${formatQuestionStem(question)}
+
+      </div>
+
+
+      <div class="mt-3">
+
+        ${options
+          .map(
+            (
+              option,
+              optionIndex
+            ) =>
+              createOptionButton(
+                id,
+                option,
+                optionIndex,
+                correctAnswer
+              )
+          )
+          .join("")
+        }
+
+      </div>
+
+
+      <div
+        id="result-${safeDomId(id)}"
+        class="result-box hidden">
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   CREATE OPTION
+========================================================= */
+
+function createOptionButton(
+  questionId,
+  option,
+  optionIndex,
+  correctAnswer
+) {
+
+  const letter =
+    String.fromCharCode(
+      65 +
+      optionIndex
+    );
+
+
+  const optionText =
+    getOptionText(
+      option
+    );
+
+
+  const optionValue =
+    getOptionValue(
+      option,
+      letter
+    );
+
+
+  const buttonId =
+    `option-${safeDomId(
+      questionId
+    )}-${letter}`;
+
+
+  return `
+
+    <button
+      id="${buttonId}"
+      type="button"
+      class="option-btn"
+      onclick='answerRetestQuestion(
+        ${JSON.stringify(questionId)},
+        ${JSON.stringify(optionValue)},
+        ${JSON.stringify(letter)},
+        ${JSON.stringify(correctAnswer)}
+      )'>
+
+      <strong>
+
+        ${letter}.
+
+      </strong>
+
+      ${escapeHTML(
+        optionText
+      )}
+
+    </button>
+
+  `;
+
+}
+
+
+
+/* =========================================================
+   ANSWER RETEST QUESTION
+========================================================= */
+
+function answerRetestQuestion(
+  questionId,
+  selectedValue,
+  selectedLetter,
+  correctAnswer
+) {
+
+  const resultElement =
+    document.getElementById(
+      `result-${safeDomId(
+        questionId
+      )}`
+    );
+
+
+  if (!resultElement) {
+
+    return;
+
+  }
+
+
+  const previous =
+    retestResults.find(
+      item =>
+        String(
+          item.question_id
+        ) ===
+        String(
+          questionId
+        )
+    );
+
+
+  if (previous) {
+
+    return;
+
+  }
+
+
+  const isCorrect =
+    answersMatch(
+      selectedValue,
+      selectedLetter,
+      correctAnswer
+    );
+
+
+  const question =
+    findPyqById(
+      questionId
+    );
+
+
+  const options =
+    question
+      ? getOptions(
+          question
+        )
+      : [];
+
+
+  options.forEach(
+    (
+      option,
+      index
+    ) => {
+
+      const letter =
+        String.fromCharCode(
+          65 +
+          index
+        );
+
+
+      const button =
+        document.getElementById(
+          `option-${safeDomId(
+            questionId
+          )}-${letter}`
+        );
+
+
+      if (!button) {
+
+        return;
+
+      }
+
+
+      button.disabled =
+        true;
+
+
+      const optionValue =
+        getOptionValue(
+          option,
+          letter
+        );
+
+
+      if (
+        answersMatch(
+          optionValue,
+          letter,
+          correctAnswer
+        )
+      ) {
+
+        button.classList.add(
+          "correct"
+        );
+
+      }
+
+
+      if (
+        (
+          letter ===
+          selectedLetter
+        ) &&
+        !isCorrect
+      ) {
+
+        button.classList.add(
+          "wrong"
+        );
+
+      }
+
+    }
+  );
+
+
+  retestResults.push({
+
+    question_id:
+      questionId,
+
+    selected:
+      selectedValue,
+
+    selected_letter:
+      selectedLetter,
+
+    correct_answer:
+      correctAnswer,
+
+    is_correct:
+      isCorrect,
+
+    answered:
+      true
+
+  });
+
+
+  const correctText =
+    getCorrectAnswerDisplay(
+      correctAnswer,
+      options
+    );
+
+
+  resultElement.classList.remove(
+    "hidden"
+  );
+
+
+  resultElement.innerHTML =
+    isCorrect
+
+      ? `
+
+        <div class="text-success fw-bold">
+
+          ✅ Correct Answer!
+
+        </div>
+
+
+        <div class="small mt-2">
+
+          Your answer:
+          <strong>
+            ${escapeHTML(
+              selectedLetter
+            )}
+
+          </strong>
+
+        </div>
+
+
+        <div class="small mt-1">
+
+          Correct answer:
+          <strong>
+            ${escapeHTML(
+              correctText
+            )}
+          </strong>
+
+        </div>
+
+      `
+
+      : `
+
+        <div class="text-danger fw-bold">
+
+          ❌ Incorrect Answer
+
+        </div>
+
+
+        <div class="small mt-2">
+
+          Your answer:
+          <strong>
+            ${escapeHTML(
+              selectedLetter
+            )}
+          </strong>
+
+        </div>
+
+
+        <div class="small mt-1">
+
+          Correct answer:
+          <strong>
+            ${escapeHTML(
+              correctText
+            )}
+          </strong>
+
+        </div>
+
+      `;
+
+
+  renderRetestSummary();
+
+}
+
+
+
+/* =========================================================
+   RETEST SUMMARY
+========================================================= */
+
+function renderRetestSummary() {
+
+  const summary =
+    document.getElementById(
+      "retestSummary"
+    );
+
+
+  if (!summary) {
+
+    return;
+
+  }
+
+
+  const answered =
+    retestResults.length;
+
+
+  const correct =
+    retestResults.filter(
+      result =>
+        result.is_correct
+    ).length;
+
+
+  const total =
+    currentRetestQuestions.length;
+
+
+  if (
+    answered <
+    total
+  ) {
+
+    summary.innerHTML = `
+
+      <div class="alert-info-custom">
+
+        <strong>
+
+          Retest Progress:
+          ${answered}/${total}
+
+        </strong>
+
+
+        <div class="small mt-1">
+
+          Answer all connected PYQs to save
+          this retest round.
+
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const score =
+    total > 0
+
+      ? Math.round(
+          (
+            correct /
+            total
+          ) * 100
+        )
+
+      : 0;
+
+
+  summary.innerHTML = `
+
+    <div class="section-card border">
+
+      <div class="d-flex
+                  justify-content-between
+                  align-items-center
+                  flex-wrap gap-3">
+
+        <div>
+
+          <div class="eyebrow">
+
+            RETEST COMPLETE
+
+          </div>
+
+
+          <h3 class="h5 mb-1">
+
+            ${score}% — ${correct}/${total}
+
+          </h3>
+
+
+          <div class="small text-secondary">
+
+            Knowledge:
+            ${escapeHTML(
+              currentRetestEntity
+            )}
+
+          </div>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="btn btn-gold"
+          onclick="saveRetest()">
+
+          💾 Save Retest Result
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
 
 /* =========================================================
    SAVE RETEST
 ========================================================= */
 
-function save(data){
-    try{
-        const h=JSON.parse(
-            localStorage.getItem(HKEY)||"[]"
-        );
+function saveRetest() {
 
-        if(Array.isArray(h)){
-            h.push(data);
+  if (
+    !currentRetestQuestions.length
+  ) {
 
-            localStorage.setItem(
-                HKEY,
-                JSON.stringify(h)
-            );
-        }
-    }catch(e){
-        console.warn("Retest history save failed:",e);
-    }
+    return;
+
+  }
+
+
+  if (
+    retestResults.length !==
+    currentRetestQuestions.length
+  ) {
+
+    alert(
+      "Please answer all retest questions first."
+    );
+
+
+    return;
+
+  }
+
+
+  const correct =
+    retestResults.filter(
+      result =>
+        result.is_correct
+    ).length;
+
+
+  const total =
+    currentRetestQuestions.length;
+
+
+  const wrong =
+    retestResults.filter(
+      result =>
+        result.answered &&
+        !result.is_correct
+    ).length;
+
+
+  const score =
+    total > 0
+
+      ? Math.round(
+          (
+            correct /
+            total
+          ) * 100
+        )
+
+      : 0;
+
+
+  const now =
+    new Date().toISOString();
+
+
+  const retestRecord = {
+
+    id:
+      `retest-${Date.now()}`,
+
+    type:
+      "retest",
+
+    title:
+      `Retest — ${currentRetestEntity}`,
+
+    date:
+      now,
+
+    total:
+      total,
+
+    correct:
+      correct,
+
+    wrong:
+      wrong,
+
+    unanswered:
+      0,
+
+    score:
+      score,
+
+    question_results:
+      retestResults.map(
+        result => ({
+
+          question_id:
+            result.question_id,
+
+          // Keep the saved result compatible with the main Test Engine schema.
+          // Retain legacy retest fields as well so older readers remain compatible.
+          selected_answer:
+            result.selected_letter ?? result.selected,
+
+          selected:
+            result.selected,
+
+          selected_letter:
+            result.selected_letter,
+
+          correct_answer:
+            result.correct_answer,
+
+          is_correct:
+            result.is_correct === true,
+
+          answered:
+            true,
+
+          mode:
+            "retest",
+
+          revision_category:
+            currentRetestCategory,
+
+          revision_label:
+            currentRetestEntity,
+
+          // Persist the exact revision focus in its matching metadata field.
+          // Do not turn a unit or topic into a knowledge entity.
+          ...(currentRetestCategory === "entity"
+            ? {
+                knowledge_entity: currentRetestEntity,
+                knowledge_entities: [currentRetestEntity]
+              }
+            : currentRetestCategory === "unit"
+              ? { units: [currentRetestEntity] }
+              : { topics: [currentRetestEntity] })
+
+        })
+      )
+
+  };
+
+
+  testHistory.push(
+    retestRecord
+  );
+
+
+  if (
+    !saveHistory()
+  ) {
+
+    return;
+
+  }
+
+
+  alert(
+    `Retest saved successfully: ${score}%`
+  );
+
+
+  loadHistory();
+
+
+  renderRevisionPage();
+
+
+  closeRetest();
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
 }
 
-function bank(r){
-    try{
-        const b=JSON.parse(
-            localStorage.getItem(PKEY)||"[]"
-        );
 
-        if(!Array.isArray(b))return;
-
-        const id=q.id||q.question;
-        let found=false;
-
-        const u=b.map(x=>{
-            if(
-                (x.id||x.question)!==id &&
-                x.question!==q.question
-            ){
-                return x;
-            }
-
-            found=true;
-
-            return {
-                ...x,
-                attempts:r.attempts,
-                correct_count:r.correctCount,
-                wrong_count:r.wrongCount,
-                accuracy:r.accuracy,
-                last_answer:r.selectedAnswer,
-                last_correct_answer:r.correctAnswer,
-                last_result:r.isCorrect
-                    ? "correct"
-                    : "wrong",
-                last_answered_at:r.timestamp
-            };
-        });
-
-        if(found){
-            localStorage.setItem(
-                PKEY,
-                JSON.stringify(u)
-            );
-        }
-
-    }catch(e){
-        console.warn("Practice bank update failed:",e);
-    }
-}
 
 /* =========================================================
-   SUBMIT
+   CLOSE RETEST
 ========================================================= */
 
-function submit(auto=false){
-    if(submitted)return;
+function closeRetest() {
 
-    if(!selected && !auto){
-        alert("Please select an answer before submitting the retest.");
-        return;
+  currentRetestQuestions =
+    [];
+
+  currentRetestEntity =
+    null;
+  currentRetestCategory = "topic";
+
+  retestResults =
+    [];
+
+
+  document.getElementById(
+    "retestSection"
+  ).classList.add(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "retestContainer"
+  ).innerHTML =
+    "";
+
+}
+
+
+
+/* =========================================================
+   VIEW KNOWLEDGE
+========================================================= */
+
+function viewSourceContext(label) {
+  const encoded = encodeURIComponent(label);
+  window.location.href = `diagnosis.html?topic=${encoded}`;
+}
+
+function viewKnowledge(
+  entityName
+) {
+
+  const encoded =
+    encodeURIComponent(
+      entityName
+    );
+
+
+  /*
+     knowledge-structure.html is the current
+     knowledge-base page in the project.
+
+     Pass the entity through the URL so that
+     future versions can open the exact record.
+  */
+
+  window.location.href =
+    `knowledge-structure.html?entity=${encoded}`;
+
+}
+
+
+
+/* =========================================================
+   QUESTION HELPERS
+========================================================= */
+
+function getQuestionId(
+  question
+) {
+
+  return String(
+
+    question.id ??
+    question.pyq_id ??
+    question.question_id ??
+    question.questionId ??
+    ""
+
+  );
+
+}
+
+
+
+/* ---------------------------------------------------------
+   QUESTION TEXT
+--------------------------------------------------------- */
+
+function getQuestionText(
+  question
+) {
+
+  return (
+
+    question.question ??
+    question.question_text ??
+    question.text ??
+    question.prompt ??
+    "Question text unavailable."
+
+  );
+
+}
+
+
+
+/* ---------------------------------------------------------
+   OPTIONS
+--------------------------------------------------------- */
+
+function getOptions(
+  question
+) {
+
+  if (
+    Array.isArray(
+      question.options
+    )
+  ) {
+
+    return question.options;
+
+  }
+
+
+  if (
+    question.options &&
+    typeof question.options ===
+      "object"
+  ) {
+
+    return Object.entries(
+      question.options
+    ).map(
+      (
+        [
+          key,
+          value
+        ]
+      ) => ({
+
+        letter:
+          key,
+
+        text:
+          value
+
+      })
+    );
+
+  }
+
+
+  const candidates = [
+
+    "A",
+    "B",
+    "C",
+    "D"
+
+  ];
+
+
+  return candidates
+    .filter(
+      letter =>
+        question[letter] !==
+        undefined
+    )
+    .map(
+      letter => ({
+
+        letter:
+          letter,
+
+        text:
+          question[letter]
+
+      })
+    );
+
+}
+
+
+
+/* ---------------------------------------------------------
+   OPTION TEXT
+--------------------------------------------------------- */
+
+function getOptionText(
+  option
+) {
+
+  if (
+    typeof option ===
+    "string"
+  ) {
+
+    return option;
+
+  }
+
+
+  if (
+    option === null ||
+    option === undefined
+  ) {
+
+    return "";
+
+  }
+
+
+  return (
+
+    option.text ??
+    option.label ??
+    option.value ??
+    option.answer ??
+    ""
+
+  );
+
+}
+
+
+
+/* ---------------------------------------------------------
+   OPTION VALUE
+--------------------------------------------------------- */
+
+function getOptionValue(
+  option,
+  letter
+) {
+
+  if (
+    typeof option ===
+    "string"
+  ) {
+
+    return option;
+
+  }
+
+
+  if (
+    option === null ||
+    option === undefined
+  ) {
+
+    return letter;
+
+  }
+
+
+  return (
+
+    option.value ??
+    option.text ??
+    option.label ??
+    option.answer ??
+    letter
+
+  );
+
+}
+
+
+
+/* ---------------------------------------------------------
+   CORRECT ANSWER
+--------------------------------------------------------- */
+
+function getCorrectAnswer(
+  question,
+  options
+) {
+
+  const candidates = [
+
+    question.correct_answer,
+
+    question.correctAnswer,
+
+    question.answer,
+
+    question.correct,
+
+    question.correct_option,
+
+    question.correctOption
+
+  ];
+
+
+  for (
+    const value
+    of candidates
+  ) {
+
+    if (
+      value !==
+      undefined &&
+      value !==
+      null &&
+      String(value).trim() !==
+      ""
+    ) {
+
+      return value;
+
     }
 
-    submitted=true;
-    clearInterval(timer);
+  }
 
-    document.querySelectorAll("input[name=ans]")
-        .forEach(x=>x.disabled=true);
 
-    $("clear").disabled=true;
-    $("review").disabled=true;
-    $("submit").disabled=true;
+  return "";
 
-    const o=getOptions();
+}
 
-    const ca=key(
-        q.correct_answer ||
-        q.correctAnswer
+
+
+/* ---------------------------------------------------------
+   ANSWER MATCHING
+--------------------------------------------------------- */
+
+function answersMatch(
+  selectedValue,
+  selectedLetter,
+  correctAnswer
+) {
+
+  const selected =
+    normalizeAnswer(
+      selectedValue
     );
 
-    const ok=
-        selected!=="" &&
-        selected===ca;
 
-    const pa=Number(
-        item.attempts ??
-        q.attempts ??
-        0
+  const selectedLetterNorm =
+    normalizeAnswer(
+      selectedLetter
     );
 
-    const pc=Number(
-        item.correct_count ??
-        q.correct_count ??
-        0
+
+  const correct =
+    normalizeAnswer(
+      correctAnswer
     );
 
-    const pw=Number(
-        item.wrong_count ??
-        q.wrong_count ??
-        0
+
+  if (
+    selected ===
+    correct
+  ) {
+
+    return true;
+
+  }
+
+
+  if (
+    selectedLetterNorm ===
+    correct
+  ) {
+
+    return true;
+
+  }
+
+
+  /*
+     Support answers such as:
+     "A"
+     "A. John Dryden"
+     "John Dryden"
+  */
+
+  if (
+    correct.length === 1 &&
+    selectedLetterNorm ===
+      correct
+  ) {
+
+    return true;
+
+  }
+
+
+  const correctLetter =
+    extractAnswerLetter(
+      correctAnswer
     );
 
-    const at=pa+1;
-    const cc=pc+(ok?1:0);
-    const wc=pw+(ok?0:1);
-    const acc=Math.round(cc/at*100);
-    const now=new Date().toISOString();
 
-    save({
-        questionId:
-            q.id ||
-            item.id ||
-            q.question,
+  if (
+    correctLetter &&
+    selectedLetterNorm ===
+      correctLetter
+  ) {
 
-        question:q.question,
+    return true;
 
-        questionType:detectType(),
+  }
 
-        knowledge_entity:
-            q.knowledge_entity ||
-            item.knowledge_entity ||
-            "",
 
-        concept:
-            q.concept ||
-            item.concept ||
-            "",
+  return false;
 
-        unit:
-            q.unit ||
-            item.unit ||
-            "",
+}
 
-        paper:
-            q.paper ||
-            item.paper ||
-            "Paper II",
 
-        selectedAnswer:selected,
-        correctAnswer:ca,
-        isCorrect:ok,
 
-        score:ok?2:0,
-        maxScore:2,
+/* ---------------------------------------------------------
+   ANSWER DISPLAY
+--------------------------------------------------------- */
 
-        attempts:at,
-        correctCount:cc,
-        wrongCount:wc,
-        accuracy:acc,
+function getCorrectAnswerDisplay(
+  correctAnswer,
+  options
+) {
 
-        autoSubmitted:auto,
-        markedForReview:reviewed,
+  if (
+    correctAnswer ===
+    undefined ||
+    correctAnswer ===
+    null
+  ) {
 
-        timestamp:now
-    });
+    return "Not available";
 
-    bank({
-        attempts:at,
-        correctCount:cc,
-        wrongCount:wc,
-        accuracy:acc,
-        selectedAnswer:selected,
-        correctAnswer:ca,
-        isCorrect:ok,
-        timestamp:now
-    });
+  }
 
-    $("result").style.display="block";
 
-    $("score").textContent=
-        (ok?2:0)+" / 2";
+  const letter =
+    extractAnswerLetter(
+      correctAnswer
+    );
 
-    $("resultStatus").textContent=
-        ok
-        ? "Correct"
-        : "Incorrect";
 
-    $("correct").textContent=
-        ca+". "+o[ca];
+  if (letter) {
 
-    $("newAccuracy").textContent=
-        acc+"%";
+    const index =
+      letter.charCodeAt(0) -
+      65;
 
-    $("resultMessage").className=
-        ok
-        ? "result-good"
-        : "result-bad";
 
-    $("resultMessage").innerHTML=
-        ok
-        ? "<strong>✓ Correct Answer</strong><div>The retest result has been saved.</div>"
-        : "<strong>✕ Incorrect Answer</strong><div>The correct answer is shown below. The retest result has been saved.</div>"+
-          (
-              auto
-              ? "<div><strong>Time expired.</strong> The retest was automatically submitted.</div>"
-              : ""
+    if (
+      options[index] !==
+      undefined
+    ) {
+
+      return `${letter}. ${getOptionText(
+        options[index]
+      )}`;
+
+    }
+
+  }
+
+
+  return String(
+    correctAnswer
+  );
+
+}
+
+
+
+/* ---------------------------------------------------------
+   EXTRACT ANSWER LETTER
+--------------------------------------------------------- */
+
+function extractAnswerLetter(
+  value
+) {
+
+  const text =
+    String(
+      value ??
+      ""
+    )
+      .trim()
+      .toUpperCase();
+
+
+  const match =
+    text.match(
+      /^([A-D])(?:[\.\)\:\-\s]|$)/
+    );
+
+
+  return match
+    ? match[1]
+    : "";
+
+}
+
+
+
+/* =========================================================
+   NORMALIZE
+========================================================= */
+
+function normalize(
+  value
+) {
+
+  return String(
+    value ??
+    ""
+  )
+    .trim()
+    .toLowerCase();
+
+}
+
+
+
+/* =========================================================
+   NORMALIZE ANSWER
+========================================================= */
+
+function normalizeAnswer(
+  value
+) {
+
+  return String(
+    value ??
+    ""
+  )
+    .trim()
+    .toLowerCase()
+    .replace(
+      /\s+/g,
+      " "
+    );
+
+}
+
+
+
+/* =========================================================
+   SAFE DOM ID
+========================================================= */
+
+function safeDomId(
+  value
+) {
+
+  return String(
+    value
+  )
+    .replace(
+      /[^a-zA-Z0-9_-]/g,
+      "_"
+    );
+
+}
+
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(
+  value
+) {
+
+  return String(
+    value ??
+    ""
+  )
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function renderHistory() {
+
+  const container =
+    document.getElementById(
+      "historyContainer"
+    );
+
+
+  if (
+    !testHistory.length
+  ) {
+
+    container.innerHTML = `
+
+      <div class="empty-state">
+
+        No completed tests yet.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const recent =
+    [...testHistory]
+      .reverse()
+      .slice(
+        0,
+        10
+      );
+
+
+  container.innerHTML =
+    recent.map(
+      (
+        test,
+        index
+      ) => {
+
+        const date =
+          test.date
+
+            ? new Date(
+                test.date
+              ).toLocaleString()
+
+            : "Unknown date";
+
+
+        const tracked =
+          Array.isArray(
+            test.question_results
           );
 
-    $("solutionAnswer").innerHTML=
-        "<strong>Correct Answer:</strong> "+
-        esc(ca)+". "+
-        esc(o[ca]);
 
-    $("solutionExplanation").innerHTML=
-        "<strong>Explanation:</strong> "+
-        esc(
-            q.explanation ||
-            q.answer_text ||
-            "Explanation not available in the supplied question data."
-        );
+        const typeLabel =
+          test.type ===
+          "retest"
 
-    window.scrollTo({
-        top:document.body.scrollHeight,
-        behavior:"smooth"
-    });
+            ? "🔄 Retest"
+
+            : "📝 Test";
+
+
+        return `
+
+          <div class="history-card">
+
+            <div class="
+              d-flex
+              justify-content-between
+              align-items-center
+              gap-3
+              flex-wrap
+            ">
+
+
+              <div>
+
+                <strong>
+
+                  ${typeLabel}
+                  ${
+                    test.title
+                      ? ` — ${escapeHTML(
+                          test.title
+                        )}`
+                      : ""
+                  }
+
+                </strong>
+
+
+                <div class="small text-secondary">
+
+                  ${escapeHTML(
+                    date
+                  )}
+
+                </div>
+
+              </div>
+
+
+              <div class="text-end">
+
+                <strong>
+
+                  ${Number(
+                    test.score || 0
+                  )}%
+
+                </strong>
+
+
+                <div class="small text-secondary">
+
+                  ${Number(
+                    test.correct || 0
+                  )}
+                  correct /
+                  ${Number(
+                    test.total || 0
+                  )}
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            ${
+              tracked
+
+                ? `
+
+                  <div class="
+                    small
+                    text-success
+                    mt-2
+                  ">
+
+                    ✓ Question-level
+                    performance recorded
+
+                  </div>
+
+                `
+
+                : `
+
+                  <div class="
+                    small
+                    text-secondary
+                    mt-2
+                  ">
+
+                    Older record —
+                    question-level diagnosis unavailable
+
+                  </div>
+
+                `
+            }
+
+          </div>
+
+        `;
+
+      }
+    ).join("");
+
 }
 
+
+
 /* =========================================================
-   CONTROLS
+   PRIORITY QUEUE ACTIONS
+   Delegated events avoid fragile inline JavaScript attributes.
 ========================================================= */
 
-$("clear").onclick=()=>{
-    if(submitted)return;
+document.getElementById("priorityContainer").addEventListener("click", event => {
+  const button = event.target.closest("button[data-revision-action]");
+  if (!button) return;
 
-    selected="";
+  const name = button.dataset.revisionName || "";
+  const category = button.dataset.revisionCategory || "topic";
 
-    document.querySelectorAll("input[name=ans]")
-        .forEach(x=>x.checked=false);
-
-    document.querySelectorAll(".opt")
-        .forEach(x=>x.classList.remove("sel"));
-
-    palette();
-};
-
-$("review").onclick=()=>{
-    if(submitted)return;
-
-    reviewed=!reviewed;
-
-    $("review").textContent=
-        reviewed
-        ? "✓ Marked for Review"
-        : "Mark for Review";
-
-    $("review").classList.toggle(
-        "marked",
-        reviewed
-    );
-
-    palette();
-};
-
-$("submit").onclick=()=>{
-    if(
-        reviewed &&
-        !confirm(
-            "This question is marked for review. Submit the retest anyway?"
-        )
-    ){
-        return;
+  if (button.dataset.revisionAction === "retest") {
+    let questionIds = [];
+    try {
+      const parsed = JSON.parse(button.dataset.revisionIds || "[]");
+      questionIds = Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      console.error("Revision question IDs could not be read:", error);
+      alert("The connected question IDs could not be read. Refresh the Revision Queue and try again.");
+      return;
     }
 
-    submit(false);
-};
+    startRetestForEntity(name, questionIds, category);
+    return;
+  }
 
-$("back").onclick=()=>{
-    location.href="revision-intelligence.html";
-};
+  if (button.dataset.revisionAction === "source") {
+    if (category === "entity") viewKnowledge(name);
+    else viewSourceContext(name);
+  }
+});
 
-window.addEventListener(
-    "beforeunload",
-    e=>{
-        if(!submitted && q){
-            e.preventDefault();
-            e.returnValue="";
-        }
+
+/* =========================================================
+   BUTTON EVENTS
+========================================================= */
+
+document
+  .getElementById(
+    "refreshBtn"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      loadDatabase();
+
     }
-);
+  );
 
-load();
+
+document
+  .getElementById(
+    "closeRetestBtn"
+  )
+  .addEventListener(
+    "click",
+    closeRetest
+  );
+
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+loadDatabase();
+
+
 </script>
+
+
 <script src="js/global-bottom-nav.js" defer></script>
-</body></html>
+</body>
+
+</html>
