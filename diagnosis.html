@@ -1,1968 +1,2651 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0">
-
-  <title>BAJEE JRF AI — Diagnosis</title>
-
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-    rel="stylesheet">
-
-  <style>
-
-    body {
-      background: #f5f7fb;
-      color: #172033;
-    }
-
-    .bg-navy {
-      background: #071a3d;
-    }
-
-    .text-gold {
-      color: #d4af37 !important;
-    }
-
-    .btn-navy {
-      background: #071a3d;
-      color: #ffffff;
-      border: 1px solid #071a3d;
-    }
-
-    .btn-navy:hover {
-      background: #102d61;
-      color: #ffffff;
-    }
-
-    .btn-gold {
-      background: #d4af37;
-      color: #071a3d;
-      border: 1px solid #d4af37;
-      font-weight: 700;
-    }
-
-    .btn-gold:hover {
-      background: #c29f2f;
-      color: #071a3d;
-    }
-
-    .hero {
-
-      background: linear-gradient(
-        135deg,
-        #071a3d,
-        #102d61
-      );
-
-      color: #ffffff;
-
-      border-radius: 18px;
-
-      padding: 35px;
-
-    }
-
-    .section-card {
-
-      background: #ffffff;
-
-      border-radius: 16px;
-
-      padding: 25px;
-
-      box-shadow:
-        0 5px 20px rgba(
-          0,
-          0,
-          0,
-          .06
-        );
-
-    }
-
-    .eyebrow {
-
-      letter-spacing: 2px;
-
-      font-size: 12px;
-
-      font-weight: 700;
-
-      color: #d4af37;
-
-    }
-
-    .big-score {
-
-      font-size: 64px;
-
-      line-height: 1;
-
-      font-weight: 800;
-
-      color: #071a3d;
-
-    }
-
-    .stat-card {
-
-      background: #f8f9fa;
-
-      border-radius: 12px;
-
-      padding: 20px;
-
-      text-align: center;
-
-      height: 100%;
-
-    }
-
-    .stat-number {
-
-      font-size: 30px;
-
-      font-weight: 800;
-
-      color: #071a3d;
-
-    }
-
-    .knowledge-card {
-
-      border-radius: 14px;
-
-      padding: 20px;
-
-      background: #ffffff;
-
-      border-left: 5px solid #d4af37;
-
-      box-shadow:
-        0 3px 12px rgba(
-          0,
-          0,
-          0,
-          .04
-        );
-
-      margin-bottom: 15px;
-
-    }
-
-    .knowledge-card.strong {
-
-      border-left-color: #198754;
-
-    }
-
-    .knowledge-card.weak {
-
-      border-left-color: #dc3545;
-
-    }
-
-    .knowledge-card.medium {
-
-      border-left-color: #d4af37;
-
-    }
-
-    .knowledge-name {
-
-      font-size: 18px;
-
-      font-weight: 700;
-
-      color: #071a3d;
-
-    }
-
-    .knowledge-score {
-
-      font-size: 26px;
-
-      font-weight: 800;
-
-    }
-
-    .score-strong {
-      color: #198754;
-    }
-
-    .score-medium {
-      color: #856404;
-    }
-
-    .score-weak {
-      color: #dc3545;
-    }
-
-    .progress {
-
-      height: 10px;
-
-      background: #e9ecef;
-
-    }
-
-    .tag {
-
-      display: inline-block;
-
-      padding: 5px 9px;
-
-      margin: 3px;
-
-      border-radius: 20px;
-
-      background: #e9ecef;
-
-      font-size: 12px;
-
-    }
-
-    .entity-tag {
-
-      background: #e8eef8;
-
-      color: #071a3d;
-
-      font-weight: 600;
-
-    }
-
-    .unit-tag {
-
-      background: #d1e7dd;
-
-      color: #0f5132;
-
-    }
-
-    .priority-high {
-
-      background: #f8d7da;
-
-      color: #842029;
-
-    }
-
-    .priority-medium {
-
-      background: #fff3cd;
-
-      color: #664d03;
-
-    }
-
-    .priority-low {
-
-      background: #d1e7dd;
-
-      color: #0f5132;
-
-    }
-
-    .empty-state {
-
-      background: #f8f9fa;
-
-      border-radius: 12px;
-
-      padding: 35px;
-
-      text-align: center;
-
-      color: #6c757d;
-
-    }
-
-    .history-card {
-
-      background: #f8f9fa;
-
-      border-radius: 12px;
-
-      padding: 15px;
-
-      margin-bottom: 10px;
-
-    }
-
-    .alert-info-custom {
-
-      background: #eef5ff;
-
-      border-left: 4px solid #0d6efd;
-
-      border-radius: 10px;
-
-      padding: 15px;
-
-    }
-
-  </style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BAJEE JRF AI - Difficulty Progression</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --navy: #071a3d;
+            --navy-2: #102e63;
+            --gold: #d4af37;
+            --gold-light: #f4df8a;
+            --text: #172033;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(
+                135deg,
+                var(--navy),
+                var(--navy-2)
+            );
+        }
+
+        .navbar-brand {
+            color: var(--gold-light) !important;
+            font-weight: 700;
+        }
+
+        .hero {
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(212,175,55,.18),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    var(--navy),
+                    var(--navy-2)
+                );
+
+            color: white;
+            padding: 42px 0;
+        }
+
+        .hero h1 {
+            font-weight: 800;
+        }
+
+        .gold {
+            color: var(--gold-light);
+        }
+
+        .card {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow:
+                0 5px 18px rgba(0,0,0,.05);
+        }
+
+        .section-title {
+            color: var(--navy);
+            font-weight: 800;
+        }
+
+        .stat-card {
+            padding: 20px;
+            height: 100%;
+        }
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--navy);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: #111827;
+            border: none;
+            font-weight: 700;
+        }
+
+        .btn-gold:hover {
+            background: #c49f2f;
+            color: #111827;
+        }
+
+        .status-box {
+            border-radius: 12px;
+            padding: 14px 16px;
+            background: #eef4ff;
+            border: 1px solid #cddcff;
+        }
+
+        .difficulty-card {
+            padding: 18px;
+            border-radius: 14px;
+            background: #f8f9fa;
+            height: 100%;
+        }
+
+        .difficulty-badge {
+            font-weight: 700;
+            padding: 7px 12px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .easy {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .medium {
+            background: #fff3cd;
+            color: #664d03;
+        }
+
+        .hard {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .question-card {
+            padding: 20px;
+            margin-bottom: 15px;
+            background: white;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+        }
+
+        .priority-high {
+            border-left: 5px solid #dc3545;
+        }
+
+        .priority-medium {
+            border-left: 5px solid #fd7e14;
+        }
+
+        .priority-normal {
+            border-left: 5px solid #198754;
+        }
+
+        .progress {
+            height: 10px;
+            border-radius: 10px;
+        }
+
+        .formula {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: Consolas, monospace;
+            font-size: 14px;
+        }
+
+        .footer {
+            background: var(--navy);
+            color: #dbe4f5;
+            padding: 25px 0;
+            margin-top: 50px;
+        }
+
+        .empty-state {
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .small-muted {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+    </style>
 </head>
 
 
 <body>
 
 
-<nav class="navbar navbar-dark bg-navy">
+<nav class="navbar">
 
-  <div class="container">
+    <div class="container">
 
-    <a
-      class="navbar-brand fw-bold"
-      href="index.html">
+        <div
+            class="
+                d-flex
+                justify-content-between
+                align-items-center
+                w-100
+            "
+        >
 
-      🎓 BAJEE JRF AI
+            <a
+                class="navbar-brand"
+                href="index.html"
+            >
+                🎓 BAJEE JRF AI
+            </a>
 
-    </a>
+            <span class="text-light small">
+                Step 8.4 • Difficulty Progression
+            </span>
 
-    <div class="d-flex align-items-center gap-2">
-
-      <a
-        href="test-engine.html"
-        class="btn btn-sm btn-outline-light">
-
-        📝 Test Engine
-
-      </a>
-
-      <span class="navbar-text text-gold">
-
-        Diagnosis Engine
-
-      </span>
+        </div>
 
     </div>
-
-  </div>
 
 </nav>
 
 
+<section class="hero">
 
-<main class="container py-5">
+    <div class="container">
 
+        <p class="text-uppercase small fw-bold gold mb-2">
+            JRF Adaptive Learning Engine
+        </p>
 
-  <!-- HERO -->
+        <h1>
+            Difficulty Progression
+        </h1>
 
-  <section class="hero mb-4">
+        <p class="lead mb-0">
+            Move learners through Easy, Medium and Hard
+            questions according to demonstrated mastery.
+        </p>
 
-    <p class="eyebrow">
-      STEP 4.0
-    </p>
-
-    <h1 class="display-6 fw-bold">
-
-      📊 JRF Performance Diagnosis
-
-    </h1>
-
-    <p class="mb-0">
-
-      Identify your strong areas,
-      weak knowledge entities,
-      and concepts that need revision
-      based on your actual test performance.
-
-    </p>
-
-  </section>
-
-
-
-<!-- OVERALL PERFORMANCE -->
-
-<section class="section-card mb-4">
-
-  <h2 class="h4 mb-1">
-    Overall Performance
-  </h2>
-
-  <p class="text-secondary">
-    Diagnosis is calculated from completed tests recorded by the Test Engine.
-  </p>
-
-  <div class="row g-3 align-items-stretch">
-
-    <!-- Overall score: correct / all questions -->
-    <div class="col-md-4">
-      <div class="stat-card">
-        <div id="overallScore" class="big-score">0%</div>
-        <div class="small text-secondary mt-2">
-          Overall Score
-        </div>
-      </div>
     </div>
-
-    <!-- Number of tests -->
-    <div class="col-md-2">
-      <div class="stat-card">
-        <div id="totalTests" class="stat-number">0</div>
-        <div class="small text-secondary">Tests</div>
-      </div>
-    </div>
-
-    <!-- Total questions -->
-    <div class="col-md-2">
-      <div class="stat-card">
-        <div id="totalQuestions" class="stat-number">0</div>
-        <div class="small text-secondary">Questions</div>
-      </div>
-    </div>
-
-    <!-- Correct answers -->
-    <div class="col-md-2">
-      <div class="stat-card">
-        <div id="totalCorrect" class="stat-number">0</div>
-        <div class="small text-secondary">Correct</div>
-      </div>
-    </div>
-
-    <!-- Wrong answers -->
-    <div class="col-md-2">
-      <div class="stat-card">
-        <div id="totalWrong" class="stat-number">0</div>
-        <div class="small text-secondary">Wrong</div>
-      </div>
-    </div>
-
-    <!-- Unanswered questions -->
-    <div class="col-md-3">
-      <div class="stat-card">
-        <div id="totalUnanswered" class="stat-number">0</div>
-        <div class="small text-secondary">Unanswered</div>
-      </div>
-    </div>
-
-    <!-- Accuracy among answered questions -->
-    <div class="col-md-3">
-      <div class="stat-card">
-        <div id="answeredAccuracy" class="stat-number">0%</div>
-        <div class="small text-secondary">Answered Accuracy</div>
-      </div>
-    </div>
-
-  </div>
-
-  <div
-    id="diagnosisStatus"
-    class="mt-4"
-    role="status"
-    aria-live="polite">
-  </div>
 
 </section>
 
-  <!-- KNOWLEDGE DIAGNOSIS -->
 
-  <section class="section-card mb-4">
+<main class="container py-4">
+
+
+    <!-- STATUS -->
 
     <div
-      class="
+        id="statusBox"
+        class="status-box mb-4"
+    >
+        Loading adaptive data...
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="row g-3 mb-4">
+
+
+        <div class="col-md-3">
+
+            <div class="card stat-card">
+
+                <div
+                    id="questionCount"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    PYQ Questions
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="card stat-card">
+
+                <div
+                    id="easyCount"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Easy Questions
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="card stat-card">
+
+                <div
+                    id="mediumCount"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Medium Questions
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="card stat-card">
+
+                <div
+                    id="hardCount"
+                    class="stat-number"
+                >
+                    0
+                </div>
+
+                <div class="stat-label">
+                    Hard Questions
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MODEL -->
+
+    <div class="card p-4 mb-4">
+
+        <h3 class="section-title mb-3">
+            Step 8.4 Progression Model
+        </h3>
+
+
+        <div class="formula">
+            Current Performance
+            →
+            Recommended Difficulty
+            →
+            Question Selection
+        </div>
+
+
+        <div class="row g-3 mt-3">
+
+
+            <div class="col-md-4">
+
+                <div class="difficulty-card">
+
+                    <span class="
+                        difficulty-badge
+                        easy
+                    ">
+                        EASY
+                    </span>
+
+                    <h5 class="mt-3">
+                        Foundation
+                    </h5>
+
+                    <p class="small-muted mb-0">
+                        Used when accuracy is below 50%
+                        or when a learner repeatedly
+                        struggles with a concept.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="difficulty-card">
+
+                    <span class="
+                        difficulty-badge
+                        medium
+                    ">
+                        MEDIUM
+                    </span>
+
+                    <h5 class="mt-3">
+                        Development
+                    </h5>
+
+                    <p class="small-muted mb-0">
+                        Used when the learner demonstrates
+                        developing or stable understanding.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="difficulty-card">
+
+                    <span class="
+                        difficulty-badge
+                        hard
+                    ">
+                        HARD
+                    </span>
+
+                    <h5 class="mt-3">
+                        Mastery
+                    </h5>
+
+                    <p class="small-muted mb-0">
+                        Introduced when the learner shows
+                        consistently strong performance.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- THRESHOLDS -->
+
+    <div class="card p-4 mb-4">
+
+        <h4 class="section-title mb-3">
+            Difficulty Rules
+        </h4>
+
+
+        <div class="table-responsive">
+
+            <table class="table align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Accuracy
+                        </th>
+
+                        <th>
+                            Recommended Level
+                        </th>
+
+                        <th>
+                            Learning Purpose
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+                            Below 50%
+                        </td>
+
+                        <td>
+                            <span class="
+                                difficulty-badge
+                                easy
+                            ">
+                                Easy
+                            </span>
+                        </td>
+
+                        <td>
+                            Rebuild foundation
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            50% – 69%
+                        </td>
+
+                        <td>
+                            <span class="
+                                difficulty-badge
+                                easy
+                            ">
+                                Easy → Medium
+                            </span>
+                        </td>
+
+                        <td>
+                            Stabilise understanding
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            70% – 84%
+                        </td>
+
+                        <td>
+                            <span class="
+                                difficulty-badge
+                                medium
+                            ">
+                                Medium
+                            </span>
+                        </td>
+
+                        <td>
+                            Develop exam-level mastery
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            85%+
+                        </td>
+
+                        <td>
+                            <span class="
+                                difficulty-badge
+                                hard
+                            ">
+                                Medium → Hard
+                            </span>
+                        </td>
+
+                        <td>
+                            Challenge and mastery
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- GENERATOR -->
+
+    <div class="card p-4 mb-4">
+
+        <div class="row g-3 align-items-end">
+
+
+            <div class="col-md-4">
+
+                <label class="form-label fw-bold">
+                    Number of Questions
+                </label>
+
+                <select
+                    id="numberOfQuestions"
+                    class="form-select"
+                >
+
+                    <option value="5">
+                        5 Questions
+                    </option>
+
+                    <option
+                        value="10"
+                        selected
+                    >
+                        10 Questions
+                    </option>
+
+                    <option value="15">
+                        15 Questions
+                    </option>
+
+                    <option value="20">
+                        20 Questions
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <label class="form-label fw-bold">
+                    Unit
+                </label>
+
+                <select
+                    id="unitFilter"
+                    class="form-select"
+                >
+
+                    <option value="all">
+                        All Paper II Units
+                    </option>
+
+                    <option value="Unit I">
+                        Unit I — Drama
+                    </option>
+
+                    <option value="Unit II">
+                        Unit II — Poetry
+                    </option>
+
+                    <option value="Unit III">
+                        Unit III — Fiction
+                    </option>
+
+                    <option value="Unit IV">
+                        Unit IV — Non-Fiction
+                    </option>
+
+                    <option value="Unit V">
+                        Unit V — Language
+                    </option>
+
+                    <option value="Unit VI">
+                        Unit VI — English in India
+                    </option>
+
+                    <option value="Unit VII">
+                        Unit VII — Cultural Studies
+                    </option>
+
+                    <option value="Unit VIII">
+                        Unit VIII — Literary Criticism
+                    </option>
+
+                    <option value="Unit IX">
+                        Unit IX — Literary Theory
+                    </option>
+
+                    <option value="Unit X">
+                        Unit X — Research Methods
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <button
+                    id="generateBtn"
+                    class="btn btn-gold w-100 py-2"
+                >
+                    📈 Generate Progressive Queue
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUEUE -->
+
+    <div class="
         d-flex
         justify-content-between
         align-items-center
-        flex-wrap
-        gap-2
-      ">
+        mb-3
+    ">
 
-      <div>
-
-        <h2 class="h4 mb-1">
-
-          🧠 Knowledge Diagnosis
-
-        </h2>
-
-        <p class="text-secondary mb-0">
-
-          Your performance is grouped by the
-          knowledge entity connected to each PYQ.
-
-        </p>
-
-      </div>
+        <h3 class="section-title mb-0">
+            Progressive Question Queue
+        </h3>
 
 
-      <span
-        id="knowledgeCount"
-        class="badge rounded-pill bg-success">
-
-        0 entities
-
-      </span>
+        <span
+            id="queueBadge"
+            class="badge bg-secondary"
+        >
+            Not generated
+        </span>
 
     </div>
 
 
-    <hr>
+    <div id="queueContainer">
 
+        <div class="card empty-state">
 
-    <div
-      id="knowledgeDiagnosisContainer">
+            Generate the progressive queue to see
+            the recommended difficulty for each question.
 
-    </div>
-
-  </section>
-
-
-
-  <!-- UNIT AND TOPIC DIAGNOSIS -->
-  <section class="section-card mb-4">
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-      <div>
-        <h2 class="h4 mb-1">📚 Unit &amp; Topic Diagnosis</h2>
-        <p class="text-secondary mb-0">
-          Based only on unit/topic metadata available in saved test results or source mappings.
-        </p>
-      </div>
-      <span id="unitTopicCount" class="badge rounded-pill bg-primary">0 areas</span>
-    </div>
-    <hr>
-    <div id="unitTopicDiagnosisContainer"></div>
-  </section>
-
-  <!-- REVISION PRIORITY -->
-
-  <section class="section-card mb-4">
-
-    <div
-      class="
-        d-flex
-        justify-content-between
-        align-items-center
-        flex-wrap
-        gap-2
-      ">
-
-      <div>
-
-        <p class="eyebrow mb-1">
-
-          REVISION SIGNAL
-
-        </p>
-
-        <h2 class="h4 mb-1">
-
-          🔄 Revision Priorities
-
-        </h2>
-
-        <p class="text-secondary mb-0">
-
-          Knowledge entities are prioritised
-          from your actual performance.
-
-        </p>
-
-      </div>
-
-
-      <span
-        id="revisionCount"
-        class="badge rounded-pill bg-danger">
-
-        0 items
-
-      </span>
+        </div>
 
     </div>
 
 
-    <hr>
+    <!-- TECHNICAL STATUS -->
+
+    <div class="card p-4 mt-4">
+
+        <h4 class="section-title mb-3">
+            Step 8.4 Technical Status
+        </h4>
 
 
-    <div
-      id="revisionContainer">
+        <div class="table-responsive">
+
+            <table class="table table-sm">
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                PYQ Database
+                            </strong>
+                        </td>
+
+                        <td id="pyqStatus">
+                            Checking...
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                Adaptive Queue
+                            </strong>
+                        </td>
+
+                        <td id="adaptiveStatus">
+                            Checking...
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                Performance History
+                            </strong>
+                        </td>
+
+                        <td id="historyStatus">
+                            Checking...
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                Difficulty Engine
+                            </strong>
+                        </td>
+
+                        <td id="engineStatus">
+                            Checking...
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                Output
+                            </strong>
+                        </td>
+
+                        <td>
+                            <span class="badge bg-secondary">
+                                Progressive Queue v1
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                AI API
+                            </strong>
+                        </td>
+
+                        <td>
+                            <span class="badge bg-secondary">
+                                Not used in Step 8.4
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     </div>
-
-  </section>
-
-
-
-  <!-- RECENT TESTS -->
-
-  <section class="section-card mb-4">
-
-    <h2 class="h4 mb-1">
-
-      📈 Recent Test History
-
-    </h2>
-
-    <p class="text-secondary">
-
-      Your latest completed tests.
-
-    </p>
-
-
-    <div
-      id="historyContainer">
-
-    </div>
-
-  </section>
-
-
-
-  <!-- ACTIONS -->
-
-  <section class="section-card">
-
-    <div
-      class="
-        d-flex
-        justify-content-between
-        align-items-center
-        flex-wrap
-        gap-3
-      ">
-
-      <div>
-
-        <h2 class="h5 mb-1">
-
-          Continue Your Preparation
-
-        </h2>
-
-        <p class="text-secondary mb-0">
-
-          Use the diagnosis to decide what
-          knowledge needs another round of practice.
-
-        </p>
-
-      </div>
-
-
-      <div class="d-flex gap-2 flex-wrap">
-
-        <a
-          href="test-engine.html"
-          class="btn btn-navy">
-
-          📝 Take Another Test
-
-        </a>
-
-        <button
-          id="refreshBtn"
-          type="button"
-          class="btn btn-outline-secondary">
-
-          🔄 Refresh Diagnosis
-
-        </button>
-
-      </div>
-
-    </div>
-
-  </section>
-
 
 </main>
 
 
+<footer class="footer">
 
-<footer class="py-4 text-center">
+    <div class="container text-center">
 
-  <small class="text-secondary">
+        <strong>
+            BAJEE JRF AI
+        </strong>
 
-    BAJEE JRF AI • Step 4.0 • Performance Diagnosis
+        <div class="small mt-1">
+            Step 8.4 — Difficulty Progression
+        </div>
 
-  </small>
+    </div>
 
 </footer>
 
 
-
 <script>
 
+/*
+===============================================================
+BAJEE JRF AI
+STEP 8.4
+DIFFICULTY PROGRESSION
+===============================================================
 
-/* =========================================================
-   BAJEE JRF AI
-   STEP 4.0 — PERFORMANCE DIAGNOSIS
-========================================================= */
+PURPOSE
+
+Convert demonstrated performance into an appropriate
+question difficulty.
+
+The engine does NOT randomly increase difficulty.
+
+It uses:
+
+    Accuracy
+    +
+    Previous errors
+    +
+    Existing question difficulty
+    +
+    Adaptive weighting
+
+===============================================================
+*/
 
 
-const STORAGE_KEY =
-  "bajee_jrf_ai_test_history_v1";
+const PYQ_PATH =
+    "../data/pyqs/pyq-database.json";
 
 
-let pyqDatabase = [];
+const MAPPING_PATH =
+    "../data/pyqs/pyq-knowledge-map.json";
+
+
+const TEST_HISTORY_KEY =
+    "bajee_jrf_ai_test_history_v1";
+
+
+const ADAPTIVE_QUEUE_KEY =
+    "bajee_jrf_ai_adaptive_queue_v1";
+
+
+const PROGRESSIVE_QUEUE_KEY =
+    "bajee_jrf_ai_progressive_queue_v1";
+
+
+let questions = [];
 
 let mappings = [];
 
-let knowledgeDatabase = [];
+let history = [];
 
-let testHistory = [];
+let questionPerformance = {};
+
+let entityPerformance = {};
+
+let adaptiveQueue = [];
+
+let progressiveQueue = [];
 
 
+/*
+===============================================================
+NORMALIZE
+===============================================================
+*/
 
-/* =========================================================
-   LOAD DATABASE
-========================================================= */
+function normalize(value) {
 
-async function loadDatabase() {
-  try {
-    // PYQ records and mappings are required. The entity catalogue is optional:
-    // question-level saved mappings can still support diagnosis without it.
-    const responses = await Promise.all([
-      fetch("../data/pyqs/pyq-database.json"),
-      fetch("../data/pyqs/pyq-knowledge-map.json"),
-      fetch("../data/knowledge/knowledge-entities.json").catch(() => null)
-    ]);
+    return String(value ?? "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
 
-    if (!responses[0].ok || !responses[1].ok) {
-      throw new Error("Could not load the required PYQ database or knowledge map. Check the data paths and local server.");
-    }
-
-    const pyqData = await responses[0].json();
-    const mappingData = await responses[1].json();
-
-    if (responses[2]?.ok) {
-      try {
-        const knowledgeData = await responses[2].json();
-        if (Array.isArray(knowledgeData.entities)) {
-          knowledgeDatabase = knowledgeData.entities;
-        } else if (Array.isArray(knowledgeData)) {
-          knowledgeDatabase = knowledgeData;
-        }
-      } catch (error) {
-        console.warn("Optional knowledge entity catalogue could not be parsed; continuing with saved results and verified mappings only.", error);
-      }
-    } else {
-      console.warn("Optional knowledge entity catalogue is unavailable; continuing with saved results and verified mappings only.");
-    }
-
-    if (Array.isArray(pyqData.questions)) {
-      pyqDatabase = pyqData.questions;
-    } else if (Array.isArray(pyqData)) {
-      pyqDatabase = pyqData;
-    } else {
-      throw new Error("The PYQ database has an unsupported structure.");
-    }
-
-    if (Array.isArray(mappingData.mappings)) {
-      mappings = mappingData.mappings.filter(item => item && item.verified === true);
-    } else if (Array.isArray(mappingData)) {
-      mappings = mappingData.filter(item => item && item.verified === true);
-    } else {
-      throw new Error("The PYQ knowledge map has an unsupported structure.");
-    }
-
-    loadHistory();
-    renderDiagnosis();
-
-    console.log("Diagnosis database loaded:", {
-      pyqs: pyqDatabase.length,
-      verifiedMappings: mappings.length,
-      knowledge: knowledgeDatabase.length,
-      tests: testHistory.length
-    });
-  } catch (error) {
-    console.error("Diagnosis loading error:", error);
-    document.getElementById("diagnosisStatus").innerHTML = `
-      <div class="alert alert-danger">
-        <strong>Diagnosis database error</strong>
-        <div class="small mt-1">${escapeHTML(error.message)}</div>
-      </div>`;
-  }
 }
 
 
+/*
+===============================================================
+ESCAPE
+===============================================================
+*/
 
-/* =========================================================
-   LOAD TEST HISTORY
-========================================================= */
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/*
+===============================================================
+LOAD HISTORY
+===============================================================
+*/
 
 function loadHistory() {
 
-  testHistory = [];
+    try {
 
+        const raw =
+            localStorage.getItem(
+                TEST_HISTORY_KEY
+            );
 
-  try {
 
-    const stored =
-      localStorage.getItem(
-        STORAGE_KEY
-      );
+        if (!raw) {
 
+            history = [];
 
-    if (
-      stored
-    ) {
+            return;
 
-      const parsed =
-        JSON.parse(
-          stored
-        );
-
-
-      if (
-        Array.isArray(
-          parsed
-        )
-      ) {
-
-        testHistory =
-          parsed;
-
-      }
-
-    }
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Could not read test history:",
-      error
-    );
-
-  }
-
-}
-
-
-
-/* =========================================================
-   RENDER DIAGNOSIS
-========================================================= */
-
-function renderDiagnosis() {
-
-  renderOverall();
-
-  renderKnowledgeDiagnosis();
-
-  renderUnitTopicDiagnosis();
-
-  renderRevisionPriorities();
-
-  renderHistory();
-
-}
-
-
-
-/* =========================================================
-   OVERALL
-========================================================= */
-
-function renderOverall() {
-
-  // Ignore malformed history entries without modifying saved history.
-  const tests = testHistory.filter(test => {
-    if (!test || typeof test !== "object" || Array.isArray(test)) return false;
-    const total = Number(test.total);
-    return Number.isFinite(total) && total > 0;
-  });
-
-  const safeCount = value => {
-    const number = Number(value);
-    return Number.isFinite(number) ? Math.max(0, Math.floor(number)) : 0;
-  };
-
-  const totalTests = tests.length;
-  const totalQuestions = tests.reduce((sum, test) => sum + safeCount(test.total), 0);
-  const totalCorrect = tests.reduce((sum, test) => sum + safeCount(test.correct), 0);
-  const totalWrong = tests.reduce((sum, test) => sum + safeCount(test.wrong), 0);
-
-  // Use the recorded test total as the denominator; derive unanswered so older
-  // records without an unanswered field remain readable.
-  const totalUnanswered = tests.reduce((sum, test) => {
-    const total = safeCount(test.total);
-    const correct = safeCount(test.correct);
-    const wrong = safeCount(test.wrong);
-    return sum + Math.max(0, total - correct - wrong);
-  }, 0);
-
-
-  const overallScore =
-    totalQuestions > 0
-
-      ? Math.round(
-          (
-            totalCorrect /
-            totalQuestions
-          ) * 100
-        )
-
-      : 0;
-
-
-  document.getElementById(
-    "overallScore"
-  ).textContent =
-    `${overallScore}%`;
-
-
-  document.getElementById(
-    "totalTests"
-  ).textContent =
-    totalTests;
-
-
-  document.getElementById(
-    "totalQuestions"
-  ).textContent =
-    totalQuestions;
-
-
-  document.getElementById(
-    "totalCorrect"
-  ).textContent =
-    totalCorrect;
-
-
-  document.getElementById(
-    "totalWrong"
-  ).textContent =
-    totalWrong;
-document.getElementById(
-  "totalUnanswered"
-).textContent = totalUnanswered;
-
-const answeredQuestions = totalCorrect + totalWrong;
-
-const answeredAccuracy = answeredQuestions > 0
-  ? Math.round((totalCorrect / answeredQuestions) * 100)
-  : 0;
-
-document.getElementById(
-  "answeredAccuracy"
-).textContent = `${answeredAccuracy}%`;
-
-  const status =
-    document.getElementById(
-      "diagnosisStatus"
-    );
-
-
-  if (!totalTests) {
-
-    status.innerHTML = `
-
-      <div class="empty-state">
-
-        <div style="font-size:40px;">
-          📊
-        </div>
-
-        <strong>
-          No completed test found yet.
-        </strong>
-
-        <div class="small mt-2">
-
-          Complete a test in the Basic JRF
-          Test Engine first.
-
-        </div>
-
-        <a
-          href="test-engine.html"
-          class="btn btn-navy btn-sm mt-3">
-
-          Start Test
-
-        </a>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  const oldRecords =
-    tests.filter(
-      test =>
-        !Array.isArray(
-          test.question_results
-        )
-    );
-
-
-  if (
-    oldRecords.length
-  ) {
-
-    status.innerHTML = `
-
-      <div class="alert-info-custom">
-
-        <strong>
-          ℹ️ Diagnosis data update
-        </strong>
-
-        <div class="small mt-1">
-
-          ${oldRecords.length}
-          older test record(s) were created
-          before question-level answer tracking
-          was added.
-
-          New tests will provide complete
-          knowledge-wise diagnosis.
-
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-  else {
-
-    status.innerHTML = `
-
-      <div class="alert alert-success py-2 mb-0">
-
-        ✓ Diagnosis is using
-        question-level performance data.
-
-      </div>
-
-    `;
-
-  }
-
-}
-
-
-
-/* =========================================================
-   KNOWLEDGE DIAGNOSIS
-========================================================= */
-
-function buildKnowledgeStats() {
-  const stats = {};
-
-  // Use immutable question-level snapshots first, then explicit source mappings.
-  // Retest records currently store their target in knowledge_entity, which may
-  // be a unit/topic label; do not promote that ambiguous field into an entity.
-  testHistory.forEach(test => {
-    if (!Array.isArray(test.question_results)) return;
-
-    test.question_results.forEach(result => {
-      const questionId = String(result.question_id ?? result.questionId ?? result.pyq_id ?? result.id ?? "").trim();
-      const normalizedId = questionId.toLowerCase();
-      let entities = valuesFrom(result.knowledge_entities ?? result.knowledgeEntities);
-      let units = valuesFrom(result.units ?? result.unit);
-      let concepts = valuesFrom(result.concepts ?? result.topics ?? result.topic);
-
-      const mapping = mappings.find(item => {
-        const ids = [item.pyq_id, item.question_id, item.questionId, item.id];
-        return ids.some(id => String(id ?? "").trim().toLowerCase() === normalizedId);
-      });
-      if (mapping) {
-        if (!entities.length) entities = valuesFrom(mapping.knowledge_entities ?? mapping.knowledgeEntities);
-        if (!units.length) units = valuesFrom(mapping.units ?? mapping.unit);
-        if (!concepts.length) concepts = valuesFrom(mapping.concepts ?? mapping.topics ?? mapping.topic ?? mapping.concept);
-      }
-
-      // No inferred entity links: only explicit entities from the result or source map.
-      [...new Set(entities.filter(label => label && label.toLowerCase() !== "unclassified"))]
-        .forEach(entity => {
-          if (!stats[entity]) {
-            stats[entity] = {
-              name: entity,
-              questionsSeen: 0,
-              correct: 0,
-              wrong: 0,
-              unanswered: 0,
-              units: new Set(),
-              concepts: new Set(),
-              questionIds: new Set()
-            };
-          }
-
-          const item = stats[entity];
-          item.questionsSeen++;
-          if (questionId) item.questionIds.add(questionId);
-
-          const hasAnswer = resultWasAnswered(result);
-          const isCorrect = resultWasCorrect(result);
-          if (hasAnswer && isCorrect) item.correct++;
-          else if (hasAnswer) item.wrong++;
-          else item.unanswered++;
-
-          units.forEach(unit => { if (unit && unit.toLowerCase() !== "unclassified") item.units.add(unit); });
-          concepts.forEach(concept => { if (concept && concept.toLowerCase() !== "unclassified") item.concepts.add(concept); });
-        });
-    });
-  });
-
-  return Object.values(stats).map(item => {
-    const answered = item.correct + item.wrong;
-    const accuracy = answered > 0 ? Math.round((item.correct / answered) * 100) : null;
-    const level = answered === 0 ? "unmeasured" : accuracy >= 75 ? "strong" : accuracy >= 50 ? "medium" : "weak";
-    return {
-      ...item,
-      attempted: answered,
-      answered,
-      accuracy,
-      level,
-      units: [...item.units],
-      concepts: [...item.concepts],
-      questionIds: [...item.questionIds]
-    };
-  }).sort((a, b) => (a.accuracy ?? 101) - (b.accuracy ?? 101) || b.questionsSeen - a.questionsSeen);
-}
-
-
-/* =========================================================
-   RENDER KNOWLEDGE DIAGNOSIS
-========================================================= */
-
-function renderKnowledgeDiagnosis() {
-
-  const container =
-    document.getElementById(
-      "knowledgeDiagnosisContainer"
-    );
-
-
-  const stats =
-    buildKnowledgeStats();
-
-
-  document.getElementById(
-    "knowledgeCount"
-  ).textContent =
-    `${stats.length} ${
-      stats.length === 1
-        ? "entity"
-        : "entities"
-    }`;
-
-
-  if (!stats.length) {
-
-    container.innerHTML = `
-
-      <div class="empty-state">
-
-        <div style="font-size:40px;">
-          🧠
-        </div>
-
-        <strong>
-          No knowledge diagnosis available yet.
-        </strong>
-
-        <div class="small mt-2">
-
-          The current PYQ records and mapping file do not
-          provide verified knowledge-entity links for these
-          questions. New tests alone cannot create those links.
-          Unit/topic diagnosis can still use available source
-          metadata. Entity-level diagnosis will appear only when
-          explicit, source-backed entity links are available.
-
-        </div>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML =
-    stats.map(
-      item =>
-        createKnowledgeCard(
-          item
-        )
-    ).join("");
-
-}
-
-
-
-/* =========================================================
-   KNOWLEDGE CARD
-========================================================= */
-
-function createKnowledgeCard(
-  item
-) {
-
-  const scoreClass =
-    item.level === "strong"
-      ? "score-strong"
-      : item.level === "medium"
-        ? "score-medium"
-        : item.level === "unmeasured"
-          ? "score-medium"
-          : "score-weak";
-
-
-  const statusText =
-    item.level === "strong"
-      ? "Strong performance"
-      : item.level === "medium"
-        ? "Needs more practice"
-        : item.level === "unmeasured"
-          ? "Practice needed — accuracy not measured"
-          : "Needs revision";
-
-
-  return `
-
-    <div class="
-      knowledge-card
-      ${item.level}
-    ">
-
-      <div class="
-        d-flex
-        justify-content-between
-        align-items-start
-        gap-3
-        flex-wrap
-      ">
-
-        <div>
-
-          <div class="knowledge-name">
-
-            ${escapeHTML(
-              item.name
-            )}
-
-          </div>
-
-          <div class="small text-secondary">
-
-            Knowledge Entity
-
-          </div>
-
-        </div>
-
-
-        <div class="
-          knowledge-score
-          ${scoreClass}
-        ">
-
-          ${item.accuracy === null ? "—" : `${item.accuracy}%`}
-
-        </div>
-
-      </div>
-
-
-      <div class="progress mt-3">
-
-        <div
-          class="progress-bar"
-          style="width:${item.accuracy === null ? 0 : item.accuracy}%">
-
-        </div>
-
-      </div>
-
-
-      <div class="row g-3 mt-2">
-
-        <div class="col-4">
-
-          <div class="text-center">
-
-            <strong>
-              ${item.questionsSeen}
-            </strong>
-
-            <div class="small text-secondary">
-              Questions seen
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="col-4">
-
-          <div class="text-center">
-
-            <strong class="text-success">
-              ${item.correct}
-            </strong>
-
-            <div class="small text-secondary">
-              Correct
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="col-4">
-
-          <div class="text-center">
-
-            <strong class="text-danger">
-              ${item.wrong}
-            </strong>
-
-            <div class="small text-secondary">
-              Wrong
-            </div>
-            <div class="small text-secondary">
-              ${item.unanswered} unanswered
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="mt-3">
-
-        <span class="tag">
-
-          ${statusText}
-
-        </span>
-
-
-        ${
-          item.units.length
-
-            ? item.units
-                .map(
-                  unit => `
-
-                    <span class="
-                      tag
-                      unit-tag
-                    ">
-
-                      ${escapeHTML(
-                        unit
-                      )}
-
-                    </span>
-
-                  `
-                )
-                .join("")
-
-            : ""
         }
 
-      </div>
+
+        const parsed =
+            JSON.parse(raw);
 
 
-      ${
-        item.concepts.length
+        if (Array.isArray(parsed)) {
 
-          ? `
+            history = parsed;
 
-            <div class="mt-2">
+        } else if (
+            parsed &&
+            Array.isArray(parsed.tests)
+        ) {
 
-              <strong class="small">
-                Concepts:
-              </strong>
+            history = parsed.tests;
 
-              ${item.concepts
-                .map(
-                  concept => `
+        } else {
 
-                    <span class="tag">
+            history = [];
 
-                      ${escapeHTML(
-                        concept
-                      )}
+        }
 
-                    </span>
+    } catch (error) {
 
-                  `
-                )
-                .join("")
-              }
+        console.error(error);
 
-            </div>
+        history = [];
 
-          `
-
-          : ""
-      }
-
-    </div>
-
-  `;
-
-}
-
-
-
-/* =========================================================
-   UNIT AND TOPIC DIAGNOSIS
-   Uses saved metadata first, then source-backed mappings/database.
-========================================================= */
-
-function resultWasAnswered(result) {
-  if (result?.answered === true || result?.answered === 1 || result?.answered === "true") return true;
-  const selected = result?.selected_answer ?? result?.selected ?? result?.selected_letter ?? result?.selectedAnswer;
-  return selected !== undefined && selected !== null && String(selected).trim() !== "";
-}
-
-function resultWasCorrect(result) {
-  const value = result?.is_correct ?? result?.isCorrect ?? result?.correct;
-  return value === true || value === 1 || String(value).toLowerCase() === "true";
-}
-
-function valuesFrom(value) {
-  if (Array.isArray(value)) {
-    return value.map(item => {
-      if (item === null || item === undefined) return "";
-      if (typeof item === "object") {
-        return String(item.name ?? item.title ?? item.label ?? item.id ?? "").trim();
-      }
-      return String(item).trim();
-    }).filter(Boolean);
-  }
-  if (value === null || value === undefined || value === "") return [];
-  if (typeof value === "object") {
-    const label = value.name ?? value.title ?? value.label ?? value.id;
-    return label === undefined ? [] : [String(label).trim()].filter(Boolean);
-  }
-  return [String(value).trim()].filter(Boolean);
-}
-
-function findQuestionSource(questionId) {
-  return pyqDatabase.find(question => {
-    const id = question?.id ?? question?.question_id ?? question?.pyq_id;
-    return String(id ?? "").trim().toLowerCase() === questionId.toLowerCase();
-  }) || null;
-}
-
-function buildUnitTopicStats() {
-  const stats = new Map();
-
-  function addArea(kind, label, result) {
-    const cleanLabel = String(label ?? "").trim();
-    // Placeholder metadata is not a real unit or topic and must not become a priority card.
-    if (!cleanLabel || cleanLabel.toLowerCase() === "unclassified" || cleanLabel.toLowerCase() === "unknown" || cleanLabel.toLowerCase() === "n/a") return;
-    const key = `${kind}::${cleanLabel.toLowerCase()}`;
-    if (!stats.has(key)) {
-      stats.set(key, {
-        kind,
-        name: cleanLabel,
-        seen: 0,
-        correct: 0,
-        wrong: 0,
-        unanswered: 0
-      });
-    }
-    const item = stats.get(key);
-    item.seen += 1;
-
-    // Use the same compatibility rules as Knowledge Diagnosis. Older saved
-    // attempts may use isCorrect/correct or selected_answer/selected instead
-    // of the newest boolean fields. Never treat an unanswerable record as wrong.
-    const answered = resultWasAnswered(result);
-    const correct = resultWasCorrect(result);
-
-    if (answered && correct) item.correct += 1;
-    else if (answered) item.wrong += 1;
-    else item.unanswered += 1;
-  }
-
-  testHistory.forEach(test => {
-    if (!Array.isArray(test.question_results)) return;
-
-    test.question_results.forEach(result => {
-      const questionId = String(
-        result.question_id ?? result.questionId ?? result.pyq_id ?? result.id ?? ""
-      ).trim();
-      const mapping = mappings.find(item => {
-        const ids = [item.pyq_id, item.question_id, item.questionId, item.id];
-        return ids.some(id =>
-          String(id ?? "").trim().toLowerCase() === questionId.toLowerCase()
-        );
-      });
-      const sourceQuestion = findQuestionSource(questionId);
-
-      let units = valuesFrom(result.units);
-      let topics = valuesFrom(result.topics ?? result.topic);
-      let concepts = valuesFrom(result.concepts);
-
-      if (mapping) {
-        if (!units.length) units = valuesFrom(mapping.units ?? mapping.unit);
-        if (!topics.length) topics = valuesFrom(mapping.topics ?? mapping.topic);
-        if (!concepts.length) concepts = valuesFrom(mapping.concepts ?? mapping.concept);
-      }
-      if (sourceQuestion) {
-        if (!units.length) units = valuesFrom(sourceQuestion.units ?? sourceQuestion.unit);
-        if (!topics.length) topics = valuesFrom(sourceQuestion.topics ?? sourceQuestion.topic);
-        if (!concepts.length) concepts = valuesFrom(sourceQuestion.concepts ?? sourceQuestion.concept);
-      }
-
-      // De-duplicate repeated labels for this one question attempt.
-      [...new Set(units)].forEach(label => addArea("Unit", label, result));
-      [...new Set([...topics, ...concepts])].forEach(label => addArea("Topic / Concept", label, result));
-    });
-  });
-
-  return [...stats.values()].map(item => {
-    const answered = item.correct + item.wrong;
-    const rate = answered ? Math.round(item.correct / answered * 100) : null;
-    // Require repeated evidence before labelling an area a HIGH revision priority.
-    // A single poor attempt remains a review signal, not a definitive diagnosis.
-    let priorityKey;
-    let priorityText;
-    let priorityClass;
-
-    if (answered === 0) {
-      priorityKey = 0;
-      priorityText = item.seen > 0 ? "PRACTICE NEEDED — NO ANSWERED ATTEMPTS" : "PRACTICE NEEDED";
-      priorityClass = "priority-medium";
-    } else if (answered < 3) {
-      priorityKey = 1;
-      priorityText = rate < 75 ? "REVIEW — LIMITED EVIDENCE" : "PROMISING — LIMITED EVIDENCE";
-      priorityClass = rate < 75 ? "priority-medium" : "priority-low";
-    } else if (rate < 50) {
-      priorityKey = 2;
-      priorityText = "HIGH REVISION PRIORITY";
-      priorityClass = "priority-high";
-    } else if (rate < 75) {
-      priorityKey = 3;
-      priorityText = "REVIEW";
-      priorityClass = "priority-medium";
-    } else {
-      priorityKey = 4;
-      priorityText = "CURRENTLY STRONGER";
-      priorityClass = "priority-low";
     }
 
-    return { ...item, answered, rate, priorityKey, priorityText, priorityClass };
-  }).sort((a, b) => a.priorityKey - b.priorityKey || (a.rate ?? -1) - (b.rate ?? -1) || b.answered - a.answered || a.name.localeCompare(b.name));
-}
-
-function renderUnitTopicDiagnosis() {
-  const container = document.getElementById("unitTopicDiagnosisContainer");
-  const count = document.getElementById("unitTopicCount");
-  if (!container || !count) return;
-
-  const stats = buildUnitTopicStats();
-  count.textContent = `${stats.length} ${stats.length === 1 ? "area" : "areas"}`;
-
-  if (!stats.length) {
-    container.innerHTML = `
-      <div class="empty-state">
-        <div style="font-size:40px;">📚</div>
-        <strong>No unit/topic diagnosis is supported by the available records yet.</strong>
-        <div class="small mt-2">
-          This can happen when saved test attempts do not contain unit/topic metadata and the source database has no matching mapping. No topic has been guessed.
-        </div>
-      </div>`;
-    return;
-  }
-
-  container.innerHTML = stats.map(item => {
-    const priorityClass = item.priorityClass;
-    const priorityText = item.priorityText;
-    return `
-      <div class="history-card">
-        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
-          <div>
-            <span class="tag">${escapeHTML(item.kind)}</span>
-            <strong>${escapeHTML(item.name)}</strong>
-            <div class="small text-secondary mt-1">
-              ${item.seen} recorded question attempt(s) · ${item.correct} correct · ${item.wrong} wrong · ${item.unanswered} unanswered
-            </div>
-          </div>
-          <div class="text-end">
-            <strong>${item.rate === null ? "—" : `${item.rate}%`}</strong>
-            <div><span class="tag ${priorityClass}">${priorityText}</span></div>
-          </div>
-        </div>
-        <div class="progress mt-2" role="progressbar" aria-label="${escapeHTML(item.name)} correct rate" aria-valuenow="${item.rate}" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar" style="width:${item.rate === null ? 0 : item.rate}%"></div>
-        </div>
-        <div class="small text-secondary mt-1">Accuracy uses answered questions only. Unanswered questions are counted separately. High revision priority requires at least 3 answered attempts and accuracy below 50%; fewer attempts are marked as limited evidence.</div>
-      </div>`;
-  }).join("");
 }
 
 
-/* =========================================================
-   REVISION PRIORITIES
-========================================================= */
+/*
+===============================================================
+LOAD ADAPTIVE QUEUE
+===============================================================
+*/
 
-function renderRevisionPriorities() {
-  const container = document.getElementById("revisionContainer");
-  const countElement = document.getElementById("revisionCount");
-  if (!container || !countElement) return;
+function loadAdaptiveQueue() {
 
-  // Entity priorities require explicit, verified entity links.
-  const entityItems = buildKnowledgeStats()
-    .filter(item => item.accuracy === null || item.accuracy < 75)
-    .map(item => ({
-      sourceKind: "Knowledge Entity",
-      name: item.name,
-      seen: item.questionsSeen,
-      correct: item.correct,
-      wrong: item.wrong,
-      unanswered: item.unanswered,
-      accuracy: item.accuracy,
-      units: item.units,
-      priorityKey: item.accuracy === null ? 0 : item.accuracy < 50 ? 1 : 2,
-      priorityText: item.accuracy === null
-        ? "PRACTICE NEEDED — NOT YET MEASURED"
-        : item.accuracy < 50 ? "HIGH PRIORITY" : "REVIEW",
-      priorityClass: item.accuracy !== null && item.accuracy < 50
-        ? "priority-high" : "priority-medium"
-    }));
+    try {
 
-  // Unit/topic metadata is a separate evidence source. Include it so the
-  // revision section does not misleadingly show zero when metadata-based
-  // priorities exist, while never pretending a unit/topic is an entity.
-  const areaItems = buildUnitTopicStats()
-    .filter(item => item.rate === null || item.rate < 75)
-    .map(item => ({
-      sourceKind: item.kind,
-      name: item.name,
-      seen: item.seen,
-      correct: item.correct,
-      wrong: item.wrong,
-      unanswered: item.unanswered,
-      accuracy: item.rate,
-      units: [],
-      priorityKey: item.priorityKey,
-      priorityText: item.priorityText,
-      priorityClass: item.priorityClass
-    }));
+        const raw =
+            localStorage.getItem(
+                ADAPTIVE_QUEUE_KEY
+            );
 
-  const revisionItems = [...entityItems, ...areaItems]
-    .sort((a, b) =>
-      a.priorityKey - b.priorityKey ||
-      (a.accuracy ?? -1) - (b.accuracy ?? -1) ||
-      b.seen - a.seen ||
-      a.name.localeCompare(b.name)
-    );
 
-  countElement.textContent =
-    `${revisionItems.length} ${revisionItems.length === 1 ? "item" : "items"}`;
+        if (!raw) {
 
-  if (!revisionItems.length) {
-    container.innerHTML = `
-      <div class="empty-state">
-        <div style="font-size:40px;">🎉</div>
-        <strong>No revision priorities are currently supported by the available records.</strong>
-        <div class="small mt-2">
-          Entity-level priorities require verified entity links. Unit/topic priorities require source-backed unit or topic metadata. No missing links or weak areas have been guessed.
-        </div>
-      </div>`;
-    return;
-  }
+            adaptiveQueue = [];
 
-  container.innerHTML = revisionItems.map(item => `
-    <div class="knowledge-card ${item.accuracy === null ? "medium" : item.accuracy < 50 ? "weak" : "medium"}">
-      <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
-        <div>
-          <span class="tag">${escapeHTML(item.sourceKind)}</span>
-          <div class="knowledge-name">${escapeHTML(item.name)}</div>
-          <div class="small text-secondary mt-1">
-            ${item.seen} recorded question attempt(s) · ${item.correct} correct · ${item.wrong} wrong · ${item.unanswered} unanswered
-          </div>
-        </div>
-        <div class="text-end">
-          <div class="knowledge-score ${item.accuracy === null ? "score-medium" : item.accuracy < 50 ? "score-weak" : "score-medium"}">
-            ${item.accuracy === null ? "—" : `${item.accuracy}%`}
-          </div>
-          <span class="tag ${escapeHTML(item.priorityClass)}">${escapeHTML(item.priorityText)}</span>
-        </div>
-      </div>
-      <div class="progress mt-3" role="progressbar"
-        aria-label="${escapeHTML(item.name)} accuracy"
-        aria-valuenow="${item.accuracy === null ? 0 : item.accuracy}"
-        aria-valuemin="0" aria-valuemax="100">
-        <div class="progress-bar" style="width:${item.accuracy === null ? 0 : item.accuracy}%"></div>
-      </div>
-      ${item.units.length ? `
-        <div class="mt-2">${item.units.map(unit =>
-          `<span class="tag unit-tag">${escapeHTML(unit)}</span>`
-        ).join("")}</div>` : ""}
-      <div class="small text-secondary mt-2">
-        Accuracy uses answered questions only; unanswered questions are tracked separately. Fewer than three answered attempts are treated as limited evidence.
-      </div>
-    </div>
-  `).join("");
+            return;
+
+        }
+
+
+        const parsed =
+            JSON.parse(raw);
+
+
+        if (
+            parsed &&
+            Array.isArray(
+                parsed.questions
+            )
+        ) {
+
+            adaptiveQueue =
+                parsed.questions;
+
+        } else if (
+            Array.isArray(parsed)
+        ) {
+
+            adaptiveQueue =
+                parsed;
+
+        } else {
+
+            adaptiveQueue = [];
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        adaptiveQueue = [];
+
+    }
+
 }
 
 
-/* =========================================================
-   TEST HISTORY
-========================================================= */
+/*
+===============================================================
+LOAD DATA
+===============================================================
+*/
 
-function renderHistory() {
+async function loadData() {
 
-  const container =
-    document.getElementById(
-      "historyContainer"
-    );
+    try {
 
+        const [
+            pyqResponse,
+            mappingResponse
+        ] = await Promise.all([
 
-  if (!testHistory.length) {
+            fetch(PYQ_PATH),
 
-    container.innerHTML = `
+            fetch(MAPPING_PATH)
 
-      <div class="empty-state">
-
-        No completed tests yet.
-
-      </div>
-
-    `;
-
-    return;
-
-  }
+        ]);
 
 
-  const recent =
-    [...testHistory]
-      .reverse()
-      .slice(
-        0,
-        10
-      );
+        if (!pyqResponse.ok) {
+
+            throw new Error(
+                "PYQ database could not be loaded."
+            );
+
+        }
 
 
-  container.innerHTML =
-    recent.map(
-      (
-        test,
-        index
-      ) => {
+        if (!mappingResponse.ok) {
 
-        const date =
-          test.date
+            throw new Error(
+                "Knowledge mapping could not be loaded."
+            );
 
-            ? new Date(
-                test.date
-              ).toLocaleString()
-
-            : "Unknown date";
+        }
 
 
-        const tracked =
-          Array.isArray(
-            test.question_results
-          );
+        const pyqData =
+            await pyqResponse.json();
 
 
-        return `
-
-          <div class="history-card">
-
-            <div class="
-              d-flex
-              justify-content-between
-              align-items-center
-              gap-3
-              flex-wrap
-            ">
-
-              <div>
-
-                <strong>
-                  ${test.type === "retest"
-                    ? escapeHTML(test.title || "Focused Retest")
-                    : `Test ${testHistory.length - index}`}
-                </strong>
-
-                <div class="small text-secondary">
-
-                  ${escapeHTML(
-                    date
-                  )}
-
-                </div>
-
-              </div>
+        const mappingData =
+            await mappingResponse.json();
 
 
-              <div class="text-end">
-
-                <strong>
-
-                  ${Number(
-                    test.score || 0
-                  )}%
-
-                </strong>
-
-                <div class="small text-secondary">
-
-                  ${Number(
-                    test.correct || 0
-                  )}
-                  correct /
-                  ${Number(
-                    test.total || 0
-                  )}
-
-                </div>
-
-              </div>
-
-            </div>
+        questions =
+            Array.isArray(pyqData)
+                ? pyqData
+                : Array.isArray(pyqData.questions)
+                    ? pyqData.questions
+                    : [];
 
 
-            ${
-              tracked
+        mappings =
+            Array.isArray(mappingData)
+                ? mappingData
+                : Array.isArray(mappingData.mappings)
+                    ? mappingData.mappings
+                    : [];
 
-                ? `
 
-                  <div class="
-                    small
-                    text-success
-                    mt-2
-                  ">
+        loadHistory();
 
-                    ✓ ${test.type === "retest" ? "Retest result included in diagnosis" : "Question-level diagnosis available"}
+        loadAdaptiveQueue();
 
-                  </div>
+        buildQuestionPerformance();
 
-                `
+        buildEntityPerformance();
 
-                : `
+        updateStats();
 
-                  <div class="
-                    small
-                    text-secondary
-                    mt-2
-                  ">
 
-                    Older record — question-level
-                    diagnosis unavailable
+        document.getElementById(
+            "pyqStatus"
+        ).innerHTML =
+            '<span class="badge bg-success">Loaded</span>';
 
-                  </div>
 
-                `
+        document.getElementById(
+            "adaptiveStatus"
+        ).innerHTML =
+            '<span class="badge bg-success">' +
+            adaptiveQueue.length +
+            " question(s)</span>";
+
+
+        document.getElementById(
+            "historyStatus"
+        ).innerHTML =
+            '<span class="badge bg-success">' +
+            history.length +
+            " test record(s)</span>";
+
+
+        document.getElementById(
+            "engineStatus"
+        ).innerHTML =
+            '<span class="badge bg-success">Ready</span>';
+
+
+        document.getElementById(
+            "statusBox"
+        ).innerHTML =
+            "<strong>Difficulty progression engine ready.</strong> " +
+            questions.length +
+            " PYQ(s) available.";
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        document.getElementById(
+            "statusBox"
+        ).className =
+            "status-box mb-4 bg-danger-subtle border-danger";
+
+
+        document.getElementById(
+            "statusBox"
+        ).innerHTML =
+            "<strong>Loading error:</strong> " +
+            escapeHtml(
+                error.message
+            );
+
+    }
+
+}
+
+
+/*
+===============================================================
+QUESTION PERFORMANCE
+===============================================================
+*/
+
+function buildQuestionPerformance() {
+
+    questionPerformance = {};
+
+
+    history.forEach(test => {
+
+        const results =
+            Array.isArray(
+                test.question_results
+            )
+                ? test.question_results
+                : [];
+
+
+        results.forEach(result => {
+
+            const id =
+                String(
+                    result.question_id ??
+                    result.id ??
+                    ""
+                );
+
+
+            if (!id) {
+
+                return;
 
             }
 
-          </div>
 
-        `;
+            if (
+                !questionPerformance[id]
+            ) {
 
-      }
-    ).join("");
+                questionPerformance[id] = {
+
+                    attempts: 0,
+
+                    correct: 0,
+
+                    wrong: 0,
+
+                    recentResults: [],
+
+                    lastAnswered: null
+
+                };
+
+            }
+
+
+            const record =
+                questionPerformance[id];
+
+
+            record.attempts++;
+
+
+            const isCorrect =
+                result.is_correct === true ||
+                result.isCorrect === true ||
+                (
+                    result.correct_answer &&
+                    result.selected_answer &&
+                    normalize(
+                        result.correct_answer
+                    ) ===
+                    normalize(
+                        result.selected_answer
+                    )
+                );
+
+
+            if (isCorrect) {
+
+                record.correct++;
+
+            } else {
+
+                record.wrong++;
+
+            }
+
+
+            record.recentResults.push(
+                isCorrect
+            );
+
+
+            record.lastAnswered =
+                test.completed_at ||
+                test.date ||
+                test.timestamp ||
+                null;
+
+        });
+
+    });
 
 }
 
 
+/*
+===============================================================
+MAPPING LOOKUP
+===============================================================
+*/
 
-/* =========================================================
-   REFRESH
-========================================================= */
-
-document
-  .getElementById(
-    "refreshBtn"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      loadHistory();
-
-      renderDiagnosis();
-
-    }
-  );
-
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHTML(
-  value
+function getMappingsForQuestion(
+    questionId
 ) {
 
-  return String(
-    value
-  )
+    return mappings.filter(mapping => {
 
-    .replace(
-      /&/g,
-      "&amp;"
+        const id =
+            mapping.pyq_id ??
+            mapping.question_id ??
+            mapping.id ??
+            "";
+
+
+        return String(id) ===
+            String(questionId);
+
+    });
+
+}
+
+
+/*
+===============================================================
+ENTITY EXTRACTION
+===============================================================
+*/
+
+function getQuestionEntities(
+    question
+) {
+
+    const values = [];
+
+
+    const addEntities =
+        source => {
+
+            [
+                "knowledge_entities",
+                "entities",
+                "related_entities"
+            ]
+                .forEach(property => {
+
+                    const list =
+                        source?.[property];
+
+
+                    if (
+                        !Array.isArray(list)
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    list.forEach(item => {
+
+                        if (
+                            typeof item ===
+                            "string"
+                        ) {
+
+                            if (
+                                item.trim()
+                            ) {
+
+                                values.push(
+                                    item.trim()
+                                );
+
+                            }
+
+                        } else if (
+                            item &&
+                            typeof item ===
+                            "object"
+                        ) {
+
+                            const name =
+                                item.name ??
+                                item.title ??
+                                item.entity ??
+                                item.id ??
+                                "";
+
+
+                            if (
+                                String(name).trim()
+                            ) {
+
+                                values.push(
+                                    String(name).trim()
+                                );
+
+                            }
+
+                        }
+
+                    });
+
+                });
+
+        };
+
+
+    addEntities(question);
+
+
+    getMappingsForQuestion(
+        question.id
     )
+        .forEach(
+            addEntities
+        );
 
-    .replace(
-      /</g,
-      "&lt;"
-    )
 
-    .replace(
-      />/g,
-      "&gt;"
-    )
+    return [
+        ...new Map(
+            values.map(
+                value => [
+                    normalize(value),
+                    value
+                ]
+            )
+        ).values()
+    ];
 
-    .replace(
-      /"/g,
-      "&quot;"
-    )
+}
 
-    .replace(
-      /'/g,
-      "&#039;"
+
+/*
+===============================================================
+ENTITY PERFORMANCE
+===============================================================
+*/
+
+function buildEntityPerformance() {
+
+    entityPerformance = {};
+
+
+    questions.forEach(question => {
+
+        const performance =
+            questionPerformance[
+                String(question.id)
+            ];
+
+
+        if (!performance) {
+
+            return;
+
+        }
+
+
+        const entities =
+            getQuestionEntities(
+                question
+            );
+
+
+        entities.forEach(entity => {
+
+            const key =
+                normalize(entity);
+
+
+            if (
+                !entityPerformance[key]
+            ) {
+
+                entityPerformance[key] = {
+
+                    name: entity,
+
+                    attempts: 0,
+
+                    correct: 0,
+
+                    wrong: 0
+
+                };
+
+            }
+
+
+            entityPerformance[key]
+                .attempts +=
+                performance.attempts;
+
+
+            entityPerformance[key]
+                .correct +=
+                performance.correct;
+
+
+            entityPerformance[key]
+                .wrong +=
+                performance.wrong;
+
+        });
+
+    });
+
+}
+
+
+/*
+===============================================================
+GET ENTITY ACCURACY
+===============================================================
+*/
+
+function getEntityAccuracy(
+    question
+) {
+
+    const entities =
+        getQuestionEntities(
+            question
+        );
+
+
+    if (!entities.length) {
+
+        return null;
+
+    }
+
+
+    const accuracies = [];
+
+
+    entities.forEach(entity => {
+
+        const record =
+            entityPerformance[
+                normalize(entity)
+            ];
+
+
+        if (
+            record &&
+            record.attempts
+        ) {
+
+            accuracies.push(
+                (
+                    record.correct /
+                    record.attempts
+                ) * 100
+            );
+
+        }
+
+    });
+
+
+    if (!accuracies.length) {
+
+        return null;
+
+    }
+
+
+    /*
+    Use the weakest connected entity.
+
+    This ensures a question connected to a weak
+    knowledge area remains appropriately challenging.
+    */
+
+    return Math.min(
+        ...accuracies
     );
 
 }
 
 
+/*
+===============================================================
+RECOMMENDED DIFFICULTY
+===============================================================
+*/
 
-/* =========================================================
-   INITIALIZE
-========================================================= */
+function getRecommendedDifficulty(
+    question
+) {
 
-loadDatabase();
+    const accuracy =
+        getEntityAccuracy(
+            question
+        );
+
+
+    /*
+    No history:
+    start at the question's actual level.
+    */
+
+    if (
+        accuracy === null
+    ) {
+
+        return normalizeDifficulty(
+            question.difficulty
+        );
+
+    }
+
+
+    if (
+        accuracy < 50
+    ) {
+
+        return "Easy";
+
+    }
+
+
+    if (
+        accuracy < 70
+    ) {
+
+        return (
+            question.difficulty === "Hard"
+                ? "Medium"
+                : "Easy"
+        );
+
+    }
+
+
+    if (
+        accuracy < 85
+    ) {
+
+        return "Medium";
+
+    }
+
+
+    /*
+    Strong learner.
+    */
+
+    return "Hard";
+
+}
+
+
+/*
+===============================================================
+NORMALIZE DIFFICULTY
+===============================================================
+*/
+
+function normalizeDifficulty(
+    value
+) {
+
+    const difficulty =
+        normalize(value);
+
+
+    if (
+        difficulty === "hard"
+    ) {
+
+        return "Hard";
+
+    }
+
+
+    if (
+        difficulty === "medium"
+    ) {
+
+        return "Medium";
+
+    }
+
+
+    return "Easy";
+
+}
+
+
+/*
+===============================================================
+DIFFICULTY VALUE
+===============================================================
+*/
+
+function difficultyValue(
+    difficulty
+) {
+
+    const value =
+        normalizeDifficulty(
+            difficulty
+        );
+
+
+    if (
+        value === "Hard"
+    ) {
+
+        return 3;
+
+    }
+
+
+    if (
+        value === "Medium"
+    ) {
+
+        return 2;
+
+    }
+
+
+    return 1;
+
+}
+
+
+/*
+===============================================================
+DIFFICULTY DISTANCE
+===============================================================
+*/
+
+function difficultyDistance(
+    actual,
+    recommended
+) {
+
+    return Math.abs(
+
+        difficultyValue(actual)
+        -
+        difficultyValue(recommended)
+
+    );
+
+}
+
+
+/*
+===============================================================
+QUESTION PROGRESSION SCORE
+===============================================================
+*/
+
+function calculateProgressionScore(
+    question
+) {
+
+    const performance =
+        questionPerformance[
+            String(question.id)
+        ];
+
+
+    const recommended =
+        getRecommendedDifficulty(
+            question
+        );
+
+
+    const actual =
+        normalizeDifficulty(
+            question.difficulty
+        );
+
+
+    let score = 0;
+
+
+    /*
+    -----------------------------------------------------------
+    Difficulty match
+    -----------------------------------------------------------
+    */
+
+    const distance =
+        difficultyDistance(
+            actual,
+            recommended
+        );
+
+
+    if (
+        distance === 0
+    ) {
+
+        score += 40;
+
+    } else if (
+        distance === 1
+    ) {
+
+        score += 20;
+
+    }
+
+
+    /*
+    -----------------------------------------------------------
+    Weak areas get additional priority.
+    -----------------------------------------------------------
+    */
+
+    const accuracy =
+        getEntityAccuracy(
+            question
+        );
+
+
+    if (
+        accuracy === null
+    ) {
+
+        score += 10;
+
+    } else if (
+        accuracy < 50
+    ) {
+
+        score += 40;
+
+    } else if (
+        accuracy < 70
+    ) {
+
+        score += 30;
+
+    } else if (
+        accuracy < 85
+    ) {
+
+        score += 20;
+
+    } else {
+
+        score += 10;
+
+    }
+
+
+    /*
+    -----------------------------------------------------------
+    Previous question errors
+    -----------------------------------------------------------
+    */
+
+    if (performance) {
+
+        if (
+            performance.wrong >= 3
+        ) {
+
+            score += 20;
+
+        } else if (
+            performance.wrong >= 1
+        ) {
+
+            score += 10;
+
+        }
+
+
+        /*
+        Recent incorrect answer.
+        */
+
+        const recent =
+            performance.recentResults;
+
+
+        if (
+            recent.length &&
+            recent[
+                recent.length - 1
+            ] === false
+        ) {
+
+            score += 10;
+
+        }
+
+    }
+
+
+    return {
+
+        score,
+
+        recommended,
+
+        actual,
+
+        accuracy,
+
+        performance
+
+    };
+
+}
+
+
+/*
+===============================================================
+GET UNIT
+===============================================================
+*/
+
+function getUnit(
+    question
+) {
+
+    return String(
+        question.unit ?? ""
+    );
+
+}
+
+
+/*
+===============================================================
+GENERATE PROGRESSIVE QUEUE
+===============================================================
+*/
+
+function generateProgressiveQueue() {
+
+    const count =
+        Number(
+            document.getElementById(
+                "numberOfQuestions"
+            ).value
+        );
+
+
+    const selectedUnit =
+        document.getElementById(
+            "unitFilter"
+        ).value;
+
+
+    let candidates =
+        [...questions];
+
+
+    /*
+    UNIT FILTER
+    */
+
+    if (
+        selectedUnit !== "all"
+    ) {
+
+        candidates =
+            candidates.filter(
+                question =>
+                    normalize(
+                        getUnit(question)
+                    )
+                    .includes(
+                        normalize(
+                            selectedUnit
+                        )
+                    )
+            );
+
+    }
+
+
+    /*
+    -----------------------------------------------------------
+    If Step 8.3 generated a queue,
+    use its question order as an additional signal.
+    -----------------------------------------------------------
+    */
+
+    const adaptiveRank = {};
+
+
+    adaptiveQueue.forEach(
+        (item, index) => {
+
+            const id =
+                String(
+                    item.question_id ??
+                    item.id ??
+                    ""
+                );
+
+
+            if (id) {
+
+                adaptiveRank[id] =
+                    adaptiveQueue.length -
+                    index;
+
+            }
+
+        }
+    );
+
+
+    /*
+    -----------------------------------------------------------
+    SCORE QUESTIONS
+    -----------------------------------------------------------
+    */
+
+    const scored =
+        candidates.map(question => {
+
+            const progression =
+                calculateProgressionScore(
+                    question
+                );
+
+
+            const adaptiveBonus =
+                adaptiveRank[
+                    String(question.id)
+                ] || 0;
+
+
+            return {
+
+                question,
+
+                ...progression,
+
+                adaptiveBonus,
+
+                finalScore:
+                    progression.score +
+                    adaptiveBonus
+
+            };
+
+        });
+
+
+    /*
+    Highest priority first.
+    */
+
+    scored.sort(
+        (a, b) =>
+            b.finalScore -
+            a.finalScore
+    );
+
+
+    /*
+    -----------------------------------------------------------
+    DIVERSITY
+    -----------------------------------------------------------
+    */
+
+    const selected = [];
+
+    const difficultyCounts = {
+
+        Easy: 0,
+
+        Medium: 0,
+
+        Hard: 0
+
+    };
+
+
+    for (
+        const item of scored
+    ) {
+
+        if (
+            selected.length >= count
+        ) {
+
+            break;
+
+        }
+
+
+        const difficulty =
+            item.actual;
+
+
+        /*
+        Avoid putting all questions at one
+        difficulty when alternatives exist.
+        */
+
+        if (
+            difficultyCounts[
+                difficulty
+            ] >= 3 &&
+            scored.length > count
+        ) {
+
+            continue;
+
+        }
+
+
+        selected.push(item);
+
+
+        difficultyCounts[
+            difficulty
+        ]++;
+
+    }
+
+
+    /*
+    Fill remaining positions.
+    */
+
+    if (
+        selected.length < count
+    ) {
+
+        for (
+            const item of scored
+        ) {
+
+            if (
+                selected.length >= count
+            ) {
+
+                break;
+
+            }
+
+
+            const exists =
+                selected.some(
+                    selectedItem =>
+                        String(
+                            selectedItem.question.id
+                        ) ===
+                        String(
+                            item.question.id
+                        )
+                );
+
+
+            if (!exists) {
+
+                selected.push(item);
+
+            }
+
+        }
+
+    }
+
+
+    progressiveQueue =
+        selected;
+
+
+    saveProgressiveQueue();
+
+    renderQueue();
+
+    updateStats();
+
+
+    document.getElementById(
+        "statusBox"
+    ).innerHTML =
+        "<strong>Progressive queue generated.</strong> " +
+        progressiveQueue.length +
+        " question(s) selected using performance-aware difficulty progression.";
+
+}
+
+
+/*
+===============================================================
+SAVE PROGRESSIVE QUEUE
+===============================================================
+*/
+
+function saveProgressiveQueue() {
+
+    const payload = {
+
+        version: 1,
+
+        generated_at:
+            new Date().toISOString(),
+
+        algorithm:
+            "Step 8.4 Difficulty Progression",
+
+        questions:
+            progressiveQueue.map(item => ({
+
+                question_id:
+                    item.question.id,
+
+                difficulty:
+                    item.actual,
+
+                recommended_difficulty:
+                    item.recommended,
+
+                accuracy:
+                    item.accuracy,
+
+                score:
+                    item.finalScore,
+
+                adaptive_bonus:
+                    item.adaptiveBonus
+
+            }))
+
+    };
+
+
+    localStorage.setItem(
+        PROGRESSIVE_QUEUE_KEY,
+        JSON.stringify(
+            payload
+        )
+    );
+
+}
+
+
+/*
+===============================================================
+RENDER QUEUE
+===============================================================
+*/
+
+function renderQueue() {
+
+    const container =
+        document.getElementById(
+            "queueContainer"
+        );
+
+
+    const badge =
+        document.getElementById(
+            "queueBadge"
+        );
+
+
+    if (
+        !progressiveQueue.length
+    ) {
+
+        badge.textContent =
+            "0 Questions";
+
+
+        container.innerHTML = `
+
+            <div class="card empty-state">
+                No questions match the selected criteria.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    badge.textContent =
+        progressiveQueue.length +
+        " Questions";
+
+
+    badge.className =
+        "badge bg-success";
+
+
+    container.innerHTML =
+        progressiveQueue.map(
+            (item, index) => {
+
+                let priorityClass =
+                    "priority-normal";
+
+
+                if (
+                    item.finalScore >= 70
+                ) {
+
+                    priorityClass =
+                        "priority-high";
+
+                } else if (
+                    item.finalScore >= 45
+                ) {
+
+                    priorityClass =
+                        "priority-medium";
+
+                }
+
+
+                return `
+
+                    <div class="
+                        question-card
+                        ${priorityClass}
+                    ">
+
+                        <div class="
+                            d-flex
+                            justify-content-between
+                            align-items-start
+                            mb-3
+                        ">
+
+                            <div>
+
+                                <strong>
+                                    #${index + 1}
+                                </strong>
+
+                            </div>
+
+
+                            <span class="
+                                difficulty-badge
+                                ${
+                                    item.actual === "Hard"
+                                        ? "hard"
+                                        : item.actual === "Medium"
+                                            ? "medium"
+                                            : "easy"
+                                }
+                            ">
+
+                                ${item.actual}
+
+                            </span>
+
+                        </div>
+
+
+                        <h5>
+                            ${escapeHtml(
+                                item.question.question
+                            )}
+                        </h5>
+
+
+                        <div class="
+                            small-muted
+                            mt-2
+                        ">
+
+                            Unit:
+                            ${escapeHtml(
+                                getUnit(
+                                    item.question
+                                )
+                            )}
+
+                            &nbsp; • &nbsp;
+
+                            PYQ:
+                            ${escapeHtml(
+                                item.question.id
+                            )}
+
+                        </div>
+
+
+                        <div class="
+                            row
+                            g-2
+                            mt-3
+                        ">
+
+
+                            <div class="col-md-3">
+
+                                <div class="p-2 bg-light rounded">
+
+                                    <div class="small-muted">
+                                        Actual
+                                    </div>
+
+                                    <strong>
+                                        ${item.actual}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                <div class="p-2 bg-light rounded">
+
+                                    <div class="small-muted">
+                                        Recommended
+                                    </div>
+
+                                    <strong>
+                                        ${item.recommended}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                <div class="p-2 bg-light rounded">
+
+                                    <div class="small-muted">
+                                        Accuracy
+                                    </div>
+
+                                    <strong>
+                                        ${
+                                            item.accuracy === null
+                                                ? "Unseen"
+                                                : Math.round(
+                                                    item.accuracy
+                                                ) + "%"
+                                        }
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                <div class="p-2 bg-light rounded">
+
+                                    <div class="small-muted">
+                                        Score
+                                    </div>
+
+                                    <strong>
+                                        ${item.finalScore}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="
+                            progress
+                            mt-3
+                        ">
+
+                            <div
+                                class="progress-bar"
+                                role="progressbar"
+                                style="
+                                    width:
+                                    ${Math.min(
+                                        item.finalScore,
+                                        100
+                                    )}%;
+                                "
+                            ></div>
+
+                        </div>
+
+
+                        <div class="
+                            small-muted
+                            mt-3
+                        ">
+
+                            Difficulty progression:
+
+                            <strong>
+                                ${item.actual}
+                            </strong>
+
+                            →
+                            
+                            <strong>
+                                ${item.recommended}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/*
+===============================================================
+STATS
+===============================================================
+*/
+
+function updateStats() {
+
+    document.getElementById(
+        "questionCount"
+    ).textContent =
+        questions.length;
+
+
+    document.getElementById(
+        "easyCount"
+    ).textContent =
+        questions.filter(
+            q =>
+                normalizeDifficulty(
+                    q.difficulty
+                ) === "Easy"
+        ).length;
+
+
+    document.getElementById(
+        "mediumCount"
+    ).textContent =
+        questions.filter(
+            q =>
+                normalizeDifficulty(
+                    q.difficulty
+                ) === "Medium"
+        ).length;
+
+
+    document.getElementById(
+        "hardCount"
+    ).textContent =
+        questions.filter(
+            q =>
+                normalizeDifficulty(
+                    q.difficulty
+                ) === "Hard"
+        ).length;
+
+}
+
+
+/*
+===============================================================
+EVENT
+===============================================================
+*/
+
+document
+    .getElementById(
+        "generateBtn"
+    )
+    .addEventListener(
+        "click",
+        generateProgressiveQueue
+    );
+
+
+/*
+===============================================================
+START
+===============================================================
+*/
+
+loadData();
 
 </script>
 
 
 <script src="js/global-bottom-nav.js" defer></script>
 </body>
-
 </html>
