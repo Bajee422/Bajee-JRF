@@ -1764,21 +1764,21 @@ async function loadDatabase() {
       await Promise.all([
 
         fetch(
-          "../data/pyqs/pyq-database.json",
+          "./data/pyqs/pyq-database.json",
           {
             cache: "no-store"
           }
         ),
 
         fetch(
-          "../data/pyqs/pyq-knowledge-map.json",
+          "./data/pyqs/pyq-knowledge-map.json",
           {
             cache: "no-store"
           }
         ),
 
         fetch(
-          "../data/knowledge/knowledge-entities.json",
+          "./data/knowledge/knowledge-entities.json",
           {
             cache: "no-store"
           }
