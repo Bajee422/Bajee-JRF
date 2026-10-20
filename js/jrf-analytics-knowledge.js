@@ -271,15 +271,15 @@ async function loadAnalyticsDatabases() {
             await Promise.all([
 
                 fetch(
-                    "data/pyqs/pyq-database.json"
+                    "../data/pyqs/pyq-database.json"
                 ),
 
                 fetch(
-                    "data/pyqs/pyq-knowledge-map.json"
+                    "../data/pyqs/pyq-knowledge-map.json"
                 ),
 
                 fetch(
-                    "data/knowledge/knowledge-entities.json"
+                    "../data/knowledge/knowledge-entities.json"
                 )
 
             ]);
