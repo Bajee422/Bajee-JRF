@@ -725,11 +725,21 @@ async function loadDatabase() {
   try {
     // PYQ records and mappings are required. The entity catalogue is optional:
     // question-level saved mappings can still support diagnosis without it.
+    
+    // Resolve paths relative to diagnosis.html.
+    // Works with the /Bajee-JRF/ GitHub Pages project path.
     const responses = await Promise.all([
-      fetch("../data/pyqs/pyq-database.json"),
-      fetch("../data/pyqs/pyq-knowledge-map.json"),
-      fetch("../data/knowledge/knowledge-entities.json").catch(() => null)
+      fetch(new URL("data/pyqs/pyq-database.json", window.location.href), {
+        cache: "no-store"
+      }),
+      fetch(new URL("data/pyqs/pyq-knowledge-map.json", window.location.href), {
+        cache: "no-store"
+      }),
+      fetch(new URL("data/knowledge/knowledge-entities.json", window.location.href), {
+        cache: "no-store"
+      }).catch(() => null)
     ]);
+
 
     if (!responses[0].ok || !responses[1].ok) {
       throw new Error("Could not load the required PYQ database or knowledge map. Check the data paths and local server.");
