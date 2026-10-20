@@ -24,7 +24,7 @@
 ============================================================ */
 
 const RESOURCE_INVENTORY_URL =
-    "data/resources/resource-inventory.json";
+    "../data/resources/resource-inventory.json";
 
 const RESOURCE_SECTION_ID =
     "bajeeKnowledgeResources";
