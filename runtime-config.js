@@ -17,12 +17,12 @@ window.BAJEE_RUNTIME_CONFIG = {
      * Local Express backend
      */
     API_BASE:
-        "https://bajee-jrf.onrender.com/api",
+        "http://127.0.0.1:3000/api",
 
     /*
      * AI gateway endpoint
      */
     AI_API_URL:
-         "https://bajee-jrf.onrender.com/api/ai/chat"
+        "http://127.0.0.1:3000/api/ai/chat"
 
 };
