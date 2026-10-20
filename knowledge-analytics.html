@@ -1544,7 +1544,7 @@ async function loadKnowledge() {
 
     const response =
         await fetch(
-            "data/knowledge/knowledge-entities.json"
+            "../data/knowledge/knowledge-entities.json"
         );
 
 
@@ -1600,7 +1600,7 @@ async function loadResources() {
 
     const response =
         await fetch(
-            "data/resources/resource-inventory.json"
+            "../data/resources/resource-inventory.json"
         );
 
 
@@ -3181,6 +3181,8 @@ document.addEventListener(
 </script>
 
 
+
+<script src="js/global-bottom-nav.js" defer></script>
 </body>
 
 </html>
