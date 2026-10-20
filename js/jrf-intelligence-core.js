@@ -32,14 +32,14 @@
     return null;
   }
   async function loadPyqs() {
-    const response = await fetch("data/pyqs/pyq-database.json", {cache:"no-store"});
+    const response = await fetch("../data/pyqs/pyq-database.json", {cache:"no-store"});
     if (!response.ok) throw new Error(`PYQ database returned HTTP ${response.status}`);
     const data = await response.json();
     return collection(data, ["questions"]);
   }
   async function loadMap() {
     try {
-      const response = await fetch("data/pyqs/pyq-knowledge-map.json", {cache:"no-store"});
+      const response = await fetch("../data/pyqs/pyq-knowledge-map.json", {cache:"no-store"});
       if (!response.ok) return [];
       const data = await response.json();
       return collection(data, ["mappings"]);
