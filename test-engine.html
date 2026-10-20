@@ -1764,21 +1764,21 @@ async function loadDatabase() {
       await Promise.all([
 
         fetch(
-          "./data/pyqs/pyq-database.json",
+          new URL("/Bajee-JRF/data/pyqs/pyq-database.json", window.location.origin).href,
           {
             cache: "no-store"
           }
         ),
 
         fetch(
-          "./data/pyqs/pyq-knowledge-map.json",
+          new URL("/Bajee-JRF/data/pyqs/pyq-knowledge-map.json", window.location.origin).href,
           {
             cache: "no-store"
           }
         ),
 
         fetch(
-          "./data/knowledge/knowledge-entities.json",
+          new URL("/Bajee-JRF/data/knowledge/knowledge-entities.json", window.location.origin).href,
           {
             cache: "no-store"
           }
