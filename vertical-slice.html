@@ -1646,15 +1646,15 @@ async function loadDatabases() {
       await Promise.all([
 
         fetch(
-          "data/knowledge/knowledge-entities.json"
+          "../data/knowledge/knowledge-entities.json"
         ),
 
         fetch(
-          "data/pyqs/pyq-database.json"
+          "../data/pyqs/pyq-database.json"
         ),
 
         fetch(
-          "data/pyqs/pyq-knowledge-map.json"
+          "../data/pyqs/pyq-knowledge-map.json"
         )
 
       ]);
@@ -7057,6 +7057,8 @@ document.addEventListener(
 </script>
 
 
+
+<script src="js/global-bottom-nav.js" defer></script>
 </body>
 
 </html>
