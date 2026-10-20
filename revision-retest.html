@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BAJEE JRF AI — NTA Style Revision Retest</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"><style>body{margin:0;background:#eef1f5;color:#202633;font-family:Arial,sans-serif}.top{background:#08224d;color:#fff;padding:12px 0}.brand{color:#f4c430;font-weight:800;text-decoration:none}.head{background:#fff;border-bottom:1px solid #ccd3de;padding:14px 0}.main{max-width:1180px}.title{color:#08224d;font-weight:800}.timer{background:#fff4d6;border:2px solid #d9b236;border-radius:6px;padding:7px 15px;text-align:center;min-width:130px}.timer b{display:block;font-size:22px}.timer.danger{background:#fde8e8;border-color:#dc3545;color:#b02a37}.box{background:#fff;border:1px solid #d6dce5;border-radius:6px;overflow:hidden}.ih{background:#f4f6f9;border-bottom:1px solid #d6dce5;padding:11px 15px;color:#08224d;font-weight:800}.ib{padding:13px;font-size:13px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:16px;margin-top:16px}.qh{display:flex;justify-content:space-between;padding:12px 15px;background:#fafbfc;border-bottom:1px solid #d6dce5}.qb{padding:22px}.qt{font-size:17px;line-height:1.65;font-weight:600;white-space:pre-line;margin-bottom:22px}
+.qtype{display:inline-block;background:#eef3fb;color:#08224d;border:1px solid #cbd6e7;border-radius:4px;padding:4px 9px;font-size:11px;font-weight:800;margin-bottom:14px}
+.passage-box{background:#f8f9fa;border:1px solid #d6dce5;border-left:4px solid #08224d;border-radius:5px;padding:16px;margin-bottom:20px;font-size:15px;line-height:1.75;white-space:pre-line}
+.structure-title{font-weight:800;color:#08224d;margin-bottom:9px}
+.statement-list{margin:0 0 20px 0;padding-left:24px}
+.statement-list li{margin-bottom:8px;line-height:1.55}
+.match-table{width:100%;border-collapse:collapse;margin:0 0 20px 0;background:#fff}
+.match-table th,.match-table td{border:1px solid #cbd2dd;padding:10px 12px;vertical-align:top}
+.match-table th{background:#f1f4f8;color:#08224d;font-weight:800}
+.question-stem{margin-bottom:16px}
+.question-display-heading{font-size:18px;font-weight:800;color:#202633;margin-bottom:12px}
+.question-items{margin:0 0 22px 0;padding-left:26px}
+.question-items li{margin-bottom:8px;line-height:1.55}
+.options-heading{font-size:18px;font-weight:800;color:#202633;margin:18px 0 12px}
+
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;padding:14px;margin:0 0 10px;border:1px solid #cbd2dd;border-radius:5px;background:#fff;cursor:pointer;text-align:left}.opt:hover{background:#f7f9fb}.opt.sel{background:#eaf2ff;border:2px solid #0d6efd;padding:13px}.opt input{margin-top:4px}.letter{font-weight:800;color:#08224d}.actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:14px 15px;background:#f7f8fa;border-top:1px solid #d6dce5}.btn-navy{background:#08224d;color:#fff;font-weight:700}.btn-submit{background:#198754;color:#fff;font-weight:800}.btn-clear,.btn-review{background:#fff;border:1px solid #7c8797;font-weight:700}.btn-review.marked{background:#fff4d6;border-color:#d9b236}.palette{display:flex;gap:7px;flex-wrap:wrap}.palette button{width:38px;height:35px;border:1px solid #b8c0cc;border-radius:4px;background:#fff;font-weight:800}.palette .answered{background:#198754;color:#fff}.palette .reviewed{background:#d9b236}.result{display:none;margin-top:16px}.result-good{background:#e8f7ee;border-left:5px solid #198754;padding:13px}.result-bad{background:#fbeaec;border-left:5px solid #dc3545;padding:13px}.solution{background:#f7f8fa;border:1px solid #d6dce5;border-radius:5px;padding:15px;margin-top:15px}.empty{max-width:700px;margin:60px auto;background:#fff;border:1px solid #d6dce5;border-radius:7px;padding:40px;text-align:center}@media(max-width:900px){.layout{grid-template-columns:1fr}}</style></head><body><div class="top"><div class="container main d-flex justify-content-between align-items-center"><a class="brand" href="index.html">🎓 BAJEE JRF AI</a><a class="btn btn-outline-light btn-sm" href="revision-intelligence.html">← Revision Intelligence</a></div></div><div class="head"><div class="container main d-flex justify-content-between align-items-center gap-3"><div><h1 class="title fs-4 mb-1">UGC NET English — Revision Retest</h1><div class="text-muted small">NTA-style objective mock test • One selected revision question</div></div><div id="timer" class="timer"><small>TIME REMAINING</small><b id="clock">01:30</b></div></div></div><main class="container main py-3"><div id="status" class="alert alert-warning d-none"></div><div id="empty" class="empty d-none"><div style="font-size:48px">🎯</div><h2>No Retest Question Selected</h2><p class="text-muted">Open Revision Intelligence and select Retry Practice.</p><a class="btn btn-navy" href="revision-intelligence.html">Open Revision Intelligence</a></div><div id="app" class="d-none"><div class="box"><div class="ih">NTA Mock Test Instructions</div><div class="ib"><ul class="mb-0"><li>Objective MCQ format — not a paragraph-answer exercise.</li><li><strong>2 marks</strong> for the correct answer.</li><li><strong>No negative marking.</strong></li><li>One answer only; answer may be changed before submission.</li><li>Clear Response removes the selection.</li><li>Mark for Review flags the question.</li><li>Correct answer and explanation appear only after submission.</li><li>Timer expiry automatically submits the retest.</li></ul></div></div><div class="layout"><section class="box"><div class="qh"><strong>Question 1 of 1</strong><span>Maximum Marks: <strong>2</strong></span></div><div class="qb"><div class="mb-3"><span id="priority" class="badge bg-danger">HIGH PRIORITY</span></div><div class="row g-2 small mb-4"><div class="col-md-3"><strong>Entity:</strong> <span id="entity">—</span></div><div class="col-md-3"><strong>Concept:</strong> <span id="concept">—</span></div><div class="col-md-3"><strong>Unit:</strong> <span id="unit">—</span></div><div class="col-md-3"><strong>Previous Accuracy:</strong> <span id="accuracy">—</span></div></div><div id="questionType" class="qtype">MCQ</div><div id="question" class="qt"></div><div id="options"></div></div><div class="actions"><div class="d-flex gap-2"><button id="clear" class="btn btn-clear">Clear Response</button><button id="review" class="btn btn-review">Mark for Review</button></div><button id="submit" class="btn btn-submit">Submit Retest</button></div></section><aside><div class="box mb-3"><div class="ih">Question Palette</div><div class="ib"><div class="palette"><button id="palette">1</button></div><hr><div class="small"><div>🟩 Answered</div><div>🟨 Marked for Review</div><div>⬜ Not Answered</div></div></div></div><div class="box"><div class="ih">Question Information</div><div class="ib small"><div><strong>Paper:</strong> <span id="paper">Paper II — English</span></div><div><strong>Type:</strong> <span id="type">MCQ</span></div><div><strong>Marks:</strong> 2</div><div><strong>Negative Mark:</strong> 0</div><div><strong>Previous Attempts:</strong> <span id="attempts">0</span></div></div></div></aside></div><section id="result" class="box result"><div class="ih">Retest Result</div><div class="p-3"><div id="resultMessage"></div><div class="row g-3 mt-1"><div class="col-md-3"><strong>Score:</strong> <span id="score">0 / 2</span></div><div class="col-md-3"><strong>Result:</strong> <span id="resultStatus">—</span></div><div class="col-md-3"><strong>Correct Answer:</strong> <span id="correct">—</span></div><div class="col-md-3"><strong>Accuracy:</strong> <span id="newAccuracy">—</span></div></div><div class="solution"><h5>Solution</h5><p id="solutionAnswer"></p><p id="solutionExplanation" class="mb-0"></p></div><button id="back" class="btn btn-navy mt-3">Return to Revision Intelligence</button></div></section></div></main><script>
+"use strict";
+
+const KEY="bajee_revision_retest_item";
+const HKEY="bajee_revision_retest_history";
+const PKEY="bajee_ai_practice_bank";
+
+let item=null;
+let q=null;
+let selected="";
+let reviewed=false;
+let submitted=false;
+let left=90;
+let timer=null;
+
+const $=id=>document.getElementById(id);
+
+const esc=v=>String(v??"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+const key=v=>{
+    const m=String(v??"").trim().toUpperCase().match(/[ABCD]/);
+    return m?m[0]:"";
+};
+
+function empty(){
+    $("empty").classList.remove("d-none");
+    $("app").classList.add("d-none");
+}
+
+function fail(message){
+    $("status").textContent=message;
+    $("status").classList.remove("d-none");
+    empty();
+}
+
+/* =========================================================
+   QUESTION TYPE
+   Rule: preserve the original PYQ structure.
+========================================================= */
+
+function rawType(){
+    return String(
+        q.question_type ??
+        q.questionType ??
+        q.type ??
+        q.format ??
+        q.category ??
+        q.question_category ??
+        item.question_type ??
+        item.questionType ??
+        ""
+    ).trim().toLowerCase();
+}
+
+function hasPassage(){
+    return Boolean(
+        q.passage ||
+        q.comprehension_passage ||
+        q.comprehensionPassage ||
+        q.passage_text ||
+        q.reading_passage
+    );
+}
+
+function hasStatements(){
+    return Array.isArray(q.statements) ||
+           Array.isArray(q.statement_list) ||
+           Array.isArray(q.statementList);
+}
+
+function hasMatchLists(){
+    return Boolean(
+        q.list_i ||
+        q.listI ||
+        q.list_1 ||
+        q.match_list_i ||
+        q.matching ||
+        q.matching_data
+    );
+}
+
+function detectType(){
+    const t=rawType();
+
+    if(hasPassage() || /reading comprehension|comprehension|passage/.test(t))
+        return "Reading Comprehension";
+
+    if(hasMatchLists() || /match.*follow|matching/.test(t))
+        return "Match the Following";
+
+    if(hasStatements() || /statement/.test(t))
+        return "Statement-based";
+
+    if(/assertion.*reason|reason.*assertion/.test(t))
+        return "Assertion–Reason";
+
+    if(/chronolog|sequence|order|arrange/.test(t) ||
+       /chronological order|correct order|sequence of/i.test(String(q.question||"")))
+        return "Chronology / Sequence";
+
+    if(/multiple response|multiple select|multi-select/.test(t))
+        return "Multiple-response";
+
+    return "MCQ";
+}
+
+/* =========================================================
+   OPTIONS
+   Preserve the original A/B/C/D values.
+========================================================= */
+
+function getOptions(){
+    const source=q.options ?? item.options ?? {
+        A:q.A,B:q.B,C:q.C,D:q.D
+    };
+
+    if(Array.isArray(source)){
+        const out={};
+        source.slice(0,4).forEach((v,i)=>{
+            const letter=String.fromCharCode(65+i);
+            out[letter]=typeof v==="object"
+                ? (v.text ?? v.label ?? v.value ?? "")
+                : v;
+        });
+        return out;
+    }
+
+    return {
+        A:source.A ?? source.a ?? "",
+        B:source.B ?? source.b ?? "",
+        C:source.C ?? source.c ?? "",
+        D:source.D ?? source.d ?? ""
+    };
+}
+
+function completeOptions(){
+    const o=getOptions();
+    return Boolean(o.A && o.B && o.C && o.D);
+}
+
+/* =========================================================
+   STRUCTURED DATA HELPERS
+========================================================= */
+
+function firstValue(...values){
+    return values.find(v=>v!==undefined && v!==null && v!=="");
+}
+
+function getPassage(){
+    return firstValue(
+        q.passage,
+        q.comprehension_passage,
+        q.comprehensionPassage,
+        q.passage_text,
+        q.reading_passage
+    );
+}
+
+function getStatements(){
+    return firstValue(
+        q.statements,
+        q.statement_list,
+        q.statementList
+    );
+}
+
+function getMatchData(){
+    const data=firstValue(
+        q.matching,
+        q.matching_data
+    );
+
+    if(data && typeof data==="object" && !Array.isArray(data))
+        return data;
+
+    const left=firstValue(q.list_i,q.listI,q.list_1,q.match_list_i);
+    const right=firstValue(q.list_ii,q.listII,q.list_2,q.match_list_ii);
+
+    return {left,right};
+}
+
+function normaliseList(list){
+    if(!list) return [];
+    if(Array.isArray(list)) return list;
+    if(typeof list==="object"){
+        return Object.entries(list).map(([key,value])=>({
+            key,
+            value: typeof value==="object" ? (value.text ?? value.value ?? "") : value
+        }));
+    }
+    return [];
+}
+
+function renderStructuredQuestion(){
+    const type=detectType();
+    const container=$("question");
+    const stem=String(
+        q.question_stem ??
+        q.questionStem ??
+        q.stem ??
+        q.question ??
+        ""
+    );
+
+    $("questionType").textContent=type;
+    $("type").textContent=type;
+
+    let html="";
+
+    /* Reading comprehension: passage first, then original question. */
+    if(type==="Reading Comprehension"){
+        const passage=getPassage();
+
+        if(passage){
+            html += `
+                <div class="structure-title">Passage</div>
+                <div class="passage-box">${esc(passage)}</div>
+            `;
+        }
+
+        html += `<div class="question-stem">${esc(stem)}</div>`;
+        container.innerHTML=html;
+        return;
+    }
+
+    /* Match the Following: preserve both lists and the stem. */
+    if(type==="Match the Following"){
+        const data=getMatchData();
+        const left=normaliseList(data.left ?? data.listI ?? data.list_i);
+        const right=normaliseList(data.right ?? data.listII ?? data.list_ii);
+
+        html += `<div class="question-stem">${esc(stem)}</div>`;
+
+        if(left.length || right.length){
+            const count=Math.max(left.length,right.length);
+
+            html += `
+                <div class="structure-title">Match the Following</div>
+                <table class="match-table">
+                    <thead>
+                        <tr>
+                            <th>List I</th>
+                            <th>List II</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            for(let i=0;i<count;i++){
+                const l=left[i];
+                const r=right[i];
+
+                const lv=typeof l==="object"
+                    ? `${l.key ? esc(l.key)+". " : ""}${esc(l.value ?? "")}`
+                    : esc(l);
+
+                const rv=typeof r==="object"
+                    ? `${r.key ? esc(r.key)+". " : ""}${esc(r.value ?? "")}`
+                    : esc(r);
+
+                html += `<tr><td>${lv}</td><td>${rv}</td></tr>`;
+            }
+
+            html += `</tbody></table>`;
+        }
+
+        container.innerHTML=html;
+        return;
+    }
+
+    /* Statement-based: preserve every supplied statement. */
+    if(type==="Statement-based"){
+        html += `<div class="question-stem">${esc(stem)}</div>`;
+
+        const statements=normaliseList(getStatements());
+
+        if(statements.length){
+            html += `<div class="structure-title">Statements</div><ol class="statement-list">`;
+
+            statements.forEach((s,index)=>{
+                const value=typeof s==="object"
+                    ? (s.text ?? s.value ?? "")
+                    : s;
+
+                html += `<li>${esc(value)}</li>`;
+            });
+
+            html += `</ol>`;
+        }
+
+        container.innerHTML=html;
+        return;
+    }
+
+    /* Assertion–Reason: preserve the two original parts. */
+    if(type==="Assertion–Reason"){
+        const assertion=firstValue(
+            q.assertion,
+            q.assertion_text,
+            q.assertionText
+        );
+
+        const reason=firstValue(
+            q.reason,
+            q.reason_text,
+            q.reasonText
+        );
+
+        html += `<div class="question-stem">${esc(stem)}</div>`;
+
+        if(assertion){
+            html += `<div class="passage-box"><strong>Assertion (A):</strong><br>${esc(assertion)}</div>`;
+        }
+
+        if(reason){
+            html += `<div class="passage-box"><strong>Reason (R):</strong><br>${esc(reason)}</div>`;
+        }
+
+        container.innerHTML=html;
+        return;
+    }
+
+    /*
+       Chronology / Sequence:
+       Preserve the source presentation: Question heading, question stem,
+       the four labelled works/items, then an Options heading.
+       The A-D option combinations are rendered separately below.
+    */
+    if(type==="Chronology / Sequence"){
+        const match=stem.match(/^(.*?)(?:\s+)(A\.\s+.*?)(?:;\s*|\n+)(B\.\s+.*?)(?:;\s*|\n+)(C\.\s+.*?)(?:;\s*|\n+)(D\.\s+.*?)(?:\.\s*)?(?:Choose|Select|Which|$)/i);
+
+        if(match){
+            const clean=v=>v.replace(/[;.]\s*$/,'').trim();
+            html += `<div class="question-display-heading">Question</div>`;
+            html += `<div class="question-stem">${esc(clean(match[1]))}</div>`;
+            html += `<ol class="question-items" type="A">`;
+            html += `<li>${esc(clean(match[2].replace(/^A\.\s*/i,'')))}</li>`;
+            html += `<li>${esc(clean(match[3].replace(/^B\.\s*/i,'')))}</li>`;
+            html += `<li>${esc(clean(match[4].replace(/^C\.\s*/i,'')))}</li>`;
+            html += `<li>${esc(clean(match[5].replace(/^D\.\s*/i,'')))}</li>`;
+            html += `</ol>`;
+            html += `<div class="options-heading">Options</div>`;
+            container.innerHTML=html;
+            return;
+        }
+
+        // Fallback: still use the original wording if it is not safely parseable.
+        container.innerHTML=`<div class="question-display-heading">Question</div><div class="question-stem">${esc(stem)}</div><div class="options-heading">Options</div>`;
+        return;
+    }
+
+    /* Normal MCQ: use the original wording without rewriting it. */
+    container.innerHTML=`<div class="question-display-heading">Question</div><div class="question-stem">${esc(stem)}</div><div class="options-heading">Options</div>`;
+}
+
+/* =========================================================
+   LOAD
+========================================================= */
+
+function load(){
+    try{
+        const raw=localStorage.getItem(KEY);
+
+        if(!raw){
+            empty();
+            return;
+        }
+
+        item=JSON.parse(raw);
+
+        q=item.questionData || item.question || item;
+
+        if(!q || typeof q!=="object" || !q.question){
+            fail("The selected retest question could not be loaded.");
+            return;
+        }
+
+        if(!completeOptions() || !key(q.correct_answer || q.correctAnswer)){
+            fail("This question cannot be scored because complete MCQ data is unavailable.");
+            return;
+        }
+
+        $("app").classList.remove("d-none");
+
+        $("entity").textContent=
+            q.knowledge_entity ||
+            q.knowledgeEntity ||
+            item.knowledge_entity ||
+            "—";
+
+        $("concept").textContent=
+            q.concept ||
+            item.concept ||
+            "—";
+
+        $("unit").textContent=
+            q.unit ||
+            item.unit ||
+            "—";
+
+        $("paper").textContent=
+            q.paper ||
+            item.paper ||
+            "Paper II — English";
+
+        const attempts=Number(
+            item.attempts ??
+            q.attempts ??
+            0
+        );
+
+        const correct=Number(
+            item.correct_count ??
+            q.correct_count ??
+            0
+        );
+
+        $("attempts").textContent=attempts;
+
+        $("accuracy").textContent=
+            (attempts ? Math.round(correct/attempts*100) : 0)+"%";
+
+        const p=String(
+            item.priority ||
+            item.revision_priority ||
+            "low"
+        ).toLowerCase();
+
+        $("priority").textContent=
+            p==="high" ? "HIGH PRIORITY" :
+            p==="medium" ? "MEDIUM PRIORITY" :
+            "LOW PRIORITY";
+
+        $("priority").className=
+            "badge "+
+            (
+                p==="high"
+                ? "bg-danger"
+                : p==="medium"
+                ? "bg-warning text-dark"
+                : "bg-success"
+            );
+
+        renderStructuredQuestion();
+        renderOptions();
+
+        palette();
+        start();
+
+    }catch(e){
+        console.error("Revision Retest load error:",e);
+        fail("Unable to load the revision retest.");
+    }
+}
+
+/* =========================================================
+   OPTIONS
+========================================================= */
+
+function renderOptions(){
+    const o=getOptions();
+    const box=$("options");
+
+    box.innerHTML="";
+
+    ["A","B","C","D"].forEach(l=>{
+        const el=document.createElement("label");
+
+        el.className="opt";
+
+        el.innerHTML=`
+            <input type="radio" name="ans" value="${l}">
+            <span class="letter">${l}.</span>
+            <span>${esc(o[l])}</span>
+        `;
+
+        el.onclick=()=>{
+            if(submitted)return;
+
+            selected=l;
+
+            document.querySelectorAll(".opt")
+                .forEach(x=>x.classList.remove("sel"));
+
+            el.classList.add("sel");
+
+            palette();
+        };
+
+        box.appendChild(el);
+    });
+}
+
+/* =========================================================
+   PALETTE / TIMER
+========================================================= */
+
+function palette(){
+    const b=$("palette");
+
+    b.className=
+        reviewed
+        ? "reviewed"
+        : selected
+        ? "answered"
+        : "";
+
+    b.textContent=
+        reviewed
+        ? "1★"
+        : "1";
+}
+
+function start(){
+    clearInterval(timer);
+
+    timer=setInterval(()=>{
+        if(submitted)return;
+
+        left--;
+
+        const m=String(Math.floor(left/60)).padStart(2,"0");
+        const s=String(left%60).padStart(2,"0");
+
+        $("clock").textContent=m+":"+s;
+
+        if(left<=20)
+            $("timer").classList.add("danger");
+
+        if(left<=0){
+            clearInterval(timer);
+            submit(true);
+        }
+    },1000);
+}
+
+/* =========================================================
+   SAVE RETEST
+========================================================= */
+
+function save(data){
+    try{
+        const h=JSON.parse(
+            localStorage.getItem(HKEY)||"[]"
+        );
+
+        if(Array.isArray(h)){
+            h.push(data);
+
+            localStorage.setItem(
+                HKEY,
+                JSON.stringify(h)
+            );
+        }
+    }catch(e){
+        console.warn("Retest history save failed:",e);
+    }
+}
+
+function bank(r){
+    try{
+        const b=JSON.parse(
+            localStorage.getItem(PKEY)||"[]"
+        );
+
+        if(!Array.isArray(b))return;
+
+        const id=q.id||q.question;
+        let found=false;
+
+        const u=b.map(x=>{
+            if(
+                (x.id||x.question)!==id &&
+                x.question!==q.question
+            ){
+                return x;
+            }
+
+            found=true;
+
+            return {
+                ...x,
+                attempts:r.attempts,
+                correct_count:r.correctCount,
+                wrong_count:r.wrongCount,
+                accuracy:r.accuracy,
+                last_answer:r.selectedAnswer,
+                last_correct_answer:r.correctAnswer,
+                last_result:r.isCorrect
+                    ? "correct"
+                    : "wrong",
+                last_answered_at:r.timestamp
+            };
+        });
+
+        if(found){
+            localStorage.setItem(
+                PKEY,
+                JSON.stringify(u)
+            );
+        }
+
+    }catch(e){
+        console.warn("Practice bank update failed:",e);
+    }
+}
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+function submit(auto=false){
+    if(submitted)return;
+
+    if(!selected && !auto){
+        alert("Please select an answer before submitting the retest.");
+        return;
+    }
+
+    submitted=true;
+    clearInterval(timer);
+
+    document.querySelectorAll("input[name=ans]")
+        .forEach(x=>x.disabled=true);
+
+    $("clear").disabled=true;
+    $("review").disabled=true;
+    $("submit").disabled=true;
+
+    const o=getOptions();
+
+    const ca=key(
+        q.correct_answer ||
+        q.correctAnswer
+    );
+
+    const ok=
+        selected!=="" &&
+        selected===ca;
+
+    const pa=Number(
+        item.attempts ??
+        q.attempts ??
+        0
+    );
+
+    const pc=Number(
+        item.correct_count ??
+        q.correct_count ??
+        0
+    );
+
+    const pw=Number(
+        item.wrong_count ??
+        q.wrong_count ??
+        0
+    );
+
+    const at=pa+1;
+    const cc=pc+(ok?1:0);
+    const wc=pw+(ok?0:1);
+    const acc=Math.round(cc/at*100);
+    const now=new Date().toISOString();
+
+    save({
+        questionId:
+            q.id ||
+            item.id ||
+            q.question,
+
+        question:q.question,
+
+        questionType:detectType(),
+
+        knowledge_entity:
+            q.knowledge_entity ||
+            item.knowledge_entity ||
+            "",
+
+        concept:
+            q.concept ||
+            item.concept ||
+            "",
+
+        unit:
+            q.unit ||
+            item.unit ||
+            "",
+
+        paper:
+            q.paper ||
+            item.paper ||
+            "Paper II",
+
+        selectedAnswer:selected,
+        correctAnswer:ca,
+        isCorrect:ok,
+
+        score:ok?2:0,
+        maxScore:2,
+
+        attempts:at,
+        correctCount:cc,
+        wrongCount:wc,
+        accuracy:acc,
+
+        autoSubmitted:auto,
+        markedForReview:reviewed,
+
+        timestamp:now
+    });
+
+    bank({
+        attempts:at,
+        correctCount:cc,
+        wrongCount:wc,
+        accuracy:acc,
+        selectedAnswer:selected,
+        correctAnswer:ca,
+        isCorrect:ok,
+        timestamp:now
+    });
+
+    $("result").style.display="block";
+
+    $("score").textContent=
+        (ok?2:0)+" / 2";
+
+    $("resultStatus").textContent=
+        ok
+        ? "Correct"
+        : "Incorrect";
+
+    $("correct").textContent=
+        ca+". "+o[ca];
+
+    $("newAccuracy").textContent=
+        acc+"%";
+
+    $("resultMessage").className=
+        ok
+        ? "result-good"
+        : "result-bad";
+
+    $("resultMessage").innerHTML=
+        ok
+        ? "<strong>✓ Correct Answer</strong><div>The retest result has been saved.</div>"
+        : "<strong>✕ Incorrect Answer</strong><div>The correct answer is shown below. The retest result has been saved.</div>"+
+          (
+              auto
+              ? "<div><strong>Time expired.</strong> The retest was automatically submitted.</div>"
+              : ""
+          );
+
+    $("solutionAnswer").innerHTML=
+        "<strong>Correct Answer:</strong> "+
+        esc(ca)+". "+
+        esc(o[ca]);
+
+    $("solutionExplanation").innerHTML=
+        "<strong>Explanation:</strong> "+
+        esc(
+            q.explanation ||
+            q.answer_text ||
+            "Explanation not available in the supplied question data."
+        );
+
+    window.scrollTo({
+        top:document.body.scrollHeight,
+        behavior:"smooth"
+    });
+}
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+$("clear").onclick=()=>{
+    if(submitted)return;
+
+    selected="";
+
+    document.querySelectorAll("input[name=ans]")
+        .forEach(x=>x.checked=false);
+
+    document.querySelectorAll(".opt")
+        .forEach(x=>x.classList.remove("sel"));
+
+    palette();
+};
+
+$("review").onclick=()=>{
+    if(submitted)return;
+
+    reviewed=!reviewed;
+
+    $("review").textContent=
+        reviewed
+        ? "✓ Marked for Review"
+        : "Mark for Review";
+
+    $("review").classList.toggle(
+        "marked",
+        reviewed
+    );
+
+    palette();
+};
+
+$("submit").onclick=()=>{
+    if(
+        reviewed &&
+        !confirm(
+            "This question is marked for review. Submit the retest anyway?"
+        )
+    ){
+        return;
+    }
+
+    submit(false);
+};
+
+$("back").onclick=()=>{
+    location.href="revision-intelligence.html";
+};
+
+window.addEventListener(
+    "beforeunload",
+    e=>{
+        if(!submitted && q){
+            e.preventDefault();
+            e.returnValue="";
+        }
+    }
+);
+
+load();
+</script></body></html>

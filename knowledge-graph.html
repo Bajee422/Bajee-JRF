@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        BAJEE JRF AI - Knowledge Graph
+    </title>
+
+
+    <!-- Bootstrap 5.3.7 -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- Step 10.1 CSS -->
+
+    <link
+        rel="stylesheet"
+        href="css/knowledge-graph.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav
+    class="navbar navbar-dark"
+>
+
+    <div
+        class="container"
+    >
+
+        <a
+            href="index.html"
+            class="navbar-brand fw-bold"
+        >
+
+            🎓 BAJEE JRF AI
+
+        </a>
+
+
+        <div
+            class="d-flex gap-2"
+        >
+
+            <a
+                href="jrf-analytics.html"
+                class="btn btn-sm btn-outline-light"
+            >
+
+                ← Analytics
+
+            </a>
+
+
+            <a
+                href="index.html"
+                class="btn btn-sm btn-outline-light"
+            >
+
+                Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section
+    class="knowledge-hero"
+>
+
+    <div
+        class="container"
+    >
+
+        <div
+            class="eyebrow"
+        >
+
+            STEP 10.1 • KNOWLEDGE GRAPH
+
+        </div>
+
+
+        <h1>
+
+            🧠 Knowledge Graph
+
+        </h1>
+
+
+        <p>
+
+            Explore the relationships between authors,
+            works, movements, theories, concepts, critics
+            and UGC NET English JRF preparation topics.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main
+    class="container py-4"
+>
+
+
+    <!-- =====================================================
+         ENGINE STATUS
+    ====================================================== -->
+
+    <section
+        class="status-card mb-4"
+    >
+
+        <div
+            class="
+                d-flex
+                justify-content-between
+                align-items-center
+                flex-wrap
+                gap-2
+            "
+        >
+
+            <div>
+
+                <strong>
+
+                    Knowledge Graph Engine
+
+                </strong>
+
+
+                <div
+                    id="graphStatusMessage"
+                    class="small text-secondary mt-1"
+                >
+
+                    Preparing knowledge graph...
+
+                </div>
+
+            </div>
+
+
+            <span
+                id="graphStatus"
+                class="badge bg-warning text-dark"
+            >
+
+                Loading
+
+            </span>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         GRAPH SUMMARY
+    ====================================================== -->
+
+    <section
+        class="row g-3 mb-4"
+    >
+
+
+        <div
+            class="col-6 col-md-3"
+        >
+
+            <div
+                class="stat-card"
+            >
+
+                <div
+                    id="entityCount"
+                    class="stat-number"
+                >
+
+                    0
+
+                </div>
+
+
+                <div
+                    class="stat-label"
+                >
+
+                    Entities
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="col-6 col-md-3"
+        >
+
+            <div
+                class="stat-card"
+            >
+
+                <div
+                    id="relationshipCount"
+                    class="stat-number"
+                >
+
+                    0
+
+                </div>
+
+
+                <div
+                    class="stat-label"
+                >
+
+                    Relationships
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="col-6 col-md-3"
+        >
+
+            <div
+                class="stat-card"
+            >
+
+                <div
+                    id="conceptCount"
+                    class="stat-number"
+                >
+
+                    0
+
+                </div>
+
+
+                <div
+                    class="stat-label"
+                >
+
+                    Concepts
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="col-6 col-md-3"
+        >
+
+            <div
+                class="stat-card"
+            >
+
+                <div
+                    id="pyqConnectionCount"
+                    class="stat-number"
+                >
+
+                    0
+
+                </div>
+
+
+                <div
+                    class="stat-label"
+                >
+
+                    PYQ Connections
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         GRAPH FOUNDATION
+    ====================================================== -->
+
+    <section
+        class="section-card mb-4"
+    >
+
+        <div
+            class="
+                d-flex
+                justify-content-between
+                align-items-center
+                flex-wrap
+                gap-2
+                mb-3
+            "
+        >
+
+            <div>
+
+                <h2>
+
+                    🔗 Knowledge Network
+
+                </h2>
+
+
+                <p
+                    class="text-secondary mb-0"
+                >
+
+                    The graph will connect related JRF
+                    knowledge entities and concepts.
+
+                </p>
+
+            </div>
+
+
+            <button
+                id="refreshGraph"
+                type="button"
+                class="btn btn-gold"
+            >
+
+                ↻ Refresh
+
+            </button>
+
+        </div>
+
+
+        <!-- Graph canvas will be added in Step 10.3 -->
+
+        <div
+            id="knowledgeGraph"
+            class="graph-placeholder"
+        >
+
+            <div
+                class="graph-placeholder-icon"
+            >
+
+                🧠
+
+            </div>
+
+
+            <h3>
+
+                Knowledge Graph Foundation
+
+            </h3>
+
+
+            <p>
+
+                The interactive graph engine will appear here
+                after the graph data and relationship model
+                are connected.
+
+            </p>
+
+
+            <div
+                class="small text-secondary"
+            >
+
+                Step 10.1 • Foundation
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ENTITY TYPES
+    ====================================================== -->
+
+    <section
+        class="section-card mb-4"
+    >
+
+        <h2>
+
+            🧩 Knowledge Entity Types
+
+        </h2>
+
+
+        <p
+            class="text-secondary"
+        >
+
+            The graph foundation supports the major
+            knowledge structures required for UGC NET
+            English JRF preparation.
+
+        </p>
+
+
+        <div
+            class="row g-3"
+        >
+
+
+            <div
+                class="col-6 col-md-4 col-lg-3"
+            >
+
+                <div
+                    class="entity-type-card"
+                >
+
+                    <div
+                        class="entity-icon"
+                    >
+                        👤
+                    </div>
+
+                    <h3>
+                        Author
+                    </h3>
+
+                    <p>
+                        Writers and literary figures.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="col-6 col-md-4 col-lg-3"
+            >
+
+                <div
+                    class="entity-type-card"
+                >
+
+                    <div
+                        class="entity-icon"
+                    >
+                        📖
+                    </div>
+
+                    <h3>
+                        Work
+                    </h3>
+
+                    <p>
+                        Literary and critical works.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="col-6 col-md-4 col-lg-3"
+            >
+
+                <div
+                    class="entity-type-card"
+                >
+
+                    <div
+                    class="entity-icon"
+                    >
+                        📚
+                    </div>
+
+                    <h3>
+                        Movement
+                    </h3>
+
+                    <p>
+                        Literary periods and movements.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="col-6 col-md-4 col-lg-3"
+            >
+
+                <div
+                    class="entity-type-card"
+                >
+
+                    <div
+                        class="entity-icon"
+                    >
+                        💡
+                    </div>
+
+                    <h3>
+                        Concept
+                    </h3>
+
+                    <p>
+                        Important theoretical concepts.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="col-6 col-md-4 col-lg-3"
+            >
+
+                <div
+                    class="entity-type-card"
+                >
+
+                    <div
+                        class="entity-icon"
+                    >
+                        🎓
+                    </div>
+
+                    <h3>
+                        Theorist
+                    </h3>
+
+                    <p>
+                        Literary and cultural theorists.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="col-6 col-md-4 col-lg-3"
+            >
+
+                <div
+                    class="entity-type-card"
+                >
+
+                    <div
+                        class="entity-icon"
+                    >
+                        ⚖️
+                    </div>
+
+                    <h3>
+                        Critic
+                    </h3>
+
+                    <p>
+                        Literary critics and scholars.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="col-6 col-md-4 col-lg-3"
+            >
+
+                <div
+                    class="entity-type-card"
+                >
+
+                    <div
+                        class="entity-icon"
+                    >
+                        📝
+                    </div>
+
+                    <h3>
+                        PYQ
+                    </h3>
+
+                    <p>
+                        Previous-year questions.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="col-6 col-md-4 col-lg-3"
+            >
+
+                <div
+                    class="entity-type-card"
+                >
+
+                    <div
+                        class="entity-icon"
+                    >
+                        🔎
+                    </div>
+
+                    <h3>
+                        Topic
+                    </h3>
+
+                    <p>
+                        UGC NET preparation topics.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         RELATIONSHIP MODEL
+    ====================================================== -->
+
+    <section
+        class="section-card mb-4"
+    >
+
+        <h2>
+
+            🔗 Relationship Model
+
+        </h2>
+
+
+        <p
+            class="text-secondary"
+        >
+
+            Knowledge entities become useful when the
+            relationships between them are explicitly
+            represented.
+
+        </p>
+
+
+        <div
+            class="relationship-grid"
+        >
+
+
+            <div
+                class="relationship-card"
+            >
+
+                <strong>
+                    ✍️ Wrote
+                </strong>
+
+                <span>
+                    Author → Work
+                </span>
+
+            </div>
+
+
+            <div
+                class="relationship-card"
+            >
+
+                <strong>
+                    💡 Proposed
+                </strong>
+
+                <span>
+                    Theorist → Concept
+                </span>
+
+            </div>
+
+
+            <div
+                class="relationship-card"
+            >
+
+                <strong>
+                    📚 Associated With
+                </strong>
+
+                <span>
+                    Author → Movement
+                </span>
+
+            </div>
+
+
+            <div
+                class="relationship-card"
+            >
+
+                <strong>
+                    🔗 Related To
+                </strong>
+
+                <span>
+                    Concept → Concept
+                </span>
+
+            </div>
+
+
+            <div
+                class="relationship-card"
+            >
+
+                <strong>
+                    📝 Tested In
+                </strong>
+
+                <span>
+                    Entity → PYQ
+                </span>
+
+            </div>
+
+
+            <div
+                class="relationship-card"
+            >
+
+                <strong>
+                    🎯 Belongs To
+                </strong>
+
+                <span>
+                    Concept → Unit
+                </span>
+
+            </div>
+
+
+            <div
+                class="relationship-card"
+            >
+
+                <strong>
+                    ⚖️ Criticised
+                </strong>
+
+                <span>
+                    Critic → Author / Theory
+                </span>
+
+            </div>
+
+
+            <div
+                class="relationship-card"
+            >
+
+                <strong>
+                    🔍 Appears In
+                </strong>
+
+                <span>
+                    Entity → Question
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SEARCH FOUNDATION
+    ====================================================== -->
+
+    <section
+        class="section-card mb-4"
+    >
+
+        <h2>
+
+            🔎 Search Knowledge
+
+        </h2>
+
+
+        <p
+            class="text-secondary"
+        >
+
+            Search will allow you to locate authors,
+            works, theories, concepts, movements and
+            PYQ-linked knowledge.
+
+        </p>
+
+
+        <div
+            class="input-group"
+        >
+
+            <input
+                id="knowledgeSearch"
+                type="search"
+                class="form-control"
+                placeholder="Search author, work, concept, movement..."
+                autocomplete="off"
+            >
+
+
+            <button
+                id="searchKnowledge"
+                type="button"
+                class="btn btn-gold"
+            >
+
+                🔎 Search
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="searchResults"
+            class="search-results mt-3"
+        >
+
+            <div
+                class="text-secondary small"
+            >
+
+                Search results will appear here.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SELECTED ENTITY
+    ====================================================== -->
+
+    <section
+        class="section-card mb-4"
+    >
+
+        <h2>
+
+            📌 Selected Knowledge Entity
+
+        </h2>
+
+
+        <div
+            id="selectedEntity"
+            class="selected-entity"
+        >
+
+            <div
+                class="empty-state"
+            >
+
+                <div
+                    class="empty-state-icon"
+                >
+                    🧠
+                </div>
+
+
+                <h3>
+                    No entity selected
+                </h3>
+
+
+                <p>
+                    Select a knowledge entity from the graph
+                    or search results to view its details.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         INTEGRATION ROADMAP
+    ====================================================== -->
+
+    <section
+        class="section-card mb-4"
+    >
+
+        <h2>
+
+            🛠️ Knowledge Graph Development
+
+        </h2>
+
+
+        <div
+            class="roadmap-grid"
+        >
+
+
+            <div
+                class="roadmap-item active"
+            >
+
+                <span>
+                    10.1
+                </span>
+
+                <strong>
+                    Foundation
+                </strong>
+
+            </div>
+
+
+            <div
+                class="roadmap-item"
+            >
+
+                <span>
+                    10.2
+                </span>
+
+                <strong>
+                    Entity Model
+                </strong>
+
+            </div>
+
+
+            <div
+                class="roadmap-item"
+            >
+
+                <span>
+                    10.3
+                </span>
+
+                <strong>
+                    Interactive Graph
+                </strong>
+
+            </div>
+
+
+            <div
+                class="roadmap-item"
+            >
+
+                <span>
+                    10.4
+                </span>
+
+                <strong>
+                    Entity Details
+                </strong>
+
+            </div>
+
+
+            <div
+                class="roadmap-item"
+            >
+
+                <span>
+                    10.5
+                </span>
+
+                <strong>
+                    PYQ Connections
+                </strong>
+
+            </div>
+
+
+            <div
+                class="roadmap-item"
+            >
+
+                <span>
+                    10.6
+                </span>
+
+                <strong>
+                    Study Resources
+                </strong>
+
+            </div>
+
+
+            <div
+                class="roadmap-item"
+            >
+
+                <span>
+                    10.7
+                </span>
+
+                <strong>
+                    Analytics Integration
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         DATA SOURCE
+    ====================================================== -->
+
+    <section
+        class="section-card mb-4"
+    >
+
+        <h2>
+
+            🔗 Data Source
+
+        </h2>
+
+
+        <p
+            class="text-secondary"
+        >
+
+            The Knowledge Graph will eventually connect
+            the structured knowledge data already used by
+            BAJEE JRF AI with performance, PYQ and study
+            resource information.
+
+        </p>
+
+
+        <div
+            class="data-source-box"
+        >
+
+            <strong>
+                Current graph status
+            </strong>
+
+
+            <div
+                id="graphDataStatus"
+                class="small text-secondary mt-2"
+            >
+
+                Foundation page created.
+                Graph data connection will be added in
+                the next Step 10 phases.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <strong>
+        🎓 BAJEE JRF AI
+    </strong>
+
+
+    <div
+        class="small mt-1"
+    >
+
+        Knowledge Graph • Step 10.1
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     STEP 10.1 JAVASCRIPT
+========================================================= -->
+
+<script
+    src="js/knowledge-graph.js"
+></script>
+
+
+</body>
+
+</html>

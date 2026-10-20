@@ -1,0 +1,2952 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        BAJEE JRF AI — Knowledge Study Resources
+    </title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+    ====================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         DESIGN SYSTEM
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+
+    <!-- =====================================================
+         PAGE STYLE
+    ====================================================== -->
+
+    <style>
+
+        body {
+            background: #f4f6fa;
+            color: #17243a;
+        }
+
+
+        .navbar {
+            background: #0d2b52;
+        }
+
+
+        .navbar-brand {
+            color: #fff !important;
+        }
+
+
+        .nav-button {
+            border: 1px solid rgba(255,255,255,.45);
+            color: #fff;
+            text-decoration: none;
+            padding: 7px 13px;
+            border-radius: 8px;
+            font-size: .82rem;
+        }
+
+
+        .nav-button:hover {
+            background: rgba(255,255,255,.10);
+            color: #fff;
+        }
+
+
+        /* =====================================================
+           HERO
+        ====================================================== */
+
+        .resource-hero {
+            background:
+                linear-gradient(
+                    135deg,
+                    #0d2b52,
+                    #173d6b
+                );
+
+            color: #fff;
+
+            padding: 48px 0;
+
+            border-bottom:
+                4px solid #d9b34c;
+        }
+
+
+        .eyebrow {
+            display: inline-block;
+
+            font-size: .75rem;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            color: #f3d77a;
+
+            margin-bottom: 10px;
+        }
+
+
+        .resource-hero h1 {
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+
+        .resource-hero p {
+            max-width: 850px;
+            margin-bottom: 0;
+            opacity: .92;
+        }
+
+
+        /* =====================================================
+           CARDS
+        ====================================================== */
+
+        .status-card,
+        .section-card {
+            background: #fff;
+
+            border:
+                1px solid #dfe5ee;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 5px 18px rgba(13,43,82,.05);
+        }
+
+
+        .status-card {
+            padding: 18px 20px;
+        }
+
+
+        .section-card {
+            padding: 24px;
+        }
+
+
+        .section-card h2 {
+            color: #0d2b52;
+
+            font-size: 1.25rem;
+
+            font-weight: 800;
+        }
+
+
+        .section-subtitle {
+            color: #6c757d;
+            font-size: .9rem;
+        }
+
+
+        /* =====================================================
+           ENTITY
+        ====================================================== */
+
+        .entity-profile {
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .entity-icon {
+            width: 70px;
+
+            height: 70px;
+
+            border-radius: 16px;
+
+            background: #f7efd6;
+
+            border:
+                1px solid #e3c36a;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 2rem;
+        }
+
+
+        .entity-name {
+            font-size: 1.55rem;
+
+            font-weight: 800;
+
+            color: #0d2b52;
+        }
+
+
+        .entity-meta {
+            color: #6c757d;
+
+            font-size: .9rem;
+        }
+
+
+        .tag {
+            display: inline-block;
+
+            background: #f7efd6;
+
+            border:
+                1px solid #e3c36a;
+
+            color: #6d5210;
+
+            border-radius: 20px;
+
+            padding: 4px 9px;
+
+            margin: 3px 4px 3px 0;
+
+            font-size: .76rem;
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           SUMMARY
+        ====================================================== */
+
+        .summary-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 14px;
+        }
+
+
+        .summary-card {
+            background: #fff;
+
+            border:
+                1px solid #dfe5ee;
+
+            border-radius: 13px;
+
+            padding: 18px;
+
+            text-align: center;
+        }
+
+
+        .summary-number {
+            font-size: 1.7rem;
+
+            font-weight: 800;
+
+            color: #0d2b52;
+        }
+
+
+        .summary-label {
+            color: #6c757d;
+
+            font-size: .78rem;
+
+            margin-top: 4px;
+        }
+
+
+        /* =====================================================
+           FILTERS
+        ====================================================== */
+
+        .filter-box {
+            background: #f8f9fb;
+
+            border:
+                1px solid #e1e5eb;
+
+            border-radius: 13px;
+
+            padding: 15px;
+        }
+
+
+        .filter-box label {
+            font-size: .78rem;
+
+            font-weight: 700;
+
+            color: #495057;
+
+            margin-bottom: 5px;
+        }
+
+
+        /* =====================================================
+           RESOURCES
+        ====================================================== */
+
+        .resource-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 16px;
+        }
+
+
+        .resource-card {
+            background: #fff;
+
+            border:
+                1px solid #dfe5ee;
+
+            border-radius: 14px;
+
+            padding: 19px;
+
+            transition:
+                transform .15s ease,
+                box-shadow .15s ease;
+        }
+
+
+        .resource-card:hover {
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 8px 24px rgba(13,43,82,.09);
+        }
+
+
+        .resource-type {
+            display: inline-block;
+
+            font-size: .7rem;
+
+            font-weight: 800;
+
+            color: #6d5210;
+
+            background: #f7efd6;
+
+            border:
+                1px solid #e3c36a;
+
+            border-radius: 20px;
+
+            padding: 4px 9px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .resource-title {
+            color: #0d2b52;
+
+            font-weight: 800;
+
+            font-size: 1rem;
+
+            margin-bottom: 7px;
+        }
+
+
+        .resource-description {
+            color: #6c757d;
+
+            font-size: .86rem;
+
+            line-height: 1.55;
+
+            margin-bottom: 12px;
+        }
+
+
+        .resource-meta {
+            font-size: .75rem;
+
+            color: #6c757d;
+
+            line-height: 1.7;
+        }
+
+
+        .resource-link {
+            display: inline-block;
+
+            margin-top: 12px;
+
+            text-decoration: none;
+
+            background: #0d2b52;
+
+            color: #fff;
+
+            border-radius: 8px;
+
+            padding: 7px 12px;
+
+            font-size: .78rem;
+
+            font-weight: 700;
+        }
+
+
+        .resource-link:hover {
+            background: #173d6b;
+            color: #fff;
+        }
+
+
+        /* =====================================================
+           INFO
+        ====================================================== */
+
+        .info-box {
+            background: #f8f9fb;
+
+            border-left:
+                4px solid #d9b34c;
+
+            border-radius: 8px;
+
+            padding: 14px 16px;
+
+            color: #495057;
+
+            font-size: .86rem;
+        }
+
+
+        .empty-state {
+            text-align: center;
+
+            padding: 45px 20px;
+
+            color: #6c757d;
+        }
+
+
+        .empty-icon {
+            font-size: 2.2rem;
+
+            margin-bottom: 10px;
+        }
+
+
+        /* =====================================================
+           ACTIONS
+        ====================================================== */
+
+        .action-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+        }
+
+
+        .action-button {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            min-height: 48px;
+
+            border:
+                1px solid #dfe5ee;
+
+            border-radius: 10px;
+
+            background: #fff;
+
+            color: #0d2b52;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            font-size: .86rem;
+        }
+
+
+        .action-button:hover {
+            background: #f7efd6;
+
+            border-color: #d9b34c;
+
+            color: #0d2b52;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ====================================================== */
+
+        @media (max-width: 900px) {
+
+            .summary-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 576px) {
+
+            .summary-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .section-card {
+                padding: 18px;
+            }
+
+
+            .resource-hero {
+                padding: 35px 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar navbar-dark">
+
+    <div class="container">
+
+        <a
+            href="index.html"
+            class="navbar-brand fw-bold"
+        >
+            🎓 BAJEE JRF AI
+        </a>
+
+
+        <div class="d-flex gap-2 flex-wrap">
+
+            <a
+                href="knowledge-graph.html"
+                class="nav-button"
+            >
+                ← Knowledge Graph
+            </a>
+
+
+            <a
+                href="resource-library.html"
+                class="nav-button"
+            >
+                📚 Resource Library
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="resource-hero">
+
+    <div class="container">
+
+        <div class="eyebrow">
+            STEP 10.6 • STUDY RESOURCES
+        </div>
+
+
+        <h1>
+            📚 Knowledge-Linked Study Resources
+        </h1>
+
+
+        <p>
+            Find books, PDFs, PPTs, videos, notes and other
+            indexed study resources connected to the selected
+            JRF knowledge entity.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="container py-4">
+
+
+<!-- =========================================================
+     STATUS
+========================================================= -->
+
+<section class="status-card mb-4">
+
+    <div
+        class="d-flex
+               justify-content-between
+               align-items-center
+               flex-wrap
+               gap-2"
+    >
+
+        <div>
+
+            <strong>
+                📚 Study Resource Engine
+            </strong>
+
+
+            <div
+                id="resourceStatusMessage"
+                class="small text-secondary mt-1"
+            >
+                Loading knowledge and resource data...
+            </div>
+
+        </div>
+
+
+        <span
+            id="resourceStatus"
+            class="badge bg-warning text-dark"
+        >
+            Loading
+        </span>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ENTITY PROFILE
+========================================================= -->
+
+<section class="section-card mb-4">
+
+    <div class="entity-profile">
+
+        <div
+            id="entityIcon"
+            class="entity-icon"
+        >
+            🧠
+        </div>
+
+
+        <div>
+
+            <div
+                id="entityName"
+                class="entity-name"
+            >
+                Loading entity...
+            </div>
+
+
+            <div
+                id="entityMeta"
+                class="entity-meta"
+            >
+                Knowledge entity
+            </div>
+
+
+            <div
+                id="entityTags"
+                class="mt-2"
+            >
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SUMMARY
+========================================================= -->
+
+<section class="section-card mb-4">
+
+    <h2>
+        📊 Resource Summary
+    </h2>
+
+
+    <p class="section-subtitle">
+        Resources currently connected to this knowledge entity.
+    </p>
+
+
+    <div class="summary-grid mt-3">
+
+        <div class="summary-card">
+
+            <div
+                id="totalResources"
+                class="summary-number"
+            >
+                0
+            </div>
+
+            <div class="summary-label">
+                Connected Resources
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div
+                id="totalTypes"
+                class="summary-number"
+            >
+                0
+            </div>
+
+            <div class="summary-label">
+                Resource Types
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div
+                id="totalTopics"
+                class="summary-number"
+            >
+                0
+            </div>
+
+            <div class="summary-label">
+                Matched Topics
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div
+                id="totalUnits"
+                class="summary-number"
+            >
+                0
+            </div>
+
+            <div class="summary-label">
+                Matched Units
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CONNECTION
+========================================================= -->
+
+<section class="section-card mb-4">
+
+    <h2>
+        🔗 Knowledge → Resource Connection
+    </h2>
+
+
+    <div class="info-box mt-3">
+
+        <strong>
+            How Step 10.6 works
+        </strong>
+
+
+        <div class="mt-2">
+
+            The selected knowledge entity is matched against
+            the existing local JRF resource inventory.
+
+        </div>
+
+
+        <div class="mt-2">
+
+            Matching uses the entity name, concepts, works,
+            units, topics and related knowledge terms.
+
+        </div>
+
+
+        <div class="mt-2">
+
+            The system supports both the existing knowledge
+            database structure and the Knowledge Graph structure.
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FILTERS
+========================================================= -->
+
+<section class="section-card mb-4">
+
+    <h2>
+        🔎 Filter Study Resources
+    </h2>
+
+
+    <div class="filter-box mt-3">
+
+        <div class="row g-3">
+
+            <div class="col-md-6">
+
+                <label for="resourceSearch">
+                    Search
+                </label>
+
+
+                <input
+                    id="resourceSearch"
+                    type="search"
+                    class="form-control"
+                    placeholder="Search title, topic, author..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <label for="resourceType">
+                    Resource Type
+                </label>
+
+
+                <select
+                    id="resourceType"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        All Types
+                    </option>
+
+                    <option value="Book">
+                        Book
+                    </option>
+
+                    <option value="PDF">
+                        PDF
+                    </option>
+
+                    <option value="PPT">
+                        PPT
+                    </option>
+
+                    <option value="MP3">
+                        MP3
+                    </option>
+
+                    <option value="Video">
+                        Video
+                    </option>
+
+                    <option value="YouTube">
+                        YouTube
+                    </option>
+
+                    <option value="Notes">
+                        Notes
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <label for="resourceTopic">
+                    Topic
+                </label>
+
+
+                <select
+                    id="resourceTopic"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        All Topics
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESOURCES
+========================================================= -->
+
+<section class="section-card mb-4">
+
+    <div
+        class="d-flex
+               justify-content-between
+               align-items-center
+               flex-wrap
+               gap-2
+               mb-3"
+    >
+
+        <div>
+
+            <h2 class="mb-1">
+                📖 Connected Study Resources
+            </h2>
+
+
+            <div
+                id="resourceCountText"
+                class="section-subtitle"
+            >
+                Loading resources...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="resourceContainer"
+        class="resource-grid"
+    >
+
+        <div
+            class="empty-state"
+            style="grid-column:1/-1;"
+        >
+
+            <div class="empty-icon">
+                ⏳
+            </div>
+
+            Loading study resources...
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ACTIONS
+========================================================= -->
+
+<section class="section-card mb-4">
+
+    <h2>
+        🚀 Continue Preparation
+    </h2>
+
+
+    <div class="action-grid mt-3">
+
+        <a
+            id="entityButton"
+            href="knowledge-entity.html"
+            class="action-button"
+        >
+            🧠 View Knowledge Entity
+        </a>
+
+
+        <a
+            id="pyqButton"
+            href="knowledge-pyq.html"
+            class="action-button"
+        >
+            📝 View Connected PYQs
+        </a>
+
+
+        <a
+            href="resource-library.html"
+            class="action-button"
+        >
+            📚 Open Resource Library
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     DEVELOPMENT
+========================================================= -->
+
+<section class="section-card mb-4">
+
+    <h2>
+        🛠 Knowledge Graph Development
+    </h2>
+
+
+    <div class="row g-2 mt-3">
+
+        <div class="col-6 col-md-3">
+
+            <div class="p-3 border rounded-3 bg-light">
+
+                <strong>10.1</strong>
+
+                <div class="small text-success">
+                    ✓ Foundation
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-6 col-md-3">
+
+            <div class="p-3 border rounded-3 bg-light">
+
+                <strong>10.2</strong>
+
+                <div class="small text-success">
+                    ✓ Entity Model
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-6 col-md-3">
+
+            <div class="p-3 border rounded-3 bg-light">
+
+                <strong>10.3</strong>
+
+                <div class="small text-success">
+                    ✓ Interactive Graph
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-6 col-md-3">
+
+            <div class="p-3 border rounded-3 bg-light">
+
+                <strong>10.4</strong>
+
+                <div class="small text-success">
+                    ✓ Entity Details
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-6 col-md-4">
+
+            <div class="p-3 border rounded-3 bg-light">
+
+                <strong>10.5</strong>
+
+                <div class="small text-success">
+                    ✓ PYQ Connections
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-6 col-md-4">
+
+            <div
+                class="p-3 border rounded-3"
+                style="
+                    background:#f7efd6;
+                    border-color:#d9b34c !important;
+                "
+            >
+
+                <strong>10.6</strong>
+
+                <div class="small fw-bold">
+                    📚 Study Resources
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-12 col-md-4">
+
+            <div class="p-3 border rounded-3 bg-light">
+
+                <strong>10.7</strong>
+
+                <div class="small text-secondary">
+                    Analytics Integration
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     DATA SOURCE
+========================================================= -->
+
+<section class="section-card mb-4">
+
+    <h2>
+        🔗 Data Source
+    </h2>
+
+
+    <p class="text-secondary mb-2">
+
+        Study resources are read from the existing BAJEE JRF AI
+        knowledge database and local resource inventory.
+
+    </p>
+
+
+    <div
+        id="dataSourceStatus"
+        class="small"
+    >
+        Loading data source...
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer
+    style="
+        background:#0d2b52;
+        color:#fff;
+        text-align:center;
+        padding:22px;
+        margin-top:35px;
+    "
+>
+
+    <strong>
+        🎓 BAJEE JRF AI
+    </strong>
+
+
+    <div class="small mt-1">
+        Knowledge Graph • Step 10.6 • Study Resources
+    </div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+"use strict";
+
+
+/* =========================================================
+   APPLICATION DATA
+========================================================= */
+
+let knowledge = {
+    records: []
+};
+
+
+let resources = {
+    resources: []
+};
+
+
+let selectedEntity = null;
+
+
+let connectedResources = [];
+
+
+let filteredResources = [];
+
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function byId(id) {
+
+    return document.getElementById(id);
+
+}
+
+
+function normalize(value) {
+
+    return String(value ?? "")
+        .trim()
+        .toLowerCase();
+
+}
+
+
+function slugify(value) {
+
+    return normalize(value)
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+
+}
+
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(
+            /[&<>"']/g,
+            character => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#039;"
+            }[character])
+        );
+
+}
+
+
+
+/* =========================================================
+   URL ENTITY
+========================================================= */
+
+function getRequestedEntityValue() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    return (
+        params.get("id") ||
+        params.get("entity") ||
+        params.get("name") ||
+        "derrida"
+    );
+
+}
+
+
+
+/* =========================================================
+   LOAD DATA
+========================================================= */
+
+async function loadData() {
+
+    const [
+        knowledgeResponse,
+        resourceResponse
+    ] = await Promise.all([
+
+        fetch(
+            "../data/knowledge/knowledge-entities.json"
+        ),
+
+        fetch(
+            "../data/resources/resource-inventory.json"
+        )
+
+    ]);
+
+
+    if (!knowledgeResponse.ok) {
+
+        throw new Error(
+            "Knowledge database could not be loaded."
+        );
+
+    }
+
+
+    if (!resourceResponse.ok) {
+
+        throw new Error(
+            "Resource inventory could not be loaded."
+        );
+
+    }
+
+
+    knowledge =
+        await knowledgeResponse.json();
+
+
+    resources =
+        await resourceResponse.json();
+
+
+    normalizeData();
+
+}
+
+
+
+/* =========================================================
+   NORMALIZE DATA STRUCTURE
+========================================================= */
+
+function normalizeData() {
+
+    /*
+       Knowledge database
+    */
+
+    if (Array.isArray(knowledge)) {
+
+        knowledge = {
+            records: knowledge
+        };
+
+    }
+
+
+    if (
+        !Array.isArray(
+            knowledge.records
+        )
+    ) {
+
+        if (
+            Array.isArray(
+                knowledge.entities
+            )
+        ) {
+
+            knowledge.records =
+                knowledge.entities;
+
+        }
+
+        else {
+
+            knowledge.records = [];
+
+        }
+
+    }
+
+
+    /*
+       Resource database
+    */
+
+    if (Array.isArray(resources)) {
+
+        resources = {
+            resources
+        };
+
+    }
+
+
+    if (
+        !Array.isArray(
+            resources.resources
+        )
+    ) {
+
+        resources.resources = [];
+
+    }
+
+}
+
+
+
+/* =========================================================
+   ENTITY ALIASES
+========================================================= */
+
+function getEntityAliases(entity) {
+
+    if (!entity) {
+
+        return [];
+
+    }
+
+
+    const values = [
+
+        entity.id,
+
+        entity.name,
+
+        ...(entity.aliases || []),
+
+        ...(entity.alternativeNames || []),
+
+        ...(entity.relatedEntities || [])
+
+    ];
+
+
+    /*
+       Specific compatibility aliases.
+       Step 10.5 uses "derrida";
+       knowledge database uses "jacques-derrida".
+    */
+
+    if (
+        normalize(entity.name) ===
+        "jacques derrida"
+    ) {
+
+        values.push(
+            "derrida",
+            "jacques-derrida",
+            "derrida",
+            "deconstruction"
+        );
+
+    }
+
+
+    return [
+        ...new Set(
+            values
+                .filter(Boolean)
+                .map(
+                    value =>
+                        String(value)
+                )
+        )
+    ];
+
+}
+
+
+
+/* =========================================================
+   FIND ENTITY
+========================================================= */
+
+function findEntity(requested) {
+
+    const search =
+        normalize(requested);
+
+
+    const searchSlug =
+        slugify(requested);
+
+
+    /*
+       1. Exact ID
+    */
+
+    let entity =
+        knowledge.records.find(
+            record =>
+                normalize(record.id) ===
+                search
+        );
+
+
+    if (entity) {
+
+        return entity;
+
+    }
+
+
+    /*
+       2. Slug ID
+    */
+
+    entity =
+        knowledge.records.find(
+            record =>
+                slugify(record.id) ===
+                searchSlug
+        );
+
+
+    if (entity) {
+
+        return entity;
+
+    }
+
+
+    /*
+       3. Exact name
+    */
+
+    entity =
+        knowledge.records.find(
+            record =>
+                normalize(record.name) ===
+                search
+        );
+
+
+    if (entity) {
+
+        return entity;
+
+    }
+
+
+    /*
+       4. Slug name
+    */
+
+    entity =
+        knowledge.records.find(
+            record =>
+                slugify(record.name) ===
+                searchSlug
+        );
+
+
+    if (entity) {
+
+        return entity;
+
+    }
+
+
+    /*
+       5. Alias matching
+    */
+
+    entity =
+        knowledge.records.find(
+            record => {
+
+                return getEntityAliases(
+                    record
+                ).some(
+                    alias =>
+                        normalize(alias) ===
+                        search ||
+                        slugify(alias) ===
+                        searchSlug
+                );
+
+            }
+        );
+
+
+    return entity || null;
+
+}
+
+
+
+/* =========================================================
+   ENTITY TAG DATA
+========================================================= */
+
+function getEntityConcepts(entity) {
+
+    return [
+
+        ...(entity.concepts || []),
+
+        ...(entity.topics || []),
+
+        ...(entity.units || []),
+
+        ...(entity.relatedEntities || [])
+
+    ]
+    .filter(Boolean)
+    .map(String);
+
+}
+
+
+function getEntityWorks(entity) {
+
+    if (
+        !Array.isArray(
+            entity?.works
+        )
+    ) {
+
+        return [];
+
+    }
+
+
+    return entity.works
+        .map(
+            work => {
+
+                if (
+                    typeof work ===
+                    "string"
+                ) {
+
+                    return work;
+
+                }
+
+
+                return (
+                    work?.title ||
+                    work?.name ||
+                    ""
+                );
+
+            }
+        )
+        .filter(Boolean);
+
+}
+
+
+
+/* =========================================================
+   ENTITY PROFILE
+========================================================= */
+
+function renderEntityProfile() {
+
+    if (!selectedEntity) {
+
+        byId("entityIcon").textContent =
+            "❓";
+
+
+        byId("entityName").textContent =
+            "Entity not found";
+
+
+        byId("entityMeta").textContent =
+            "No matching knowledge entity was found.";
+
+
+        byId("entityTags").innerHTML =
+            "";
+
+
+        return;
+
+    }
+
+
+    byId("entityIcon").textContent =
+        selectedEntity.icon ||
+        "🧠";
+
+
+    byId("entityName").textContent =
+        selectedEntity.name ||
+        "Knowledge Entity";
+
+
+    const type =
+        selectedEntity.type ||
+        "";
+
+
+    const period =
+        selectedEntity.period ||
+        "";
+
+
+    const units =
+        Array.isArray(
+            selectedEntity.units
+        )
+            ? selectedEntity.units.join(", ")
+            : (
+                selectedEntity.unit ||
+                ""
+            );
+
+
+    byId("entityMeta").textContent =
+        [
+            type,
+            period,
+            units
+        ]
+        .filter(Boolean)
+        .join(" • ");
+
+
+    const tags = [
+
+        ...(selectedEntity.concepts || []),
+
+        ...(selectedEntity.topics || []),
+
+        ...(selectedEntity.units || [])
+
+    ];
+
+
+    byId("entityTags").innerHTML =
+        [
+            ...new Set(tags)
+        ]
+        .map(
+            tag => `
+                <span class="tag">
+                    ${escapeHTML(tag)}
+                </span>
+            `
+        )
+        .join("");
+
+}
+
+
+
+/* =========================================================
+   ENTITY SEARCH TERMS
+========================================================= */
+
+function getEntityTerms() {
+
+    if (!selectedEntity) {
+
+        return [];
+
+    }
+
+
+    const terms = [
+
+        ...getEntityAliases(
+            selectedEntity
+        ),
+
+        ...getEntityConcepts(
+            selectedEntity
+        ),
+
+        ...getEntityWorks(
+            selectedEntity
+        ),
+
+        selectedEntity.period,
+
+        selectedEntity.description
+
+    ];
+
+
+    return [
+        ...new Set(
+
+            terms
+                .filter(Boolean)
+                .map(normalize)
+                .filter(
+                    value =>
+                        value.length >= 3
+                )
+
+        )
+    ];
+
+}
+
+
+
+/* =========================================================
+   RESOURCE SEARCH TEXT
+========================================================= */
+
+function getResourceText(resource) {
+
+    const values = [
+
+        resource.id,
+
+        resource.title,
+
+        resource.name,
+
+        resource.type,
+
+        resource.subject,
+
+        resource.unit,
+
+        resource.topic,
+
+        resource.author,
+
+        resource.description,
+
+        resource.category,
+
+        ...(resource.units || []),
+
+        ...(resource.topics || []),
+
+        ...(resource.concepts || []),
+
+        ...(resource.keywords || [])
+
+    ];
+
+
+    return normalize(
+        values
+            .filter(Boolean)
+            .join(" ")
+    );
+
+}
+
+
+
+/* =========================================================
+   RESOURCE MATCHING
+========================================================= */
+
+function findConnectedResources() {
+
+    if (!selectedEntity) {
+
+        connectedResources = [];
+
+        return;
+
+    }
+
+
+    const terms =
+        getEntityTerms();
+
+
+    const matches = [];
+
+
+    resources.resources.forEach(
+        resource => {
+
+            const text =
+                getResourceText(
+                    resource
+                );
+
+
+            const matchedTerms =
+                terms.filter(
+                    term =>
+                        text.includes(term)
+                );
+
+
+            /*
+               Also give direct unit matching
+               a strong connection.
+            */
+
+            let score =
+                matchedTerms.length;
+
+
+            const entityUnits =
+                selectedEntity.units ||
+                (
+                    selectedEntity.unit
+                        ? [selectedEntity.unit]
+                        : []
+                );
+
+
+            entityUnits.forEach(
+                unit => {
+
+                    if (
+                        normalize(
+                            resource.unit
+                        ) ===
+                        normalize(unit)
+                    ) {
+
+                        score += 3;
+
+                    }
+
+
+                    if (
+                        Array.isArray(
+                            resource.units
+                        ) &&
+                        resource.units.some(
+                            item =>
+                                normalize(item) ===
+                                normalize(unit)
+                        )
+                    ) {
+
+                        score += 3;
+
+                    }
+
+                }
+            );
+
+
+            if (score > 0) {
+
+                matches.push({
+
+                    resource,
+
+                    score,
+
+                    matchedTerms
+
+                });
+
+            }
+
+        }
+    );
+
+
+    /*
+       Remove duplicate resources.
+    */
+
+    const seen =
+        new Set();
+
+
+    connectedResources =
+        matches
+            .sort(
+                (a, b) =>
+                    b.score -
+                    a.score
+            )
+            .map(
+                item =>
+                    item.resource
+            )
+            .filter(
+                resource => {
+
+                    const key =
+                        resource.id ||
+                        resource.title ||
+                        resource.name;
+
+
+                    if (
+                        seen.has(key)
+                    ) {
+
+                        return false;
+
+                    }
+
+
+                    seen.add(key);
+
+                    return true;
+
+                }
+            );
+
+}
+
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+function updateSummary() {
+
+    const resourcesList =
+        connectedResources;
+
+
+    const types =
+        new Set();
+
+
+    const topics =
+        new Set();
+
+
+    const units =
+        new Set();
+
+
+    resourcesList.forEach(
+        resource => {
+
+            if (
+                resource.type
+            ) {
+
+                types.add(
+                    resource.type
+                );
+
+            }
+
+
+            if (
+                resource.topic
+            ) {
+
+                topics.add(
+                    resource.topic
+                );
+
+            }
+
+
+            (
+                resource.unit
+                    ? [resource.unit]
+                    : []
+            )
+            .forEach(
+                unit =>
+                    units.add(unit)
+            );
+
+
+            (
+                resource.units || []
+            )
+            .forEach(
+                unit =>
+                    units.add(unit)
+            );
+
+        }
+    );
+
+
+    byId("totalResources").textContent =
+        resourcesList.length;
+
+
+    byId("totalTypes").textContent =
+        types.size;
+
+
+    byId("totalTopics").textContent =
+        topics.size;
+
+
+    byId("totalUnits").textContent =
+        units.size;
+
+}
+
+
+
+/* =========================================================
+   TOPIC FILTER
+========================================================= */
+
+function populateTopicFilter() {
+
+    const select =
+        byId("resourceTopic");
+
+
+    const topics =
+        new Set();
+
+
+    connectedResources.forEach(
+        resource => {
+
+            if (
+                resource.topic
+            ) {
+
+                topics.add(
+                    resource.topic
+                );
+
+            }
+
+
+            (
+                resource.topics || []
+            )
+            .forEach(
+                topic =>
+                    topics.add(topic)
+            );
+
+        }
+    );
+
+
+    select.innerHTML = `
+
+        <option value="">
+            All Topics
+        </option>
+
+    `;
+
+
+    [
+        ...topics
+    ]
+    .sort()
+    .forEach(
+        topic => {
+
+            select.insertAdjacentHTML(
+                "beforeend",
+                `
+                    <option
+                        value="${escapeHTML(topic)}"
+                    >
+                        ${escapeHTML(topic)}
+                    </option>
+                `
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+function applyFilters() {
+
+    const search =
+        normalize(
+            byId("resourceSearch").value
+        );
+
+
+    const type =
+        normalize(
+            byId("resourceType").value
+        );
+
+
+    const topic =
+        normalize(
+            byId("resourceTopic").value
+        );
+
+
+    filteredResources =
+        connectedResources.filter(
+            resource => {
+
+                const text =
+                    getResourceText(
+                        resource
+                    );
+
+
+                if (
+                    search &&
+                    !text.includes(search)
+                ) {
+
+                    return false;
+
+                }
+
+
+                if (
+                    type &&
+                    normalize(
+                        resource.type
+                    ) !== type
+                ) {
+
+                    return false;
+
+                }
+
+
+                if (topic) {
+
+                    const resourceTopics = [
+
+                        resource.topic,
+
+                        ...(resource.topics || [])
+
+                    ]
+                    .filter(Boolean)
+                    .map(normalize);
+
+
+                    if (
+                        !resourceTopics.includes(
+                            topic
+                        )
+                    ) {
+
+                        return false;
+
+                    }
+
+                }
+
+
+                return true;
+
+            }
+        );
+
+
+    renderResources();
+
+}
+
+
+
+/* =========================================================
+   RESOURCE CARD
+========================================================= */
+
+function renderResourceCard(resource) {
+
+    const type =
+        resource.type ||
+        "Resource";
+
+
+    const title =
+        resource.title ||
+        resource.name ||
+        "Untitled Resource";
+
+
+    const description =
+        resource.description ||
+        "Indexed study resource connected to this knowledge area.";
+
+
+    const meta = [
+
+        resource.author
+            ? `Author: ${escapeHTML(resource.author)}`
+            : "",
+
+        resource.subject
+            ? `Subject: ${escapeHTML(resource.subject)}`
+            : "",
+
+        resource.unit
+            ? `Unit: ${escapeHTML(resource.unit)}`
+            : "",
+
+        resource.topic
+            ? `Topic: ${escapeHTML(resource.topic)}`
+            : ""
+
+    ]
+    .filter(Boolean)
+    .join("<br>");
+
+
+    const url =
+        resource.url ||
+        resource.link ||
+        resource.href;
+
+
+    const linkHTML =
+        url
+            ? `
+                <a
+                    href="${escapeHTML(url)}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="resource-link"
+                >
+                    🔗 Open Resource
+                </a>
+              `
+            : `
+                <div class="small text-secondary mt-2">
+                    📌 Indexed resource
+                </div>
+              `;
+
+
+    return `
+
+        <article class="resource-card">
+
+            <div class="resource-type">
+                ${escapeHTML(type)}
+            </div>
+
+
+            <div class="resource-title">
+                ${escapeHTML(title)}
+            </div>
+
+
+            <div class="resource-description">
+                ${escapeHTML(description)}
+            </div>
+
+
+            ${
+                meta
+                    ? `
+                        <div class="resource-meta">
+                            ${meta}
+                        </div>
+                    `
+                    : ""
+            }
+
+
+            ${linkHTML}
+
+        </article>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   RENDER RESOURCES
+========================================================= */
+
+function renderResources() {
+
+    const container =
+        byId("resourceContainer");
+
+
+    byId("resourceCountText")
+        .textContent =
+        `${filteredResources.length} resource(s) currently displayed`;
+
+
+    if (
+        filteredResources.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div
+                class="empty-state"
+                style="grid-column:1/-1;"
+            >
+
+                <div class="empty-icon">
+                    📭
+                </div>
+
+
+                <h3>
+                    No connected resources found
+                </h3>
+
+
+                <p class="mb-0">
+
+                    No indexed local resource currently
+                    matches this knowledge entity.
+
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        filteredResources
+            .map(
+                renderResourceCard
+            )
+            .join("");
+
+}
+
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function setupNavigation() {
+
+    if (!selectedEntity) {
+
+        return;
+
+    }
+
+
+    /*
+       Important:
+       Knowledge Entity page expects its own
+       canonical ID.
+    */
+
+    const entityId =
+        selectedEntity.id ||
+        "jacques-derrida";
+
+
+    const encoded =
+        encodeURIComponent(
+            entityId
+        );
+
+
+    byId("entityButton").href =
+        `knowledge-entity.html?id=${encoded}`;
+
+
+    /*
+       Step 10.5 uses the graph-compatible
+       entity identifier.
+    */
+
+    const graphId =
+        normalize(
+            selectedEntity.name
+        ) ===
+        "jacques derrida"
+            ? "derrida"
+            : entityId;
+
+
+    byId("pyqButton").href =
+        `knowledge-pyq.html?id=${
+            encodeURIComponent(
+                graphId
+            )
+        }`;
+
+}
+
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function setStatus(
+    message,
+    state = "success"
+) {
+
+    const status =
+        byId("resourceStatus");
+
+
+    const messageBox =
+        byId("resourceStatusMessage");
+
+
+    messageBox.textContent =
+        message;
+
+
+    status.className =
+        "badge";
+
+
+    if (
+        state === "success"
+    ) {
+
+        status.classList.add(
+            "bg-success"
+        );
+
+
+        status.textContent =
+            "Ready";
+
+    }
+
+    else if (
+        state === "warning"
+    ) {
+
+        status.classList.add(
+            "bg-warning",
+            "text-dark"
+        );
+
+
+        status.textContent =
+            "Warning";
+
+    }
+
+    else {
+
+        status.classList.add(
+            "bg-danger"
+        );
+
+
+        status.textContent =
+            "Error";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   DATA SOURCE
+========================================================= */
+
+function renderDataSourceStatus() {
+
+    byId("dataSourceStatus")
+        .innerHTML = `
+
+            <span class="text-success fw-bold">
+                ✓ Knowledge database loaded
+            </span>
+
+            <span class="text-secondary">
+                •
+            </span>
+
+            <span class="text-success fw-bold">
+                ✓ Resource inventory loaded
+            </span>
+
+            <span class="text-secondary">
+                •
+            </span>
+
+            ${
+                knowledge.records.length
+            }
+            knowledge records
+
+            <span class="text-secondary">
+                •
+            </span>
+
+            ${
+                resources.resources.length
+            }
+            indexed resources
+
+        `;
+
+}
+
+
+
+/* =========================================================
+   FILTER EVENTS
+========================================================= */
+
+function setupFilters() {
+
+    byId("resourceSearch")
+        .addEventListener(
+            "input",
+            applyFilters
+        );
+
+
+    byId("resourceType")
+        .addEventListener(
+            "change",
+            applyFilters
+        );
+
+
+    byId("resourceTopic")
+        .addEventListener(
+            "change",
+            applyFilters
+        );
+
+}
+
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+async function initialize() {
+
+    try {
+
+        setStatus(
+            "Loading knowledge and resource inventory..."
+        );
+
+
+        await loadData();
+
+
+        const requested =
+            getRequestedEntityValue();
+
+
+        selectedEntity =
+            findEntity(
+                requested
+            );
+
+
+        /*
+           Compatibility fallback:
+           If URL contains "derrida", explicitly
+           resolve the real database record.
+        */
+
+        if (
+            !selectedEntity &&
+            normalize(requested) ===
+            "derrida"
+        ) {
+
+            selectedEntity =
+                findEntity(
+                    "jacques-derrida"
+                );
+
+        }
+
+
+        renderEntityProfile();
+
+
+        if (!selectedEntity) {
+
+            setStatus(
+                `Knowledge entity "${requested}" was not found.`,
+                "warning"
+            );
+
+
+            byId("resourceContainer")
+                .innerHTML = `
+
+                    <div
+                        class="empty-state"
+                        style="grid-column:1/-1;"
+                    >
+
+                        <div class="empty-icon">
+                            ❓
+                        </div>
+
+                        <h3>
+                            Knowledge entity not found
+                        </h3>
+
+                        <p>
+                            The requested entity does not
+                            exist in the current knowledge database.
+                        </p>
+
+                    </div>
+
+                `;
+
+
+            renderDataSourceStatus();
+
+
+            return;
+
+        }
+
+
+        findConnectedResources();
+
+
+        filteredResources =
+            [...connectedResources];
+
+
+        updateSummary();
+
+
+        populateTopicFilter();
+
+
+        setupNavigation();
+
+
+        setupFilters();
+
+
+        renderResources();
+
+
+        renderDataSourceStatus();
+
+
+        setStatus(
+            `${connectedResources.length} connected resource(s) found.`
+        );
+
+
+        console.log(
+            "BAJEE JRF AI — Step 10.6 ready",
+            {
+                requestedEntity:
+                    requested,
+
+                resolvedEntity:
+                    selectedEntity.name,
+
+                entityId:
+                    selectedEntity.id,
+
+                connectedResources:
+                    connectedResources.length,
+
+                indexedResources:
+                    resources.resources.length
+            }
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Step 10.6 loading error:",
+            error
+        );
+
+
+        setStatus(
+            error.message ||
+            "Unable to load study resources.",
+            "error"
+        );
+
+
+        byId("resourceContainer")
+            .innerHTML = `
+
+                <div
+                    class="alert alert-danger"
+                    style="grid-column:1/-1;"
+                >
+
+                    <strong>
+                        Study Resource Engine Error
+                    </strong>
+
+
+                    <div class="small mt-1">
+                        ${escapeHTML(
+                            error.message
+                        )}
+                    </div>
+
+
+                    <div class="small mt-2">
+
+                        Please open BAJEE JRF AI
+                        through Live Server.
+
+                    </div>
+
+                </div>
+
+            `;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   START
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initialize
+);
+
+</script>
+
+
+</body>
+
+</html>
