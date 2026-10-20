@@ -576,7 +576,9 @@ nav.bottom svg { width: 21px; height: 21px; }
   }
   $("tabStudy").onclick = $("nHome").onclick = () => setMode("study");
   $("tabWork").onclick = $("nWork").onclick = () => setMode("work");
-  setMode(store.get("jrf_mode","study"));
+  const initialNavParams = new URLSearchParams(location.search);
+  const initialRequestedMode = initialNavParams.get("bajeeMode");
+  setMode(initialRequestedMode === "work" ? "work" : initialRequestedMode === "study" ? "study" : store.get("jrf_mode","study"));
 
   /* ---- Greeting ---- */
   const h = today.getHours();
@@ -1347,6 +1349,22 @@ nav.bottom svg { width: 21px; height: 21px; }
     };
     rd.readAsText(f);
   };
+
+  // Support the shared bottom navigation without changing the existing Study/Workshop controls.
+  const navParams = new URLSearchParams(location.search);
+  const navAction = navParams.get("bajeeAction");
+  if (navAction === "ask") {
+    setMode("study");
+    const cleanUrl = new URL(location.href);
+    cleanUrl.searchParams.delete("bajeeAction");
+    cleanUrl.searchParams.delete("bajeeMode");
+    window.history.replaceState({}, "", cleanUrl.pathname + cleanUrl.search + cleanUrl.hash);
+    openAssistant();
+  } else if (navParams.has("bajeeMode")) {
+    const cleanUrl = new URL(location.href);
+    cleanUrl.searchParams.delete("bajeeMode");
+    window.history.replaceState({}, "", cleanUrl.pathname + cleanUrl.search + cleanUrl.hash);
+  }
 })();
 </script>
 </body>
