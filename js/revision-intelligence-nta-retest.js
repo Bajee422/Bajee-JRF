@@ -32,7 +32,7 @@
    * Paper II database filenames used by the project.
    */
   const PYQ_DATABASE_URLS = [
-    "data/pyqs/pyq-database.json"
+    "../data/pyqs/pyq-database.json"
   ];
 
   /*
