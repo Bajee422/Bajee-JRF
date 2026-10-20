@@ -1,49 +1,58 @@
 /* =========================================================
    BAJEE JRF AI
-   STEP 9.4 — REVISION INTELLIGENCE
+   KNOWLEDGE GRAPH — PYQ CONNECTIONS
+   STEP 10.5
 ========================================================= */
 
 :root {
-  --navy: #08224d;
-  --navy-dark: #061b41;
-  --navy-light: #29405f;
-  --gold: #d9b236;
-  --gold-dark: #c8a128;
+  --navy: #06224f;
+  --navy-dark: #03183a;
+  --navy-light: #244875;
 
-  --bg: #f4f6fa;
-  --card: #ffffff;
-  --text: #172033;
-  --muted: #687386;
-  --border: #dfe3ea;
+  --gold: #e0ad19;
+  --gold-light: #fff5cf;
 
-  --green: #198754;
-  --green-bg: #e8f7ee;
+  --green: #168a57;
+  --green-light: #e9f8ef;
 
-  --red: #dc3545;
-  --red-bg: #fbeaec;
+  --red: #d92d3a;
+  --red-light: #fff0f1;
 
-  --orange: #fd7e14;
-  --orange-bg: #fff3e8;
+  --orange: #f28c28;
+  --orange-light: #fff5e8;
 
-  --yellow-bg: #fff8df;
+  --blue: #1769aa;
+  --blue-light: #eef6ff;
 
-  --shadow:
-    0 4px 18px rgba(0, 0, 0, 0.07);
+  --purple: #6842a5;
+  --purple-light: #f4efff;
+
+  --text: #06224f;
+  --muted: #64748b;
+
+  --border: #d9e0ea;
+  --background: #f4f6f9;
+  --white: #ffffff;
+
+  --shadow: 0 8px 24px rgba(6, 34, 79, 0.08);
 }
 
 
 /* =========================================================
-   GLOBAL
+   BASE
 ========================================================= */
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: var(--background);
   color: var(--text);
 
   font-family:
@@ -51,23 +60,7 @@ body {
     Helvetica,
     sans-serif;
 
-  font-size: 15px;
-  line-height: 1.5;
-}
-
-
-a {
-  text-decoration: none;
-}
-
-
-button,
-a {
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.1s ease;
+  font-size: 14px;
 }
 
 
@@ -76,27 +69,22 @@ a {
 ========================================================= */
 
 .navbar {
-  background: var(--navy);
-  min-height: 62px;
+  background: var(--navy-dark);
+  min-height: 64px;
 }
 
-
 .navbar-brand {
-  color: #f4c430 !important;
-  font-weight: 800;
+  color: var(--gold) !important;
   letter-spacing: 0.2px;
 }
 
-
-.navbar .btn-outline-light {
-  border-color: rgba(255, 255, 255, 0.8);
-  color: #fff;
-  font-weight: 600;
+.navbar .btn {
+  border-color: rgba(255, 255, 255, 0.65);
+  color: #ffffff;
 }
 
-
-.navbar .btn-outline-light:hover {
-  background: #fff;
+.navbar .btn:hover {
+  background: #ffffff;
   color: var(--navy);
 }
 
@@ -105,7 +93,7 @@ a {
    HERO
 ========================================================= */
 
-.revision-hero {
+.pyq-hero {
   background:
     linear-gradient(
       135deg,
@@ -113,61 +101,59 @@ a {
       var(--navy-light)
     );
 
-  color: #fff;
+  color: #ffffff;
 
-  padding: 42px 0 46px;
+  padding: 42px 0 38px;
 }
 
-
-.revision-hero .eyebrow {
-  color: #f4c430;
-  font-size: 13px;
+.pyq-hero .eyebrow {
+  color: var(--gold);
+  font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.6px;
+  letter-spacing: 1px;
   margin-bottom: 8px;
+  text-transform: uppercase;
 }
 
-
-.revision-hero h1 {
+.pyq-hero h1 {
   margin: 0;
-  font-size: 36px;
+
+  font-size: clamp(28px, 4vw, 42px);
   font-weight: 800;
 }
 
+.pyq-hero p {
+  max-width: 820px;
+  margin: 12px 0 0;
 
-.revision-hero p {
-  margin: 8px 0 0;
-  max-width: 850px;
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.7;
 }
 
 
 /* =========================================================
-   STATUS CARD
+   ENGINE STATUS
 ========================================================= */
 
 .status-card {
-  background: var(--green-bg);
+  background: var(--white);
 
-  border-left:
-    4px solid var(--green);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
 
   border-radius: 10px;
 
-  padding: 17px 20px;
+  padding: 18px 20px;
 
   box-shadow: var(--shadow);
 }
-
 
 .status-card strong {
   color: var(--navy);
 }
 
-
-.status-card .badge {
-  font-size: 12px;
-  padding: 7px 11px;
+.status-card .small {
+  line-height: 1.5;
 }
 
 
@@ -176,39 +162,36 @@ a {
 ========================================================= */
 
 .stat-card {
-  background: var(--card);
+  height: 100%;
 
-  border: 1px solid rgba(8, 34, 77, 0.04);
+  background: var(--white);
 
-  border-radius: 13px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
 
-  padding: 23px 15px;
+  padding: 20px;
 
   text-align: center;
 
   box-shadow: var(--shadow);
-
-  height: 100%;
 }
-
 
 .stat-number {
   color: var(--navy);
 
   font-size: 30px;
-  line-height: 1;
-
   font-weight: 800;
 
-  margin-bottom: 8px;
+  line-height: 1;
 }
-
 
 .stat-label {
   color: var(--muted);
 
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 600;
+
+  margin-top: 8px;
 }
 
 
@@ -217,342 +200,489 @@ a {
 ========================================================= */
 
 .section-card {
-  background: var(--card);
+  background: var(--white);
 
-  border-radius: 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
 
-  padding: 24px;
+  padding: 22px;
 
   box-shadow: var(--shadow);
 }
 
-
 .section-card h2 {
   color: var(--navy);
 
-  font-size: 22px;
-
+  font-size: 20px;
   font-weight: 800;
 
   margin: 0 0 6px;
 }
 
-
-.section-card > p {
-  margin-bottom: 20px;
-}
-
-
-/* =========================================================
-   METHOD CARDS
-========================================================= */
-
-.method-card {
-  height: 100%;
-
-  background: #f8f9fa;
-
-  border:
-    1px solid #edf0f4;
-
-  border-radius: 10px;
-
-  padding: 19px;
-}
-
-
-.method-icon {
-  font-size: 25px;
-  margin-bottom: 8px;
-}
-
-
-.method-card h3 {
+.section-card h3 {
   color: var(--navy);
 
-  font-size: 17px;
-
+  font-size: 15px;
   font-weight: 800;
 
-  margin-bottom: 7px;
+  margin: 0 0 6px;
 }
 
-
-.method-card p {
-  color: var(--muted);
-
-  font-size: 13px;
-
-  margin: 0;
-
-  line-height: 1.55;
+.section-card p {
+  line-height: 1.6;
 }
 
 
 /* =========================================================
-   GOLD BUTTON
+   PYQ SUMMARY
+========================================================= */
+
+.pyq-summary {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+.pyq-summary-card {
+  background: #f8fafc;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  padding: 16px;
+}
+
+.pyq-summary-card .number {
+  color: var(--navy);
+
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.pyq-summary-card .label {
+  color: var(--muted);
+
+  font-size: 11px;
+  margin-top: 5px;
+}
+
+
+/* =========================================================
+   CONNECTION HEADER
+========================================================= */
+
+.connection-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+  flex-wrap: wrap;
+
+  margin-bottom: 16px;
+}
+
+.connection-header h2 {
+  margin: 0;
+}
+
+.connection-header p {
+  margin: 4px 0 0;
+}
+
+
+/* =========================================================
+   PYQ FILTERS
+========================================================= */
+
+.pyq-filters {
+  background: #f8fafc;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  padding: 15px;
+
+  margin-bottom: 18px;
+}
+
+.pyq-filters label {
+  color: var(--navy);
+
+  display: block;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  margin-bottom: 6px;
+}
+
+.pyq-filters input,
+.pyq-filters select {
+  width: 100%;
+
+  min-height: 40px;
+
+  background: #ffffff;
+
+  border: 1px solid var(--border);
+  border-radius: 6px;
+
+  color: var(--text);
+
+  padding: 8px 10px;
+
+  outline: none;
+}
+
+.pyq-filters input:focus,
+.pyq-filters select:focus {
+  border-color: var(--gold);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(224, 173, 25, 0.12);
+}
+
+
+/* =========================================================
+   BUTTONS
 ========================================================= */
 
 .btn-gold {
   background: var(--gold);
-
-  border:
-    1px solid var(--gold);
+  border: 1px solid var(--gold);
 
   color: var(--navy-dark);
 
   font-weight: 800;
-
-  border-radius: 7px;
-
-  padding: 9px 15px;
 }
-
 
 .btn-gold:hover {
-  background: var(--gold-dark);
-
-  border-color: var(--gold-dark);
+  background: #c99a0d;
+  border-color: #c99a0d;
 
   color: var(--navy-dark);
-
-  transform: translateY(-1px);
 }
 
+.btn-navy {
+  background: var(--navy);
 
-.btn-gold:active {
-  transform: translateY(0);
+  border: 1px solid var(--navy);
+
+  color: #ffffff;
+
+  font-weight: 700;
 }
 
+.btn-navy:hover {
+  background: var(--navy-dark);
+  border-color: var(--navy-dark);
 
-/* =========================================================
-   REVISION QUEUE
-========================================================= */
-
-#revisionQueue {
-  min-height: 80px;
+  color: #ffffff;
 }
 
+.btn-outline-navy {
+  background: #ffffff;
 
-.loading-state {
-  text-align: center;
-
-  color: var(--muted);
-
-  padding: 28px 15px;
-}
-
-
-.loading-state .spinner-border {
-  width: 1.8rem;
-  height: 1.8rem;
+  border: 1px solid var(--navy);
 
   color: var(--navy);
+
+  font-weight: 700;
+}
+
+.btn-outline-navy:hover {
+  background: var(--navy);
+
+  color: #ffffff;
 }
 
 
 /* =========================================================
-   REVISION ITEM
+   PYQ CONNECTION LIST
 ========================================================= */
 
-.revision-item {
-  background: #fff;
+.pyq-list {
+  display: flex;
 
-  border:
-    1px solid var(--border);
+  flex-direction: column;
 
-  border-left:
-    5px solid var(--gold);
+  gap: 12px;
+}
 
-  border-radius: 10px;
 
-  padding: 18px;
+/* =========================================================
+   PYQ CARD
+========================================================= */
 
-  margin-bottom: 12px;
+.pyq-card {
+  background: #ffffff;
+
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--blue);
+
+  border-radius: 8px;
+
+  padding: 17px;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.pyq-card:hover {
+  transform: translateY(-1px);
 
   box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.035);
+    0 6px 18px
+    rgba(6, 34, 79, 0.08);
+
+  border-color: #c5d2e2;
 }
 
-
-.revision-item:last-child {
-  margin-bottom: 0;
+.pyq-card.correct {
+  border-left-color: var(--green);
 }
 
-
-.revision-item.high {
+.pyq-card.incorrect {
   border-left-color: var(--red);
 }
 
 
-.revision-item.medium {
-  border-left-color: var(--orange);
-}
+/* =========================================================
+   PYQ CARD HEADER
+========================================================= */
 
-
-.revision-item.low {
-  border-left-color: var(--green);
-}
-
-
-.revision-item-header {
+.pyq-card-header {
   display: flex;
-
-  justify-content: space-between;
 
   align-items: flex-start;
+  justify-content: space-between;
 
-  gap: 15px;
-
-  flex-wrap: wrap;
+  gap: 12px;
 }
 
-
-.revision-title {
+.pyq-title {
   color: var(--navy);
 
-  font-size: 17px;
-
+  font-size: 15px;
   font-weight: 800;
 
-  margin-bottom: 5px;
+  line-height: 1.5;
 }
 
-
-.revision-meta {
-  color: var(--muted);
-
-  font-size: 13px;
-}
-
-
-.revision-stats {
+.pyq-meta {
   display: flex;
 
-  gap: 18px;
+  align-items: center;
 
   flex-wrap: wrap;
 
-  margin-top: 13px;
+  gap: 6px;
 
-  padding-top: 12px;
-
-  border-top:
-    1px solid #edf0f4;
-}
-
-
-.revision-stat {
-  font-size: 13px;
-}
-
-
-.revision-stat strong {
-  color: var(--navy);
-}
-
-
-.revision-actions {
-  display: flex;
-
-  gap: 8px;
-
-  flex-wrap: wrap;
-
-  margin-top: 14px;
+  margin-top: 8px;
 }
 
 
 /* =========================================================
-   PRIORITY BADGES
+   BADGES
 ========================================================= */
 
-.priority-badge {
-  display: inline-block;
+.pyq-badge {
+  display: inline-flex;
 
-  padding: 5px 9px;
+  align-items: center;
+
+  min-height: 23px;
+
+  padding: 3px 8px;
 
   border-radius: 999px;
 
-  font-size: 11px;
-
+  font-size: 10px;
   font-weight: 800;
-
-  white-space: nowrap;
 }
 
-
-.priority-high {
-  background: var(--red-bg);
-  color: #b02a37;
+.badge-year {
+  background: var(--blue-light);
+  color: var(--blue);
 }
 
-
-.priority-medium {
-  background: var(--orange-bg);
-  color: #b45309;
+.badge-unit {
+  background: var(--purple-light);
+  color: var(--purple);
 }
 
+.badge-topic {
+  background: var(--gold-light);
+  color: #8a6500;
+}
 
-.priority-low {
-  background: var(--green-bg);
-  color: #146c43;
+.badge-correct {
+  background: var(--green-light);
+  color: var(--green);
+}
+
+.badge-wrong {
+  background: var(--red-light);
+  color: var(--red);
 }
 
 
 /* =========================================================
-   ACTION BUTTONS
+   QUESTION TEXT
 ========================================================= */
 
-.btn-retry {
-  background: var(--navy);
+.pyq-question {
+  color: var(--text);
 
-  border:
-    1px solid var(--navy);
+  font-size: 14px;
+  font-weight: 600;
 
-  color: #fff;
+  line-height: 1.65;
 
-  font-size: 13px;
+  margin-top: 13px;
+}
 
-  font-weight: 700;
 
+/* =========================================================
+   OPTIONS
+========================================================= */
+
+.pyq-options {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 8px;
+
+  margin-top: 13px;
+}
+
+.pyq-option {
+  background: #f8fafc;
+
+  border: 1px solid var(--border);
   border-radius: 6px;
 
-  padding: 7px 12px;
+  padding: 9px 11px;
+
+  color: var(--text);
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+.pyq-option.correct {
+  background: var(--green-light);
+
+  border-color: #8bd2ac;
+
+  color: #0d6d43;
+}
+
+.pyq-option.selected {
+  border-color: var(--blue);
+
+  background: var(--blue-light);
 }
 
 
-.btn-retry:hover {
-  background: var(--navy-light);
+/* =========================================================
+   PYQ CONNECTION MAP
+========================================================= */
 
-  border-color: var(--navy-light);
+.connection-map {
+  display: flex;
 
-  color: #fff;
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  padding: 20px;
+
+  background: #f8fafc;
+
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
 }
 
+.connection-node {
+  background: #ffffff;
 
-.btn-knowledge {
-  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 7px;
 
-  border:
-    1px solid var(--navy);
+  padding: 10px 13px;
 
+  text-align: center;
+
+  min-width: 130px;
+}
+
+.connection-node .node-type {
+  color: var(--muted);
+
+  font-size: 9px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  margin-bottom: 3px;
+}
+
+.connection-node .node-name {
   color: var(--navy);
 
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 800;
+}
 
-  font-weight: 700;
+.connection-arrow {
+  color: var(--gold);
 
-  border-radius: 6px;
-
-  padding: 7px 12px;
+  font-size: 18px;
+  font-weight: 800;
 }
 
 
-.btn-knowledge:hover {
-  background: var(--navy);
+/* =========================================================
+   ENTITY CONNECTION
+========================================================= */
 
-  color: #fff;
+.entity-connection {
+  background: var(--gold-light);
+
+  border: 1px solid #ecd98b;
+  border-radius: 8px;
+
+  padding: 15px;
+}
+
+.entity-connection strong {
+  color: var(--navy);
+}
+
+.entity-connection .connection-label {
+  color: #8a6500;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  margin-bottom: 5px;
 }
 
 
@@ -561,174 +691,224 @@ a {
 ========================================================= */
 
 .empty-state {
+  min-height: 180px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
   text-align: center;
 
-  background: #f8f9fa;
+  background: #f8fafc;
 
-  border:
-    1px dashed #cfd5dd;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
 
-  border-radius: 10px;
-
-  padding: 35px 20px;
+  padding: 25px;
 }
 
-
-.empty-state-icon {
-  font-size: 35px;
+.empty-state .empty-icon {
+  font-size: 34px;
 
   margin-bottom: 10px;
 }
 
-
 .empty-state h3 {
   color: var(--navy);
 
-  font-size: 18px;
-
+  font-size: 16px;
   font-weight: 800;
 
-  margin-bottom: 6px;
+  margin: 0 0 5px;
 }
-
 
 .empty-state p {
+  max-width: 560px;
+
   color: var(--muted);
+
+  font-size: 12px;
+
+  margin: 0;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   LOADING STATE
+========================================================= */
+
+.loading-state {
+  min-height: 160px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  color: var(--muted);
+}
+
+.loading-state .spinner-border {
+  width: 28px;
+  height: 28px;
+
+  color: var(--gold);
+}
+
+
+/* =========================================================
+   SELECTED PYQ
+========================================================= */
+
+.selected-pyq {
+  background: #ffffff;
+
+  border: 2px solid var(--gold);
+  border-radius: 9px;
+
+  padding: 20px;
+
+  box-shadow:
+    0 8px 22px
+    rgba(224, 173, 25, 0.10);
+}
+
+.selected-pyq h3 {
+  color: var(--navy);
+
+  font-size: 18px;
+  font-weight: 800;
+
+  margin-bottom: 8px;
+}
+
+
+/* =========================================================
+   SOLUTION
+========================================================= */
+
+.pyq-solution {
+  background: var(--green-light);
+
+  border-left: 3px solid var(--green);
+
+  border-radius: 6px;
+
+  padding: 13px;
+
+  margin-top: 14px;
+}
+
+.pyq-solution-title {
+  color: var(--green);
+
+  font-size: 11px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  margin-bottom: 5px;
+}
+
+.pyq-solution p {
+  color: #245c42;
+
+  font-size: 12px;
+
+  line-height: 1.6;
 
   margin: 0;
 }
 
 
 /* =========================================================
-   RULE CARDS
+   INFO BOX
 ========================================================= */
 
-.rule-card {
-  height: 100%;
+.info-box {
+  background: var(--blue-light);
 
-  border-radius: 10px;
+  border-left: 3px solid var(--blue);
 
-  padding: 19px;
+  border-radius: 6px;
+
+  padding: 13px;
+
+  color: #24577f;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   DEVELOPMENT TRACK
+========================================================= */
+
+.development-track {
+  display: grid;
+
+  grid-template-columns:
+    repeat(7, minmax(0, 1fr));
+
+  gap: 6px;
+}
+
+.development-step {
+  background: #f8fafc;
 
   border: 1px solid var(--border);
+  border-radius: 6px;
+
+  min-height: 52px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 6px;
 }
 
-
-.rule-card h3 {
+.development-step .step-number {
   color: var(--navy);
 
-  font-size: 17px;
-
+  font-size: 9px;
   font-weight: 800;
-
-  margin:
-    9px 0 7px;
 }
 
-
-.rule-card p {
+.development-step .step-name {
   color: var(--muted);
 
-  font-size: 13px;
+  font-size: 8px;
 
-  margin: 0;
-
-  line-height: 1.55;
+  margin-top: 3px;
 }
 
+.development-step.active {
+  background: var(--gold-light);
 
-.high-rule {
-  background: #fff8f8;
-
-  border-left:
-    4px solid var(--red);
+  border-color: var(--gold);
 }
 
+.development-step.completed {
+  background: var(--green-light);
 
-.medium-rule {
-  background: #fffaf3;
-
-  border-left:
-    4px solid var(--orange);
-}
-
-
-.low-rule {
-  background: #f7fcf9;
-
-  border-left:
-    4px solid var(--green);
-}
-
-
-.priority-label {
-  display: inline-block;
-
-  font-size: 10px;
-
-  font-weight: 800;
-
-  letter-spacing: 0.4px;
-}
-
-
-.high-label {
-  color: #b02a37;
-}
-
-
-.medium-label {
-  color: #b45309;
-}
-
-
-.low-label {
-  color: #146c43;
-}
-
-
-/* =========================================================
-   NEXT ACTION
-========================================================= */
-
-.next-action-card {
-  background:
-    linear-gradient(
-      135deg,
-      #fffdf5,
-      #fff8df
-    );
-
-  border-left:
-    5px solid var(--gold);
-
-  border-radius: 12px;
-
-  padding: 24px;
-
-  box-shadow: var(--shadow);
-}
-
-
-.next-action-card h2 {
-  color: var(--navy);
-
-  font-size: 23px;
-
-  font-weight: 800;
-
-  margin:
-    4px 0 7px;
-}
-
-
-.next-action-card p {
-  color: var(--muted);
-}
-
-
-.dark-eyebrow {
-  color: var(--gold-dark);
+  border-color: #a8dcbc;
 }
 
 
@@ -737,19 +917,24 @@ a {
 ========================================================= */
 
 .data-source-box {
-  background: #f8f9fa;
+  background: #f8fafc;
 
-  border:
-    1px solid var(--border);
+  border: 1px solid var(--border);
+  border-radius: 8px;
 
-  border-radius: 9px;
-
-  padding: 16px;
+  padding: 15px;
 }
-
 
 .data-source-box strong {
   color: var(--navy);
+
+  font-size: 12px;
+}
+
+.data-source-box .small {
+  color: var(--muted);
+
+  line-height: 1.5;
 }
 
 
@@ -760,18 +945,21 @@ a {
 footer {
   background: var(--navy-dark);
 
-  color: #fff;
+  color: #ffffff;
 
   text-align: center;
 
-  padding: 25px 15px;
+  padding: 22px 15px;
 
-  margin-top: 45px;
+  margin-top: 30px;
 }
 
-
 footer strong {
-  color: #f4c430;
+  color: var(--gold);
+}
+
+footer .small {
+  color: rgba(255, 255, 255, 0.75);
 }
 
 
@@ -779,48 +967,34 @@ footer strong {
    RESPONSIVE
 ========================================================= */
 
+@media (max-width: 992px) {
+
+  .development-track {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
+
+}
+
+
 @media (max-width: 768px) {
 
-  .revision-hero {
-    padding:
-      32px 0
-      35px;
+  .pyq-hero {
+    padding: 32px 0;
   }
 
-
-  .revision-hero h1 {
-    font-size: 29px;
+  .pyq-summary {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
   }
 
-
-  .section-card {
-    padding: 19px;
+  .pyq-options {
+    grid-template-columns: 1fr;
   }
 
-
-  .section-card h2 {
-    font-size: 20px;
-  }
-
-
-  .stat-number {
-    font-size: 27px;
-  }
-
-
-  .revision-item-header {
-    display: block;
-  }
-
-
-  .revision-item-header
-  .priority-badge {
-    margin-top: 10px;
-  }
-
-
-  .next-action-card {
-    padding: 20px;
+  .development-track {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
   }
 
 }
@@ -829,91 +1003,69 @@ footer strong {
 @media (max-width: 576px) {
 
   body {
-    font-size: 14px;
-  }
-
-
-  .revision-hero h1 {
-    font-size: 25px;
-  }
-
-
-  .revision-hero p {
     font-size: 13px;
   }
 
-
-  .stat-card {
-    padding: 18px 10px;
-  }
-
-
-  .stat-number {
-    font-size: 24px;
-  }
-
-
-  .method-card {
+  .section-card {
     padding: 16px;
   }
 
-
-  .revision-actions {
-    display: block;
+  .pyq-summary {
+    grid-template-columns: 1fr;
   }
 
+  .connection-map {
+    flex-direction: column;
+  }
 
-  .revision-actions
-  .btn {
-    width: 100%;
+  .connection-arrow {
+    transform: rotate(90deg);
+  }
 
-    margin-bottom: 7px;
+  .development-track {
+    grid-template-columns: 1fr;
+  }
+
+  .pyq-card-header {
+    flex-direction: column;
   }
 
 }
 
+
 /* =========================================================
-   PREMIUM UI LAYER — BAJEE JRF AI (keeps existing JS hooks)
+   ACCESSIBILITY
 ========================================================= */
-:root{--navy:#111b3b;--navy-dark:#0b1430;--navy-light:#2b3967;--gold:#d8b65d;--gold-dark:#bd9740;--bg:#f4f6fb;--card:#fff;--text:#17223b;--muted:#68748c;--border:#e2e7f1;--shadow:0 10px 28px rgba(17,27,59,.075)}
-body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;letter-spacing:.05px}
-.navbar{background:linear-gradient(110deg,var(--navy-dark),var(--navy-light));box-shadow:0 4px 16px #08122c25;padding:7px 0}
-.navbar-brand{font-size:17px;letter-spacing:.25px}
-.revision-hero{position:relative;overflow:hidden;padding:38px 0 43px;background:radial-gradient(circle at 90% 0%,#6475aa45,transparent 31%),linear-gradient(120deg,var(--navy-dark),#293866)}
-.revision-hero:after{content:"";position:absolute;width:220px;height:220px;border:1px solid #ffffff12;border-radius:50%;right:8%;top:-120px;box-shadow:0 0 0 25px #ffffff06,0 0 0 50px #ffffff04;pointer-events:none}
-.revision-hero h1{font-size:clamp(27px,3vw,37px);letter-spacing:-.7px;line-height:1.16}
-.revision-hero p{font-size:15px;max-width:690px;line-height:1.7;color:#e1e7f6}
-main.container{max-width:1180px}
-.status-card,.stat-card,.section-card,.next-action-card{border:1px solid var(--border);border-radius:17px;box-shadow:var(--shadow)}
-.status-card{border-left:4px solid #26996b;background:linear-gradient(105deg,#f0fbf5,#fff);padding:19px 22px}
-.status-card strong{font-size:15px}
-.stat-card{position:relative;text-align:left;padding:20px 20px 19px 22px;overflow:hidden;transition:transform .18s,box-shadow .18s}
-.stat-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold)}
-.stat-card:hover{transform:translateY(-2px);box-shadow:0 14px 28px #111b3b12}
-.stat-number{font-size:32px;letter-spacing:-1px;margin-bottom:9px}
-.stat-label{font-size:12px;letter-spacing:.25px;text-transform:uppercase}
-.section-card{padding:25px;background:#fff}
-.section-card h2{font-size:20px;letter-spacing:-.3px;margin-bottom:8px}
-.section-card>p{line-height:1.7}
-.method-card{border:1px solid #e8ebf3;border-radius:14px;background:linear-gradient(145deg,#fff,#f8f9fd);padding:19px;transition:transform .18s,box-shadow .18s}
-.method-card:hover{transform:translateY(-2px);box-shadow:0 10px 20px #101b3d0d}
-.method-icon{display:grid;place-items:center;width:43px;height:43px;border-radius:13px;background:#f3edda;font-size:22px;margin-bottom:12px}
-.method-card h3,.rule-card h3{font-size:16px;letter-spacing:-.15px}
-.method-card p,.rule-card p{line-height:1.65}
-.btn-gold{border-radius:10px;box-shadow:0 4px 10px #bd97401f;padding:10px 16px}
-#revisionQueue{display:grid;gap:12px}
-.revision-item{border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:14px;padding:20px;margin:0;box-shadow:0 4px 13px #111b3b08;transition:box-shadow .18s,transform .18s}
-.revision-item:hover{box-shadow:0 10px 23px #111b3b12;transform:translateY(-1px)}
-.revision-item.high{border-left-color:var(--red)}.revision-item.medium{border-left-color:var(--orange)}.revision-item.low{border-left-color:var(--green)}
-.revision-title{font-size:16px;line-height:1.4}.revision-meta{line-height:1.6}
-.revision-stats{gap:12px 22px}.revision-stat{color:var(--muted)}
-.btn-retry,.btn-knowledge{border-radius:9px;padding:9px 13px}
-.empty-state{border-radius:15px;padding:38px 20px;background:linear-gradient(145deg,#fff,#f8f9fd)}
-.rule-card{border-radius:14px;padding:20px}.priority-label{letter-spacing:.7px}
-.next-action-card{border-left:5px solid var(--gold);background:radial-gradient(circle at 100% 0%,#f5e8bd7a,transparent 34%),linear-gradient(120deg,#fffdf7,#fff8e5);padding:27px}
-.next-action-card h2{font-size:22px;letter-spacing:-.35px}
-.data-source-box{border-radius:12px;padding:18px;background:#f8f9fd}
-footer{margin-top:34px;padding:23px 15px;background:linear-gradient(110deg,var(--navy-dark),#26345e)}
-button:focus-visible,a:focus-visible{outline:3px solid #d8b65d;outline-offset:3px}
-@media(max-width:768px){.revision-hero{padding:30px 0 34px}.section-card{padding:19px}.stat-card{padding:17px 14px 17px 18px}.stat-number{font-size:28px}.revision-item{padding:16px}.next-action-card{padding:20px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(224, 173, 25, 0.35);
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print {
+
+  .navbar,
+  .btn,
+  footer {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff;
+  }
+
+  .section-card,
+  .pyq-card,
+  .stat-card {
+    box-shadow: none;
+  }
+
+}
