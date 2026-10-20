@@ -83,11 +83,11 @@ async function loadDatabases() {
     const responses =
       await Promise.all([
 
-        fetch("data/pyqs/pyq-database.json"),
+        fetch("../data/pyqs/pyq-database.json"),
 
-        fetch("data/pyqs/pyq-knowledge-map.json"),
+        fetch("../data/pyqs/pyq-knowledge-map.json"),
 
-        fetch("data/knowledge/knowledge-entities.json")
+        fetch("../data/knowledge/knowledge-entities.json")
 
       ]);
 
