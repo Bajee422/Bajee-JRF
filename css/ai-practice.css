@@ -1,0 +1,636 @@
+/* =========================================================
+   BAJEE JRF AI
+   STEP 8.6 — AI PRACTICE
+   PAGE STYLES
+========================================================= */
+
+
+/* =========================================================
+   GENERAL
+========================================================= */
+
+body {
+
+    background: #f4f6fa;
+
+    color: #172033;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+
+    background: #08224d;
+
+}
+
+
+.navbar-brand {
+
+    color: #f4c430 !important;
+
+    font-weight: 800;
+
+}
+
+
+.navbar-subtitle {
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+
+    background:
+        linear-gradient(
+            135deg,
+            #061b41,
+            #29405f
+        );
+
+    color: #ffffff;
+
+    padding:
+        50px 0;
+
+}
+
+
+.hero small {
+
+    color: #f4c430;
+
+    font-weight: 800;
+
+    letter-spacing: .5px;
+
+}
+
+
+.hero h1 {
+
+    font-weight: 800;
+
+}
+
+
+.hero p {
+
+    max-width: 850px;
+
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card {
+
+    border: none;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 4px 18px
+        rgba(
+            0,
+            0,
+            0,
+            .07
+        );
+
+}
+
+
+.section-title {
+
+    color: #08224d;
+
+    font-weight: 800;
+
+}
+
+
+/* =========================================================
+   GOLD BUTTON
+========================================================= */
+
+.btn-gold {
+
+    background: #d9b236;
+
+    border: none;
+
+    color: #071d42;
+
+    font-weight: 800;
+
+}
+
+
+.btn-gold:hover {
+
+    background: #c8a128;
+
+    color: #071d42;
+
+}
+
+
+.btn-gold:disabled {
+
+    opacity: .7;
+
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-label {
+
+    font-weight: 700;
+
+    color: #172033;
+
+}
+
+
+.form-control,
+.form-select {
+
+    border-radius: 8px;
+
+}
+
+
+.form-control:focus,
+.form-select:focus {
+
+    border-color: #d9b236;
+
+    box-shadow:
+        0 0 0 .2rem
+        rgba(
+            217,
+            178,
+            54,
+            .15
+        );
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status-box {
+
+    min-height: 50px;
+
+    border-radius: 9px;
+
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading {
+
+    display: none;
+
+}
+
+
+.spinner-border {
+
+    width: 1rem;
+
+    height: 1rem;
+
+}
+
+
+/* =========================================================
+   QUESTION
+========================================================= */
+
+.question-box {
+
+    border-left:
+        5px solid #d9b236;
+
+    background: #ffffff;
+
+    border-radius: 8px;
+
+}
+
+
+.question-text {
+
+    color: #172033;
+
+    font-weight: 600;
+
+    line-height: 1.55;
+
+}
+
+
+.answer-instruction {
+
+    color: #6c757d;
+
+    font-size: 14px;
+
+    margin-top: 10px;
+
+    margin-bottom: 16px;
+
+}
+
+
+/* =========================================================
+   ANSWER OPTIONS
+========================================================= */
+
+.option-btn {
+
+    width: 100%;
+
+    display: block;
+
+    text-align: left;
+
+    background: #ffffff;
+
+    color: #172033;
+
+    border:
+        1px solid #dfe3ea;
+
+    border-radius: 9px;
+
+    padding: 14px 16px;
+
+    margin-bottom: 10px;
+
+    cursor: pointer;
+
+    transition:
+        background .2s,
+        border-color .2s,
+        transform .1s;
+
+    font-size: 15px;
+
+    line-height: 1.45;
+
+}
+
+
+.option-btn:hover {
+
+    border-color: #08224d;
+
+    background: #f8f9fb;
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.option-btn:disabled {
+
+    cursor: default;
+
+    opacity: 1;
+
+}
+
+
+/* =========================================================
+   CORRECT OPTION
+========================================================= */
+
+.option-btn.correct {
+
+    background: #e8f7ee;
+
+    border:
+        2px solid #198754;
+
+    color: #146c43;
+
+}
+
+
+/* =========================================================
+   WRONG OPTION
+========================================================= */
+
+.option-btn.wrong {
+
+    background: #fbeaec;
+
+    border:
+        2px solid #dc3545;
+
+    color: #b02a37;
+
+}
+
+
+/* =========================================================
+   ANSWER FEEDBACK
+========================================================= */
+
+.answer-feedback {
+
+    display: none;
+
+    margin-top: 18px;
+
+    padding: 16px;
+
+    border-radius: 10px;
+
+    line-height: 1.55;
+
+}
+
+
+.answer-feedback.correct-feedback {
+
+    background: #e8f7ee;
+
+    border-left:
+        5px solid #198754;
+
+}
+
+
+.answer-feedback.wrong-feedback {
+
+    background: #fbeaec;
+
+    border-left:
+        5px solid #dc3545;
+
+}
+
+
+.feedback-title {
+
+    font-size: 19px;
+
+    font-weight: 800;
+
+    margin-bottom: 8px;
+
+}
+
+
+/* =========================================================
+   SOLUTION ENGINE
+========================================================= */
+
+.solution-section {
+
+    display: none;
+
+    margin-top: 25px;
+
+    border-top:
+        1px solid #dee2e6;
+
+    padding-top: 22px;
+
+}
+
+
+/* =========================================================
+   SOLUTION HEADING
+========================================================= */
+
+.solution-heading {
+
+    font-size: 23px;
+
+    font-weight: 800;
+
+    color: #08224d;
+
+    margin-bottom: 18px;
+
+    letter-spacing: .5px;
+
+}
+
+
+/* =========================================================
+   CORRECT ANSWER
+========================================================= */
+
+.solution-answer {
+
+    background: #e8f7ee;
+
+    border-left:
+        5px solid #198754;
+
+    border-radius: 8px;
+
+    padding: 16px;
+
+    font-size: 17px;
+
+    line-height: 1.55;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* =========================================================
+   SOLUTION BLOCK
+========================================================= */
+
+.solution-block {
+
+    background: #f8f9fa;
+
+    border-radius: 9px;
+
+    padding: 17px;
+
+    margin-top: 15px;
+
+}
+
+
+.solution-title {
+
+    color: #08224d;
+
+    font-weight: 800;
+
+    margin-bottom: 12px;
+
+}
+
+
+.solution-list {
+
+    margin-bottom: 0;
+
+    padding-left: 23px;
+
+}
+
+
+.solution-list li {
+
+    margin-bottom: 9px;
+
+    line-height: 1.55;
+
+}
+
+
+.solution-list li:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+.solution-text {
+
+    line-height: 1.65;
+
+}
+
+
+/* =========================================================
+   AI BADGE
+========================================================= */
+
+.badge-ai {
+
+    background: #08224d;
+
+}
+
+
+/* =========================================================
+   TECHNICAL STATUS TABLE
+========================================================= */
+
+.status-table th {
+
+    color: #08224d;
+
+}
+
+
+.status-table td {
+
+    vertical-align: middle;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    background: #061b41;
+
+    color: #ffffff;
+
+    padding: 25px;
+
+    margin-top: 50px;
+
+    text-align: center;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (
+    max-width: 768px
+) {
+
+    .hero {
+
+        padding:
+            35px 0;
+
+    }
+
+
+    .hero h1 {
+
+        font-size:
+            2rem;
+
+    }
+
+
+    .navbar-subtitle {
+
+        display: none;
+
+    }
+
+
+    .solution-heading {
+
+        font-size:
+            20px;
+
+    }
+
+
+    .option-btn {
+
+        font-size:
+            14px;
+
+        padding:
+            13px;
+
+    }
+
+}

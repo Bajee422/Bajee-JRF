@@ -1,0 +1,1122 @@
+:root {
+
+    --navy: #08224d;
+    --navy-dark: #061b41;
+    --navy-light: #29405f;
+
+    --gold: #d9b236;
+    --gold-light: #f4c430;
+
+    --page: #f4f6fa;
+
+    --text: #172033;
+    --muted: #6c757d;
+
+    --green: #198754;
+    --red: #dc3545;
+
+    --border: #dfe3ea;
+
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+
+    box-sizing: border-box;
+
+}
+
+
+body {
+
+    margin: 0;
+
+    background:
+        var(--page);
+
+    color:
+        var(--text);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+
+    background:
+        var(--navy-dark);
+
+}
+
+
+.navbar-brand {
+
+    color:
+        var(--gold-light) !important;
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.knowledge-hero {
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--navy-dark),
+            var(--navy-light)
+        );
+
+    color:
+        #ffffff;
+
+    padding:
+        48px 0;
+
+}
+
+
+.knowledge-hero .eyebrow {
+
+    color:
+        var(--gold-light);
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .6px;
+
+    margin-bottom:
+        8px;
+
+}
+
+
+.knowledge-hero h1 {
+
+    font-size:
+        40px;
+
+    font-weight:
+        800;
+
+    margin:
+        0 0 10px;
+
+}
+
+
+.knowledge-hero p {
+
+    max-width:
+        850px;
+
+    margin:
+        0;
+
+    font-size:
+        14px;
+
+    line-height:
+        1.6;
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status-card {
+
+    background:
+        #ffffff;
+
+    border-left:
+        4px solid var(--green);
+
+    border-radius:
+        8px;
+
+    padding:
+        14px 16px;
+
+    box-shadow:
+        0 4px 18px rgba(0,0,0,.05);
+
+}
+
+
+/* =========================================================
+   STAT CARDS
+========================================================= */
+
+.stat-card {
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        10px;
+
+    padding:
+        20px;
+
+    text-align:
+        center;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,.05);
+
+    height:
+        100%;
+
+}
+
+
+.stat-number {
+
+    color:
+        var(--navy);
+
+    font-size:
+        28px;
+
+    font-weight:
+        800;
+
+    line-height:
+        1.1;
+
+}
+
+
+.stat-label {
+
+    color:
+        var(--muted);
+
+    font-size:
+        11px;
+
+    margin-top:
+        7px;
+
+}
+
+
+/* =========================================================
+   SECTION CARD
+========================================================= */
+
+.section-card {
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid transparent;
+
+    border-radius:
+        12px;
+
+    padding:
+        22px;
+
+    box-shadow:
+        0 4px 18px rgba(0,0,0,.05);
+
+}
+
+
+.section-card h2 {
+
+    color:
+        var(--navy);
+
+    font-size:
+        20px;
+
+    font-weight:
+        800;
+
+    margin-bottom:
+        6px;
+
+}
+
+
+.section-card p {
+
+    font-size:
+        12px;
+
+    line-height:
+        1.6;
+
+}
+
+
+/* =========================================================
+   GOLD BUTTON
+========================================================= */
+
+.btn-gold {
+
+    background:
+        var(--gold);
+
+    color:
+        var(--navy-dark);
+
+    border:
+        none;
+
+    font-weight:
+        800;
+
+}
+
+
+.btn-gold:hover {
+
+    background:
+        #c8a128;
+
+    color:
+        var(--navy-dark);
+
+}
+
+
+/* =========================================================
+   GRAPH PLACEHOLDER
+========================================================= */
+
+.graph-placeholder {
+
+    min-height:
+        390px;
+
+    border:
+        2px dashed #cfd5df;
+
+    border-radius:
+        12px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #ffffff 0%,
+            #f8f9fb 70%
+        );
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    text-align:
+        center;
+
+    padding:
+        35px;
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+}
+
+
+/*
+   Decorative graph nodes
+*/
+
+.graph-placeholder::before,
+.graph-placeholder::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        150px;
+
+    height:
+        150px;
+
+    border:
+        1px solid rgba(8,34,77,.08);
+
+    border-radius:
+        50%;
+
+}
+
+
+.graph-placeholder::before {
+
+    top:
+        35px;
+
+    left:
+        12%;
+
+}
+
+
+.graph-placeholder::after {
+
+    bottom:
+        30px;
+
+    right:
+        12%;
+
+}
+
+
+.graph-placeholder-icon {
+
+    width:
+        72px;
+
+    height:
+        72px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        #fff5d0;
+
+    font-size:
+        34px;
+
+    margin-bottom:
+        14px;
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+}
+
+
+.graph-placeholder h3 {
+
+    color:
+        var(--navy);
+
+    font-size:
+        20px;
+
+    font-weight:
+        800;
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+}
+
+
+.graph-placeholder p {
+
+    max-width:
+        550px;
+
+    color:
+        var(--muted);
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+}
+
+
+/* =========================================================
+   ENTITY TYPE CARDS
+========================================================= */
+
+.entity-type-card {
+
+    background:
+        #f8f9fa;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        10px;
+
+    padding:
+        16px;
+
+    height:
+        100%;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+
+}
+
+
+.entity-type-card:hover {
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        var(--gold);
+
+    box-shadow:
+        0 7px 18px rgba(0,0,0,.07);
+
+}
+
+
+.entity-icon {
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        9px;
+
+    background:
+        #fff5d0;
+
+    font-size:
+        21px;
+
+    margin-bottom:
+        10px;
+
+}
+
+
+.entity-type-card h3 {
+
+    color:
+        var(--navy);
+
+    font-size:
+        15px;
+
+    font-weight:
+        800;
+
+    margin:
+        0 0 5px;
+
+}
+
+
+.entity-type-card p {
+
+    color:
+        var(--muted);
+
+    margin:
+        0;
+
+    font-size:
+        11px;
+
+}
+
+
+/* =========================================================
+   RELATIONSHIP GRID
+========================================================= */
+
+.relationship-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap:
+        12px;
+
+}
+
+
+.relationship-card {
+
+    background:
+        #f8f9fa;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        9px;
+
+    padding:
+        14px;
+
+}
+
+
+.relationship-card strong {
+
+    display:
+        block;
+
+    color:
+        var(--navy);
+
+    font-size:
+        13px;
+
+    margin-bottom:
+        5px;
+
+}
+
+
+.relationship-card span {
+
+    color:
+        var(--muted);
+
+    font-size:
+        11px;
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+#knowledgeSearch {
+
+    min-height:
+        44px;
+
+    border:
+        1px solid var(--border);
+
+}
+
+
+#knowledgeSearch:focus {
+
+    border-color:
+        var(--gold);
+
+    box-shadow:
+        0 0 0 .2rem rgba(
+            217,
+            178,
+            54,
+            .15
+        );
+
+}
+
+
+.search-results {
+
+    min-height:
+        40px;
+
+}
+
+
+.search-result-card {
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        8px;
+
+    padding:
+        12px;
+
+    margin-bottom:
+        8px;
+
+    background:
+        #ffffff;
+
+}
+
+
+.search-result-card strong {
+
+    color:
+        var(--navy);
+
+    font-size:
+        13px;
+
+}
+
+
+.search-result-card small {
+
+    display:
+        block;
+
+    color:
+        var(--muted);
+
+    margin-top:
+        3px;
+
+}
+
+
+/* =========================================================
+   SELECTED ENTITY
+========================================================= */
+
+.selected-entity {
+
+    min-height:
+        180px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        10px;
+
+    background:
+        #f8f9fa;
+
+    padding:
+        18px;
+
+}
+
+
+.empty-state {
+
+    min-height:
+        140px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    text-align:
+        center;
+
+}
+
+
+.empty-state-icon {
+
+    font-size:
+        34px;
+
+    margin-bottom:
+        8px;
+
+}
+
+
+.empty-state h3 {
+
+    color:
+        var(--navy);
+
+    font-size:
+        16px;
+
+    font-weight:
+        800;
+
+    margin:
+        0 0 5px;
+
+}
+
+
+.empty-state p {
+
+    color:
+        var(--muted);
+
+    max-width:
+        550px;
+
+    margin:
+        0;
+
+}
+
+
+/* =========================================================
+   ROADMAP
+========================================================= */
+
+.roadmap-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            7,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap:
+        8px;
+
+}
+
+
+.roadmap-item {
+
+    background:
+        #f8f9fa;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        8px;
+
+    padding:
+        12px 8px;
+
+    text-align:
+        center;
+
+}
+
+
+.roadmap-item span {
+
+    display:
+        block;
+
+    color:
+        var(--muted);
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    margin-bottom:
+        4px;
+
+}
+
+
+.roadmap-item strong {
+
+    display:
+        block;
+
+    color:
+        var(--navy);
+
+    font-size:
+        10px;
+
+}
+
+
+.roadmap-item.active {
+
+    background:
+        #fffaf0;
+
+    border-color:
+        var(--gold);
+
+}
+
+
+.roadmap-item.active span {
+
+    color:
+        #a27b00;
+
+}
+
+
+/* =========================================================
+   DATA SOURCE
+========================================================= */
+
+.data-source-box {
+
+    background:
+        #f8f9fa;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        9px;
+
+    padding:
+        15px;
+
+}
+
+
+.data-source-box strong {
+
+    color:
+        var(--navy);
+
+    font-size:
+        13px;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    background:
+        var(--navy-dark);
+
+    color:
+        #ffffff;
+
+    text-align:
+        center;
+
+    padding:
+        24px;
+
+    margin-top:
+        30px;
+
+}
+
+
+footer strong {
+
+    color:
+        var(--gold-light);
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (
+    max-width: 992px
+) {
+
+    .relationship-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(
+                    0,
+                    1fr
+                )
+            );
+
+    }
+
+
+    .roadmap-grid {
+
+        grid-template-columns:
+            repeat(
+                4,
+                minmax(
+                    0,
+                    1fr
+                )
+            );
+
+    }
+
+}
+
+
+@media (
+    max-width: 768px
+) {
+
+    .knowledge-hero {
+
+        padding:
+            36px 0;
+
+    }
+
+
+    .knowledge-hero h1 {
+
+        font-size:
+            30px;
+
+    }
+
+
+    .section-card {
+
+        padding:
+            17px;
+
+    }
+
+
+    .graph-placeholder {
+
+        min-height:
+            300px;
+
+    }
+
+
+    .relationship-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .roadmap-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(
+                    0,
+                    1fr
+                )
+            );
+
+    }
+
+}
+
+
+@media (
+    max-width: 480px
+) {
+
+    .stat-card {
+
+        padding:
+            15px 10px;
+
+    }
+
+
+    .stat-number {
+
+        font-size:
+            24px;
+
+    }
+
+
+    .knowledge-hero h1 {
+
+        font-size:
+            26px;
+
+    }
+
+}

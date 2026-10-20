@@ -1,0 +1,919 @@
+/* =========================================================
+   BAJEE JRF AI
+   STEP 9.4 — REVISION INTELLIGENCE
+========================================================= */
+
+:root {
+  --navy: #08224d;
+  --navy-dark: #061b41;
+  --navy-light: #29405f;
+  --gold: #d9b236;
+  --gold-dark: #c8a128;
+
+  --bg: #f4f6fa;
+  --card: #ffffff;
+  --text: #172033;
+  --muted: #687386;
+  --border: #dfe3ea;
+
+  --green: #198754;
+  --green-bg: #e8f7ee;
+
+  --red: #dc3545;
+  --red-bg: #fbeaec;
+
+  --orange: #fd7e14;
+  --orange-bg: #fff3e8;
+
+  --yellow-bg: #fff8df;
+
+  --shadow:
+    0 4px 18px rgba(0, 0, 0, 0.07);
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+
+a {
+  text-decoration: none;
+}
+
+
+button,
+a {
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.1s ease;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+  background: var(--navy);
+  min-height: 62px;
+}
+
+
+.navbar-brand {
+  color: #f4c430 !important;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+
+.navbar .btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.8);
+  color: #fff;
+  font-weight: 600;
+}
+
+
+.navbar .btn-outline-light:hover {
+  background: #fff;
+  color: var(--navy);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.revision-hero {
+  background:
+    linear-gradient(
+      135deg,
+      var(--navy-dark),
+      var(--navy-light)
+    );
+
+  color: #fff;
+
+  padding: 42px 0 46px;
+}
+
+
+.revision-hero .eyebrow {
+  color: #f4c430;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  margin-bottom: 8px;
+}
+
+
+.revision-hero h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 800;
+}
+
+
+.revision-hero p {
+  margin: 8px 0 0;
+  max-width: 850px;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+
+/* =========================================================
+   STATUS CARD
+========================================================= */
+
+.status-card {
+  background: var(--green-bg);
+
+  border-left:
+    4px solid var(--green);
+
+  border-radius: 10px;
+
+  padding: 17px 20px;
+
+  box-shadow: var(--shadow);
+}
+
+
+.status-card strong {
+  color: var(--navy);
+}
+
+
+.status-card .badge {
+  font-size: 12px;
+  padding: 7px 11px;
+}
+
+
+/* =========================================================
+   STAT CARDS
+========================================================= */
+
+.stat-card {
+  background: var(--card);
+
+  border: 1px solid rgba(8, 34, 77, 0.04);
+
+  border-radius: 13px;
+
+  padding: 23px 15px;
+
+  text-align: center;
+
+  box-shadow: var(--shadow);
+
+  height: 100%;
+}
+
+
+.stat-number {
+  color: var(--navy);
+
+  font-size: 30px;
+  line-height: 1;
+
+  font-weight: 800;
+
+  margin-bottom: 8px;
+}
+
+
+.stat-label {
+  color: var(--muted);
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   SECTION CARD
+========================================================= */
+
+.section-card {
+  background: var(--card);
+
+  border-radius: 14px;
+
+  padding: 24px;
+
+  box-shadow: var(--shadow);
+}
+
+
+.section-card h2 {
+  color: var(--navy);
+
+  font-size: 22px;
+
+  font-weight: 800;
+
+  margin: 0 0 6px;
+}
+
+
+.section-card > p {
+  margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   METHOD CARDS
+========================================================= */
+
+.method-card {
+  height: 100%;
+
+  background: #f8f9fa;
+
+  border:
+    1px solid #edf0f4;
+
+  border-radius: 10px;
+
+  padding: 19px;
+}
+
+
+.method-icon {
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
+
+.method-card h3 {
+  color: var(--navy);
+
+  font-size: 17px;
+
+  font-weight: 800;
+
+  margin-bottom: 7px;
+}
+
+
+.method-card p {
+  color: var(--muted);
+
+  font-size: 13px;
+
+  margin: 0;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   GOLD BUTTON
+========================================================= */
+
+.btn-gold {
+  background: var(--gold);
+
+  border:
+    1px solid var(--gold);
+
+  color: var(--navy-dark);
+
+  font-weight: 800;
+
+  border-radius: 7px;
+
+  padding: 9px 15px;
+}
+
+
+.btn-gold:hover {
+  background: var(--gold-dark);
+
+  border-color: var(--gold-dark);
+
+  color: var(--navy-dark);
+
+  transform: translateY(-1px);
+}
+
+
+.btn-gold:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   REVISION QUEUE
+========================================================= */
+
+#revisionQueue {
+  min-height: 80px;
+}
+
+
+.loading-state {
+  text-align: center;
+
+  color: var(--muted);
+
+  padding: 28px 15px;
+}
+
+
+.loading-state .spinner-border {
+  width: 1.8rem;
+  height: 1.8rem;
+
+  color: var(--navy);
+}
+
+
+/* =========================================================
+   REVISION ITEM
+========================================================= */
+
+.revision-item {
+  background: #fff;
+
+  border:
+    1px solid var(--border);
+
+  border-left:
+    5px solid var(--gold);
+
+  border-radius: 10px;
+
+  padding: 18px;
+
+  margin-bottom: 12px;
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.035);
+}
+
+
+.revision-item:last-child {
+  margin-bottom: 0;
+}
+
+
+.revision-item.high {
+  border-left-color: var(--red);
+}
+
+
+.revision-item.medium {
+  border-left-color: var(--orange);
+}
+
+
+.revision-item.low {
+  border-left-color: var(--green);
+}
+
+
+.revision-item-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  gap: 15px;
+
+  flex-wrap: wrap;
+}
+
+
+.revision-title {
+  color: var(--navy);
+
+  font-size: 17px;
+
+  font-weight: 800;
+
+  margin-bottom: 5px;
+}
+
+
+.revision-meta {
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+
+.revision-stats {
+  display: flex;
+
+  gap: 18px;
+
+  flex-wrap: wrap;
+
+  margin-top: 13px;
+
+  padding-top: 12px;
+
+  border-top:
+    1px solid #edf0f4;
+}
+
+
+.revision-stat {
+  font-size: 13px;
+}
+
+
+.revision-stat strong {
+  color: var(--navy);
+}
+
+
+.revision-actions {
+  display: flex;
+
+  gap: 8px;
+
+  flex-wrap: wrap;
+
+  margin-top: 14px;
+}
+
+
+/* =========================================================
+   PRIORITY BADGES
+========================================================= */
+
+.priority-badge {
+  display: inline-block;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+
+.priority-high {
+  background: var(--red-bg);
+  color: #b02a37;
+}
+
+
+.priority-medium {
+  background: var(--orange-bg);
+  color: #b45309;
+}
+
+
+.priority-low {
+  background: var(--green-bg);
+  color: #146c43;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.btn-retry {
+  background: var(--navy);
+
+  border:
+    1px solid var(--navy);
+
+  color: #fff;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  border-radius: 6px;
+
+  padding: 7px 12px;
+}
+
+
+.btn-retry:hover {
+  background: var(--navy-light);
+
+  border-color: var(--navy-light);
+
+  color: #fff;
+}
+
+
+.btn-knowledge {
+  background: #fff;
+
+  border:
+    1px solid var(--navy);
+
+  color: var(--navy);
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  border-radius: 6px;
+
+  padding: 7px 12px;
+}
+
+
+.btn-knowledge:hover {
+  background: var(--navy);
+
+  color: #fff;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state {
+  text-align: center;
+
+  background: #f8f9fa;
+
+  border:
+    1px dashed #cfd5dd;
+
+  border-radius: 10px;
+
+  padding: 35px 20px;
+}
+
+
+.empty-state-icon {
+  font-size: 35px;
+
+  margin-bottom: 10px;
+}
+
+
+.empty-state h3 {
+  color: var(--navy);
+
+  font-size: 18px;
+
+  font-weight: 800;
+
+  margin-bottom: 6px;
+}
+
+
+.empty-state p {
+  color: var(--muted);
+
+  margin: 0;
+}
+
+
+/* =========================================================
+   RULE CARDS
+========================================================= */
+
+.rule-card {
+  height: 100%;
+
+  border-radius: 10px;
+
+  padding: 19px;
+
+  border: 1px solid var(--border);
+}
+
+
+.rule-card h3 {
+  color: var(--navy);
+
+  font-size: 17px;
+
+  font-weight: 800;
+
+  margin:
+    9px 0 7px;
+}
+
+
+.rule-card p {
+  color: var(--muted);
+
+  font-size: 13px;
+
+  margin: 0;
+
+  line-height: 1.55;
+}
+
+
+.high-rule {
+  background: #fff8f8;
+
+  border-left:
+    4px solid var(--red);
+}
+
+
+.medium-rule {
+  background: #fffaf3;
+
+  border-left:
+    4px solid var(--orange);
+}
+
+
+.low-rule {
+  background: #f7fcf9;
+
+  border-left:
+    4px solid var(--green);
+}
+
+
+.priority-label {
+  display: inline-block;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.4px;
+}
+
+
+.high-label {
+  color: #b02a37;
+}
+
+
+.medium-label {
+  color: #b45309;
+}
+
+
+.low-label {
+  color: #146c43;
+}
+
+
+/* =========================================================
+   NEXT ACTION
+========================================================= */
+
+.next-action-card {
+  background:
+    linear-gradient(
+      135deg,
+      #fffdf5,
+      #fff8df
+    );
+
+  border-left:
+    5px solid var(--gold);
+
+  border-radius: 12px;
+
+  padding: 24px;
+
+  box-shadow: var(--shadow);
+}
+
+
+.next-action-card h2 {
+  color: var(--navy);
+
+  font-size: 23px;
+
+  font-weight: 800;
+
+  margin:
+    4px 0 7px;
+}
+
+
+.next-action-card p {
+  color: var(--muted);
+}
+
+
+.dark-eyebrow {
+  color: var(--gold-dark);
+}
+
+
+/* =========================================================
+   DATA SOURCE
+========================================================= */
+
+.data-source-box {
+  background: #f8f9fa;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 9px;
+
+  padding: 16px;
+}
+
+
+.data-source-box strong {
+  color: var(--navy);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+  background: var(--navy-dark);
+
+  color: #fff;
+
+  text-align: center;
+
+  padding: 25px 15px;
+
+  margin-top: 45px;
+}
+
+
+footer strong {
+  color: #f4c430;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .revision-hero {
+    padding:
+      32px 0
+      35px;
+  }
+
+
+  .revision-hero h1 {
+    font-size: 29px;
+  }
+
+
+  .section-card {
+    padding: 19px;
+  }
+
+
+  .section-card h2 {
+    font-size: 20px;
+  }
+
+
+  .stat-number {
+    font-size: 27px;
+  }
+
+
+  .revision-item-header {
+    display: block;
+  }
+
+
+  .revision-item-header
+  .priority-badge {
+    margin-top: 10px;
+  }
+
+
+  .next-action-card {
+    padding: 20px;
+  }
+
+}
+
+
+@media (max-width: 576px) {
+
+  body {
+    font-size: 14px;
+  }
+
+
+  .revision-hero h1 {
+    font-size: 25px;
+  }
+
+
+  .revision-hero p {
+    font-size: 13px;
+  }
+
+
+  .stat-card {
+    padding: 18px 10px;
+  }
+
+
+  .stat-number {
+    font-size: 24px;
+  }
+
+
+  .method-card {
+    padding: 16px;
+  }
+
+
+  .revision-actions {
+    display: block;
+  }
+
+
+  .revision-actions
+  .btn {
+    width: 100%;
+
+    margin-bottom: 7px;
+  }
+
+}
+
+/* =========================================================
+   PREMIUM UI LAYER — BAJEE JRF AI (keeps existing JS hooks)
+========================================================= */
+:root{--navy:#111b3b;--navy-dark:#0b1430;--navy-light:#2b3967;--gold:#d8b65d;--gold-dark:#bd9740;--bg:#f4f6fb;--card:#fff;--text:#17223b;--muted:#68748c;--border:#e2e7f1;--shadow:0 10px 28px rgba(17,27,59,.075)}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;letter-spacing:.05px}
+.navbar{background:linear-gradient(110deg,var(--navy-dark),var(--navy-light));box-shadow:0 4px 16px #08122c25;padding:7px 0}
+.navbar-brand{font-size:17px;letter-spacing:.25px}
+.revision-hero{position:relative;overflow:hidden;padding:38px 0 43px;background:radial-gradient(circle at 90% 0%,#6475aa45,transparent 31%),linear-gradient(120deg,var(--navy-dark),#293866)}
+.revision-hero:after{content:"";position:absolute;width:220px;height:220px;border:1px solid #ffffff12;border-radius:50%;right:8%;top:-120px;box-shadow:0 0 0 25px #ffffff06,0 0 0 50px #ffffff04;pointer-events:none}
+.revision-hero h1{font-size:clamp(27px,3vw,37px);letter-spacing:-.7px;line-height:1.16}
+.revision-hero p{font-size:15px;max-width:690px;line-height:1.7;color:#e1e7f6}
+main.container{max-width:1180px}
+.status-card,.stat-card,.section-card,.next-action-card{border:1px solid var(--border);border-radius:17px;box-shadow:var(--shadow)}
+.status-card{border-left:4px solid #26996b;background:linear-gradient(105deg,#f0fbf5,#fff);padding:19px 22px}
+.status-card strong{font-size:15px}
+.stat-card{position:relative;text-align:left;padding:20px 20px 19px 22px;overflow:hidden;transition:transform .18s,box-shadow .18s}
+.stat-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold)}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 14px 28px #111b3b12}
+.stat-number{font-size:32px;letter-spacing:-1px;margin-bottom:9px}
+.stat-label{font-size:12px;letter-spacing:.25px;text-transform:uppercase}
+.section-card{padding:25px;background:#fff}
+.section-card h2{font-size:20px;letter-spacing:-.3px;margin-bottom:8px}
+.section-card>p{line-height:1.7}
+.method-card{border:1px solid #e8ebf3;border-radius:14px;background:linear-gradient(145deg,#fff,#f8f9fd);padding:19px;transition:transform .18s,box-shadow .18s}
+.method-card:hover{transform:translateY(-2px);box-shadow:0 10px 20px #101b3d0d}
+.method-icon{display:grid;place-items:center;width:43px;height:43px;border-radius:13px;background:#f3edda;font-size:22px;margin-bottom:12px}
+.method-card h3,.rule-card h3{font-size:16px;letter-spacing:-.15px}
+.method-card p,.rule-card p{line-height:1.65}
+.btn-gold{border-radius:10px;box-shadow:0 4px 10px #bd97401f;padding:10px 16px}
+#revisionQueue{display:grid;gap:12px}
+.revision-item{border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:14px;padding:20px;margin:0;box-shadow:0 4px 13px #111b3b08;transition:box-shadow .18s,transform .18s}
+.revision-item:hover{box-shadow:0 10px 23px #111b3b12;transform:translateY(-1px)}
+.revision-item.high{border-left-color:var(--red)}.revision-item.medium{border-left-color:var(--orange)}.revision-item.low{border-left-color:var(--green)}
+.revision-title{font-size:16px;line-height:1.4}.revision-meta{line-height:1.6}
+.revision-stats{gap:12px 22px}.revision-stat{color:var(--muted)}
+.btn-retry,.btn-knowledge{border-radius:9px;padding:9px 13px}
+.empty-state{border-radius:15px;padding:38px 20px;background:linear-gradient(145deg,#fff,#f8f9fd)}
+.rule-card{border-radius:14px;padding:20px}.priority-label{letter-spacing:.7px}
+.next-action-card{border-left:5px solid var(--gold);background:radial-gradient(circle at 100% 0%,#f5e8bd7a,transparent 34%),linear-gradient(120deg,#fffdf7,#fff8e5);padding:27px}
+.next-action-card h2{font-size:22px;letter-spacing:-.35px}
+.data-source-box{border-radius:12px;padding:18px;background:#f8f9fd}
+footer{margin-top:34px;padding:23px 15px;background:linear-gradient(110deg,var(--navy-dark),#26345e)}
+button:focus-visible,a:focus-visible{outline:3px solid #d8b65d;outline-offset:3px}
+@media(max-width:768px){.revision-hero{padding:30px 0 34px}.section-card{padding:19px}.stat-card{padding:17px 14px 17px 18px}.stat-number{font-size:28px}.revision-item{padding:16px}.next-action-card{padding:20px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
