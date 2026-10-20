@@ -2693,7 +2693,7 @@ async function loadStudyResourceDatabase() {
 
     try {
         const response = await fetch(
-            "data/resources/resource-inventory.json?v=10.6.3",
+            "../data/resources/resource-inventory.json?v=10.6.3",
             { cache: "no-store" }
         );
 
