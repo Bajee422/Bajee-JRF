@@ -410,7 +410,10 @@ nav.bottom svg { width: 21px; height: 21px; }
     <a class="tile" href="nta-exam.html"><div class="ic">⏱️</div><b>NTA examination</b><span>Exam-mode practice and results</span></a>
     <a class="tile" href="vertical-slice.html"><div class="ic">🔁</div><b>Quick revision &amp; retest</b><span>Revise weak areas and retry questions</span></a>
     <a class="tile" href="revision-intelligence.html"><div class="ic">🎯</div><b>Revision intelligence</b><span>Priority queue and next revision actions</span></a>
+    <a class="tile" href="./workshop.html#tools"><div class="ic">🛠️</div><b>Workshop tools &amp; saved webpages</b><span>Open PYQ generator, study material generator, customise webpages, and launch saved shortcuts</span></a>
   </div>
+  <div class="sec"><h2>My saved webpages</h2><small>Shortcuts you added in Workshop → Other Webpages</small></div>
+  <div class="grid" id="studySavedWebpages"><div class="panel" style="grid-column:1/-1"><p class="feature-note">Your saved webpage buttons will appear here after you save them in Workshop.</p></div></div>
 
 
 
@@ -1347,6 +1350,25 @@ nav.bottom svg { width: 21px; height: 21px; }
     };
     rd.readAsText(f);
   };
+})();
+</script>
+
+<script>
+(()=>{
+  const KEY='bajeeJrfOtherWebpagesV1';
+  const host=document.getElementById('studySavedWebpages');
+  if(!host)return;
+  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  try{
+    const saved=JSON.parse(localStorage.getItem(KEY)||'[]').filter(x=>x&&String(x.url||'').trim());
+    if(!saved.length)return;
+    host.innerHTML=saved.map((item,i)=>{
+      let url='';try{const u=new URL(String(item.url).trim());if(['http:','https:'].includes(u.protocol))url=u.href}catch{}
+      if(!url)return '';
+      const label=String(item.name||('Saved webpage '+(i+1)));
+      return `<a class="tile" href="${esc(url)}" target="_blank" rel="noopener noreferrer"><div class="ic">🌐</div><b>${esc(label)}</b><span>Open saved webpage in a new tab</span></a>`;
+    }).join('')||'<div class="panel" style="grid-column:1/-1"><p class="feature-note">No valid saved webpages yet.</p></div>';
+  }catch(e){console.warn('Could not load Workshop saved webpage shortcuts',e)}
 })();
 </script>
 </body>
