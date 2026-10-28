@@ -312,22 +312,104 @@ function runCommand(
 
 
 /* =========================================================
+   OPTIONAL YOUTUBE COOKIES
+   Use only cookies exported from your own account.
+   Never commit cookie files to GitHub or print their contents.
+========================================================= */
+
+let generatedCookiesPathPromise = null;
+
+async function getYtDlpCookiesPath() {
+    const configuredFile = String(
+        process.env.YOUTUBE_COOKIES_FILE || ""
+    ).trim();
+
+    if (configuredFile) {
+        const resolvedFile = path.resolve(configuredFile);
+
+        try {
+            await fs.access(resolvedFile);
+            return resolvedFile;
+        } catch {
+            throw new Error(
+                "YOUTUBE_COOKIES_FILE is set, but the file cannot be accessed."
+            );
+        }
+    }
+
+    const cookiesBase64 = String(
+        process.env.YOUTUBE_COOKIES_BASE64 || ""
+    ).trim();
+
+    if (!cookiesBase64) {
+        return "";
+    }
+
+    if (!generatedCookiesPathPromise) {
+        generatedCookiesPathPromise = (async () => {
+            let cookieBuffer;
+
+            try {
+                cookieBuffer = Buffer.from(cookiesBase64, "base64");
+            } catch {
+                throw new Error(
+                    "YOUTUBE_COOKIES_BASE64 is not valid Base64."
+                );
+            }
+
+            const cookieText = cookieBuffer.toString("utf8");
+
+            if (
+                !cookieText.trim() ||
+                !/^(# Netscape HTTP Cookie File|# HTTP Cookie File|\.?youtube\.com|#)/m.test(
+                    cookieText.trim()
+                )
+            ) {
+                throw new Error(
+                    "The configured YouTube cookie data does not look like a Netscape-format cookie file."
+                );
+            }
+
+            const privateDir = await fs.mkdtemp(
+                path.join(os.tmpdir(), "bajee-youtube-auth-")
+            );
+
+            const cookiePath = path.join(
+                privateDir,
+                "cookies.txt"
+            );
+
+            await fs.writeFile(
+                cookiePath,
+                cookieText,
+                {
+                    encoding: "utf8",
+                    mode: 0o600,
+                    flag: "wx"
+                }
+            );
+
+            return cookiePath;
+        })();
+    }
+
+    return generatedCookiesPathPromise;
+}
+
+
+/* =========================================================
    RUN YT-DLP
 ========================================================= */
 
 async function runYtDlp(args, options = {}) {
-
     const configuredPath = String(
         process.env.YTDLP_PATH || ""
     ).trim();
 
     /*
-       Render's build log showed yt-dlp installed in:
-       backend/.venv/bin/python
-
-       Depending on the service's configured root directory,
-       process.cwd() may be either the repository root or the
-       backend directory. Check both virtual-environment paths.
+       Render may start the service from either the repository
+       root or the backend directory. Check both virtual
+       environments before falling back to PATH executables.
     */
     const pythonCandidates = [
         path.resolve(
@@ -371,13 +453,25 @@ async function runYtDlp(args, options = {}) {
             }
         ];
 
+    const cookiesPath = await getYtDlpCookiesPath();
+
+    if (cookiesPath) {
+        console.log(
+            "YouTube cookie authentication is configured (cookie contents are not logged)."
+        );
+    }
+
     let lastError = null;
 
     for (const candidate of candidates) {
+        const candidateArgs = cookiesPath
+            ? ["--cookies", cookiesPath, ...candidate.args]
+            : candidate.args;
+
         try {
             const result = await runCommand(
                 candidate.command,
-                candidate.args,
+                candidateArgs,
                 options
             );
 
@@ -395,9 +489,7 @@ async function runYtDlp(args, options = {}) {
             error.stderr = result.stderr;
             lastError = error;
 
-            // If this Python does not contain yt-dlp, try the next
-            // configured environment or executable. For other errors,
-            // stop and report the real failure instead of hiding it.
+            // Continue only when this Python environment lacks yt-dlp.
             if (
                 /No module named yt_dlp|No module named ['"]yt_dlp['"]/i
                     .test(result.stderr || "")
