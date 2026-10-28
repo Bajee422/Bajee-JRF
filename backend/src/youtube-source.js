@@ -315,174 +315,117 @@ function runCommand(
    RUN YT-DLP
 ========================================================= */
 
-async function runYtDlp(
-    args,
-    options = {}
-) {
+async function runYtDlp(args, options = {}) {
 
-    const configuredPath =
-        String(
-            process.env.YTDLP_PATH || ""
-        ).trim();
+    const configuredPath = String(
+        process.env.YTDLP_PATH || ""
+    ).trim();
 
+    /*
+       Render's build log showed yt-dlp installed in:
+       backend/.venv/bin/python
 
-    const candidates =
-        configuredPath
+       Depending on the service's configured root directory,
+       process.cwd() may be either the repository root or the
+       backend directory. Check both virtual-environment paths.
+    */
+    const pythonCandidates = [
+        path.resolve(
+            process.cwd(),
+            "backend",
+            ".venv",
+            "bin",
+            "python"
+        ),
+        path.resolve(
+            process.cwd(),
+            ".venv",
+            "bin",
+            "python"
+        )
+    ];
 
-            ? [
+    const candidates = configuredPath
+        ? [
+            {
+                command: configuredPath,
+                args
+            }
+        ]
+        : [
+            ...pythonCandidates.map(command => ({
+                command,
+                args: ["-m", "yt_dlp", ...args]
+            })),
+            {
+                command: "yt-dlp",
+                args
+            },
+            {
+                command: "python3",
+                args: ["-m", "yt_dlp", ...args]
+            },
+            {
+                command: "python",
+                args: ["-m", "yt_dlp", ...args]
+            }
+        ];
 
-                {
+    let lastError = null;
 
-                    command:
-                        configuredPath,
-
-                    args
-
-                }
-
-            ]
-
-            : [
-
-                {
-
-                    command:
-                        "yt-dlp",
-
-                    args
-
-                },
-
-                {
-
-                    command:
-                        "py",
-
-                    args: [
-
-                        "-m",
-
-                        "yt_dlp",
-
-                        ...args
-
-                    ]
-
-                },
-
-                {
-
-                    command:
-                        "python",
-
-                    args: [
-
-                        "-m",
-
-                        "yt_dlp",
-
-                        ...args
-
-                    ]
-
-                }
-
-            ];
-
-
-    let lastError =
-        null;
-
-
-    for (
-        const candidate
-        of candidates
-    ) {
-
+    for (const candidate of candidates) {
         try {
+            const result = await runCommand(
+                candidate.command,
+                candidate.args,
+                options
+            );
 
-            const result =
-                await runCommand(
-
-                    candidate.command,
-
-                    candidate.args,
-
-                    options
-
-                );
-
-
-            if (
-                result.code === 0
-            ) {
-
+            if (result.code === 0) {
                 return result;
-
             }
 
+            const error = new Error(
+                result.stderr ||
+                `${candidate.command} exited with code ${result.code}`
+            );
 
-            const error =
-                new Error(
+            error.code = "ytdlp_command_failed";
+            error.stdout = result.stdout;
+            error.stderr = result.stderr;
+            lastError = error;
 
-                    result.stderr ||
-
-                    `${candidate.command} exited with code ${result.code}`
-
-                );
-
-
-            error.code =
-                "ytdlp_command_failed";
-
-
-            error.stdout =
-                result.stdout;
-
-
-            error.stderr =
-                result.stderr;
-
+            // If this Python does not contain yt-dlp, try the next
+            // configured environment or executable. For other errors,
+            // stop and report the real failure instead of hiding it.
+            if (
+                /No module named yt_dlp|No module named ['"]yt_dlp['"]/i
+                    .test(result.stderr || "")
+            ) {
+                continue;
+            }
 
             throw error;
-
-
         } catch (error) {
-
-            lastError =
-                error;
-
-
-            /*
-               Only try another executable
-               when the executable itself
-               does not exist.
-            */
+            lastError = error;
 
             if (
-                error?.code !==
-                "ENOENT"
+                error?.code === "ENOENT" ||
+                /No module named yt_dlp|No module named ['"]yt_dlp['"]/i
+                    .test(error?.message || "")
             ) {
-
-                throw error;
-
+                continue;
             }
 
+            throw error;
         }
-
     }
-
 
     throw (
         lastError ||
-
-        new Error(
-            "yt-dlp could not be started."
-        )
+        new Error("yt-dlp could not be started.")
     );
-
 }
-
 
 /* =========================================================
    CLEAN VTT TRANSCRIPT
